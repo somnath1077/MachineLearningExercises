@@ -79,12 +79,12 @@ def draw(x, y, z):
 
 if __name__ == '__main__':
     training_inputs, training_targets = load_data()
-    tau = 20.0
+    tau = 10000.0
     lamb = 1E-4
     pred = np.zeros((100, 1))
     query_points = np.zeros((100, 3))
     for idx in range(100):
-        query_points[idx] = np.array([1, np.random.uniform(-1, 1), np.random.uniform(-0.5, 0.6)]).reshape((1, 3))
+        query_points[idx] = np.array([1, np.random.uniform(-1, 1), np.random.uniform(-1.0, 1.0)]).reshape((1, 3))
         pred[idx][0] = prediction(training_inputs, training_targets, query_points[idx], tau, lamb)
 
     draw(x=query_points[:, [1]], y=query_points[:, [2]], z=pred)

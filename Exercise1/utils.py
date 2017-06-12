@@ -34,7 +34,7 @@ def gradient(training_inputs: np.ndarray,
     :return: gradient at the point theta
     """
     z = z_vector(training_inputs, training_targets, theta, query_point, weight_vector)
-    return training_inputs.transpose().dot(z) - lamb * theta
+    return np.matmul(training_inputs.transpose(), z) - lamb * theta
 
 
 def hessian(training_inputs: np.ndarray,
