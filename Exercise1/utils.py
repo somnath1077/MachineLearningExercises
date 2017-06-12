@@ -1,77 +1,77 @@
 import numpy as np
 
 
-def z_vector(training_inputs: np.ndarray,
-             training_targets: np.ndarray,
+def z_vector(inputs: np.ndarray,
+             labels: np.ndarray,
              theta: np.ndarray,
-             query_point: np.ndarray,
+             query: np.ndarray,
              weight_vector: np.ndarray):
-    assert training_inputs.shape[0] == training_targets.shape[0]
-    assert weight_vector.shape[0] == training_targets.shape[0]
+    assert inputs.shape[0] == labels.shape[0]
+    assert weight_vector.shape[0] == labels.shape[0]
 
-    z = np.zeros((training_inputs.shape[0], 1))
-    for idx, input in enumerate(training_inputs):
-        z[idx] = weight_vector[idx] * (training_targets[idx] - logistic(theta, input))
+    z = np.zeros((inputs.shape[0], 1))
+    for idx, input in enumerate(inputs):
+        z[idx] = weight_vector[idx] * (labels[idx] - logistic(theta, input))
     return z
 
 
-def gradient(training_inputs: np.ndarray,
-             training_targets: np.ndarray,
-             query_point: np.ndarray,
+def gradient(inputs: np.ndarray,
+             labels: np.ndarray,
+             query: np.ndarray,
              theta: np.ndarray,
              weight_vector: np.ndarray,
              lamb: float):
     """
 
-    :param training_inputs: a matrix, each row of which is an input vector (x)
-    :param training_targets: a column vector, whose coefficients are
+    :param inputs: a matrix, each row of which is an input vector (x)
+    :param labels: a column vector, whose coefficients are
         the targets corresponding to the row of the training_inputs
-    :param query_point: the query vector at which the gradient is to be evaluated
+    :param query: the query vector at which the gradient is to be evaluated
     :param theta: the vector of parameters, relative to which the gradient
         is being computed
     :param weight_vector: the vector of weights
     :param lamb: regularization parameter
     :return: gradient at the point theta
     """
-    z = z_vector(training_inputs, training_targets, theta, query_point, weight_vector)
-    return np.matmul(training_inputs.transpose(), z) - lamb * theta
+    z = z_vector(inputs, labels, theta, query, weight_vector)
+    return np.matmul(inputs.transpose(), z) - lamb * theta
 
 
-def hessian(training_inputs: np.ndarray,
-            query_point: np.ndarray,
+def hessian(inputs: np.ndarray,
+            query: np.ndarray,
             theta: np.ndarray,
-            weight_vector: np.ndarray,
+            weights: np.ndarray,
             lamb: float):
-    D = np.zeros((training_inputs.shape[0], training_inputs.shape[0]))
-    I = np.identity(training_inputs.shape[1])
-    for idx, row in enumerate(training_inputs):
-        D[idx][idx] = -1 * weight_vector[idx] * \
+    D = np.zeros((inputs.shape[0], inputs.shape[0]))
+    I = np.identity(inputs.shape[1])
+    for idx, row in enumerate(inputs):
+        D[idx][idx] = -1 * weights[idx] * \
                       logistic_prime(theta, row)
-    return np.matmul( np.matmul(training_inputs.transpose(), D), training_inputs ) \
+    return np.matmul(np.matmul(inputs.transpose(), D), inputs) \
            - lamb * I
 
 
-def inverse_hessian(training_inputs: np.ndarray,
-                    query_point: np.ndarray,
+def inverse_hessian(inputs: np.ndarray,
+                    query: np.ndarray,
                     theta: np.ndarray,
-                    weight_vector: np.ndarray,
+                    weights: np.ndarray,
                     lamb: float):
     from numpy.linalg import inv
-    return inv(hessian(training_inputs, query_point, theta, weight_vector, lamb))
+    return inv(hessian(inputs, query, theta, weights, lamb))
 
 
-def logistic(theta: np.ndarray, query_point: np.ndarray):
-    return 1 / ( 1 + np.exp( -1 * np.matmul(theta.transpose(), query_point) ) )
+def logistic(theta: np.ndarray, query: np.ndarray):
+    return 1 / (1 + np.exp(-1 * np.matmul(theta.transpose(), query)))
 
 
-def logistic_prime(theta: np.ndarray, query_point: np.ndarray):
-    return logistic(theta, query_point) * (1 - logistic(theta, query_point))
+def logistic_prime(theta: np.ndarray, query: np.ndarray):
+    return logistic(theta, query) * (1 - logistic(theta, query))
 
 
-def create_weight_vector(training_inputs, query_point, tau):
-    w_vector = np.zeros((training_inputs.shape[0], 1))
-    for idx, input in enumerate(training_inputs):
-        w_vector[idx] = weight(input, query_point, tau)
+def create_weight_vector(inputs, query, tau):
+    w_vector = np.zeros((inputs.shape[0], 1))
+    for idx, input in enumerate(inputs):
+        w_vector[idx] = weight(input, query, tau)
     return w_vector
 
 

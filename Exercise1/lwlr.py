@@ -5,44 +5,44 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import pyplot as plt
 
-def delta_theta(training_inputs, training_targets, query_point, theta, tau, lamb):
-    w_vector = create_weight_vector(training_inputs, query_point, tau)
-    inv_hessian = inverse_hessian(training_inputs, query_point, theta, w_vector, lamb)
-    grad = gradient(training_inputs, training_targets, query_point, theta, w_vector, lamb)
+def delta_theta(inputs, labels, query, theta, tau, lamb):
+    w_vector = create_weight_vector(inputs, query, tau)
+    inv_hessian = inverse_hessian(inputs, query, theta, w_vector, lamb)
+    grad = gradient(inputs, labels, query, theta, w_vector, lamb)
     return np.matmul(inv_hessian, grad)
 
 
-def newton_raphson(training_inputs: np.ndarray,
-                   training_targets: np.ndarray,
-                   query_point: np.ndarray,
+def newton_raphson(inputs: np.ndarray,
+                   labels: np.ndarray,
+                   query: np.ndarray,
                    tau: np.dtype(float),
                    lamb: np.dtype(float)):
-    theta = np.ones((training_inputs.shape[1], 1))
+    theta = np.ones((inputs.shape[1], 1))
     theta_prime = np.zeros((theta.shape[0], 1))
     tolerance = 1E-6
 
     while min(np.absolute(theta - theta_prime)) > tolerance:
         print("Difference = ", min(np.absolute(theta - theta_prime)))
         theta_prime = theta
-        theta = theta - delta_theta(training_inputs,
-                                    training_targets,
-                                    query_point,
+        theta = theta - delta_theta(inputs,
+                                    labels,
+                                    query,
                                     theta, tau, lamb)
 
     return theta
 
 
-def prediction(training_inputs: np.ndarray,
-               training_targets: np.ndarray,
-               query_point: np.ndarray,
+def prediction(inputs: np.ndarray,
+               labels: np.ndarray,
+               query: np.ndarray,
                tau: np.dtype(float),
                lamb: np.dtype(float)):
-    theta = newton_raphson(training_inputs,
-                           training_targets,
-                           query_point,
+    theta = newton_raphson(inputs,
+                           labels,
+                           query,
                            tau,
                            lamb)
-    prob = logistic(query_point, theta)
+    prob = logistic(query, theta)
     return int(prob > 0.5)
 
 
@@ -78,13 +78,13 @@ def draw(x, y, pred):
     plt.show()
 
 if __name__ == '__main__':
-    training_inputs, training_targets = load_data()
+    inputs, labels = load_data()
     tau = 0.0001
     lamb = 1E-4
     pred = np.zeros((100, 1))
-    query_points = np.zeros((100, 3))
+    query = np.zeros((100, 3))
     for idx in range(100):
-        query_points[idx] = np.array([1, np.random.uniform(-1, 1), np.random.uniform(-1.0, 1.0)]).reshape((1, 3))
-        pred[idx][0] = prediction(training_inputs, training_targets, query_points[idx], tau, lamb)
+        query[idx] = np.array([1, np.random.uniform(-1, 1), np.random.uniform(-1.0, 1.0)]).reshape((1, 3))
+        pred[idx][0] = prediction(inputs, labels, query[idx], tau, lamb)
 
-    draw(x=query_points[:, [1]], y=query_points[:, [2]], pred=pred)
+    draw(x=query[:, [1]], y=query[:, [2]], pred=pred)
