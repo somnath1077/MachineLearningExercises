@@ -70,7 +70,7 @@ def draw(x, y, z):
     colors = ['red', 'green']
 
     plt.figure()
-    plt.scatter(xs, ys, c=z, cmap=matplotlib.colors.ListedColormap(colors))
+    plt.scatter(x=xs, y=ys, c=z, cmap=matplotlib.colors.ListedColormap(colors))
 
     # fig = plt.figure()
     # ax = fig.gca(projection='3d')
