@@ -15,13 +15,13 @@ def delta_theta(inputs, labels, query, theta, tau, lamb):
 def newton_raphson(inputs: np.ndarray, labels: np.ndarray, query: np.ndarray, tau: float,
                    lamb: float):
     theta = np.ones((inputs.shape[1], 1))
-    theta_next = np.zeros((theta.shape[0], 1))
+    theta_old = np.zeros((theta.shape[0], 1))
     tolerance = 1E-6
     learning_rate = 1
 
-    while min(np.absolute(theta - theta_next)) > tolerance:
-        print("Difference = ", min(np.absolute(theta - theta_next)))
-        theta_next = theta
+    while min(np.absolute(theta - theta_old)) > tolerance:
+        print("Difference = ", min(np.absolute(theta - theta_old)))
+        theta_old = theta
         theta = theta - learning_rate * delta_theta(inputs, labels, query, theta, tau, lamb)
         learning_rate *= 0.9
 
@@ -69,7 +69,7 @@ def draw(x, y, pred):
 
 if __name__ == '__main__':
     inputs, labels = load_data()
-    tau = 1000.0
+    tau = 10.0
     lamb = 1E-4
     pred = np.zeros((100, 1))
     query = np.zeros((100, 3))
