@@ -17,11 +17,13 @@ def newton_raphson(inputs: np.ndarray, labels: np.ndarray, query: np.ndarray, ta
     theta = np.ones((inputs.shape[1], 1))
     theta_next = np.zeros((theta.shape[0], 1))
     tolerance = 1E-6
+    learning_rate = 1E-2
 
     while min(np.absolute(theta - theta_next)) > tolerance:
         print("Difference = ", min(np.absolute(theta - theta_next)))
         theta_next = theta
-        theta = theta - delta_theta(inputs, labels, query, theta, tau, lamb)
+        theta = theta - learning_rate * delta_theta(inputs, labels, query, theta, tau, lamb)
+        learning_rate *= 0.1
 
     return theta
 
@@ -67,12 +69,13 @@ def draw(x, y, pred):
 
 if __name__ == '__main__':
     inputs, labels = load_data()
-    tau = 0.0001
+    tau = 0.01
     lamb = 1E-4
     pred = np.zeros((100, 1))
     query = np.zeros((100, 3))
     for idx in range(100):
-        query[idx] = np.array([1, np.random.uniform(-1, 1), np.random.uniform(-1.0, 1.0)]).reshape((1, 3))
+        query[idx] = np.array([1, np.random.uniform(-0.5, 0.5),
+                               np.random.uniform(-0.1, 0.1)]).reshape((1, 3))
         pred[idx][0] = prediction(inputs, labels, query[idx], tau, lamb)
 
     draw(x=query[:, [1]], y=query[:, [2]], pred=pred)
