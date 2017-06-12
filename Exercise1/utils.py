@@ -68,7 +68,7 @@ def logistic_prime(theta: np.ndarray, query: np.ndarray):
     return logistic(theta, query) * (1 - logistic(theta, query))
 
 
-def create_weight_vector(inputs, query, tau):
+def create_weights(inputs, query, tau):
     w_vector = np.zeros((inputs.shape[0], 1))
     for idx, input in enumerate(inputs):
         w_vector[idx] = weight(input, query, tau)

@@ -2,13 +2,13 @@ import matplotlib
 import numpy as np
 from matplotlib import pyplot as plt
 
-from utils import inverse_hessian, gradient, logistic, create_weight_vector
+from utils import inverse_hessian, gradient, logistic, create_weights
 
 
 def delta_theta(inputs, labels, query, theta, tau, lamb):
-    w_vector = create_weight_vector(inputs, query, tau)
-    inv_hessian = inverse_hessian(inputs, query, theta, w_vector, lamb)
-    grad = gradient(inputs, labels, query, theta, w_vector, lamb)
+    weights = create_weights(inputs, query, tau)
+    inv_hessian = inverse_hessian(inputs, query, theta, weights, lamb)
+    grad = gradient(inputs, labels, query, theta, weights, lamb)
     return np.matmul(inv_hessian, grad)
 
 
@@ -18,12 +18,12 @@ def newton_raphson(inputs: np.ndarray,
                    tau: np.dtype(float),
                    lamb: np.dtype(float)):
     theta = np.ones((inputs.shape[1], 1))
-    theta_prime = np.zeros((theta.shape[0], 1))
+    theta_next = np.zeros((theta.shape[0], 1))
     tolerance = 1E-6
 
-    while min(np.absolute(theta - theta_prime)) > tolerance:
-        print("Difference = ", min(np.absolute(theta - theta_prime)))
-        theta_prime = theta
+    while min(np.absolute(theta - theta_next)) > tolerance:
+        print("Difference = ", min(np.absolute(theta - theta_next)))
+        theta_next = theta
         theta = theta - delta_theta(inputs,
                                     labels,
                                     query,
