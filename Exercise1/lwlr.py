@@ -62,10 +62,10 @@ def load_data_to_numpy_array(filename):
     return np.array(data)
 
 
-def draw(x, y, z):
+def draw(x, y, pred):
     xs = np.squeeze(np.asarray(x))
     ys = np.squeeze(np.asarray(y))
-    z = np.squeeze(np.asarray(z))
+    z = np.squeeze(np.asarray(pred))
 
     colors = ['red', 'green']
 
@@ -87,4 +87,4 @@ if __name__ == '__main__':
         query_points[idx] = np.array([1, np.random.uniform(-1, 1), np.random.uniform(-1.0, 1.0)]).reshape((1, 3))
         pred[idx][0] = prediction(training_inputs, training_targets, query_points[idx], tau, lamb)
 
-    draw(x=query_points[:, [1]], y=query_points[:, [2]], z=pred)
+    draw(x=query_points[:, [1]], y=query_points[:, [2]], pred=pred)
