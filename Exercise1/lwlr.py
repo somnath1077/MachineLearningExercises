@@ -12,10 +12,7 @@ def delta_theta(inputs, labels, query, theta, tau, lamb):
     return np.matmul(inv_hessian, grad)
 
 
-def newton_raphson(inputs: np.ndarray,
-                   labels: np.ndarray,
-                   query: np.ndarray,
-                   tau: np.dtype(float),
+def newton_raphson(inputs: np.ndarray, labels: np.ndarray, query: np.ndarray, tau: np.dtype(float),
                    lamb: np.dtype(float)):
     theta = np.ones((inputs.shape[1], 1))
     theta_next = np.zeros((theta.shape[0], 1))
@@ -24,24 +21,14 @@ def newton_raphson(inputs: np.ndarray,
     while min(np.absolute(theta - theta_next)) > tolerance:
         print("Difference = ", min(np.absolute(theta - theta_next)))
         theta_next = theta
-        theta = theta - delta_theta(inputs,
-                                    labels,
-                                    query,
-                                    theta, tau, lamb)
+        theta = theta - delta_theta(inputs, labels, query, theta, tau, lamb)
 
     return theta
 
 
-def prediction(inputs: np.ndarray,
-               labels: np.ndarray,
-               query: np.ndarray,
-               tau: np.dtype(float),
+def prediction(inputs: np.ndarray, labels: np.ndarray, query: np.ndarray, tau: np.dtype(float),
                lamb: np.dtype(float)):
-    theta = newton_raphson(inputs,
-                           labels,
-                           query,
-                           tau,
-                           lamb)
+    theta = newton_raphson(inputs, labels, query, tau, lamb)
     prob = logistic(query, theta)
     return int(prob > 0.5)
 
