@@ -5,13 +5,13 @@ def z_vector(inputs: np.ndarray,
              labels: np.ndarray,
              theta: np.ndarray,
              query: np.ndarray,
-             weight_vector: np.ndarray):
+             weights: np.ndarray):
     assert inputs.shape[0] == labels.shape[0]
-    assert weight_vector.shape[0] == labels.shape[0]
+    assert weights.shape[0] == labels.shape[0]
 
     z = np.zeros((inputs.shape[0], 1))
     for idx, input in enumerate(inputs):
-        z[idx] = weight_vector[idx] * (labels[idx] - logistic(theta, input))
+        z[idx] = weights[idx] * (labels[idx] - logistic(theta, input))
     return z
 
 
@@ -19,7 +19,7 @@ def gradient(inputs: np.ndarray,
              labels: np.ndarray,
              query: np.ndarray,
              theta: np.ndarray,
-             weight_vector: np.ndarray,
+             weights: np.ndarray,
              lamb: float):
     """
 
@@ -29,11 +29,11 @@ def gradient(inputs: np.ndarray,
     :param query: the query vector at which the gradient is to be evaluated
     :param theta: the vector of parameters, relative to which the gradient
         is being computed
-    :param weight_vector: the vector of weights
+    :param weights: the vector of weights
     :param lamb: regularization parameter
     :return: gradient at the point theta
     """
-    z = z_vector(inputs, labels, theta, query, weight_vector)
+    z = z_vector(inputs, labels, theta, query, weights)
     return np.matmul(inputs.transpose(), z) - lamb * theta
 
 
