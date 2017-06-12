@@ -26,7 +26,7 @@ def gradient(training_inputs: np.ndarray,
     :param training_inputs: a matrix, each row of which is an input vector (x)
     :param training_targets: a column vector, whose coefficients are
         the targets corresponding to the row of the training_inputs
-    :param query_point: the vector at which the gradient is to be evaluated
+    :param query_point: the query vector at which the gradient is to be evaluated
     :param theta: the vector of parameters, relative to which the gradient
         is being computed
     :param weight_vector: the vector of weights
