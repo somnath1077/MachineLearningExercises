@@ -1,9 +1,9 @@
 import matplotlib
+import numpy as np
+from matplotlib import pyplot as plt
 
 from utils import inverse_hessian, gradient, logistic, create_weight_vector
-import numpy as np
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import pyplot as plt
+
 
 def delta_theta(inputs, labels, query, theta, tau, lamb):
     w_vector = create_weight_vector(inputs, query, tau)
@@ -76,6 +76,7 @@ def draw(x, y, pred):
     # ax = fig.gca(projection='3d')
     # ax.plot_trisurf(xs, ys, z)
     plt.show()
+
 
 if __name__ == '__main__':
     inputs, labels = load_data()
