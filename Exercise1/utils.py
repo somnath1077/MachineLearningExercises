@@ -61,9 +61,7 @@ def inverse_hessian(training_inputs: np.ndarray,
 
 
 def logistic(theta: np.ndarray, query_point: np.ndarray):
-    theta = np.squeeze(np.asarray(theta.transpose()))
-    query = np.squeeze(np.asarray(query_point))
-    return 1 / (1 + np.exp(-1 * theta.dot(query)))
+    return 1 / ( 1 + np.exp( -1 * np.matmul(theta.transpose(), query_point) ) )
 
 
 def logistic_prime(theta: np.ndarray, query_point: np.ndarray):

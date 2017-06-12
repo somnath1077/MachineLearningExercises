@@ -79,7 +79,7 @@ def draw(x, y, z):
 
 if __name__ == '__main__':
     training_inputs, training_targets = load_data()
-    tau = 10000.0
+    tau = 0.0001
     lamb = 1E-4
     pred = np.zeros((100, 1))
     query_points = np.zeros((100, 3))
