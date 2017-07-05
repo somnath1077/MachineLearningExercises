@@ -20,3 +20,6 @@ def load_data_to_numpy_array(filename):
             item = line.rstrip()
             data.append([float(x) for x in item.split()])
     return np.array(data)
+
+if __name__ == '__main__':
+    inp, tar = load_data()
