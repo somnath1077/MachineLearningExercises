@@ -23,6 +23,10 @@ def plot_regression(regression_model, X_test, y_test):
     ax.scatter(xs=X_test[:, [0]], ys=X_test[:, [1]], zs=y_test, color='black')
     ax.scatter(xs=X_test[:, [0]], ys=X_test[:, [1]], zs=regression_model.predict(X_test), color='blue')
 
+    ax.set_xlabel('X_label')
+    ax.set_ylabel('Y_label')
+    ax.set_zlabel('Z_label')
+
     plt.xticks(())
     plt.yticks(())
 
