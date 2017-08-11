@@ -11,7 +11,13 @@ def main():
 
     clf = svm.SVC(probability=False, kernel='rbf', C=2.8, gamma=0.0073)
     examples = len(data_dict['train']['X'])
+
+    print('fitting data ... ')
     clf.fit(data_dict['train']['X'][:examples], data_dict['train']['y'][:examples])
+    print('finished fitting data ...')
+
+    analyse(clf, data_dict)
+
 
 def analyse(clf, data_dict):
     from sklearn import metrics
