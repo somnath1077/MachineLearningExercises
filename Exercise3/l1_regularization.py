@@ -1,16 +1,19 @@
 import numpy as np
 
+from typing import TypeVar
 
-def optimize_theta(X, y, lamb):
+matrix = TypeVar(np.matrixlib.defmatrix.matrix)
+
+def optimize_theta(X: matrix, y: matrix, lamb: float):
     n_cols = X.shape[1]
 
     theta = np.matrix(n_cols * [1]).T
-    change_in_theta = 1
+    change_in_theta = 1.0
 
     while change_in_theta > 1e-5:
         theta_new = np.matrix.copy(theta)
 
-        for i in len(theta):
+        for i in range(len(theta)):
             X_i = X[:, i]
             X_term = X_i * (X * theta_new - y)
 
@@ -34,7 +37,7 @@ def optimize_theta(X, y, lamb):
             else:
                 theta_new[i] = theta_i_neg
 
-        change_in_theta = np.matrix.norm(theta - theta_new)
+        change_in_theta = np.linalg.norm(theta - theta_new)
         theta = np.matrix.copy(theta_new)
 
     return theta
