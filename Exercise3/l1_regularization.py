@@ -44,7 +44,7 @@ def optimize_theta(X: matrix, y: matrix, lamb: float):
                 theta_new[i] = theta_i_neg
 
         change_in_theta = np.linalg.norm(theta - theta_new)
-        theta = np.matrix.copy(theta_new)
+        theta = theta_new
 
     return theta
 
