@@ -13,8 +13,8 @@ def optimize_theta(X: matrix, y: matrix, L1_param: float):
     """
     n_cols = X.shape[1]
 
-    theta = np.matrix(n_cols * [0]).T
-    theta_new = np.matrix(n_cols * [1]).T
+    theta = np.matrix(np.random.rand(1, n_cols)).T
+    theta_new = np.matrix(n_cols * [0]).T
 
     while np.linalg.norm(theta - theta_new) > 1e-5:
         theta_new = theta
@@ -52,7 +52,7 @@ def optimize_theta(X: matrix, y: matrix, L1_param: float):
 if __name__ == '__main__':
     X = np.matrix([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
     true_theta = np.matrix([1.0, 2.0, 1.0]).T
-    y = X * true_theta + np.matrix([0.01, -0.1]).T
-    lamb = 10
+    y = X * true_theta + np.matrix(np.random.rand(1, 2)).T
+    lamb = 0.1
     theta = optimize_theta(X, y, lamb)
     print(theta)
