@@ -44,6 +44,7 @@ def optimize_theta(X: matrix, y: matrix, lamb: float):
 
 if __name__ == '__main__':
     X = np.matrix([[1, 2, 3], [4, 5, 6]])
-    y = np.matrix([1, 2])
+    y = np.matrix([1, 2]).T
     lamb = 2
     theta = optimize_theta(X, y, lamb)
+    print(theta)
