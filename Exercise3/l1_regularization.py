@@ -53,6 +53,6 @@ if __name__ == '__main__':
     X = np.matrix([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
     true_theta = np.matrix([1.0, 2.0, 1.0]).T
     y = X * true_theta + np.matrix(np.random.rand(1, 2)).T
-    lamb = 0.1
+    lamb = 0.000001
     theta = optimize_theta(X, y, lamb)
     print(theta)
