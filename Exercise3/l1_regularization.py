@@ -5,6 +5,12 @@ from typing import TypeVar
 matrix = TypeVar('np.matrixlib.defmatrix.matrix')
 
 def optimize_theta(X: matrix, y: matrix, lamb: float):
+    """
+    Implements the co-ordinate descent algorithm to find 
+    the optimum weight vector theta that minimizes the 
+    sum of squares error function + L1 regularization. 
+    Lambda is the parameter of the L1 regularization term.
+    """
     n_cols = X.shape[1]
 
     theta = np.matrix(n_cols * [1]).T
