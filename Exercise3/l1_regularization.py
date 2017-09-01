@@ -2,7 +2,7 @@ import numpy as np
 
 from typing import TypeVar
 
-matrix = TypeVar(np.matrixlib.defmatrix.matrix)
+matrix = TypeVar('np.matrixlib.defmatrix.matrix')
 
 def optimize_theta(X: matrix, y: matrix, lamb: float):
     n_cols = X.shape[1]
@@ -15,7 +15,7 @@ def optimize_theta(X: matrix, y: matrix, lamb: float):
 
         for i in range(len(theta)):
             X_i = X[:, i]
-            X_term = X_i * (X * theta_new - y)
+            X_term = X_i.T * (X * theta_new - y)
 
             denom = X_i.T * X_i
             numerator_neg = lamb - X_term
@@ -41,3 +41,9 @@ def optimize_theta(X: matrix, y: matrix, lamb: float):
         theta = np.matrix.copy(theta_new)
 
     return theta
+
+if __name__ == '__main__':
+    X = np.matrix([[1, 2, 3], [4, 5, 6]])
+    y = np.matrix([1, 2])
+    lamb = 2
+    theta = optimize_theta(X, y, lamb)
