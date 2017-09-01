@@ -4,7 +4,7 @@ from typing import TypeVar
 
 matrix = TypeVar('np.matrixlib.defmatrix.matrix')
 
-def optimize_theta(X: matrix, y: matrix, lamb: float):
+def optimize_theta(X: matrix, y: matrix, L1_param: float):
     """
     Implements the co-ordinate descent algorithm to find 
     the optimum weight vector theta that minimizes the 
@@ -24,18 +24,18 @@ def optimize_theta(X: matrix, y: matrix, lamb: float):
             X_term = X_i.T * (X * theta_new - y)
 
             denom = X_i.T * X_i
-            numerator_neg = lamb - X_term
-            numerator_pos = -1 * lamb - X_term
+            numerator_neg = L1_param - X_term
+            numerator_pos = -1 * L1_param - X_term
 
             theta_i_neg = min(numerator_neg / denom, 0)
             theta_i_pos = max(numerator_pos / denom, 0)
 
             theta_new[i] = theta_i_pos
-            obj_theta_i_pos = 0.5 * np.linalg.norm(X * theta_new - y) ** 2 + lamb * sum(
+            obj_theta_i_pos = 0.5 * np.linalg.norm(X * theta_new - y) ** 2 + L1_param * sum(
                 [abs(theta_i) for theta_i in theta_new])
 
             theta_new[i] = theta_i_neg
-            obj_theta_i_neg = 0.5 * np.linalg.norm(X * theta_new - y) ** 2 + lamb * sum(
+            obj_theta_i_neg = 0.5 * np.linalg.norm(X * theta_new - y) ** 2 + L1_param * sum(
                 [abs(theta_i) for theta_i in theta_new])
 
             if obj_theta_i_pos < obj_theta_i_neg:
