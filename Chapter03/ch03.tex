@@ -140,11 +140,20 @@ the same.
 Let $z^{*} \in \mathcal{X}$ be a point at which $(1 - p_z)^m$ is maximized. Since 
 $(1 - p_{z^{*}})^m \leq e^{- m p_{z^{*}}}$ and since we want the probability of 
 picking a bad sample to be at most $\delta$, we want:
-\begin{align*}
-   e^{- m p_{z^{*}}} & < \delta \\
-                  m  & > \frac{\log (1 / \delta)}{p_{z^{*}}}
-\end{align*}
+\begin{align}
+    e^{- m p_{z^{*}}} & < \delta \\
+    \label{3.2_samplecomp}
+    m  & > \frac{\log (1 / \delta)}{p_{z^{*}}}
+\end{align}
 
-If we pick $m$ i.i.d examples, then with probability at least $1 - \delta$, the 
-hypothesis $h$ has a true error of at most $(1 - p_{z^{*}})^m \leq \epsilon$.
+If $\epsilon \geq (1 - p_{z^{*}})^m$, then even a sample of size one will guarantee 
+that the true error of $h_s$ is at most $\epsilon$. However if 
+$\epsilon < (1 - p_{z^{*}})^m$ then $\epsilon < 1 - p_{z^{*}}$ and hence 
+$p_{z^{*}} < 1 + \epsilon$. We can then use this upper bound in~(\ref{3.2_samplecomp})
+to obtain: 
+\[
+    m > \frac{\log (1 / \delta)}{1 + \epsilon}.
+\]
+Thus the sample complexity is $\samplecomp{\epsilon}{\delta} = 
+\max \{1, \frac{\log (1 / \delta)}{1 + \epsilon}\}$.
 \end{document}
