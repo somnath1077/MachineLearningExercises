@@ -1,0 +1,150 @@
+\documentclass[11pt]{article}
+
+%-------------------------------------------------------
+% THEMES, COLORS
+%-------------------------------------------------------
+\usepackage[a4paper]{geometry}
+\usepackage{amsmath,mathtools,bm,amsthm}
+\usepackage{underscore}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+%--------------------------------------------------------
+% COLOR DEFINITIONS
+%---------------------------------------------------------
+\definecolor{amber}{rgb}{1.0, 0.49, 0.0}
+\definecolor{olivedrab}{rgb}{0.42, 0.56, 0.14}
+\definecolor{darkolivegreen}{rgb}{0.33, 0.42, 0.18}
+\definecolor{chromeyellow}{rgb}{1.0, 0.65, 0.0}
+\definecolor{beige}{rgb}{0.96, 0.96, 0.86}
+\definecolor{bluegreen}{rgb}{3, 166, 155}
+\definecolor{pitchblack}{rgb}{0, 0, 0}
+\definecolor{lightbeige}{rgb}{255, 251, 241}
+\definecolor{mediumgray}{rgb}{183, 183, 183}
+\definecolor{carrotorange}{rgb}{0.93, 0.57, 0.13}
+\definecolor{orange-red}{rgb}{1.0, 0.27, 0.0}
+\definecolor{ferngreen}{rgb}{0.31, 0.47, 0.26}
+\definecolor{darkspringgreen}{rgb}{0.09, 0.45, 0.27}
+\definecolor{cocoabrown}{rgb}{0.82, 0.41, 0.12}
+\definecolor{darkorange}{rgb}{1.0, 0.55, 0.0}
+\definecolor{deepcarrotorange}{rgb}{0.91, 0.41, 0.17}
+%---------------------------------------------------------
+
+%-------------------------------------------------------------------------
+% NEW THEME
+%-------------------------------------------------------------------------
+\definecolor{UBCblue}{rgb}{0.04706, 0.13725, 0.26667} % UBC Blue (primary)
+\definecolor{UBCgrey}{rgb}{0.3686, 0.5255, 0.6235} % UBC Grey (secondary)
+
+%-----------------------------------------------------------------------------
+% FONT PACKAGES
+%-----------------------------------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+
+% Times New Roman
+\setromanfont[
+BoldFont=timesbd.ttf,
+ItalicFont=timesi.ttf,
+BoldItalicFont=timesbi.ttf,
+]{times.ttf}
+% Arial
+\setsansfont[
+BoldFont=arialbd.ttf,
+ItalicFont=ariali.ttf,
+BoldItalicFont=arialbi.ttf
+]{arial.ttf}
+% Courier New
+\setmonofont[Scale=0.90,
+BoldFont=courbd.ttf,
+ItalicFont=couri.ttf,
+BoldItalicFont=courbi.ttf
+]{cour.ttf}
+
+
+%\usepackage{helvet}
+%-------------------------------------------------------
+% DEFFINING AND REDEFINING COMMANDS
+%-------------------------------------------------------
+\newcommand\var{\texttt}
+%-------------------------------------------------------
+% INFORMATION IN THE TITLE PAGE
+%-------------------------------------------------------
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem*{note}{Note}
+\newcommand{\samplecomp}[2]{m_{\mathcal{H}}(#1, #2)}
+\newcommand{\pacerror}[1]{L_{\mathcal{D}, f}(#1)}
+%\newcommand{\pr_2}[2]{\text{Pr}_{#1} \{#2\}}
+%\newcommand{\pr_1}[1]{\text{Pr} \{#1\}}
+
+\title{Chapter 3}
+
+\author{Somnath Sikdar}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Exercise 3.1}
+
+Let $\samplecomp{\epsilon}{\delta}$ be the sample complexity of a PAC-learnable hypothesis class 
+$\mathcal{H}$ for a binary classification task. For a fixed $\delta$, let 
+$0 < \epsilon_1 \leq \epsilon_2 < 1$ and suppose that 
+$\samplecomp{\epsilon_1}{\delta} < \samplecomp{\epsilon_2}{\delta}$. Then when 
+running the learning algorithm on $\samplecomp{\epsilon_1}{\delta}$ i.i.d examples, 
+we obtain a hypothesis $h$, which with probability at least $1 - \delta$ has 
+a true error $\pacerror{h} \leq \epsilon_1 \leq \epsilon_2$. This
+implies that for the $(\epsilon_2, \delta)$ combination of parameters, we can bound 
+the true error of $h$ by $\epsilon_2$ by using a smaller number of i.i.d examples 
+than $\samplecomp{\epsilon_2}{\delta}$. This contradicts
+the minimality of the sample complexity function. Hence we must have 
+$\samplecomp{\epsilon_1}{\delta} \geq \samplecomp{\epsilon_2}{\delta}$.
+
+Next suppose that $0 < \delta_1 \leq \delta_2 < 1$ and that 
+$\samplecomp{\epsilon}{\delta_1} < \samplecomp{\epsilon}{\delta_2}$, where $\epsilon$
+is fixed in advance. Then with $\samplecomp{\epsilon}{\delta_1}$ i.i.d examples, the
+learner outputs a hypothesis $h$ which with probability at least 
+$1 - \delta_1 \geq 1 - \delta_2$ has a true error of at most $\epsilon$. This
+implies that for the $(\epsilon, \delta_2)$ combination of parameters, we can bound 
+the true error of $h$ by $\epsilon$ by using a smaller number of i.i.d examples 
+than $\samplecomp{\epsilon}{\delta_2}$. This again contradicts
+the minimality of the sample complexity function. Hence we must have 
+$\samplecomp{\epsilon}{\delta_1} \geq \samplecomp{\epsilon}{\delta_2}$.
+
+\section*{Exercise 3.2}
+
+Given a sample $S$, we output a hypothesis $h_S$ with the property that 
+$\forall x \in \mathcal{X}$, 
+\[
+    h_S(x) = \left \{ \begin{array}{rl} 
+                            1, & \text{if $(x, 1) \in S$} \\
+                            0, & \text{otherwise}
+                      \end{array} \right .
+\]
+For any sample $S$, this hypothesis has an empirical loss of $0$. Note 
+that $h_S$ disagrees with the true labeling function $f$ in at most one point 
+$z \in \mathcal{X}$. It's true loss is therefore 
+$\Pr_{S \sim \mathcal{D}^m}\{(z, 1) \notin S\}$. This is at most  
+$(1 - p_z)^m$, where $p_z = \Pr_{\mathcal{D}} \{z\}$. 
+
+The true loss of $h_S$ will be $0$ if $(z, 1) \in S$. Therefore the probability 
+of getting a ``bad'' sample is $\Pr_{S \sim \mathcal{D}^m}\{(z, 1) \notin S\}$. In this 
+situation, the true loss and the probability of getting a bad sample are one and 
+the same. 
+Let $z^{*} \in \mathcal{X}$ be a point at which $(1 - p_z)^m$ is maximized. Since 
+$(1 - p_{z^{*}})^m \leq e^{- m p_{z^{*}}}$ and since we want the probability of 
+picking a bad sample to be at most $\delta$, we want:
+\begin{align*}
+   e^{- m p_{z^{*}}} & < \delta \\
+                  m  & > \frac{\log (1 / \delta)}{p_{z^{*}}}
+\end{align*}
+
+If we pick $m$ i.i.d examples, then with probability at least $1 - \delta$, the 
+hypothesis $h$ has a true error of at most $(1 - p_{z^{*}})^m \leq \epsilon$.
+\end{document}
