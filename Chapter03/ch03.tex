@@ -120,7 +120,7 @@ $\samplecomp{\epsilon}{\delta_1} \geq \samplecomp{\epsilon}{\delta_2}$.
 \section*{Exercise 3.2}
 
 Given a sample $S$, we output a hypothesis $h_S$ with the property that 
-$\forall x \in \mathcal{X}$, 
+$\forall x \in S_x$, 
 \[
     h_S(x) = \left \{ \begin{array}{rl} 
                             1, & \text{if $(x, 1) \in S$} \\
@@ -130,30 +130,26 @@ $\forall x \in \mathcal{X}$,
 For any sample $S$, this hypothesis has an empirical loss of $0$. Note 
 that $h_S$ disagrees with the true labeling function $f$ in at most one point 
 $z \in \mathcal{X}$. It's true loss is therefore 
-$\Pr_{S \sim \mathcal{D}^m}\{(z, 1) \notin S\}$. This is at most  
-$(1 - p_z)^m$, where $p_z = \Pr_{\mathcal{D}} \{z\}$. 
+$\Pr_{x \sim \mathcal{D}} \{ f(x) \neq h_S(x)\} = \Pr_{\mathcal{D}} \{z\} := p_z$. 
 
 The true loss of $h_S$ will be $0$ if $(z, 1) \in S$. Therefore the probability 
-of getting a ``bad'' sample is $\Pr_{S \sim \mathcal{D}^m}\{(z, 1) \notin S\}$. In this 
-situation, the true loss and the probability of getting a bad sample are one and 
-the same. 
+of getting a ``bad'' sample is $\Pr_{S \sim \mathcal{D}^m}\{(z, 1) \notin S\}$.
 Let $z^{*} \in \mathcal{X}$ be a point at which $(1 - p_z)^m$ is maximized. Since 
 $(1 - p_{z^{*}})^m \leq e^{- m p_{z^{*}}}$ and since we want the probability of 
-picking a bad sample to be at most $\delta$, we want:
-\begin{align}
-    e^{- m p_{z^{*}}} & < \delta \\
-    \label{3.2_samplecomp}
-    m  & > \frac{\log (1 / \delta)}{p_{z^{*}}}
-\end{align}
+picking a bad sample to be at most $\delta$, we want $e^{- m p_{z^{*}}} < \delta$,
+which gives us the sample size to be:
+\begin{equation}
+\label{3.2_samplecomp}
+	m  > \frac{\log (1 / \delta)}{p_{z^{*}}}
+\end{equation}
 
-If $\epsilon \geq (1 - p_{z^{*}})^m$, then even a sample of size one will guarantee 
+Depending on the value of the error bound $\epsilon$, there are two situations to consider. If $\epsilon \geq p_{z^{*}}$, then even a sample of size one will guarantee 
 that the true error of $h_s$ is at most $\epsilon$. However if 
-$\epsilon < (1 - p_{z^{*}})^m$ then $\epsilon < 1 - p_{z^{*}}$ and hence 
-$p_{z^{*}} < 1 + \epsilon$. We can then use this upper bound in~(\ref{3.2_samplecomp})
+$\epsilon < p_{z^{*}}$ then we can then use this in~(\ref{3.2_samplecomp})
 to obtain: 
 \[
-    m > \frac{\log (1 / \delta)}{1 + \epsilon}.
+    m > \frac{\log (1 / \delta)}{\epsilon}.
 \]
 Thus the sample complexity is $\samplecomp{\epsilon}{\delta} = 
-\max \{1, \frac{\log (1 / \delta)}{1 + \epsilon}\}$.
+\max \left \{1, \frac{\log (1 / \delta)}{\epsilon} \right \}$.
 \end{document}
