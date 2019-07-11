@@ -89,6 +89,7 @@ BoldItalicFont=courbi.ttf
 \newcommand{\Rtwo}{\ensuremath{\mathbf{R}^2}}
 \newcommand{\Prtwo}[2]{\text{Pr}_{#1} \left \{ #2 \right \}}
 \newcommand{\Prone}[1]{\text{Pr} \left \{ #1 \right \}}
+\newcommand{\ceiling}[1]{\ensuremath{\left \lceil #1 \right \rceil}}
 
 \title{Chapter 3}
 
@@ -172,6 +173,10 @@ where $C_r$ and $C_q$ are concentric circles centered at the origin with radius~
 $$\epsilon = \Prtwo{(x, y) \sim \dist}{(x, y) \in C_r \setminus C_t}.$$ 
 That is, we choose~$t$ so that the true error matches the probability of picking anything inside the ring described by the circles $C_r$ and $C_t$. Then the probability that we fail to choose any point in this ring in an i.i.d sample of size~$m$ is $(1 - \epsilon)^m \leq e^{- \epsilon m}$. This is the probability that we are handed a ``bad'' sample. Upper bounding this by $\delta$, we obtain that $m > \log(1 / \delta) / \epsilon$.
 
-Now a sample of size at least $\log(1 / \delta) / \epsilon$ has with probability at least $1 - \delta$ a point from $C_r \setminus C_t$, and hence the true error of the resulting ERM hypothesis is at most $\epsilon$. 
+Now a sample of size at least $\log(1 / \delta) / \epsilon$ has with probability at least $1 - \delta$ a point from $C_r \setminus C_t$, and hence the true error of the resulting ERM hypothesis is at most $\epsilon$. Hence the sample complexity is upper bounded by $\ceiling{\log(1 / \delta) / \epsilon}$.
+
+\section*{Exercise 3.4}
+
+In this example, $\dom = \{0, 1\}^d$, $\range = \{0, 1\}$ and the hypothesis class~$\hypclass$ is the set of all conjunctions over $d$ Boolean variables. 
 
 \end{document}
