@@ -76,15 +76,14 @@ Now a sample of size at least $\log(1 / \delta) / \epsilon$ has with probability
 
 \section*{Exercise 3.4}
 
-In this example, $\dom = \{0, 1\}^d$, $\range = \{0, 1\}$ and the hypothesis class~$\hypclass$ is the set of all conjunctions over $d$ Boolean variables. Since there are $\sum_{i = 0}^{d} 2^i \leq (d + 1) \cdot 2^d$ Boolean conjunctions over $d$ Boolean variables, the hypothesis class is finite. Hence the sample complexity is 
+In this example, $\dom = \{0, 1\}^d$, $\range = \{0, 1\}$ and the hypothesis class~$\hypclass$ is the set of all conjunctions over $d$ Boolean variables. Since there are $\sum_{i = 0}^{d} {d \choose i} 2^i \leq 3^{d}$ Boolean conjunctions over $d$ Boolean variables, the hypothesis class is finite. Hence the sample complexity is 
 \begin{align*}
 	\samplecomp{\epsilon}{\delta} & = \ceiling{\frac{\log (\hypclass / \delta)}{\epsilon}} \\
-	& = \ceiling{\frac{d + \log (d + 1) + \log (1 / \delta)}{\epsilon}}
+	& = \ceiling{\frac{d \cdot \log 3 + \log (1 / \delta)}{\epsilon}}
 \end{align*}
 
-To prove that the class $\hypclass$ is PAC-learnable, it suffices to exhibit a polynomial-time algorithm that implements the ERM rule. The algorithm outlined in Figure~\ref{pac_boolean_conjunctions} starts with the formula $x_1 \land \bar{x}_1 \land \cdots \land x_d \land \bar{x}_d$. It runs through the positive examples in the sample $S$ and for each such example, it adjusts the formula so that it satisfies the assignment given in the example. At the end of this procedure, the modified formula would satisfy all positive examples of $S$. The time taken is $O(d \cdot |S|)$. 
+To prove that the class $\hypclass$ is PAC-learnable, it suffices to exhibit a polynomial-time algorithm that implements the ERM rule. The algorithm outlined in Figure~\ref{fig:pac_boolean_conjunctions} starts with the formula $x_1 \land \bar{x}_1 \land \cdots \land x_d \land \bar{x}_d$. It runs through the positive examples in the sample $S$ and for each such example, it adjusts the formula so that it satisfies the assignment given in the example. At the end of this procedure, the modified formula would satisfy all positive examples of $S$. The time taken is $O(d \cdot |S|)$. 
 \begin{figure}
-
     \begin{algorithmic}[0] % The number tells where the line numbering should start
      \Procedure{PACBoolean}{$S$} 
          \Comment{$S$ is the sample set with elements 
@@ -105,6 +104,6 @@ To prove that the class $\hypclass$ is PAC-learnable, it suffices to exhibit a p
         \EndProcedure
     \end{algorithmic}
 \caption{Learning Boolean conjunctions}
-\label{pac_boolean_conjunctions}
+\label{fig:pac_boolean_conjunctions}
 \end{figure}
 
