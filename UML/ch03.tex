@@ -111,3 +111,37 @@ Now the literals of the true labeling function produce a $0$ on all negative exa
 \label{fig:pac_boolean_conjunctions}
 \end{figure}
 
+
+\section*{Exercise 3.5}
+
+The first thing to verify is that $\bar{\dist}_m$ is a distribution. This is easy since for all $x \in \dom$, $\bar{\dist}_m(x) \geq 0$ and 
+\begin{align*}
+	\int_{x \in \dom} \bar{\dist}_m (x) \dx x & = \frac{1}{m} \sum_{i = 1}^m  
+	\int_{x \in \dom} \dist_i (x) \dx x \\
+	& = \frac{1}{m} \sum_{i = 1}^m 1 \\
+	& = 1.
+\end{align*}
+
+Fix an accuracy parameter $\epsilon > 0$. As in the text, define the set of bad hypotheses to be $\hypclass_{B} = \{h \in \hypclass \colon L_{\bar{\dist}_m, f} (h) > \epsilon\}$ and let $\mathcal{M} = \{S \vert_x \colon \exists h \in \hypclass_{B}, L_S(h) = 0\}$ be the set of misleading samples. Since we assume realizability, any hypothesis~$h_S$ output by the ERM procedure has $L_S(h_S) = 0$. Thus the event 
+$L_{\bar{\dist}_m, f} (h) > \epsilon$ and $L_S(h) = 0$ happens only when $S \vert_x \in \mathcal{M}$. Hence,
+\begin{align*}
+	\Prtwo{\forall i \colon x_i \sim \dist_i}{S \vert_x \in \mathcal{M}} 
+	& = \Prtwo{\forall i \colon x_i \sim \dist_i}{\bigcup_{h \in \hypclass_{B}} 
+			   \{S \vert_x \colon L_S(h) = 0\}} \\
+    & \leq \sum_{h \in \hypclass_B} 
+    		\Prtwo{\forall i \colon x_i \sim \dist_i}{S \vert_x \colon L_S(h) = 0} \\
+    & = \sum_{h \in \hypclass_B}  
+    		\prod_{i = 1}^{m} \Prtwo{x_i \sim \dist_i}{f(x_i) = h(x_i)} \\
+    & \leq \sum_{h \in \hypclass_B} 
+    		\Prtwo{S \sim \bar{\dist}_m}{\forall i \colon f(x_i) = h(x_i)}
+\end{align*}
+
+This last inequality follows from the fact that the geomteric mean of a set of numbers is at most their arithmetic mean. In our specific case, we have $m$ probabilities $p_1, \ldots, p_m$ and the inequality says:
+\begin{align*}
+	\left ( \prod_{i = 1}^m p_i \right )^{1 / m} 
+			& \leq \frac{\sum_{i = 1}^m p_i}{m} \\
+	\prod_{i = 1}^m p_i & \leq \left ( \frac{\sum_{i = 1}^m p_i}{m} \right )^m \\
+	                    & \leq \frac{\sum_{i = 1}^m p_i}{m}
+\end{align*}
+
+Again the expression $\sum_{h \in \hypclass_B} \Prtwo{S \sim \bar{\dist}_m}{\forall i \colon f(x_i) = h(x_i)}$ can be bounded from above by $|\hypclass| \cdot (1 - \epsilon)^m \leq |\hypclass| \cdot e^{- \epsilon m}$, as in the text.
