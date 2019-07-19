@@ -50,8 +50,9 @@ which gives us the sample size to be:
 	m  > \frac{\log (1 / \delta)}{p_{z^{*}}}
 \end{equation}
 
-Depending on the value of the error bound $\epsilon$, there are two situations to consider. If $\epsilon \geq p_{z^{*}}$, then even a sample of size one will guarantee 
-that the true error of $h_s$ is at most $\epsilon$. However if 
+Depending on the value of the error bound $\epsilon$, there are two situations
+to consider. If $\epsilon \geq p_{z^{*}}$, then even a sample of size one will
+guarantee that the true error of $h_s$ is at most $\epsilon$. However if 
 $\epsilon < p_{z^{*}}$ then we can then use this in~(\ref{3.2_samplecomp})
 to obtain: 
 \[
@@ -62,31 +63,66 @@ Thus the sample complexity is $\samplecomp{\epsilon}{\delta} =
 
 \section*{Exercise 3.3}
 
-Here $\dom = \Rtwo$ and $\range = \{0, 1\}$. The hypothesis class $\hypclass$ is the set of concentric circles in $\Rtwo$ centered at the origin. Assuming realizability, this implies that the true labeling function~$f = h_r$ for some $r \in \Rpos$. Thus $f$ assigns the label $1$ to any point $(x, y) $ that is within a distance of $r$ from the origin and $0$ otherwise. 
+Here $\dom = \Rtwo$ and $\range = \{0, 1\}$. The hypothesis class $\hypclass$
+is the set of concentric circles in $\Rtwo$ centered at the origin. Assuming
+realizability, this implies that the true labeling function~$f = h_r$ for some
+$r \in \Rpos$. Thus $f$ assigns the label $1$ to any point $(x, y) $ that is
+within a distance of $r$ from the origin and $0$ otherwise. 
 
-Given any sample~$S$, let $q \in \Rpos$ be the minimum real number such that all $(x, y) \in S_x$ with a label of $1$ are included in a circle centered at the origin with radius~$q$. The output of the ERM procedure is $h_q$. The empirical error of $h_q$ is zero, but it's true error is:
+Given any sample~$S$, let $q \in \Rpos$ be the minimum real number such that
+all $(x, y) \in S_x$ with a label of $1$ are included in a circle centered at
+the origin with radius~$q$. The output of the ERM procedure is $h_q$. The
+empirical error of $h_q$ is zero, but it's true error is:
 \[
 	\Prtwo{(x, y) \sim \dist}{(x, y) \in C_r \setminus C_q}
 \]
-where $C_r$ and $C_q$ are concentric circles centered at the origin with radius~$r$ and~$q$ respectively. Given an $\epsilon > 0$, let $t \in \Rpos$ be such that 
-$$\epsilon = \Prtwo{(x, y) \sim \dist}{(x, y) \in C_r \setminus C_t}.$$ 
-That is, we choose~$t$ so that the true error matches the probability of picking anything inside the ring described by the circles $C_r$ and $C_t$. Then the probability that we fail to choose any point in this ring in an i.i.d sample of size~$m$ is $(1 - \epsilon)^m \leq e^{- \epsilon m}$. This is the probability that we are handed a ``bad'' sample. Upper bounding this by $\delta$, we obtain that $m > \log(1 / \delta) / \epsilon$.
+where $C_r$ and $C_q$ are concentric circles centered at the origin with
+radius~$r$ and~$q$ respectively. Given an $\epsilon > 0$, let $t \in \Rpos$ be
+such that $$\epsilon = \Prtwo{(x, y) \sim \dist}{(x, y) \in C_r \setminus
+C_t}.$$ That is, we choose~$t$ so that the true error matches the probability
+of picking anything inside the ring described by the circles $C_r$ and $C_t$.
+Then the probability that we fail to choose any point in this ring in an i.i.d
+sample of size~$m$ is $(1 - \epsilon)^m \leq e^{- \epsilon m}$. This is the
+probability that we are handed a ``bad'' sample. Upper bounding this by
+$\delta$, we obtain that $m > \log(1 / \delta) / \epsilon$.
 
-Now a sample of size at least $\log(1 / \delta) / \epsilon$ has with probability at least $1 - \delta$ a point from $C_r \setminus C_t$, and hence the true error of the resulting ERM hypothesis is at most $\epsilon$. Hence the sample complexity is upper bounded by $\ceiling{\log(1 / \delta) / \epsilon}$.
+Now a sample of size at least $\log(1 / \delta) / \epsilon$ has with
+probability at least $1 - \delta$ a point from $C_r \setminus C_t$, and hence
+the true error of the resulting ERM hypothesis is at most $\epsilon$. Hence the
+sample complexity is upper bounded by $\ceiling{\log(1 / \delta) / \epsilon}$.
 
 \section*{Exercise 3.4}
 
-In this example, $\dom = \{0, 1\}^d$, $\range = \{0, 1\}$ and the hypothesis class~$\hypclass$ is the set of all conjunctions over $d$ Boolean variables. Since there are $\sum_{i = 0}^{d} {d \choose i} 2^i = 3^{d}$ Boolean conjunctions over $d$ Boolean variables, the hypothesis class is finite. Hence the sample complexity is 
+In this example, $\dom = \{0, 1\}^d$, $\range = \{0, 1\}$ and the hypothesis
+class~$\hypclass$ is the set of all conjunctions over $d$ Boolean variables.
+Since there are $\sum_{i = 0}^{d} {d \choose i} 2^i = 3^{d}$ Boolean
+conjunctions over $d$ Boolean variables, the hypothesis class is finite. Hence
+the sample complexity is 
 \begin{align*}
 	\samplecomp{\epsilon}{\delta} & = \ceiling{\frac{\log (\hypclass / \delta)}{\epsilon}} \\
 	& = \ceiling{\frac{d \cdot \log 3 + \log (1 / \delta)}{\epsilon}}
 \end{align*}
 
-To prove that the class $\hypclass$ is PAC-learnable, it suffices to exhibit a polynomial-time algorithm that implements the ERM rule. The algorithm outlined in Figure~\ref{fig:pac_boolean_conjunctions} starts with the formula $x_1 \land \bar{x}_1 \land \cdots \land x_d \land \bar{x}_d$. It runs through the positive examples in the sample $S$ and for each such example, it adjusts the formula so that it satisfies the assignment given in the example. At the end of this procedure, the modified formula satisfies all positive examples of $S$. The time taken is $O(d \cdot |S|)$. 
+To prove that the class $\hypclass$ is PAC-learnable, it suffices to exhibit a
+polynomial-time algorithm that implements the ERM rule. The algorithm outlined
+in Figure~\ref{fig:pac_boolean_conjunctions} starts with the formula $x_1 \land
+\bar{x}_1 \land \cdots \land x_d \land \bar{x}_d$. It runs through the positive
+examples in the sample $S$ and for each such example, it adjusts the formula so
+that it satisfies the assignment given in the example. At the end of this
+procedure, the modified formula satisfies all positive examples of $S$. The
+time taken is $O(d \cdot |S|)$. 
 
-What may not be immediately apparent is that the formula returned by the algorithm satisfies all negative examples too. This is clear when the sample $S$ has \emph{no} positive examples to begin with as every assignment to $x_1 \land \bar{x}_1 \land \cdots 
-            \land x_d \land \bar{x}_d$ results in a $0$. The point is that if there is even \emph{one} positive example, for each $1 \leq i \leq d$, the algorithm eliminates either $x_i$ or $\bar{x}_i$ depending on the assignment. That is, it eliminates half of the literals on seeing that one example and the modified formula $f$ contains the literals of the true labeling function along with possibly others. 
-Now the literals of the true labeling function produce a $0$ on all negative examples and so does $f$. Hence the sampling error of the function returned by the algorithm is $0$.   
+What may not be immediately apparent is that the formula returned by the
+algorithm satisfies all negative examples too. This is clear when the sample
+$S$ has \emph{no} positive examples to begin with as every assignment to $x_1
+\land \bar{x}_1 \land \cdots \land x_d \land \bar{x}_d$ results in a $0$. The
+point is that if there is even \emph{one} positive example, for each $1 \leq i
+\leq d$, the algorithm eliminates either $x_i$ or $\bar{x}_i$ depending on the
+assignment. That is, it eliminates half of the literals on seeing that one
+example and the modified formula $f$ contains the literals of the true labeling
+function along with possibly others.  Now the literals of the true labeling
+function produce a $0$ on all negative examples and so does $f$. Hence the
+sampling error of the function returned by the algorithm is $0$.   
 \begin{figure}
     \begin{algorithmic}[0] % The number tells where the line numbering should start
      \Procedure{PACBoolean}{$S$} 
@@ -114,7 +150,8 @@ Now the literals of the true labeling function produce a $0$ on all negative exa
 
 \section*{Exercise 3.5}
 
-The first thing to verify is that $\bar{\dist}_m$ is a distribution. This is easy since for all $x \in \dom$, $\bar{\dist}_m(x) \geq 0$ and 
+The first thing to verify is that $\bar{\dist}_m$ is a distribution. This is
+easy since for all $x \in \dom$, $\bar{\dist}_m(x) \geq 0$ and 
 \begin{align*}
 	\int_{x \in \dom} \bar{\dist}_m (x) \dx x & = \frac{1}{m} \sum_{i = 1}^m  
 	\int_{x \in \dom} \dist_i (x) \dx x \\
@@ -122,8 +159,13 @@ The first thing to verify is that $\bar{\dist}_m$ is a distribution. This is eas
 	& = 1.
 \end{align*}
 
-Fix an accuracy parameter $\epsilon > 0$. As in the text, define the set of bad hypotheses to be $\hypclass_{B} = \{h \in \hypclass \colon L_{\bar{\dist}_m, f} (h) > \epsilon\}$ and let $\mathcal{M} = \{S \vert_x \colon \exists h \in \hypclass_{B}, L_S(h) = 0\}$ be the set of misleading samples. Since we assume realizability, any hypothesis~$h_S$ output by the ERM procedure has $L_S(h_S) = 0$. Thus the event 
-$L_{\bar{\dist}_m, f} (h) > \epsilon$ and $L_S(h) = 0$ happens only when $S \vert_x \in \mathcal{M}$. Hence,
+Fix an accuracy parameter $\epsilon > 0$. As in the text, define the set of bad
+hypotheses to be $\hypclass_{B} = \{h \in \hypclass \colon L_{\bar{\dist}_m, f}
+(h) > \epsilon\}$ and let $\mathcal{M} = \{S \vert_x \colon \exists h \in
+\hypclass_{B}, L_S(h) = 0\}$ be the set of misleading samples. Since we assume
+realizability, any hypothesis~$h$ output by the ERM procedure has $L_S(h) =
+0$. Thus the event $L_{\bar{\dist}_m, f} (h) > \epsilon$ and $L_S(h) = 0$
+happens only when $S \vert_x \in \mathcal{M}$. Hence,
 \begin{align*}
 	\Prtwo{\forall i \colon x_i \sim \dist_i}{S \vert_x \in \mathcal{M}} 
 	& = \Prtwo{\forall i \colon x_i \sim \dist_i}{\bigcup_{h \in \hypclass_{B}} 
@@ -132,16 +174,17 @@ $L_{\bar{\dist}_m, f} (h) > \epsilon$ and $L_S(h) = 0$ happens only when $S \ver
     		\Prtwo{\forall i \colon x_i \sim \dist_i}{S \vert_x \colon L_S(h) = 0} \\
     & = \sum_{h \in \hypclass_B}  
     		\prod_{i = 1}^{m} \Prtwo{x_i \sim \dist_i}{f(x_i) = h(x_i)} \\
-    & \leq \sum_{h \in \hypclass_B} 
-    		\Prtwo{S \sim \bar{\dist}_m}{\forall i \colon f(x_i) = h(x_i)}
+    & =  \sum_{h \in \hypclass_B}  
+    		\prod_{i = 1}^{m} \left ( 1 - L_{\dist_i, f} (h) \right ) \\
+    & \leq \sum_{h \in \hypclass_B} \left [ 
+            \frac{1}{m} \sum_{i = 1}^{m} \left ( 1 - L_{\dist_i, f} (h) \right )
+        \right ]^m \\
+    & \leq \sum_{h \in \hypclass_B} \left [ 1 - L_{\bar{\dist}_{m}, f} (h)\right ]^m 
 \end{align*}
 
-This last inequality follows from the fact that the geomteric mean of a set of numbers is at most their arithmetic mean. In our specific case, we have $m$ probabilities $p_1, \ldots, p_m$ and the inequality says:
-\begin{align*}
-	\left ( \prod_{i = 1}^m p_i \right )^{1 / m} 
-			& \leq \frac{\sum_{i = 1}^m p_i}{m} \\
-	\prod_{i = 1}^m p_i & \leq \left ( \frac{\sum_{i = 1}^m p_i}{m} \right )^m \\
-	                    & \leq \frac{\sum_{i = 1}^m p_i}{m}
-\end{align*}
+The second-last inequality follows from the fact that the arithmetic mean of a set of numbers 
+is at most their geometric mean. The quantity 
+$\sum_{h \in \hypclass_B} [ 1 - L_{\bar{\dist}_{m}, f} (h)]^m$ 
+is at most $| \hypclass | \cdot (1 - \epsilon)^m $ which is at most 
+$| \hypclass | \cdot e^{- \epsilon m}$.
 
-Again the expression $\sum_{h \in \hypclass_B} \Prtwo{S \sim \bar{\dist}_m}{\forall i \colon f(x_i) = h(x_i)}$ can be bounded from above by $|\hypclass| \cdot (1 - \epsilon)^m \leq |\hypclass| \cdot e^{- \epsilon m}$, as in the text.
