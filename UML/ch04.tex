@@ -1,0 +1,27 @@
+\chapter{Learning via Uniform Convergence}
+
+\section*{Notes on Chapter 4}
+
+Given any hypothesis class $\hypclass$ and a domain $Z = \dom \times Y$, let
+$l$ be a loss function from $\hypclass \times Z \rightarrow \Rpos$. Finally let
+$\dist$ be a distribution over the domain $Z$. The risk of a hypothesis $h \in
+\hypclass$ is
+\[
+    L_{\dist}(h) = \Prtwo{z \sim \dist}{l(h, z)}
+\]
+A training set $S$ is $\epsilon$-representative w.r.t $Z$, $\hypclass$, $Z$ and
+$l$ if for all $h \in \hypclass$, $|L_S (h) - L_{\dist} (h)| \leq \epsilon$.
+Thus any hypothesis on an $\epsilon$-representative training set has an
+in-sample error that is close to their true risk. 
+
+If $S$ is $\epsilon$-representative, then the $\ERM_{\hypclass}(S)$ learning rule
+is guaranteed to return a good hypothesis. More specifically,
+\begin{lemma}
+Fix a hypothesis class $\hypclass$, a domain $Z = \dom \times Y$, a loss 
+function $l \colon \hypclass \times Z \rightarrow \Rpos$ and a distribution
+$\dist$ over the domain $Z$. Let $S$ be an $\epsilon/2$-representative sample. 
+Then any output $h_S$ of $\ERM_{\hypclass}(S)$ satisfies 
+\[
+    L_{\dist} (h_S) \leq \min_{h' \in \hypclass} L_{\dist}(h') + \epsilon 
+\]
+\end{lemma}

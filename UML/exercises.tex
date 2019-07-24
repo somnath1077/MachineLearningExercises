@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[11pt]{report}
 
 %-------------------------------------------------------
 % THEMES, COLORS
@@ -76,6 +76,8 @@ BoldItalicFont=courbi.ttf
 %-------------------------------------------------------
 
 
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem*{note}{Note}
@@ -94,6 +96,7 @@ BoldItalicFont=courbi.ttf
 \newcommand{\angular}[1]{\ensuremath{\left \langle #1 \right \rangle}}
 \newcommand{\dx}{\ensuremath{\text{d}}}
 \newcommand{\ind}{\ensuremath{\mathbf{1}}}
+\DeclareMathOperator{\ERM}{ERM}
 
 \title{Understanding Machine Learning: Exercises}
 
@@ -102,7 +105,10 @@ BoldItalicFont=courbi.ttf
 
 \begin{document}
 \maketitle
+\tableofcontents
 
+\setcounter{chapter}{2}
 \input{ch03}
+\input{ch04}
 \end{document}
 
