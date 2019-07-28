@@ -17,6 +17,7 @@ in-sample error that is close to their true risk.
 If $S$ is $\epsilon$-representative, then the $\ERM_{\hypclass}(S)$ learning
 rule is guaranteed to return a good hypothesis. More specifically,
 \begin{lemma}
+\label{lemma:epsilon_representative}
 Fix a hypothesis class $\hypclass$, a domain $Z = \dom \times Y$, a loss 
 function $l \colon \hypclass \times Z \rightarrow \Rpos$ and a distribution
 $\dist$ over the domain $Z$. Let $S$ be an $\epsilon/2$-representative sample. 
@@ -25,3 +26,25 @@ Then any output $h_S$ of $\ERM_{\hypclass}(S)$ satisfies
     L_{\dist} (h_S) \leq \min_{h' \in \hypclass} L_{\dist}(h') + \epsilon 
 \]
 \end{lemma}
+
+Therefore in order for the $\ERM$ rule to be an agnostic PAC-learner, all we
+need to do is to ensure that with probability of at least $1 - \delta$ over
+random choices of the training set, we end up with an
+$\epsilon/2$-representative training sample. This requirement is baked into 
+the definition of \emph{uniform convergence}. 
+
+\begin{definition}
+A hypothesis class $\hypclass$ is uniformly convergent wrt a domain $Z$ 
+and a loss function $l$, if there exists a function 
+$\USampleComp \colon (0, 1) \times (0, 1) \rightarrow \Nat$ such that 
+for all $\epsilon, \delta \in (0, 1)$ and all distributions $\dist$ on $Z$,
+if a sample of at least $\usamplecomp{\epsilon}{\delta}$ examples is chosen
+i.i.d from $\dist$, then with probability $1 - \delta$, the sample is 
+$\epsilon$-representative.   
+\end{definition}
+
+By Lemma~(\ref{lemma:epsilon_representative}), if $\hypclass$ is uniformly convergent
+with function $\USampleComp$, then it is agnostically PAC-learnable with sample 
+complexity $\samplecomp{\epsilon}{\delta} \leq \usamplecomp{\epsilon / 2}{\delta}$. In 
+this case, the $\ERM$ paradigm is a successful agnostic PAC-learner for $\hypclass$.
+ 
