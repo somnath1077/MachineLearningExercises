@@ -48,7 +48,7 @@ with function $\USampleComp$, then it is agnostically PAC-learnable with sample
 complexity $\samplecomp{\epsilon}{\delta} \leq \usamplecomp{\epsilon / 2}{\delta}$. In 
 this case, the $\ERM$ paradigm is a successful agnostic PAC-learner for $\hypclass$.
 
-\section*{Ecercise 4.1}
+\section*{Exercise 4.1}
 
 We first show that $(1) \Rightarrow (2)$. For each $n \in \Nat$, define 
 $\epsilon_n = 1 / 2^n$ and $\delta_n = 1 / 2^n$. Then by $(1)$, for each 
@@ -57,3 +57,38 @@ $\forall m \geq m(\epsilon_n, \delta_n)$,
 \[
     \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) > \epsilon_n} < \delta_n.
 \]
+We can then upper bound $\Exptwo{S \sim \dist^m}{L_{\dist}(h_s)}$ as follows:
+\begin{align*}
+\Exptwo{S \sim \dist^m}{L_{\dist} (h_s)} 
+& \leq \epsilon_n \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) \leq \epsilon_n} +
+    (1 - \epsilon_n) \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) > \epsilon_n} \\
+& \leq \epsilon_n \cdot (1 - \delta_n) + (1 - \epsilon_n) \cdot \delta_n \\
+& \leq \frac{1}{2^{n - 1}} - \frac{1}{2^{2n - 1}}.      
+\end{align*}
+The first inequality follows from the fact that the loss function is from 
+$\hypclass \times Z \rightarrow [0, 1]$, which allows us to upper bound the value of the error
+when $L_{\dist} (h_S) > \epsilon_n$ by $1 - \epsilon_n$. As $n \to \infty$, $m \to \infty$ 
+and $\Exptwo{S \sim \dist^m}{L_{\dist} (h_s)} \to 0$, proving that $(2)$ follows.
+
+We next show that $(2) \Rightarrow (1)$. Fix $\epsilon, \delta > 0$. Define 
+$\delta' = \epsilon \cdot \delta$. Since 
+$\lim_{m \to \infty} \Exptwo{S \sim \dist^m}{L_{\dist}(h_s)} = 0$, there exists $m_1(\delta')$ 
+such that for all $m \geq m_1(\delta')$ we have 
+$\Exptwo{S \sim \dist^m}{L_{\dist}(h_s)} < \delta'$. We now lower bound 
+$\Exptwo{S \sim \dist^m}{L_{\dist}(h_s)}$ as follows:
+\begin{align*}
+\Exptwo{S \sim \dist^m}{L_{\dist}(h_s)} 
+& = \int_{0}^{1} x \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) = x} \dx x \\
+& \geq \int_{\epsilon}^1 x \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) = x} \dx x \\
+& \geq \epsilon \cdot \int_{\epsilon}^1 \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) = x} \dx x \\
+& = \epsilon \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) \geq \epsilon}. 
+\end{align*}
+
+Choose $m(\epsilon, \delta) := m_1(\epsilon \cdot \delta)$. Then for all 
+$m \geq m(\epsilon, \delta)$, we have that 
+$\Exptwo{S \sim \dist^m}{L_{\dist}(h_s)} < \epsilon \cdot \delta$, from which it follows
+that:
+\[
+    \epsilon \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) \geq \epsilon} < 
+        \epsilon \cdot \delta. \]
+Condition $(1)$ follows from this.  

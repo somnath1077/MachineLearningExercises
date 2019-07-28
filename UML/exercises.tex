@@ -44,26 +44,27 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{fontspec}
+\usepackage{mathptmx}
+%\usepackage{fontspec}
 
-% Times New Roman
-\setromanfont[
-BoldFont=timesbd.ttf,
-ItalicFont=timesi.ttf,
-BoldItalicFont=timesbi.ttf,
-]{times.ttf}
-% Arial
-\setsansfont[
-BoldFont=arialbd.ttf,
-ItalicFont=ariali.ttf,
-BoldItalicFont=arialbi.ttf
-]{arial.ttf}
-% Courier New
-\setmonofont[Scale=0.90,
-BoldFont=courbd.ttf,
-ItalicFont=couri.ttf,
-BoldItalicFont=courbi.ttf
-]{cour.ttf}
+%% Times New Roman
+%\setromanfont[
+%BoldFont=timesbd.ttf,
+%ItalicFont=timesi.ttf,
+%BoldItalicFont=timesbi.ttf,
+%]{times.ttf}
+%% Arial
+%\setsansfont[
+%BoldFont=arialbd.ttf,
+%ItalicFont=ariali.ttf,
+%BoldItalicFont=arialbi.ttf
+%]{arial.ttf}
+%% Courier New
+%\setmonofont[Scale=0.90,
+%BoldFont=courbd.ttf,
+%ItalicFont=couri.ttf,
+%BoldItalicFont=courbi.ttf
+%]{cour.ttf}
 
 
 %\usepackage{helvet}
@@ -96,6 +97,8 @@ BoldItalicFont=courbi.ttf
 \newcommand{\Rtwo}{\ensuremath{\mathbf{R}^2}}
 \newcommand{\Prtwo}[2]{\text{Pr}_{#1} \left \{ #2 \right \}}
 \newcommand{\Prone}[1]{\text{Pr} \left \{ #1 \right \}}
+\newcommand{\Exptwo}[2]{\text{E}_{#1} \left [ #2 \right ]}
+\newcommand{\Expone}[1]{\text{E} \left [ #1 \right ]}
 \newcommand{\ceiling}[1]{\ensuremath{\left \lceil #1 \right \rceil}}
 \newcommand{\angular}[1]{\ensuremath{\left \langle #1 \right \rangle}}
 \newcommand{\dx}{\ensuremath{\text{d}}}
