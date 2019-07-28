@@ -47,4 +47,13 @@ By Lemma~(\ref{lemma:epsilon_representative}), if $\hypclass$ is uniformly conve
 with function $\USampleComp$, then it is agnostically PAC-learnable with sample 
 complexity $\samplecomp{\epsilon}{\delta} \leq \usamplecomp{\epsilon / 2}{\delta}$. In 
 this case, the $\ERM$ paradigm is a successful agnostic PAC-learner for $\hypclass$.
- 
+
+\section*{Ecercise 4.1}
+
+We first show that $(1) \Rightarrow (2)$. For each $n \in \Nat$, define 
+$\epsilon_n = 1 / 2^n$ and $\delta_n = 1 / 2^n$. Then by $(1)$, for each 
+$n \in \Nat$, there exists $m(\epsilon_n, \delta_n)$ such that 
+$\forall m \geq m(\epsilon_n, \delta_n)$, 
+\[
+    \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) > \epsilon_n} < \delta_n.
+\]
