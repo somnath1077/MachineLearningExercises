@@ -1,0 +1,37 @@
+\chapter{The No-Free-Lunch Theorem}
+
+\section*{Notes on Chapter 5}
+
+Consider a binary classification task on a domain $\dom$. Assume for the time
+being that $\dom$ is finite. In this case, the set $\hypclass$ of all functions
+from $\dom \rightarrow \{0, 1\}$ is finite and is hence PAC-learnable with
+sample complexity $\leq \frac{\log (|\hypclass| / \delta)}{\epsilon}$.  Since
+$|\hypclass| = 2^{|\dom|}$, the sample complexity is $\frac{|\dom| + \log (1 /
+\delta)}{\epsilon} \geq |\dom|$.
+
+The first question is what happens wrt PAC-learnability in this situation when
+we restrict the sample size? The No-Free-Lunch theorem shows that there exists
+a distribution $\dist$ over $\dom \times \{0, 1\}$ and a labelling function $f
+\colon \dom \rightarrow \{0, 1\}$ that learners who are  constrained to use at
+most $|\dom| / 2$ training examples ``cannot learn.'' There is another way to
+interpret the No-Free-Lunch theorem: if the domain $\dom$ is \emph{infinite},
+then the set of all functions from $\dom$ to $\{0, 1\}$ is not PAC-learnable no
+matter what the sample size.  
+
+Thus the No-Free-Lunch theorem has two interpretations, first, as a lower bound
+result on the sample complexity of PAC-learning and, second, as the inability
+to PAC-learn arbitrary hypothesis classes.    
+
+\begin{theorem}
+\label{thm:no_free_lunch}
+Consider the task of binary classification over the domain $\dom$ wrt the 0-1
+loss function. Let $A$ be a learning algorithm that is constrained to use at
+most $m \leq |\dom| / 2$ training examples. Then there exists a distribution
+$\dist$ over $\dom \times \{0, 1\}$ and a function $f \colon \dom \rightarrow
+\{0, 1\}$ such that 
+\begin{enumerate}
+    \item $L_{\dist} (f) = 0$
+    \item with probability of at least $1/7$ over the choice of training examples 
+        chosen iid from $\dist^{m}$, we have that $L_{\dist} (A(S)) \geq 1/ 8$.
+\end{enumerate}
+\end{theorem} 
