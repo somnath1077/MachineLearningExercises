@@ -7,7 +7,7 @@ being that $\dom$ is finite. In this case, the set $\hypclass$ of all functions
 from $\dom \rightarrow \{0, 1\}$ is finite and is hence PAC-learnable with
 sample complexity $\leq \frac{\log (|\hypclass| / \delta)}{\epsilon}$.  Since
 $|\hypclass| = 2^{|\dom|}$, the sample complexity is $\frac{|\dom| + \log (1 /
-\delta)}{\epsilon} \geq |\dom|$.
+\delta)}{\epsilon} = O(|\dom|)$.
 
 The first question is what happens wrt PAC-learnability in this situation when
 we restrict the sample size? The No-Free-Lunch theorem shows that there exists
