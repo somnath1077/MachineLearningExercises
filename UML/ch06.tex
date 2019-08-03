@@ -1,0 +1,53 @@
+\chapter{The VC-Dimension}
+
+\section*{Notes on Chapter 6}
+
+We know that finite hypothesis classes are agnostic PAC learnable (and hence
+PAC learnable).  What about infinite hypothesis classes? 
+
+\begin{example}[Threshold Functions]
+Let $\dom = [0, 1]$ and $\range = \{0, 1\}$. For $r \in [0, 1]$, define 
+$h_r \colon \dom \rightarrow \range $ as:
+\[
+    h_r(x) = \left \{ \begin{array}{ll} 
+                        0 & \text{if } x \leq r \\
+                        1 & \text{if } x > r
+                      \end{array}\right .
+\]
+Let $\hypclass_{\text{thr}}$ be the set of all threshold functions $h_r$ 
+for $r \in [0, 1]$. Since $\hypclass_{\text{thr}}$ is not finite, it is 
+not immediately obvious whether it is PAC learnable (in the realizable case). 
+
+Fix $\epsilon, \delta \in (0, 1)$. Let $f = h_s$ be the true labeling function
+where $s \in [0, 1]$ and let $\dist$ be the underlying distribution over the
+domain $[0, 1]$. Define $q_{\epsilon}$ to the smallest number in $[0, s]$ such
+that 
+\[
+    \dist \left \{ x \in [q_{\epsilon}, s] \right \} = \epsilon.
+\]
+
+Given a sample $S$, the ERM algorithm outputs $h_p$, where $p$ is the rightmost
+point in the sample with label $0$.  In particular, if the sample presented to
+the ERM algorithm contained a point from $[q_{\epsilon}, s]$, and if $p$ were the
+rightmost such point, the ERM algorithm will return $h_p$ and incur a loss of:
+\[
+    L_{\dist}(h_p) = \Prtwo{x \sim \dist}{x \in [p, s]} \leq \epsilon.
+\]  
+
+Thus the probability that the hypothesis $\ERM(S)$ output by the ERM algorithm 
+has a loss greater than $\epsilon$ on a sample $S$ of size $m$ is:
+\begin{align*}
+    \Prtwo{S \sim \dist^m}{L_{\dist} (\ERM(S)) > \epsilon} 
+     & = \Prtwo{S \sim \dist^m}{S \colon S|_x \cup [q_{\epsilon}, s] = \emptyset} \\     & \leq (1 - \epsilon)^m \\
+     & \leq e^{- \epsilon m}
+\end{align*}
+Setting the last expression to be at most $\delta$, we obtain that 
+$m > \frac{1}{\epsilon} \cdot \log \frac{1}{\delta}$. Hence if we have samples 
+of size at least $\frac{1}{\epsilon} \cdot \log \frac{1}{\delta}$, 
+\[
+    \Prtwo{S \sim \dist^m}{L_{\dist} (\ERM(S)) \leq \epsilon} \geq 1 - \delta, 
+\]
+which is the condition for PAC learnability.
+\end{example}
+
+
