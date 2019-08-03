@@ -3,7 +3,8 @@
 \section*{Notes on Chapter 6}
 
 We know that finite hypothesis classes are agnostic PAC learnable (and hence
-PAC learnable).  What about infinite hypothesis classes? 
+PAC learnable).  What about infinite hypothesis classes? The first example is 
+that of an infinite hypothesis class that is PAC learnable. 
 
 \begin{example}[Threshold Functions]
 Let $\dom = [0, 1]$ and $\range = \{0, 1\}$. For $r \in [0, 1]$, define 
@@ -38,7 +39,8 @@ Thus the probability that the hypothesis $\ERM(S)$ output by the ERM algorithm
 has a loss greater than $\epsilon$ on a sample $S$ of size $m$ is:
 \begin{align*}
     \Prtwo{S \sim \dist^m}{L_{\dist} (\ERM(S)) > \epsilon} 
-     & = \Prtwo{S \sim \dist^m}{S \colon S|_x \cup [q_{\epsilon}, s] = \emptyset} \\     & \leq (1 - \epsilon)^m \\
+     & = \Prtwo{S \sim \dist^m}{S \colon S|_x \cup [q_{\epsilon}, s] = \emptyset} \\     
+     & \leq (1 - \epsilon)^m \\
      & \leq e^{- \epsilon m}
 \end{align*}
 Setting the last expression to be at most $\delta$, we obtain that 
@@ -49,5 +51,30 @@ of size at least $\frac{1}{\epsilon} \cdot \log \frac{1}{\delta}$,
 \]
 which is the condition for PAC learnability.
 \end{example}
+
+The second example shows that there are infinite hypothesis classes that are not
+PAC learnable at least by using an ERM strategy.
+
+\begin{example}[Identity Function for Finite Sets] 
+Let $\dom = \Rone$ and $\range = \{0, 1\}$. Given a set $A \subseteq \dom$,
+define $h_A$ as follows:
+\[
+    h_A = \left \{ \begin{array}{ll} 
+                        1 & \text{if } x \in A \\
+                        0 & \text{otherwise}
+                   \end{array}\right .
+\]
+Let $\hypclass_{\text{finite}}$ be the set of all such functions $h_A$ for \emph{finite} 
+subsets $A$ of $\Rone$ along with the function $h_{1}$ which maps every point in $\Rone$ 
+to $1$. We claim that $\hypclass_{\text{finite}}$ is not PAC learnable by an ERM algorithm. 
+
+Consider the case when the true labeling function $f = h_1$, the all-ones
+function on $\Rone$ and $\dist$ is the uniform distribution on $[0, 1]$. Since
+$f \in \hypclass_{\text{finite}}$, we are assuming that the hypothesis class is
+realizable. Fix any sample size $m$. A sample $S$ in this case looks like
+$\{(x_1, 1), \ldots, (x_m, 1)\}$ and an obvious ERM strategy is to output $h_A$
+for $A = \{x_1, \ldots, x_m\}$. Clearly $L_S (h_A) = 0$ but $L_{\dist} (h_A) =
+1$.  
+\end{example} 
 
 
