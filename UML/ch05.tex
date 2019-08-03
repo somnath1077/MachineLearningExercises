@@ -34,4 +34,48 @@ $\dist$ over $\dom \times \{0, 1\}$ and a function $f \colon \dom \rightarrow
     \item with probability of at least $1/7$ over the choice of training examples 
         chosen iid from $\dist^{m}$, we have that $L_{\dist} (A(S)) \geq 1/ 8$.
 \end{enumerate}
-\end{theorem} 
+\end{theorem}
+
+
+\section*{Exercise 5.1}
+
+As the hint in the exercise suggests, let $\theta$ be a random variable that takes
+on values in the range $[0, 1]$ with expectation $\Expone{\theta} \geq 1 / 4$. We 
+want to show that $\Prone{\theta \geq 1 / 8} \geq 1 / 7$.
+
+We start with Markov's inequality: for any nonnegative random variable $X$ and $a > 0$,
+\[
+    \Prone{X \geq a} \leq \frac{\Expone{X}}{a}.
+\]
+This doesn't quite work when we substitute $\theta = X$ and $a = 1 / 8$. The
+trick here lies in observing that $\theta$ is bounded from above by $1$, and
+hence, if we define $\xi = 1 - \theta$ then $\xi$ is nonnegative and we can use
+Markov's inequality on $\xi$. Note that $\Expone{\xi} =  1 - \Expone{\theta}$,
+and hence by Markov's inequality,
+\begin{align*}
+    \Prone{\xi \geq a} & \leq \frac{\Expone{\xi}}{a} \\
+    1 -  \Prone{\xi \geq a} & \geq 1 - \frac{\Expone{\xi}}{a} \\
+    \Prone{\xi < a} & \geq 1 - \frac{1 - \Expone{\theta}}{a} \\
+    \Prone{1 - \theta < a} & \geq \frac{a - 1}{a} + \frac{\Expone{\theta}}{a} 
+\end{align*}   
+At this point, we use the fact that $\Expone{\theta} \geq 1 / 4$ to obtain:
+$\Prone{\theta > 1 - a} \geq \frac{a - 1}{a} + \frac{1}{4a}$. Now if we substitute 
+$1 - a =  1 / 8$, or $a = 7 / 8$, then we obtain:
+\[
+    \Prone{\theta > 1 / 8} \geq 1 / 7.  
+\] 
+
+\section*{Exercise 5.2}
+
+The first algorithm, the one that picks only blood pressure and the BMI as
+features, is simpler in the sense that the hypothesis class to be learned in
+simpler. We would expect that this algorithm has a higher bias but a lower
+variance when compared to the second algorithm which is more feature rich. The second
+algorithm would probably explain the conditions of a heart attack better as it
+includes relevant features such as age and the level of physical activity into
+account. We would expect the second algorithm to have a lower bias but a higher
+variance because there may be a tendency to overfit on any given sample.
+
+Since the sample complexity is higher for a more complicated hypothesis class, 
+if the sample size is ``small,'' then we might want to choose the first algorithm.
+If sample size is not a problem, then the second algorithm is probably better.  
