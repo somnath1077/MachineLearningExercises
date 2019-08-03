@@ -50,6 +50,11 @@ there exists a leraner which when given a sufficiently many training examples
 outputs a ``good enough'' hypothesis with high probability. The goodness of the 
 hypothesis is measured with respect to the best hypothesis of the class $\hypclass$. 
 
+Agnostic PAC learnability presents a \emph{stronger} requirement as one must 
+be able to learn \emph{any} distibution as distinct from PAC learnability where
+one must be able to learn distibutions for which the hypothesis class is realizable.
+As such, agnostic PAC learnability implies PAC learnability.
+ 
 \section*{Exercise 3.1}
 
 Let $\samplecomp{\epsilon}{\delta}$ be the sample complexity of a PAC-learnable hypothesis class 
