@@ -1,5 +1,55 @@
 \chapter{A Formal Learning Model}
 
+\section*{Notes on Chapter 3}
+
+The main concept introduced here is that of agnostic PAC learnability. It helps to 
+review the definitions of both PAC learnability with the realizability assumption
+and that of agnostic PAC learnability.
+
+\begin{definition}[PAC Learnability]
+Fix a domain $\dom$, a range $\range$ and let $\hypclass$ be a set of functions
+from $\dom \rightarrow \range$. The class $\hypclass$ is PAC learnable if there
+exists a function $\samplecomp \colon (0, 1) \times (0, 1) \rightarrow \Nat$
+and a learning algorithm $\algo$ such that the following holds: for all
+$\epsilon, \delta \in (0, 1)$, all labeling functions $f \colon \dom
+\rightarrow \range$ and all distributions $\dist$ over $\dom$ such that
+$\hypclass$ is realizable wrt $\dist$ and $f$, if $\algo$ is presented with a
+sample of at least $\SampleComp{\epsilon}{\delta}$ examples drawn iid from
+$\dist$, $\algo$ returns a hypothesis $h_S$ such that
+\[
+     \Prtwo{S \sim \dist^m}{L_{\dist, f} (h_S) \leq \epsilon} 
+        > 1 - \delta.
+\]
+\end{definition}
+
+In the definition above, the sample complexity function $\samplecomp$ must work
+for all possible labeling functions $f$ and distributions $\dist$ as long as
+$\hypclass$ is realizable (wrt this labeling function and distribution). A
+learning task is completely specified by $(\dom, \range, f, \dist)$.
+Intuitively, what this definition states is that a hypothesis class is PAC
+learnable if there exists a learner which when given a sufficiently large
+number of training examples can approximate the true labeling function $f$ with
+high probability for all learning tasks on the domain $\dom \times \range$ that
+satisfy the realizability condition. 
+
+\begin{definition}[Agnostic PAC Learnability]
+A class $\hypclass$ is PAC learnable if there exists a function $\samplecomp
+\colon (0, 1) \times (0, 1) \rightarrow \Nat$ and a learning algorithm $\algo$
+such that the following holds: for all $\epsilon, \delta \in (0, 1)$ and all
+distributions $\dist$ over $\dom \times \range$ such that, if $\algo$ is
+presented with a sample of at least $\SampleComp{\epsilon}{\delta}$ examples
+drawn iid from $\dist$, $\algo$ returns a hypothesis $h_S$ such that
+\[
+   \Prtwo{S \sim \dist^m}{L_{\dist} (h_S) \leq 
+        \min_{h' \in \hypclass} L_{\dist} (h') + \epsilon} > 1 - \delta.
+\]
+\end{definition}
+In the agnostic setting, a learning task is completely specified by the triplet 
+$(\dom, \range, \dist)$ and a hypothesis class is agnostic PAC learnable if 
+there exists a leraner which when given a sufficiently many training examples 
+outputs a ``good enough'' hypothesis with high probability. The goodness of the 
+hypothesis is measured with respect to the best hypothesis of the class $\hypclass$. 
+
 \section*{Exercise 3.1}
 
 Let $\samplecomp{\epsilon}{\delta}$ be the sample complexity of a PAC-learnable hypothesis class 
