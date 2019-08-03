@@ -43,10 +43,14 @@ i.i.d from $\dist$, then with probability $1 - \delta$, the sample is
 $\epsilon$-representative.   
 \end{definition}
 
-By Lemma~(\ref{lemma:epsilon_representative}), if $\hypclass$ is uniformly convergent
-with function $\USampleComp$, then it is agnostically PAC-learnable with sample 
-complexity $\samplecomp{\epsilon}{\delta} \leq \usamplecomp{\epsilon / 2}{\delta}$. In 
-this case, the $\ERM$ paradigm is a successful agnostic PAC-learner for $\hypclass$.
+By Lemma~(\ref{lemma:epsilon_representative}), if $\hypclass$ is uniformly
+convergent with function $\USampleComp$, then it is agnostically PAC-learnable
+with sample complexity $\samplecomp{\epsilon}{\delta} \leq
+\usamplecomp{\epsilon / 2}{\delta}$. In this case, the $\ERM$ paradigm is a
+successful agnostic PAC-learner for $\hypclass$.
+
+The other main result is that all finite hypothesis classes are uniformly convergent
+and hence agnostic PAC learnable. 
 
 \section*{Exercise 4.1}
 
