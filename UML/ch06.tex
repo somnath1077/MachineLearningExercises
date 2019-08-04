@@ -21,12 +21,12 @@ not immediately obvious whether it is PAC learnable (in the realizable case).
 
 Fix $\epsilon, \delta \in (0, 1)$. Let $f = h_s$ be the true labeling function
 where $s \in [0, 1]$ and let $\dist$ be the underlying distribution over the
-domain $[0, 1]$. Let $s_0 \in [0, s]$ and $s_1 \in [s, 1]$ be numbers such that  
+domain $[0, 1]$. Let $s_0 \in [0, s)$ and $s_1 \in [s, 1]$ be numbers such that  
 \[
-    \dist \left \{ x \in [s_0, s] \right \} = \epsilon =  
+    \dist \left \{ x \in [s_0, s) \right \} = \epsilon =  
     \dist \left \{ x \in [s, s_1] \right \}
 \]
-If $\dist \left \{ [0, s] \right \} < \epsilon$, then set $s_0 = 0$; similarly, 
+If $\dist \left \{ [0, s) \right \} < \epsilon$, then set $s_0 = 0$; similarly, 
 if $\dist \left \{ [s, 1] \right \} < \epsilon$, set $s_1 = 1$. Since $\dist$ 
 is a distribution, either $s_0 \neq 0$ or $s_1 \neq 1$. 
 
@@ -41,7 +41,7 @@ has a loss greater than $\epsilon$ on a sample $S$ of size $m$ is:
 \begin{align*}
     \Prtwo{S \sim \dist^m}{L_{\dist} (\ERM(S)) > \epsilon} 
      & = \Prtwo{S \sim \dist^m}{S \colon S|_x \cup [s_0, s_1] = \emptyset} \\
-     & \leq  \Prtwo{S \sim \dist^m}{S \colon S|_x \cup [s_0, s] = \emptyset} + 
+     & \leq  \Prtwo{S \sim \dist^m}{S \colon S|_x \cup [s_0, s) = \emptyset} + 
              \Prtwo{S \sim \dist^m}{S \colon S|_x \cup [s, s_1] = \emptyset} \\      
      & \leq 2 \cdot (1 - \epsilon)^m \\
      & \leq 2 \cdot e^{- \epsilon m}
