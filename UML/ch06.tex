@@ -28,7 +28,8 @@ domain $[0, 1]$. Let $s_0 \in [0, s)$ and $s_1 \in [s, 1]$ be numbers such that
 \]
 If $\dist \left \{ [0, s) \right \} < \epsilon$, then set $s_0 = 0$; similarly, 
 if $\dist \left \{ [s, 1] \right \} < \epsilon$, set $s_1 = 1$. Since $\dist$ 
-is a distribution, either $s_0 \neq 0$ or $s_1 \neq 1$. 
+is a distribution, it must place a probability mass of $\epsilon$ either to 
+the left or to the right of $s$. 
 
 Given a sample $S$, let $t_0 = \max \{t \colon (t, 0) \in S\}$ and $t_1 = \min
 \{t \colon (t, 1) \in S\}$. The ERM algorithm outputs $h_p$, where $p \in (t_0,
