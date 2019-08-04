@@ -21,31 +21,34 @@ not immediately obvious whether it is PAC learnable (in the realizable case).
 
 Fix $\epsilon, \delta \in (0, 1)$. Let $f = h_s$ be the true labeling function
 where $s \in [0, 1]$ and let $\dist$ be the underlying distribution over the
-domain $[0, 1]$. Define $q_{\epsilon}$ to the smallest number in $[0, s]$ such
-that 
+domain $[0, 1]$. Let $s_0 \in [0, s]$ and $s_1 \in [s, 1]$ be numbers such that  
 \[
-    \dist \left \{ x \in [q_{\epsilon}, s] \right \} = \epsilon.
+    \dist \left \{ x \in [s_0, s] \right \} = \epsilon =  
+    \dist \left \{ x \in [s, s_1] \right \}
 \]
+If $\dist \left \{ [0, s] \right \} < \epsilon$, then set $s_0 = 0$; similarly, 
+if $\dist \left \{ [s, 1] \right \} < \epsilon$, set $s_1 = 1$. Since $\dist$ 
+is a distribution, either $s_0 \neq 0$ or $s_1 \neq 1$. 
 
-Given a sample $S$, the ERM algorithm outputs $h_p$, where $p$ is the rightmost
-point in the sample with label $0$.  In particular, if the sample presented to
-the ERM algorithm contained a point from $[q_{\epsilon}, s]$, and if $p$ were the
-rightmost such point, the ERM algorithm will return $h_p$ and incur a loss of:
-\[
-    L_{\dist}(h_p) = \Prtwo{x \sim \dist}{x \in [p, s]} \leq \epsilon.
-\]  
+Given a sample $S$, let $t_0 = \max \{t \colon (t, 0) \in S\}$ and $t_1 = \min
+\{t \colon (t, 1) \in S\}$. The ERM algorithm outputs $h_p$, where $p \in (t_0,
+t_1)$.  In particular, if the sample presented to the ERM algorithm contained a
+point from $[s_0, s_1]$, the hypothesis $h_p$ returned by the ERM algorithm
+will incur a loss of $L_{\dist}(h_p) \leq \epsilon$.
 
 Thus the probability that the hypothesis $\ERM(S)$ output by the ERM algorithm 
 has a loss greater than $\epsilon$ on a sample $S$ of size $m$ is:
 \begin{align*}
     \Prtwo{S \sim \dist^m}{L_{\dist} (\ERM(S)) > \epsilon} 
-     & = \Prtwo{S \sim \dist^m}{S \colon S|_x \cup [q_{\epsilon}, s] = \emptyset} \\     
-     & \leq (1 - \epsilon)^m \\
-     & \leq e^{- \epsilon m}
+     & = \Prtwo{S \sim \dist^m}{S \colon S|_x \cup [s_0, s_1] = \emptyset} \\
+     & \leq  \Prtwo{S \sim \dist^m}{S \colon S|_x \cup [s_0, s] = \emptyset} + 
+             \Prtwo{S \sim \dist^m}{S \colon S|_x \cup [s, s_1] = \emptyset} \\      
+     & \leq 2 \cdot (1 - \epsilon)^m \\
+     & \leq 2 \cdot e^{- \epsilon m}
 \end{align*}
 Setting the last expression to be at most $\delta$, we obtain that 
-$m > \frac{1}{\epsilon} \cdot \log \frac{1}{\delta}$. Hence if we have samples 
-of size at least $\frac{1}{\epsilon} \cdot \log \frac{1}{\delta}$, 
+$m > \frac{1}{\epsilon} \cdot \log \frac{2}{\delta}$. Hence if we have samples 
+of size at least $\frac{1}{\epsilon} \cdot \log \frac{2}{\delta}$, 
 \[
     \Prtwo{S \sim \dist^m}{L_{\dist} (\ERM(S)) \leq \epsilon} \geq 1 - \delta, 
 \]
