@@ -82,6 +82,15 @@ for $A = \{x_1, \ldots, x_m\}$. Clearly $L_S (h_A) = 0$ but $L_{\dist} (h_A) =
 \end{example} 
 
 The previous examples show that the size of the hypothesis class does not characterize
-whether it is learnable. This characterization is provided by the so-called VC-dimension. 
+whether it is learnable. This characterization is provided by the so-called VC-dimension.
 
+\section*{Exercise 6.1}
+
+Let $\hypclass$ be a set of functions from $\dom$ to $\{0, 1\}$ and
+let $\hypclass' \subseteq \hypclass$. Assume that $\vcdim (\hypclass') > \vcdim
+(\hypclass)$.  Then there exists a set $C \subseteq \dom$ that is shattered by
+$\hypclass'$ but not by $\hypclass$.  This implies that for all $g \colon C
+\rightarrow \{0, 1\}$ there exists $h' \in \hypclass'$ such that $g(x) = h'(x)$
+for all $x \in C$. Since $h' \in \hypclass$, this implies that $\hypclass$
+shatters $C$, a contradiction.
 
