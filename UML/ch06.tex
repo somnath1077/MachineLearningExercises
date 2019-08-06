@@ -94,3 +94,38 @@ $\hypclass'$ but not by $\hypclass$.  This implies that for all $g \colon C
 for all $x \in C$. Since $h' \in \hypclass$, this implies that $\hypclass$
 shatters $C$, a contradiction.
 
+\section*{Exercise 6.2}
+
+In this exercise, $\dom$ is finite and $k \leq |\dom| =: n$. 
+
+\subsection*{6.2.1} 
+
+We claim that 
+\[\vcdim(\hypclass_{= k}) 
+= \left \{ \begin{array}{ll} 
+                k     & \text{if } k \leq \floor{n / 2} \\
+                n - k & \text{if } k > \floor{n / 2} 
+           \end{array} \right .
+\]
+
+Suppose that $k \leq \floor{n / 2}$ and consider a subset $C \subset \dom$ 
+of size $k + 1$. Then the all-one function on $C$ cannot be 
+extended to a function in $\hypclass_{= k}$ as it maps $k + 1$ elements
+of $\dom$ to $1$. Hence $\vcdim(\hypclass_{= k}) \leq k$. If $|C| = k$ 
+and $g \colon C \rightarrow \{0, 1\}$ that maps $k'$ elements of $C$ to $1$,
+we can extend $g$ to a function on $\dom$ that maps exactly $k$ elements of 
+$\dom$ to $1$.  This shows that $\vcdim(\hypclass_{= k}) \geq k$. Hence 
+$\vcdim{\hypclass_{= k}} = k$.
+
+Now consider the case $k > \floor{n / 2}$. If $C$ is subset of size
+$n - k + 1$, then the all-zero function on $C$ cannot be extended 
+to a function in $\hypclass_{= k}$. This happens because there are only 
+$n - (n - k + 1) < k$ elements in $\dom \setminus C$. Hence 
+$\vcdim(\hypclass_{= k}) \leq n - k$. If $|C| = n - k$ and 
+$g \colon C \rightarrow \{0, 1\}$ that assigns $1$ to $k'$ 
+elements of $C$, then we can extend $g$ to a function in 
+$\hypclass_{= k}$ as we have at least $k - k'$ elements in 
+$\dom \setminus C$ which we can map to $1$. This shows that 
+$\vcdim(\hypclass_{= k}) \geq n - k$. Hence 
+$\vcdim(\hypclass_{= k}) = n - k$.
+  
