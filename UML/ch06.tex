@@ -128,4 +128,36 @@ $\hypclass_{= k}$ as we have at least $k - k'$ elements in
 $\dom \setminus C$ which we can map to $1$. This shows that 
 $\vcdim(\hypclass_{= k}) \geq n - k$. Hence 
 $\vcdim(\hypclass_{= k}) = n - k$.
+
+\subsection*{6.2.2}
+
+First observe that if $k \geq \floor{n / 2}$, then $\hypclass_{\leq k}$ includes 
+all possible functions from $\dom$ to $\{0, 1\}$. This is because any function 
+$g \colon \dom \rightarrow \{0, 1\}$ maps at most half the elements of 
+$\dom$ to either $0$ or $1$ and hence is in $\hypclass_{\leq k}$. 
+Hence in this case every subset of $\dom$ is shattered by $\hypclass_{\leq k}$
+and $\vcdim (\hypclass_{\leq k}) = n$.
+
+If $k < \floor{n / 2}$, then we claim that  $\vcdim (\hypclass_{\leq k}) = 2k + 1$.
+Let $C \subset \dom$ of size $2k + 1$ and consider a function 
+$g \colon C \rightarrow \{0, 1\}$. Such a function maps at most $k$ elements 
+to either $0$ or $1$. Suppose that it maps at most $k$ elements to $1$. Extend
+$g$ to a function on $\dom$ by mapping all elements of $\dom \setminus C$ to $0$. 
+This extension is a function on $\dom$ that maps at most $k$ elements to $1$
+and hence is an element of $\hypclass_{\leq k}$. The reasoning is similar had $g$ 
+mapped at most $k$ elements to $0$. This show that 
+$\vcdim(\hypclass_{\leq k}) \geq 2k + 1$. 
+
+Now suppose that $C \subset \dom$ is of size $2k + 2$. Consider a map  
+that assigns half the elements of $C$ to $0$ and the other half to $1$. 
+This map cannot be extended to a function in $\hypclass_{\leq k}$. This 
+proves that $\vcdim (\hypclass_{\leq k}) \leq 2k + 1$. Thus:
+\[\vcdim(\hypclass_{\leq k}) 
+= \left \{ \begin{array}{ll} 
+                2k + 1  & \text{if } k < \floor{n / 2} \\
+                n       & \text{if } k \geq \floor{n / 2} 
+           \end{array} \right .
+\]
+
+
   
