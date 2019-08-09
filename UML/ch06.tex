@@ -178,7 +178,7 @@ This shows that every function from $C$ to $\{0, 1\}$ can be extended to a funct
 in $\parity{n}$. Hence $\vcdim (\parity{n}) \geq n$ and together with the upper 
 bound for the VC-dimension, this implies that $\vcdim (\parity{n}) = n$.
 
-\section*{Exercise 6.4}
+\section*{Exercise 6.5}
 
 Let $\rect{d}$ be the set of axis-aligned rectangles in $\Rone^{d}$. A function
 in $\rect{d}$ is defined via $2d$ parameters $(a_1^1, a_2^1, a_1^2, a_2^2,
@@ -206,6 +206,16 @@ necessarily contain the $2d + 1$st point. Hence a function that maps these $2d$
 points to $1$, and the $2d + 1$st point to $0$ cannot be extended in
 $\rect{d}$, proving that the set cannot be shattered. 
 
+
+\section*{Exercise 6.7}
+
+\subsection*{6.7.1} Let $\hypclass$ be the set of all threshold functions $h_a$
+for $a \in [0, 1]$. Then $\vcdim (\hypclass) = 1$ and  $|\hypclass| = \infty$.
+
+\subsection*{6.7.2} Define $\hypclass$ to consist of the single threshold function
+$h_{1/2}$. In this case, $\log_2 |\hypclass| = 0$ and if $a \in [0, 1]$, the 
+function $g(a) = 1 - h_{1/2}(a)$ cannot be extended in $\hypclass$. Hence the 
+$\vcdim (\hypclass) = 0$, matching the upper bound.
   
   
 
