@@ -159,5 +159,24 @@ proves that $\vcdim (\hypclass_{\leq k}) \leq 2k + 1$. Thus:
            \end{array} \right .
 \]
 
+\section*{Exercise 6.3}
+
+Since $|\parity{n}| = 2^n$, using the upper bound on the VC-dimension, 
+\[\vcdim (\parity{n}) \leq \log_2 |\parity{n}| = n.\]
+We claim that $\vcdim (\parity{n}) = n$. Let $C = \{c_1, \ldots, c_n\} \subset
+\dom$ be the set of standard basis vectors such that $c_i$ is the basis 
+vector with a $1$ in the $i$th position and $0$'s
+elsewhere. Let $(b_1, \ldots, b_n)$ be a function from $C$ to $\{0, 1\}$.
+Construct an index set $I \subseteq \{1, \ldots, n\}$ as follows: 
+start with $I \leftarrow \emptyset$; for $1 \leq i \leq n$, if $b_i = 1$ 
+then $I \leftarrow I \cup \{i\}$. 
+
+We claim that $h_I(c_j) = b_j$ for all $1 \leq j \leq n$. For if $b_j = 0$, 
+then $j \notin I$ and $\sum_{i \in I} c_{j i} = 0 \Mod{2}$; if $b_j = 1$,
+then $j \in I$ and $\sum_{i \in I} c_{j i} = 1 \Mod{2}$, proving the claim. 
+This shows that every function from $C$ to $\{0, 1\}$ can be extended to a function
+in $\parity{n}$. Hence $\vcdim (\parity{n}) \leq n$ and together with the upper 
+bound for the VC-dimension, this implies that $\vcdim (\parity{n}) = n$. 
+  
 
   

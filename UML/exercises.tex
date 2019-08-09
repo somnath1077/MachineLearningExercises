@@ -45,7 +45,7 @@
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
 %\usepackage{fontspec}
-\usepackage{mathpazo}
+%\usepackage{mathpazo}
 
 %% Times New Roman
 %\setromanfont[
@@ -72,6 +72,10 @@
 % DEFFINING AND REDEFINING COMMANDS
 %-------------------------------------------------------
 \newcommand\var{\texttt}
+\usepackage{amssymb}
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
 %-------------------------------------------------------
 % INFORMATION IN THE TITLE PAGE
 %-------------------------------------------------------
@@ -91,6 +95,7 @@
 \newcommand{\vcdim}{\ensuremath{\text{VCdim}}}
 \newcommand{\algo}{\ensuremath{\mathcal{A}}}
 \newcommand{\hypclass}{\ensuremath{\mathcal{H}}}
+\newcommand{\parity}[1]{\ensuremath{\mathcal{H}_{#1\text{-parity}}}}
 \newcommand{\dom}{\ensuremath{\mathcal{X}}}
 \newcommand{\range}{\ensuremath{\mathcal{Y}}}
 \newcommand{\Nat}{\ensuremath{\mathbf{N}}}
@@ -107,7 +112,9 @@
 \newcommand{\floor}[1]{\ensuremath{\left \lfloor #1 \right \rfloor}}
 \newcommand{\dx}{\ensuremath{\text{d}}}
 \newcommand{\ind}{\ensuremath{\mathbf{1}}}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
 \DeclareMathOperator{\ERM}{ERM}
+
 
 \title{Understanding Machine Learning: Exercises}
 
