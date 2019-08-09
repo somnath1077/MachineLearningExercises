@@ -246,4 +246,22 @@ simply $\bar{b}_i$, since the $j$th column of the matrix is $(\bar{b}_1, \ldots,
 \bar{b}_d)$. Hence the right-hand side of the equation is $1 - \bar{b}_i = b_i$. 
 This shows that every boolean function defined on $C$ can be extended in $\hypclass$. Since
 one can do this for sets of any size $d$, $\vcdim (\hypclass) = \infty$. 
-  
+ 
+
+\section*{Exercise 6.9}
+
+The VC-dimension of the class of signed intervals. Let $c_1, c_2, c_3$ be any
+three reals with $c_1 < c_2 < c_3$. We wish to show that for any function from
+$\{c_1, c_2, c_3\}$ to $\{-1, 1\}$ can be extended to a function in
+$\hypclass$.  The only contentious candidates are $(1, -1, 1)$ and $(-1, 1,
+-1)$. The first function $(1, -1, 1)$ can be extended to $h_{b_1, b_2, -1}$,
+where $b_1$ and $b_2$ are two reals such that $c_1 < b_1 < c_2$ and $c_2 < b_2
+< c_3$. Similarly, the second function $(-1, 1, -1)$ can be extended to
+$h_{b_1, b_2, +1}$. This shows that $\vcdim (\hypclass) \geq 3$. 
+
+Now consider any set of four reals $c_1, c_2, c_3, c_4$ with $c_1 < c_2 < c_3 <
+c_4$.  Then the function $(1, -1, 1, -1)$ cannot be extended to any function in
+$\hypclass$.  For such a function to exists, it would have to map an interval
+around $c_2$ to $-1$ and the rest of the reals to $1$ and that also map $c_4$
+to $1$. This shows that $\vcdim (\hypclass) \leq 3$ and hence 
+$\vcdim(\hypclass) = 3$.  
