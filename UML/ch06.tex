@@ -176,7 +176,37 @@ then $j \notin I$ and $\sum_{i \in I} c_{j i} = 0 \Mod{2}$; if $b_j = 1$,
 then $j \in I$ and $\sum_{i \in I} c_{j i} = 1 \Mod{2}$, proving the claim. 
 This shows that every function from $C$ to $\{0, 1\}$ can be extended to a function
 in $\parity{n}$. Hence $\vcdim (\parity{n}) \geq n$ and together with the upper 
-bound for the VC-dimension, this implies that $\vcdim (\parity{n}) = n$. 
+bound for the VC-dimension, this implies that $\vcdim (\parity{n}) = n$.
+
+\section*{Exercise 6.4}
+
+Let $\rect{d}$ be the set of axis-aligned rectangles in $\Rone^{d}$. A function
+in $\rect{d}$ is defined via $2d$ parameters $(a_1^1, a_2^1, a_1^2, a_2^2,
+\ldots, a_1^d, a_2^d)$, where for $1 \leq i \leq d$, $a_1^i \leq a_2^i$ are the
+boundaries of the rectangle in dimension~$i$. 
+
+We claim that $\rect{d} = 2d$. Consider a set of $2d$ points that correspond to 
+the centres of the faces of an axis-aligned rectangle in $\Rone^d$. For example,
+if the faces of the rectangle are defined by the equations:
+$x_i  = a_1^i$ and  $x_i = a_2^i$ for $1 \leq i \leq d$,
+then the centres of the face defined by $x_1 = a_1^1$ and $x_1 = a_2^i$ are 
+$( a_1^1,  \frac{a_1^2 + a_2^2}{2},  \ldots, \frac{a_1^d + a_2^d}{2})$ 
+and $( a_2^1,  \frac{a_1^2 + a_2^2}{2},  \ldots, \frac{a_1^d + a_2^d}{2})$. 
+Similarly, there are two points for each of the remaining dimensions, with a 
+total of $2d$ points. Call this set of points $C$. Such a set $C$ will be shattered
+by $\rect{d}$. 
+
+On the other hand, no subset $C'$ of $\Rone^d$ of size $2d + 1$ can be
+shattered by $\rect{d}$. The reasoning is similar to that given in the book.
+For each dimension~$i$ select a point~$c_{\text{min}}^i \in C'$ whose $i$th
+co-ordinate is a minimum among all points in $C'$; also select
+$c_{\text{max}}^i \in C'$ whose $i$th co-ordinate is a maximum. This procedure
+yields $2d$ points and the rectangle that contains all these $2d$ points must
+necessarily contain the $2d + 1$st point. Hence a function that maps these $2d$
+points to $1$, and the $2d + 1$st point to $0$ cannot be extended in
+$\rect{d}$, proving that the set cannot be shattered. 
+
+  
   
 
   
