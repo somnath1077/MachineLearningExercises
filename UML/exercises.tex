@@ -37,6 +37,16 @@
 \definecolor{UBCblue}{rgb}{0.04706, 0.13725, 0.26667} % UBC Blue (primary)
 \definecolor{UBCgrey}{rgb}{0.3686, 0.5255, 0.6235} % UBC Grey (secondary)
 
+%\usepackage{helvet}
+%-------------------------------------------------------
+% DEFFINING AND REDEFINING COMMANDS
+%-------------------------------------------------------
+\newcommand\var{\texttt}
+\usepackage{amssymb}
+%\let\oldemptyset\emptyset
+%\let\emptyset\varnothing
+\renewcommand{\emptyset}{\varnothing}
+
 %-----------------------------------------------------------------------------
 % FONT PACKAGES
 %-----------------------------------------------------------------------------
@@ -44,9 +54,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-%\usepackage{fontspec}
+\usepackage{fontspec}
 %\usepackage{mathpazo}
-
+%\usepackage{newtxtext}
+%\usepackage{newtxmath}
 %% Times New Roman
 %\setromanfont[
 %BoldFont=timesbd.ttf,
@@ -67,14 +78,6 @@
 %]{cour.ttf}
 
 
-%\usepackage{helvet}
-%-------------------------------------------------------
-% DEFFINING AND REDEFINING COMMANDS
-%-------------------------------------------------------
-\newcommand\var{\texttt}
-\usepackage{amssymb}
-\let\oldemptyset\emptyset
-\let\emptyset\varnothing
 
 %-------------------------------------------------------
 % INFORMATION IN THE TITLE PAGE

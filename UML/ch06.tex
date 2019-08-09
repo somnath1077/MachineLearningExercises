@@ -218,5 +218,32 @@ function $g(a) = 1 - h_{1/2}(a)$ cannot be extended in $\hypclass$. Hence the
 $\vcdim (\hypclass) = 0$, matching the upper bound.
   
   
+\section*{Exercise 6.8}
 
+Fix a $d \in \Rone$. We will construct a set $C = \{x_1, 
+\ldots, x_d\} \subset [0, 1]$ and show that for any boolean function $(b_1, \ldots, b_d)$ 
+on $C$, there exists $\theta \in \Rone$ such that: $\ceiling{\sin (\theta x_i) } = b_i$ 
+for all $1 \leq i \leq d$. In particular, we will construct the binary representations
+of the elements of $C$. Consider a matrix with $d$ rows and $2^d + 1$ columns, where 
+the $i$th row represents the number $x_i$. Fill in the first $2^d$ columns of the matrix
+(from top to bottom) with the binary representations of the numbers $0, 1, \ldots, 2^d - 1$.
+Finally fill in the last column with ones. The number $x_i = 0.a_1a_2, \ldots, 
+a_{2^d}a_{2^d + 1}$, where $a_1, a_2, \ldots, a_{2^d}, a_{2^d + 1}$ are the elements
+of the $i$th row of the matrix. This completes the construction of the $d$ numbers from 
+$[0, 1]$.
+
+From the way this matrix has been constructed, it is clear that the bit patterns in the 
+first $2^d$ columns are all the elements of $\{0, 1\}^d$. Let $(b_1, \ldots, b_d)$ be any 
+boolean function defined on the set $C$. Then the bitwise complement $(\bar{b}_1, \ldots, 
+\bar{b}_d)$ of the pattern $(b_1, \ldots, b_d)$ is in some column $j$ of the matrix 
+created in the last paragraph, where $1 \leq j \leq 2^d$. Define $\theta = 2^j \pi$, and
+using the hint provided in the text, we obtain that  for all $1 \leq i \leq d$:
+\[
+    \ceiling{\sin(2^j \pi x_i)} = 1 - B_j(x_i),  
+\]  
+where $B_j(x_i)$ is the $j$th bit in the binary representation of $x_i$. Now this bit is 
+simply $\bar{b}_i$, since the $j$th column of the matrix is $(\bar{b}_1, \ldots, 
+\bar{b}_d)$. Hence the right-hand side of the equation is $1 - \bar{b}_i = b_i$. 
+This shows that every boolean function defined on $C$ can be extended in $\hypclass$. Since
+one can do this for sets of any size $d$, $\vcdim (\hypclass) = \infty$. 
   
