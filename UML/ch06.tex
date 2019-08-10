@@ -206,6 +206,75 @@ necessarily contain the $2d + 1$st point. Hence a function that maps these $2d$
 points to $1$, and the $2d + 1$st point to $0$ cannot be extended in
 $\rect{d}$, proving that the set cannot be shattered. 
 
+\section*{Exercise 6.6}
+
+\begin{enumerate}
+    \item $|\conj{d}| \leq 3^d + 1$. One way of counting the number of boolean 
+        conjunctions is to first select a set of indices from among 
+        $\{1, \ldots, d\}$ and then from among these select either a positive 
+        or the negative version of the variables. When we select no indices, 
+        we obtain the all-positive hypothesis. The number of such conjunctions
+        is:
+        \[
+                \sum_{i = 0}^{d} 2^i = 3^d.
+        \] 
+        This does not include the all-negative conjunction. Hence the \emph{total}
+        number of conjunctions is $3^d + 1$, which is a tight upper  bound for 
+        $|\conj{d}|$.
+
+    \item $\vcdim (\conj{d}) \leq 3 \cdot \log_2 d$. This immediately follows 
+        from the upper bound in the text.
+
+    \item Let $\basisvec_1, \ldots, \basisvec_d$ be the standard basis vectors of
+        $\{0, 1\}^d$. Let $(b_1, \ldots, b_d)$ be a mapping from this set of 
+        basis vectors to $\{0, 1\}$. Note that there are only $2^d$ such functions 
+        and each such function can actually be represented by a boolean conjunction
+        on $d$ variables. This means that no matter which function 
+        $(b_1, \ldots, b_d)$ we select, there exists a function in $\conj{d}$ 
+        whose restriction to the basis vectors is precisely $(b_1, \ldots, b_d)$. 
+        In order to be able to discover that function, we can use the 
+        algorithm that implements the ERM 
+        rule (as in Exercise 3.4) using the basis vectors as the sample set. 
+    
+        This algorithm starts with the conjunction: $x_1 \wedge \bar{x}_1 \wedge 
+        \cdots \wedge x_{d} \wedge \bar{x}_d$. It then runs through the basis 
+        vectors that have been mapped to $1$ by $(b_1, \ldots, b_d)$ and drops 
+        all literals from the conjunction which would otherwise cause it to 
+        evaluate to $0$. The conjunction output by the algorithm was proved to 
+        have an in-sample loss of $0$, which means that it matches the 
+        function $(b_1, \ldots, b_d)$. Thus the set of basis vectors is 
+        shattered by $\conj{d}$ and hence $\vcdim (\conj{d}) \geq d$.
+
+    \item $\vcdim (\conj{d}) \leq d$. Suppose that $C = \{c_1, \ldots, c_{d + 1}\}$
+        is shattered by $\conj{d}$. This implies that every function from $C$ to 
+        $\{0, 1\}$ can be extended to a function in $\conj{d}$. Consider the 
+        $d + 1$ functions $g_1, \ldots, g_{d + 1}$, where $g_i$ maps $c_i$ to $0$ 
+        and all $c_j$ to $1$ for $j \neq i$. Let $h_1, \ldots, h_{d + 1}$ be the 
+        extensions of these functions in $\conj{d}$. Then for each $i \in 
+        \{1, \ldots, d+ 1\}$, there exists a literal $l_i$ in $h_i$ such that 
+        $l_i$ is false for $c_i$ but true for all $c_j$, $j \neq i$. Furthermore, 
+        each $h_i$ has at most $d$ literals since none of these functions is  
+        the all-zero function. By the Pigeon Hole Principle, there exists $i$, 
+        such that $1 \leq i \leq d$ and $l_i$ and $l_{d + 1}$ use the same variable, 
+        say $x_k$. 
+
+        Since $h_i$ maps $c_i$ to $0$ and $c_{d + 1}$ to $1$ and $h_{d + 1}$ maps
+        these the other way around, it cannot be that both $l_i$ and $l_{d + 1}$ 
+        use $x_k$ in the same form. That is, either $l_i = x_k$ and $l_{d+1} = 
+        \bar{x}_k$ or vice versa. Consider the effect of the literals on the 
+        bit strings in $C \setminus \{c_i, c_{d+1}\}$. Both map each bit string to 
+        $1$, an impossibility since $l_i$ and $l_{d + 1}$ will have the opposite 
+        effect on each of these bit strings too. This contradition shows that the 
+        assumption that there exist functions $h_1, \ldots, h_{d + 1}$ that extend 
+        $g_1, \ldots, g_{d + 1}$ is incorrect. Thus $C$ is not shattered by $\conj{d}$
+        and $\vcdim (\conj{d}) \leq d$. 
+
+    \item $\vcdim (\mconj{d}) = d$. Since $\mconj{d} \subseteq \conj{d}$, we know 
+        that $\vcdim (\mconj{d}) \leq d$. Now consider $C = \{c_1, \ldots, c_d\} 
+        \subset \{0, 1\}^d$, where $c_i$ has ones in all locations except the $i$th. 
+            
+ 
+\end{enumerate}
 
 \section*{Exercise 6.7}
 

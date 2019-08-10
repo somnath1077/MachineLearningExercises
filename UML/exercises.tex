@@ -53,8 +53,11 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+\usepackage{sectsty}
+\allsectionsfont{\mdseries}
+%\usepackage{fontspec}
+\usepackage{ccfonts}
 \usepackage[T1]{fontenc}
-\usepackage{fontspec}
 %\usepackage{mathpazo}
 %\usepackage{newtxtext}
 %\usepackage{newtxmath}
@@ -100,6 +103,8 @@
 \newcommand{\hypclass}{\ensuremath{\mathcal{H}}}
 \newcommand{\parity}[1]{\ensuremath{\mathcal{H}_{#1\text{-parity}}}}
 \newcommand{\rect}[1]{\ensuremath{\mathcal{H}_{\text{rect}}^{#1}}}
+\newcommand{\conj}[1]{\ensuremath{\mathcal{H}_{\text{con}}^{#1}}}
+\newcommand{\mconj}[1]{\ensuremath{\mathcal{H}_{\text{mcon}}^{#1}}}
 \newcommand{\dom}{\ensuremath{\mathcal{X}}}
 \newcommand{\range}{\ensuremath{\mathcal{Y}}}
 \newcommand{\Nat}{\ensuremath{\mathbf{N}}}
@@ -117,6 +122,7 @@
 \newcommand{\dx}{\ensuremath{\text{d}}}
 \newcommand{\ind}{\ensuremath{\mathbf{1}}}
 \newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\basisvec}{\ensuremath{\mathbf{e}}}
 \DeclareMathOperator{\ERM}{ERM}
 
 
