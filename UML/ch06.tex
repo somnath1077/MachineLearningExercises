@@ -228,22 +228,17 @@ $\rect{d}$, proving that the set cannot be shattered.
     \item Let $\basisvec_1, \ldots, \basisvec_d$ be the standard basis vectors of
         $\{0, 1\}^d$. Let $(b_1, \ldots, b_d)$ be a mapping from this set of 
         basis vectors to $\{0, 1\}$. Note that there are only $2^d$ such functions 
-        and each such function can actually be represented by a boolean conjunction
-        on $d$ variables. This means that no matter which function 
-        $(b_1, \ldots, b_d)$ we select, there exists a function in $\conj{d}$ 
-        whose restriction to the basis vectors is precisely $(b_1, \ldots, b_d)$. 
-        In order to be able to discover that function, we can use the 
-        algorithm that implements the ERM 
-        rule (as in Exercise 3.4) using the basis vectors as the sample set. 
+        and we will show that each such function can be represented by a 
+        boolean conjunction on $d$ variables. 
     
-        This algorithm starts with the conjunction: $x_1 \wedge \bar{x}_1 \wedge 
-        \cdots \wedge x_{d} \wedge \bar{x}_d$. It then runs through the basis 
-        vectors that have been mapped to $1$ by $(b_1, \ldots, b_d)$ and drops 
-        all literals from the conjunction which would otherwise cause it to 
-        evaluate to $0$. The conjunction output by the algorithm was proved to 
-        have an in-sample loss of $0$, which means that it matches the 
-        function $(b_1, \ldots, b_d)$. Thus the set of basis vectors is 
-        shattered by $\conj{d}$ and hence $\vcdim (\conj{d}) \geq d$.
+        Start with the conjunction: $f := x_1 \wedge \bar{x}_1 \wedge 
+        \cdots \wedge x_{d} \wedge \bar{x}_d$; for $1 \leq i \leq d$, 
+        if $b_i = 1$ then drop $\bar{x}_i$ and all $x_j$ for $j \neq i$ from $f$. 
+        Note that after this step we have that: $f(\basisvec_j) = b_j$ for all $j \leq i$.
+        Thus at step $d$, we end up with a formula $f$ that matches the function 
+        $(b_1, \ldots, b_d)$.
+        Thus the set of basis vectors is shattered by $\conj{d}$ and 
+        hence $\vcdim (\conj{d}) \geq d$.
 
     \item $\vcdim (\conj{d}) \leq d$. Suppose that $C = \{c_1, \ldots, c_{d + 1}\}$
         is shattered by $\conj{d}$. This implies that every function from $C$ to 
@@ -272,8 +267,15 @@ $\rect{d}$, proving that the set cannot be shattered.
     \item $\vcdim (\mconj{d}) = d$. Since $\mconj{d} \subseteq \conj{d}$, we know 
         that $\vcdim (\mconj{d}) \leq d$. Now consider $C = \{c_1, \ldots, c_d\} 
         \subset \{0, 1\}^d$, where $c_i$ has ones in all locations except the $i$th. 
-            
- 
+        Let $(b_1, \ldots, b_d)$ be any function from $C$ to $\{0, 1\}$.  
+        Start with the conjunction: $f := x_1 \wedge 
+        \cdots \wedge x_{d}$; for $1 \leq i \leq d$, 
+        if $b_i = 1$ then drop $x_i$ from $f$. 
+        Note that after this step we have that: $f(c_j) = b_j$ for all $j \leq i$.
+        Thus at step $d$, we end up with a formula $f$ that matches the function 
+        $(b_1, \ldots, b_d)$.
+        Thus the set $C$ is shattered by $\mconj{d}$ and hence 
+        $\vcdim (\mconj{d}) = d$.
 \end{enumerate}
 
 \section*{Exercise 6.7}
