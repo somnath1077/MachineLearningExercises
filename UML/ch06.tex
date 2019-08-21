@@ -335,5 +335,31 @@ c_4$.  Then the function $(1, -1, 1, -1)$ cannot be extended to any function in
 $\hypclass$.  For such a function to exist, it would have to map an interval
 around $c_2$ to $-1$ and the rest of the reals to $1$; but that also map $c_4$
 to $1$. This shows that such a function cannot exist and hence 
-$\vcdim (\hypclass) \leq 3$. Toegther with the upper bound, we have 
+$\vcdim (\hypclass) \leq 3$. Together with the upper bound, we have 
 that $\vcdim(\hypclass) = 3$.  
+
+\section*{Exercise 6.11}
+
+\subsection*{6.11.1} 
+
+Let $\hypclass_1, \ldots, \hypclass_r$ be hypothesis classes over a fixed domain
+$\dom$ and let $d := \max_{i} \vcdim (\hypclass_i )$. Suppose that $d \geq 3$. We need 
+to show that 
+\[
+    \vcdim \left (\bigcup_{i = 1}^{r} \hypclass_i \right ) \leq 4d \log (2d) + 2 \log r
+\]
+
+Let $C = \{c_1, \ldots, c_k\}$ be a set that is shattered by the union set 
+$\bigcup_{i = 1}^r \hypclass_i$. Then all $2^k$ binary functions on $C$ have 
+extensions in $\bigcup_{i = 1}^r \hypclass_i$. But Sauer's Lemma, for any 
+hypothesis class $\hypclass_i$, $1 \leq i \leq r$, the number of possible 
+extensions on a set of size $k$ is $\sum_{i = 0}^d {k \choose i } \leq (e k/d)^d$. 
+This is at most $k^d$ since $d \geq 3$. Hence the total number of extensions 
+possible in the union on a set of size $k$ is at most $r \cdot k^d$. Hence we must
+have $2^k \leq r \cdot k^d$, which implies that 
+$k \leq d \cdot \log_2 k + \log_2 r < d \cdot \log_e k + \log_e r $.
+
+Lemma~A.2 states that if $a \geq 1$ and $b > 0$ then $x \geq 4a \log (2a) + 2b$
+implies that $x \geq a \log (x) + b$. The contrapositive states that if 
+$x < a \log (x) + b$ then $x < 4a \log (2a) + 2b$. If we apply this to our case, 
+we obtain that $k < 4d \log (2d) + 2 \log (r)$
