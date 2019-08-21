@@ -351,7 +351,7 @@ to show that
 
 Let $C = \{c_1, \ldots, c_k\}$ be a set that is shattered by the union set 
 $\bigcup_{i = 1}^r \hypclass_i$. Then all $2^k$ binary functions on $C$ have 
-extensions in $\bigcup_{i = 1}^r \hypclass_i$. But Sauer's Lemma, for any 
+extensions in $\bigcup_{i = 1}^r \hypclass_i$. By Sauer's Lemma, for any 
 hypothesis class $\hypclass_i$, $1 \leq i \leq r$, the number of possible 
 extensions on a set of size $k$ is $\sum_{i = 0}^d {k \choose i } \leq (e k/d)^d$. 
 This is at most $k^d$ since $d \geq 3$. Hence the total number of extensions 
@@ -362,4 +362,4 @@ $k \leq d \cdot \log_2 k + \log_2 r < d \cdot \log_e k + \log_e r $.
 Lemma~A.2 states that if $a \geq 1$ and $b > 0$ then $x \geq 4a \log (2a) + 2b$
 implies that $x \geq a \log (x) + b$. The contrapositive states that if 
 $x < a \log (x) + b$ then $x < 4a \log (2a) + 2b$. If we apply this to our case, 
-we obtain that $k < 4d \log (2d) + 2 \log (r)$
+we obtain that $k < 4d \log (2d) + 2 \log (r)$.
