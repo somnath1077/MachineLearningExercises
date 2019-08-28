@@ -380,15 +380,15 @@ The idea here is to use a linear combination of $h_1$ and $h_2$ and $g$ to obtai
 that takes on strictly positive values on $C'$ and non-positive values on $C \setminus C'$. 
 Define $\alpha_1$ and $\alpha_2$ as follows:
 \[
-\alpha_1 := \frac{\max_{x \in C'} |g(x)|}{\min_{x \in C'} h_1(x)}, \qquad 
-\alpha_2 := \frac{{\max_{x \in C \setminus C'} |g(x)|}}{\min_{x \in C \setminus C'} h_2(x)}
+\alpha_1 := 1 + \frac{\max_{x \in C'} |g(x)|}{\min_{x \in C'} h_1(x)}, \qquad 
+\alpha_2 := 1 + \frac{{\max_{x \in C \setminus C'} |g(x)|}}{\min_{x \in C \setminus C'} h_2(x)}
 \]
 Then $\alpha_1 h_1(x) - \alpha_2 h_2(x) + g(x) > 0$ iff $x \in C'$, showing that
 $\pos (\mathcal{F} + g)$ also shatters $C$. Hence 
 $\vcdim(\pos(\mathcal{F} + g)) \geq \vcdim (\pos (\mathcal{F}) )$.
 
 We next show that $\vcdim(\pos(\mathcal{F} + g)) \leq \vcdim (\pos (\mathcal{F}) )$. Now let 
-$C \subseteq \Rone^n$be shattered by $\pos(\mathcal{F} + g)$. This means that 
+$C \subseteq \Rone^n$ be shattered by $\pos(\mathcal{F} + g)$. This means that 
 for every $C' \subseteq C$, there exist $h_1, h_2 \in \mathcal{F}$ such that for 
 all $x \in C$:
 \begin{align*}
