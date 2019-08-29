@@ -404,17 +404,20 @@ $\vcdim(\pos(\mathcal{F} + g)) \leq \vcdim (\pos (\mathcal{F}) )$.
 
 \subsection*{6.12.2}
 
- We wish to show that $\vcdim (\pos (\mathcal{F})) = \dim (\mathcal{F})$, where 
+ We wish to show that $\vcdim (\pos (\mathcal{F})) \leq \dim (\mathcal{F})$, where 
  $\dim (\mathcal{F})$ is the dimension of $\mathcal{F}$ as a vector space. Let 
  $\mathcal{F}$ be a finite dimensional vector space of dimension~$d$ with basis
  $f_1, \ldots, f_d$. For any $h \in \mathcal{F}$ there exist real numbers 
- $\alpha_1, \ldots, \alpha_d$, not all zero, such that
+ $\alpha_1, \ldots, \alpha_d$ such that
  \[
     h = \alpha_1 f_1 + \cdots + \alpha_d f_d.
  \]
 Note that 
 \[
     \pos (\mathcal{F}) = \pos (\{ \alpha_1 f_1 + \cdots + \alpha_d f_d 
-        \mid (\alpha_1, \ldots, \alpha_d) \in \Rone^d \setminus (0, 0, \ldots, 0) \}).
+        \mid (\alpha_1, \ldots, \alpha_d) \in \Rone^d\}).
 \]
-
+Hence every function in $\pos (\mathcal{F} )$ can be represented by a homogenous linear 
+halfspace in $\Rone^d$. Since the VC-dimension of the set of \emph{all} homogeneous linear
+halfspaces in $\Rone^d$ is $d$, we have: 
+$\vcdim (\pos (\mathcal{F})) \leq d$.
