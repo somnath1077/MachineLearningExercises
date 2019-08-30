@@ -444,3 +444,31 @@ It is sufficient to note that $\mathcal{F}$ is a vector space of dimension $n + 
 with the basis vectors $f_1, \ldots, f_n, f_{n + 1}$, where for $1 \leq i \leq n$, 
 $f_i$ maps points in $\R^n$ to their $i$th coordinate and $f_{n + 1}$ maps points
 to the constant $1$.   
+
+\subsubsection*{6.12.3.3}
+
+The class $B_d$ of open balls in $\R^d$ is the set of functions $h_{\vect{a}, r}$,
+where $\vect{a} \in \R^d$ is the center of the ball and $r \in \R$ is its radius, 
+such that for $\vect{x} \in \R^d$, 
+\begin{align*}
+    h_{\vect{a}, r} (\vect{x}) & = r - \sum_{i = 1}^d (x_i - a_i)^2 \\
+    & = 2 a_1 x_1 + \cdots + 2 a_d x_d + 
+    \left ( r - \sum_{i = 1}^d a_i^2 \right ) \cdot 1 - \sum_{i = 1}^d x_i^2.
+\end{align*}
+Define $g(\vect{x}) = - \sum_{i = 1}^d x_i^2$ and for $1 \leq i \leq d$, define
+$f_i(\vect{x}) = x_i$; finally, define $f_{d + 1}(\vect{x}) = 1$. Then 
+$B_d \subseteq \mathcal{F} + g$, where $\mathcal{F}$ is a space of functions defined by:
+\[
+    \mathcal{F} := \{a_1 f_1 + \cdots + a_{d + 1} f_{d + 1} \mid 
+        (a_1, \ldots, a_{d + 1}) \in \R^d\}.
+\] 
+Since $\vcdim ( \pos (\mathcal{F} + g)) = d + 1$, we have that 
+$\vcdim (\pos (B_d)) \leq d + 1$. Now a set $U$ of $d + 1$ points in $\R^d$ can be 
+shattered by $d$-dimensional half spaces. This means that for any subset 
+$S \subseteq U$ , there exists a hyperplane that separates $S$ and $U \setminus S$. 
+Thus there exist $d$-dimensional balls $B_1, B_2$ (of sufficiently large radius) 
+on either side of this hyperplane and tangent to it such that $S \subseteq B_1$ 
+and $U \setminus S \subseteq B_2$. Thus there is a set of size $d + 1$ shattered 
+by $\pos (B_d)$ and hence $\vcdim (\pos (B_d)) \geq  d + 1$. Together with 
+the upper bound, this gives:  $\vcdim (\pos (B_d)) =  d + 1$.      
+
