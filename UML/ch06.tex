@@ -404,7 +404,7 @@ $\vcdim(\pos(\mathcal{F} + g)) \leq \vcdim (\pos (\mathcal{F}) )$.
 
 \subsection*{6.12.2}
 
- We wish to show that $\vcdim (\pos (\mathcal{F})) \leq \dim (\mathcal{F})$, where 
+ We wish to show that $\vcdim (\pos (\mathcal{F})) = \dim (\mathcal{F})$, where 
  $\dim (\mathcal{F})$ is the dimension of $\mathcal{F}$ as a vector space. Let 
  $\mathcal{F}$ be a finite dimensional vector space of dimension~$d$ with basis
  $f_1, \ldots, f_d$. For any $h \in \mathcal{F}$ there exist real numbers 
@@ -417,7 +417,30 @@ Note that
     \pos (\mathcal{F}) = \pos (\{ \alpha_1 f_1 + \cdots + \alpha_d f_d 
         \mid (\alpha_1, \ldots, \alpha_d) \in \Rone^d\}).
 \]
-Hence every function in $\pos (\mathcal{F} )$ can be represented by a homogenous linear 
-halfspace in $\Rone^d$. Since the VC-dimension of the set of \emph{all} homogeneous linear
-halfspaces in $\Rone^d$ is $d$, we have: 
-$\vcdim (\pos (\mathcal{F})) \leq d$.
+Hence each function in $\pos (\mathcal{F} )$ can be associated with a $d$-tuple 
+$(\alpha_1, \ldots, \alpha_d)$ which, in turn, represents a homogeneous linear 
+halfspace in $\R^d$. Since the VC-dimension of the set of homogeneous linear
+halfspaces in $\Rone^d$ is $d$, we have that $\vcdim (\pos (\mathcal{F})) = d$.
+
+
+\subsection*{6.12.3}
+
+\subsubsection*{6.12.3.1}
+
+The set $\HS_n = \pos (\mathcal{F})$, where $\mathcal{F}$ consists of 
+functions~$h_{\vect{w}}$, with $\vect{w} \in \R^n$, defined as 
+follows: for $x \in \R^n$, $h_{\vect{w}}(x) = \angular{\vect{w}, x}$. 
+Note that $\mathcal{F}$ is a $n$-dimensional 
+vector space with basis $f_1, \ldots, f_n$, where $f_i(x) = x_i$, that is,
+$f_i$ maps a point in $\R^n$ to its $i$th coordinate. This shows that 
+$\HS_n$ is a Dudley class.
+
+\subsubsection*{6.12.3.2}
+
+Similarly, the set $\HHS_n = \pos ( \mathcal{F})$, where $\mathcal{F}$
+is a set of functions~$h_{\vect{w}, b}$, with $\vect{w} \in \R^n$, $b \in \R$ and 
+defined as follows: for $x \in \R^n$, $h_{\vect{w}, b}(x) = \angular{\vect{w}, x} + b$.
+It is sufficient to note that $\mathcal{F}$ is a vector space of dimension $n + 1$
+with the basis vectors $f_1, \ldots, f_n, f_{n + 1}$, where for $1 \leq i \leq n$, 
+$f_i$ maps points in $\R^n$ to their $i$th coordinate and $f_{n + 1}$ maps points
+to the constant $1$.   
