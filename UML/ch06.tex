@@ -472,3 +472,33 @@ and $U \setminus S \subseteq B_2$. Thus there is a set of size $d + 1$ shattered
 by $\pos (B_d)$ and hence $\vcdim (\pos (B_d)) \geq  d + 1$. Together with 
 the upper bound, this gives:  $\vcdim (\pos (B_d)) =  d + 1$.      
 
+\subsubsection*{6.12.3.4}
+
+\begin{enumerate}
+	\item A polynomial $p = a_0 + a_1 x + \cdots + a_d x^d$ of degree $d$
+		 may be thought of as the vector space of $(d + 1)$-dimensional
+		 tuples over $\R$. Thus $\vcdim (P_1^d) = d + 1$.
+
+	\item Since the class of polynomial classifiers of degree $d$ has VC-dimension
+	$d$, the VC-dimension of the class of all polynomial classifiers is unbounded. 
+
+	\item In order to find out the VC-dimension of the class of polynomial classifiers
+		of degree $d$ on $n$ variables, it is sufficient to establish the number
+		of terms that such a polynomial can have. The number of terms equals
+		the dimension of the function space of all such polynomials, which by 6.12.2 
+		equals the VC-dimension. The degree of 
+		any such term is some number $k$, $1 \leq k \leq d$. For a fixed $k$, the number 
+		of terms of degree $k$ is the number of non-negative solutions to the equation:
+		\[
+			y_1 + \cdots + y_n = k, 
+		\]
+		where $y_i \geq 0$ for all $1 \leq i \leq n$.
+		This, in turn, can be cast into the problem of finding out the number of bit patterns
+		on $n - 1$ ones and $k$ zeros. This is just ${n - 1 + k \choose k}$ and hence, the 
+		number of terms in such a polynomial is:
+		\[
+			\sum_{k = 0}^{d} {n - 1 + k \choose k},
+		\]
+		which is the VC-dimension of $P_n^d$. 
+		
+\end{enumerate}
