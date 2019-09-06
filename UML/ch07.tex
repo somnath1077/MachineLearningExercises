@@ -1,3 +1,56 @@
 \chapter{Non-Uniform Learnability}
 
+Let $\hypclass$ be a set of binary functions over the domain $\dom$.  The class
+$\hypclass$ is \emph{non-uniformly learnable} if there exist a learning
+algorithm $\algo$ and a function $\nusamplecomp \colon (0, 1) \times (0, 1)
+\times \hypclass \rightarrow \Nat$ such that for all $\epsilon, \delta \in (0,
+1)$, for all $h \in \hypclass$ and all distributions $\dist$ over the domain
+$\dom \times \{0, 1\}$, if $S$ is a sample with $m \geq \nusamplecomp(\epsilon,
+\delta, h)$ examples then with probability at least $1 - \delta$ over the choice of
+random samples over $\dist^m$, 
+\[
+    L_{\dist}(\algo (S)) \leq L_{\dist} (h) + \epsilon.
+\]
+
+The notion of non-uniform learnablity is a strict generalization of the notion of 
+PAC-learnability. This can be shown by considering the set of all thresholded 
+polynomials. The VC-dimension of this class is infinite and hence it is not PAC-learnable, but 
+it is non-uniformly learnable as the following characterization shows.
+
+\begin{theorem} \label{thm:non_uniform}
+A hypothesis class $\hypclass$ of binary classifiers is non-uniformly learnable iff it 
+is the countable union of agnostically PAC-learnable hypothesis classes.
+\end{theorem}
+
+On the other hand, the notion of non-uniform learnability is restricted enough
+that it does not allow all hypothesis classes to be learnable. This follows
+from Lemma~\ref{lemma:non_uniform} and the characterization of non-uniform
+learnable classes in Theorem~\ref{thm:non_uniform}. 
+
+\begin{lemma}\label{lemma:non_uniform}
+For every infinite set $\dom$, the set of all binary valued functions on $\dom$ is
+not expressible as $\bigcup_{n = 1}^{\infty} H_n$, where each $H_n$ has finite VC-dimension.
+\end{lemma}
+
+The main topic is in proving Theorem~\ref{thm:non_uniform}. We do this in two steps.
+\begin{lemma}\label{lemma:if_side}
+If $\hypclass$ is non-uniformly learnable then there exist classes $H_n$, $n \in \Nat$, each
+of finite VC-dimension, such that $H = \bigcup_{n = 1}^{\infty} H_n$.
+\end{lemma}
+\begin{proof}
+Let $\hypclass$ be as stated and for each $n \in \Nat$, define
+\[
+    H_n := \{h \in \hypclass \colon \nusamplecomp (1/8, 1/7, h) \leq n\}.
+\]
+Then clearly $H = \bigcup_{n = 1}^{\infty} H_n$. By definition, each class $H_n$ 
+can be learned to an accuracy of $1/8$ with a confidence of $1/7$ using at most $n$
+examples. We claim that $\vcdim (H_n) \leq 2n$ for all 
+$n \in \Nat$. Suppose not. Then there exist $n \in \Nat$ and a set $A \subset \dom$ of size 
+$2n + 1$ that is shattered by $H_n$. This means that every binary function on $A$ admits 
+an extension in $H_n$ to a function on $\dom$. By the No-Free-Lunch Theorem, in order 
+to be able to learn $H_n$ to an accuracy of $1/8$ with a confidence of $1/7$, we need 
+at least $n + 1$ examples. This contradiction shows that there cannot be any set 
+of size $2n + 1$ that is shattered by $H_n$. Hence $\vcdim (H_n) \leq 2n$.
+\qedhere
+\end{proof}
 

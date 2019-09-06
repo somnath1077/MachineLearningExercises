@@ -92,17 +92,17 @@
 %-------------------------------------------------------
 
 
-\newtheorem{lemma}{Lemma}
-\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}
-\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
 \newtheorem*{note}{Note}
 \newcommand{\samplecomp}{m_{\mathcal{H}}}
 \newcommand{\SampleComp}[2]{m_{\mathcal{H}}(#1, #2)}
 \newcommand{\usamplecomp}[2]{m_{\mathcal{H}}^{\text{UC}}(#1, #2)}
 \newcommand{\USampleComp}{m_{\mathcal{H}}^{\text{UC}}}
-\newcommand{\nusamplecomp}{\ensuremath{m_{\mathcal{H}^{\text{NUL}}}}}
+\newcommand{\nusamplecomp}{\ensuremath{m_{\mathcal{H}}^{\text{NUL}}}}
 \newcommand{\pacerror}[1]{L_{\mathcal{D}, f}(#1)}
 \newcommand{\vcdim}{\ensuremath{\text{VCdim}}}
 \newcommand{\algo}{\ensuremath{\mathcal{A}}}
@@ -111,6 +111,7 @@
 \newcommand{\rect}[1]{\ensuremath{\mathcal{H}_{\text{rect}}^{#1}}}
 \newcommand{\conj}[1]{\ensuremath{\mathcal{H}_{\text{con}}^{#1}}}
 \newcommand{\mconj}[1]{\ensuremath{\mathcal{H}_{\text{mcon}}^{#1}}}
+\newcommand{\zeroone}{\ensuremath{\operatorname{0-1}}}
 \newcommand{\dom}{\ensuremath{\mathcal{X}}}
 \newcommand{\range}{\ensuremath{\mathcal{Y}}}
 \newcommand{\Nat}{\ensuremath{\mathbf{N}}}
