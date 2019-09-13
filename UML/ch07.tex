@@ -56,3 +56,88 @@ of size $2n + 1$ that is shattered by $H_n$. Hence $\vcdim (H_n) \leq 2n$.
 \qedhere
 \end{proof}
 
+
+To prove the other direction, we need to introduce the notion of the \emph{Structural 
+Risk Minimization (SRM)} paradigm. Let $\hypclass = \bigcup_{n = 1}^{\infty} \hypclass_n$
+be a hypothesis class that is the union of a countably many uniformly convergent 
+classes $\hypclass_n$ with sample complexity function 
+$m_n (\epsilon, \delta)$. Define $\epsilon_n \colon \Nat \times (0, 1) \rightarrow (0, 1)$
+by
+\[
+    \epsilon_n (m, \delta) := 
+        \min \{\epsilon \in (0, 1) \colon m_n (\epsilon, \delta) \leq m\}.
+\]
+Thus $\epsilon_n (m, \delta)$ is just the best possible accuracy obtainable 
+when learning functions from the class $\hypclass_n$ with a sample size of 
+at most $m$ and with confidence $\delta$. 
+
+Since a given $h \in \hypclass$ may belong to an infinite number of $\hypclass_n$,
+define $n(h) := \min \{n \in \Nat \colon h \in \hypclass_n \}$. The other 
+component of SRM is a weight function $w \colon \Nat \rightarrow [0, 1]$ such 
+that $\sum_{n = 1}^{\infty} w(n) \leq 1$. The weight function $w(n)$ represents 
+the importance that the learner attributes to each hypothesis class $\hypclass_n$.
+
+\begin{theorem}
+\label{thm:SRM1}
+Let $\hypclass$ be a hypothesis class that can be written as $\hypclass =
+\bigcup_{n = 1}^{\infty} \hypclass_n$, where each class $\hypclass_n$ is
+uniformly convergent with sample complexity $m_n(\epsilon, \delta)$. Let $w
+\colon \Nat \rightarrow [0, 1]$ be a weight function such that  $\sum_{n =
+1}^{\infty} w(n) \leq 1$. Then for every $\delta \in (0, 1)$, for every
+distribution $\dist$, with probability of at least $1 - \delta$ over the choice
+of samples $S \sim \dist^m$, the following holds for all $n \in \Nat$ and all
+$h \in \hypclass_n$:
+\[
+    |L_{\dist} (h) - L_S (h)| \leq \epsilon_n (m, w(n) \cdot \delta).
+\]
+\end{theorem}
+The main claim of this theorem can be restated as either 
+one of these statements:
+\begin{itemize}
+    \item for all $h \in \hypclass$: 
+        $L_{\dist} (h) \leq L_S(h) + \epsilon_n (m, w(n) \cdot \delta)$
+    \item for all $h \in \hypclass$: 
+    $L_{S} (h) \leq L_{\dist}(h) + \epsilon_n (m, w(n) \cdot \delta)$
+\end{itemize}
+
+Given a training sample $S$ and a confidence parameter $\delta$, 
+the SRM paradigm is to select a hypothesis $h \in \hypclass$ that minimizes
+\[
+    L_S(h) + \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta).
+\]
+\begin{theorem}
+\label{thm:SRM2}
+Let $\hypclass$ be a hypothesis class that can be written as $\hypclass =
+\bigcup_{n = 1}^{\infty} \hypclass_n$, where each class $\hypclass_n$ is
+uniformly convergent with sample complexity $m_n(\epsilon, \delta)$. Let $w
+\colon \Nat \rightarrow [0, 1]$ be a weight function such that  $\sum_{n =
+1}^{\infty} w(n) \leq 1$. Then $\hypclass$ is non-uniformly learnable 
+using the SRM rule with rate:
+\[
+    \nusamplecomp (\epsilon, \delta, h) \leq m_{n(h)} (\epsilon / 2, w( n(h) ) \cdot \delta).
+\]
+\end{theorem}
+\begin{proof}
+Let $\algo$ be the SRM algorithm. Given $\epsilon$, $\delta$ and $h \in \hypclass$, 
+choose $m \geq m_{n(h)} (\epsilon / 2, w( n (h) ) \cdot \delta)$. By Theorem~\ref{thm:SRM1}, 
+for every distribution $\dist$, with probability at least  $1 - \delta$ over the choice
+of samples $S \sim \dist^m$ for all $h' \in \hypclass$:
+\[
+    L_{\dist} (h') \leq L_S(h') + \epsilon_{n(h')} (m, w( n(h') ) \cdot \delta).
+\]
+Since $\algo$ uses the SRM rule:
+\begin{align*}
+    L_{\dist} (A(S)) 
+        &  \leq \min_{h' \in \hypclass} \{ 
+            L_S(h') + \epsilon_{n(h')} (m, w( n(h') ) \cdot \delta) \} \\
+        & \leq L_S(h) +  \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta). \\
+\end{align*}
+By Theorem~\ref{thm:SRM1}, with probability at least  $1 - \delta$ over the choice of samples 
+$S \sim \dist^m$:
+\begin{align*}
+    L_S(h) +  \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta) 
+        & \leq L_{\dist}(h) +  2 \cdot \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta) \\
+        & \leq L_{\dist}(h) + 2 \cdot \epsilon / 2 \\
+        & \leq L_{\dist}(h) + \epsilon.
+\end{align*}
+\end{proof}
