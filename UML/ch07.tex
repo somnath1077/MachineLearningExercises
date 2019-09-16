@@ -141,3 +141,23 @@ $S \sim \dist^m$:
         & \leq L_{\dist}(h) + \epsilon.
 \end{align*}
 \end{proof}
+
+\section*{Ex 7.1}
+
+Let $l$ be the maximum description length of a hypothesis in $\hypclass$. Since
+the descriptions are over the alphabet $\{0, 1\}$, the maximum number of hypotheses
+that can possibly be represented is:
+\[
+    2^{l} + 2^{l - 1} + \cdots + 2^1 + 2^0 = 2^{l + 1} - 1.
+\]
+Hence $|\hypclass| \leq 2^{l + 1} - 1 < 2^{l + 1}$. Since 
+$\vcdim (\hypclass) \leq \log_2 |\hypclass|$, we have that:
+$\vcdim (\hypclass) < l + 1$.
+
+If, in addition, the descriptions are prefix-free, then by Kraft's 
+inequality:
+\[
+    \frac{|\hypclass|}{2^l} \leq \sum_{h \in \hypclass} \frac{1}{2^{|h|}} \leq 1,
+\]
+which yields $|\hypclass| \leq 2^l$, and hence $\vcdim (\hypclass) \leq l$.
+
