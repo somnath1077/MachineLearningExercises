@@ -142,6 +142,13 @@ $S \sim \dist^m$:
 \end{align*}
 \end{proof}
 
+An immediate implication is that every countably infinite hypothesis class for 
+binary classification is non-uniformly learnable using a suitably defined weight 
+function. For if, $\hypclass = \bigcup_{n = 1}^{\infty} \{ h_n \}$ then, by 
+Corollary~4.6, each singleton class $\{ h_n \}$ has the uniform convergence property with 
+sample complexity $m (\epsilon, \delta) = \frac{\log (2 / \delta)}{\epsilon^2}$.
+
+
 \section*{Ex 7.1}
 
 Let $l$ be the maximum description length of a hypothesis in $\hypclass$. Since
@@ -160,4 +167,35 @@ inequality:
     \frac{|\hypclass|}{2^l} \leq \sum_{h \in \hypclass} \frac{1}{2^{|h|}} \leq 1,
 \]
 which yields $|\hypclass| \leq 2^l$, and hence $\vcdim (\hypclass) \leq l$.
+
+\section*{Ex 7.2}
+
+It is sufficient to prove that there exists no weighting function 
+$w \colon \Nat \rightarrow [0, 1]$ that is not indentically zero such that
+\begin{enumerate}
+    \item $\sum_{n = 1}^{\infty} w(n) \leq 1$
+    \item $w$ is non-decreasing: for all $i < j$, $w(i) \leq w(j)$.
+\end{enumerate}
+Since, by hypothesis, $w$ is not identically zero, there exists an index $n_0$ 
+such that $w_{n_0} > 0$. Since $w$ is non-decreasing, this implies that for 
+all $n \geq n_0$, $w(n) \geq w(n_0)$. Hence 
+$\sum_{i = 0}^{k} w( n_0 + i ) \geq k \cdot w( n_0 )$, which implies that 
+the sum $\sum_{i = 1}^{\infty} w(i)$ diverges to infinity, contradicting 
+requirement~$(1)$.
+
+\section*{Ex 7.3}
+
+\subsection*{Ex 7.3.1}
+
+Let $\hypclass = \bigcup_{n \in \Nat} \hypclass_n$, where $\hypclass_n$ is finite 
+for all $n \in \Nat$. For $h \in \hypclass$, define 
+\[
+    w(h) = \frac{1}{|H_{ n(h) }| \cdot 2^{ n(h) }}.
+\]
+Then 
+\begin{align*}
+\sum_{h \in \hypclass} w(h) & = \sum_{h \in \hypclass} \frac{1}{|H_{ n(h) }| \cdot 2^{ n(h) }} \\
+    & \leq \sum_{j = 1}^{\infty} \frac{|H_j|}{|H_j| \cdot 2^j} \\
+    & \leq 1.
+\end{align*}
 
