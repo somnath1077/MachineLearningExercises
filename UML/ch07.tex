@@ -204,11 +204,11 @@ Then
 
 Let $\hypclass = \bigcup_{n \in \Nat} \hypclass_n$, where $\hypclass_n$ is countably infinite.
 In this case, every $h \in \hypclass$ can be uniquely identified by a pair of natural numbers
-$(i, j)$, where $i = n(h)$ and $j = \id (h)$ is the index of $h$ in $\hypclass_{ n(h) }$, where we assume 
-that $h' \in \hypclass$ gets an index in $\hypclass_n$ iff $n = n(h')$. Now define $w(h)$ 
+$(i, j)$, where $i = n(h)$ and $j = \id (h)$ is the index of $h$ in $\hypclass_{ n(h) }$. Now define $w(h)$ 
 as $\frac{1}{2^{n(h) + \id(h)}}$. With this definition, a countably infinite number of $h \in \hypclass$
-are assigned the same $n(h)$ but since each has a distinct index~$j$ in $\hypclass_{n(h)}$, 
-we ensure that the weights are decreasing. Indeed, 
+may have the same first component $n(h)$, but since each hypothesis 
+has a distinct index~$j$ in $\hypclass_{n(h)}$, we ensure that the weights associated 
+with the class $\hypclass_{n(h)}$ are decreasing. Indeed, 
 \begin{align*}
     \sum_{h \in \hypclass} w(h) & = \sum_{h \in \hypclass} \frac{1}{2^{n(h) + \id(h)}} \\
         & \leq \sum_{n = 1}^{\infty} \sum_{j = 1}^{\infty} \frac{1}{2^{n + j}} \\
