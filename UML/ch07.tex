@@ -217,3 +217,38 @@ with the class $\hypclass_{n(h)}$ are decreasing. Indeed,
         & \leq 1.
 \end{align*}
 
+\section*{Ex 7.5}
+
+A No-Free-Lunch result for non-uniform learnability.
+\begin{theorem}
+\label{thm:NFL_NUL}
+Let $\hypclass$ be a class that shatters an infinite set. Then for every 
+sequence of classes $\{ \hypclass_n \}_{n \in \Nat}$ such that 
+$\hypclass = \bigcup_{n \in \Nat} \hypclass_n$, there exists some $n$ 
+for which $\vcdim (\hypclass_n) = \infty$.
+\begin{proof}
+Let $\hypclass$ be a hypothesis class that shatters a countably infinite 
+set $K = \{k_i\}_{i = \Nat}$ and suppose that $\hypclass = \bigcup_{n \in \Nat} \hypclass_n$,
+where every $\hypclass_n$ has finite VC-dimension. For $n \in \Nat$, 
+define $K_n \subseteq K$ such that $|K_n| = \vcdim (\hypclass_n) + 1$ and 
+$K_n \cap K_m = \emptyset$ for $n \neq m$. One possible definition that 
+satisfies these conditions is the following:
+\[
+    K_n = \{k_{r + 1}, \ldots, k_{r + \vcdim(\hypclass_n) + 1}\}
+\]
+where $r = \sum_{j = 1}^{n - 1} \vcdim (\hypclass_j)$. Clearly, $K_1, \ldots, K_n, \ldots$
+are pairwise disjoint and $K = \bigcup_{n \in \Nat} K_n$. 
+
+Since $|K_n| > \vcdim (\hypclass_n)$, there exists a function $f_n \colon K_n \rightarrow \{0, 1\}$
+that does not agree with any function in $\hypclass_n$ on $K_n$. Define 
+$f \colon K \rightarrow \{0, 1\}$ as follows: for $k \in K_n$, $f(k) = f_n(k)$. Since 
+$\hypclass$ shatters $K$, we must have $f \in \hypclass$. By the definition of $f$, 
+for all $n$, $f$ differs from every function in $\hypclass_n$ on the set $K_n$. Thus 
+$f \notin \bigcup_{n \in \Nat} \hypclass_n$, a contradiction to the assumption 
+that $\hypclass = \bigcup_{n \in \Nat} \hypclass_n$, where each $\hypclass_n$ 
+has finite VC-dimension. This shows that if $\hypclass$ shatters a countably
+infinite set, then it does not admit such a represtation. Since any 
+non-uniformly learnable class does in fact admit such a representation, it 
+follows that $\hypclass$ is not non-uniformly learnable. 
+\end{proof}
+\end{theorem}
