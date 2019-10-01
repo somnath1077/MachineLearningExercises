@@ -1,3 +1,17 @@
 \chapter{The Computational Complexity of Learning}
 
+\section*{Exercise 8.1}
+
+In this case, an input sample consists of a set 
+$S = \{(x, b) \colon x \in \R, b \in \{0, 1\}\}$. If we were working in 
+the realizable case, then we could simply define 
+$l = \min_{x} \{ (x, 1) \in S \}$ and
+$L = \max_{x} \{ (x, 1) \in S \}$ and output $[l, L]$ as the interval. 
+This would take time $O(m)$, where $m = |S|$. In the agnostic case, 
+we can consider all possible pairs $(x, y)$ for $(x, 1), (y, 1) \in S$
+with $x < y$.
+For each pair $(x, y)$, we evaluate the empirical loss $L_S([x, y])$ 
+and output that interval that minimizes the empirical loss. This takes 
+time $O(m^2)$.
+
 
