@@ -23,5 +23,11 @@ classifiers that are just slightly better than making a random guess.  This
 leads us to the notion of $\gamma$-weak-learnability.
 
 \begin{definition}[$\gamma$-weak-learnability]
-
+A learning algorithm $A$ is a $\gamma$-weak-learner for a hypothesis class 
+$\hypclass$ if there exists a function $\samplecomp \colon (0, 1) \rightarrow \Nat$
+such that for every $\delta \in (0, 1)$, for every distribution $\dist$ over $\dom$
+and every labeling function $f \colon \dom \rightarrow \{\pm 1\}$, if $A$ 
+is presented with $m \geq \samplecomp (\delta)$ examples chosen i.i.d.\ 
+according to $\dist$, it outputs a hypothesis that with probability at least 
+$1 - \delta$ has a true error of at most $1/2 - \gamma$. 
 \end{definition}
