@@ -1,0 +1,27 @@
+\chapter{Boosting}
+
+\section{Notes}
+
+The Fundamental Theorem of Statistical Learning guarantees that if a hypothesis
+class has finite VC-dimension~$d$, the ERM algorithm will be able to
+learn it with a sample of size $\Omega(\frac{d + \log (1 / \delta)}{\epsilon})$
+in the realizable setting, and $\Omega(\frac{d + \log (1 /
+\delta)}{\epsilon^2})$ in the agnostic setting. From the statistical
+perspective, there is \emph{no} difference between the realizable and agnostic
+setting. Learning is solely determined by the VC-dimension of the hypothesis
+class.
+
+However the computational complexity of implementing the ERM algorithm varies
+widely between these two settings. Implementing the ERM algorithm for learning
+Boolean conjunctions or the class of axis-aligned rectangles can be efficiently
+done (as in polynomial time in the input size) in the realizable case; however,
+these problems are NP-hard in the agnostic case. Since the notion of
+PAC-learning (in the realizable setting) deals with being able to approximate
+the true hypothesis with arbitrary accuracy, it makes sense to ask when
+learning is computationally feasible if we drop this requirement and consider
+classifiers that are just slightly better than making a random guess.  This
+leads us to the notion of $\gamma$-weak-learnability.
+
+\begin{definition}[$\gamma$-weak-learnability]
+
+\end{definition}
