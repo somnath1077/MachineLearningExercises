@@ -31,3 +31,48 @@ is presented with $m \geq \samplecomp (\delta)$ examples chosen i.i.d.\
 according to $\dist$, it outputs a hypothesis that with probability at least 
 $1 - \delta$ has a true error of at most $1/2 - \gamma$. 
 \end{definition}
+
+\section*{Exercise 10.2}
+
+Let $\theta_0, \theta_1, \ldots, \theta_{T} \in \R$ such that 
+$\theta_0 = -\infty$ and $\theta_{T} = + \infty$. Define 
+$g \colon \R \rightarrow \{\pm 1\}$ such that $g(x) = (-1)^t$ 
+when $x \in (\theta_{t - 1}, \theta_t]$ for $1 \leq t \leq T - 1$ 
+and $g(x) = (-1)^{T}$ for $x > \theta_{T - 1}$. Define
+\[
+    h(x) =  \sign \left ( \sum_{t = 0}^T w_t \sign (x - \theta_{t} )\right )
+\]
+where $w_0 = 0.5$ and $w_t = (-1)^{t + 1}$ for $1 \leq t \leq T$. We will show 
+that $h = g$ by inducting on $T$.
+
+Let $T = 1$. Then for all $x \in \R$, $g(x) = -1$ and   
+\[
+h(x) = \sign(0.5 \cdot \sign(x - \theta_0) + \sign(x - \theta_1)) 
+     = \sign(0.5 - 1) = -1.
+\]
+Let us assume that the result holds when $T = k \geq 1$. 
+Consider the case when $T = k + 1$. 
+We distinguish two cases here: when $k$ is even and when $k$ is odd. 
+\begin{multline*}
+    h(x) =  \sign \left ( 0.5 \cdot \sign (x - \theta_{0}) 
+            + \sign(x - \theta_1) 
+            + \cdots \right . \\ 
+            + \left . (-1)^{k + 1} \cdot \sign(x - \theta_k) 
+            + (-1)^{k + 2} \cdot \sign(x - \theta_{k + 1}) \right )
+\end{multline*}
+First assume that $k$ is even. By induction hypothesis, we know that 
+for all $x < \theta_{k}$, $h(x) = g(x)$. For $x = \theta_k$, $g(x) = +1$
+and 
+\begin{multline*}
+h(x) = \sign( 0.5 + (1 - 1) + \ldots + (1 + (-1)^{k + 1} \cdot \sign(x - \theta_k)) + \\ 
+       (-1)^{k + 2} \sign(x - \theta_{k + 1})). 
+\end{multline*}
+This equals $\sign(0.5 + 2 - 1) = +1$. 
+For $x > \theta_{k}$, $g(x) = -1$ and 
+\begin{align*}
+    h(x) & = \sign(0.5 + (1 - 1) + \ldots + (1 - 1) + (-1)^{k + 2} 
+             \sign(x - \theta_{k + 1})) \\
+         & = \sign(0.5 - 1) \\
+         & = -1.
+\end{align*}
+One can show that $h = g$ for $k$ odd. 
