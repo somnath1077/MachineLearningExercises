@@ -46,20 +46,6 @@
 \renewcommand{\emptyset}{\varnothing}
 
 %-----------------------------------------------------------------------------
-% FONT PACKAGES
-%-----------------------------------------------------------------------------
-
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-\usepackage{sectsty}
-%\allsectionsfont{\mdseries}
-%\usepackage{fontspec}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-%\usepackage{charter}
-%\usepackage[bitstream-charter]{mathdesign}
-%\usepackage{fourier}
-%-----------------------------------------------------------------------------
 % FONTS TRIED
 %-----------------------------------------------------------------------------
 %\usepackage{ccfonts}
@@ -84,6 +70,39 @@
 %ItalicFont=couri.ttf,
 %BoldItalicFont=courbi.ttf
 %]{cour.ttf}
+%-----------------------------------------------------------------------------
+% FONT PACKAGES
+%-----------------------------------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+
+
+\usepackage{fontspec}
+ 
+ 
+% Times New Roman
+\setromanfont[
+BoldFont=timesbd.ttf,
+ItalicFont=timesi.ttf,
+BoldItalicFont=timesbi.ttf,
+]{times.ttf}
+% Arial
+\setsansfont[
+BoldFont=arialbd.ttf,
+ItalicFont=ariali.ttf,
+BoldItalicFont=arialbi.ttf
+]{arial.ttf}
+% Courier New
+\setmonofont[Scale=0.90,
+BoldFont=courbd.ttf,
+ItalicFont=couri.ttf,
+BoldItalicFont=courbi.ttf
+]{cour.ttf}
+
+
 
 
 
