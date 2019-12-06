@@ -32,6 +32,46 @@ according to $\dist$, it outputs a hypothesis that with probability at least
 $1 - \delta$ has a true error of at most $1/2 - \gamma$. 
 \end{definition}
 
+\section*{Exercise 10.1}
+
+For $\epsilon, \delta \in (0, 1)$, define 
+\[
+\SampleComp{\epsilon}{\delta} := k \cdot \samplecomp(\epsilon / 2) + 
+\left \lceil \frac{2 \log (4 k /  \delta)}{\epsilon^2}\right \rceil,
+\]
+where $k = \lceil \log (\delta / 2) / \log (\delta_0) \rceil$. Now
+given a sample of size at least $\SampleComp{\epsilon}{\delta}$, divide
+it into $k + 1$ chunks $S_1, \ldots, S_{k + 1}$ such that the first $k$
+chunks has size $\samplecomp(\epsilon / 2)$. 
+
+Using algorithm $A$, train the first $k$ chunks to obtain hypotheses
+$\hat{h}_1, \ldots, \hat{h}_k$. Then with probability at least 
+$1 - \delta_0^k \geq 1 - \delta / 2$, we have that 
+\[
+    \min_{1 \leq i \leq k} \{L_{\dist} (\hat{h}_i)\} 
+        \leq \min_{h' \in \hypclass} \{ L_{\dist}(h') \} + \epsilon / 2.
+\]
+Call this event 1.
+
+Now that we have a finite hypothesis class $\{ \hat{h}_1, \ldots, \hat{h}_k \}$,
+and since the $(k + 1)$st chunk has size at least 
+$\lceil 2 \log (4 k / \delta) /  \epsilon^2 \rceil$, by Corollary~4.6,
+we can use ERM to obtain a hypothesis $\hat{h}$ such that 
+with probability at least $1 - \delta / 2$, we have that 
+\[
+    L_{\dist}(\hat{h}) \leq \min_{1 \leq i \leq k} \{L_{\dist} (\hat{h}_i)\} + 
+        \epsilon / 2
+         \leq \min_{h' \in \hypclass} \{ L_{\dist}(h') \} + \epsilon.
+\]
+Call this event 2.
+
+Using the union bound, the probability that either event~1 does \emph{not} 
+happen or event~2 does \emph{not} happen is at most~$\delta$. Hence the 
+probability that \emph{both} events do happen is at least $1 - \delta$. 
+Hence with probability $1 - \delta$, one can find a hypothesis $\hat{h}$ 
+such that $L_{\dist}(\hat{h}) \leq 
+\min_{h' \in \hypclass} \{ L_{\dist}(h') \} + \epsilon$.
+
 \section*{Exercise 10.2}
 
 Let $\theta_0, \theta_1, \ldots, \theta_{T} \in \R$ such that 
