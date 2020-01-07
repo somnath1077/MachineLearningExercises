@@ -4,7 +4,7 @@
 % THEMES, COLORS
 %-------------------------------------------------------
 \usepackage[top=2.5cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
-\usepackage{amsmath,mathtools,bm,amsthm}
+\usepackage{amsmath,mathtools,bm,amsthm,amssymb}
 \usepackage{underscore}
 \usepackage{xcolor}
 \usepackage{graphicx}
@@ -159,15 +159,11 @@ BoldItalicFont=courbi.ttf
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\sign}{sign}
 
-\newenvironment{solution}[1]% environment name
-{% begin code
-  \par\vspace{\baselineskip}\noindent
-  \emph{Solution} #1 
-  \par\vspace{\baselineskip}\noindent\ignorespaces
-}{% end code
-  \ignorespacesafterend
-} 
+\newtheorem{exercise}{Exercise}
 
+\newenvironment{solution}
+  {\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+  {\end{proof}}
 
 \title{Neural Networks and Deep Learning: Exercises}
 
