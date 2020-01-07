@@ -9,3 +9,19 @@ First consider a single perceptron. Assume that weights and bias are $w_1, \ldot
 $c \cdot (\sum_i w_i \cdot x_i + b)$ have exactly the same sign and hence multiplying the weights and the bias by $c$ will not change the behaviour of this single perceptron. Now if all perceptrons in a network have their weights 
 and biases multiplied by $c > 0$, then each individual perceptron behaves as before and hence the network behaves as before.
 \end{solution}
+
+\begin{exercise}
+Suppose that we have network of perceptrons with a chosen input value 
+$\vect{x}$. We won’t need the actual input value, we just need the input 
+to have been fixed. Suppose the weights and biases are such that all 
+$\vect{w} \cdot \vect{x} + b \neq 0$ for the input $\vect{x}$ to 
+any particular 
+perceptron in the network. Now replace all the perceptrons in the network 
+by sigmoid neurons, and multiply the weights and biases of the network by 
+a positive constant $c > 0$. Show that in the limit as $c \to \infty$, 
+the of behaviour of this network of sigmoid neurons in exactly the 
+same as the network of perceptrons. How can this fail when 
+$\vect{w} \cdot \vect{x} + b = 0$ for one of the perceptrons?
+\end{exercise}
+\begin{solution}
+\end{solution}
