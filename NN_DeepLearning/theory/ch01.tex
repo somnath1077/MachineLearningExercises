@@ -40,3 +40,66 @@ output of the sigmoid neuron is ``stuck'' at $1/2$ irrespective of the value of 
 while the perceptron outputs a $0$. The outputs do not match and the behaviour 
 of the sigmoid network may be different. 
 \end{solution}
+
+\begin{exercise}
+There is a way of determining the bitwise representation of a digit by adding
+an extra layer to the three-layer network given in the book.  The extra layer
+converts the output of the previous layer in binary representation. Find a set
+of weights and biases for the new output layer.  Assume that the first three
+layers of neurons are such that the correct output in the third layer (i.e.,
+the old output layer) has activation at least $0.99$, and incorrect outputs
+have activation less than $0.01$.
+\end{exercise}
+\begin{solution}
+Label the neurons of the third layer (the old output layer) as $0, 1, \ldots, 9$
+and the neurons from the new output layer as $0', 1', 2', 3'$ with the interpretation 
+that neuron $0'$ is the least significant bit and $3'$ is the most significant 
+bit of the number represented by the output layer. The weight of the 
+connection between the $i$th neuron from the third layer and the $j$th neuron 
+of the output layer is $w_{i j}$, where $i \in \{0, \ldots, 9\}$ and 
+$j \in \{0', 1', 2', 3'\}$. The bias of the $j$th output neuron is $b_j$. Denote 
+the output of the $i$th neuron from the third layer as $x_i$. Then the input to the
+final layer may be represented as:
+\[
+    \begin{pmatrix}
+        z_0 \\
+        z_1 \\
+        z_2 \\
+        z_3 
+    \end{pmatrix} = 
+    \begin{pmatrix}
+        w_{0 0} & w_{1 0} & \ldots & w_{9 0} & b_0 \\
+        w_{0 1} & w_{1 1} & \ldots & w_{9 1} & b_1 \\
+        w_{0 2} & w_{1 2} & \ldots & w_{9 2} & b_2 \\
+        w_{0 3} & w_{1 3} & \ldots & w_{9 3} & b_3 
+    \end{pmatrix} 
+    \begin{pmatrix}
+        x_0 \\
+        \vdots \\
+        x_9 \\
+        1
+    \end{pmatrix}
+\]
+Now we would like $z_0$ to be $1$ when the number is $1, 3, 5, 7, 9$ 
+and $0$ otherwise. To be able to do this, first set 
+\[ 
+w_{1 0} = w_{3 0} = w_{5 0} = w_{7 0} = w_{9 0} = +1 
+\]
+and the remaining weights of the inputs to $0'$ to $-1$. Set $b_0 = 0$.
+Now if the third layer represents $k \in \{1, 3, 5, 7, 9\}$, we would have 
+$w_{k 0} > 0.99$ and $w_{j 0} < 0.01$ for all $j \neq k$. With these 
+weights, we would have $z_0 > 0.99 - 9 \times 0.01 = 0.90$. If the third layer 
+represents a number $k \notin \{1, 3, 5, 7, 9\}$, then 
+$z_0 < -0.99 + 9 \times 0.01 = -0.90$. We can amplify this phenomenon by
+multiplying all these weights by a large positive constant. This would lead
+the sigmoid neuron $0'$ to output a $1$ for the digits $1, 3, 5, 7, 9$ and 
+a $0$ for the remaining digits. 
+
+We can use a similar strategy for the remaining neurons of the fourth layer. For 
+example, the second most significant bit $1'$ must be a $1$ for the digits 
+$2, 3, 6, 7, 9$ and a $0$ for the remaining digits. We would then set 
+\[ 
+w_{2 1} = w_{3 1} = w_{6 1} = w_{7 1} = w_{9 1} = +1 
+\]
+and the remaining weights to $-1$. 
+\end{solution}
