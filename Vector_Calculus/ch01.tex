@@ -20,3 +20,21 @@ its effect on the standard basis vectors $\vect{e}_1, \ldots, \vect{e}_m$ of $\R
 An arbitrary choice of vectors $L(\vect{e}_1), \ldots, L(\vect{e}_m)$ of $\R^n$ 
 determines a linear function from $\R^m$ to $\R^n$.
 \end{theorem}
+\begin{proof}
+Given any vector $\vect{x} \in \R^m$, we can express it as a unique linear
+combination~$ \sum_{i = 1}^m \alpha_i \vect{e}_i$ of the basis vectors.  By the
+linearity of $L$, $L(\vect{x}) = \sum_i \alpha_i L(\vect{e}_i)$ which 
+is completely specified by $L(\vect{e}_1), \ldots, L(\vect{e}_m)$.
+
+Let $\vect{b}_1, \ldots, \vect{b}_m$ be any vectors in $\R^n$. Define a 
+map~$L$ from $\R^m$ to $\R^n$ as follows: for 
+$\vect{x} = \sum_{i = 1}^m \alpha_i \vect{e}_i \in \R^m$, 
+$L(\vect{x}) = \sum_{i = 1}^m \alpha_i \vect{b}_i$. Then 
+$L(\vect{e}_i) = \vect{b}_i$ for all $1 \leq i \leq m$ and for all
+$\vect{x}, \vect{y} \in \R^m$ and all $a, b \in \R$:
+\[
+    L(a \vect{x} + b \vect{y}) = \sum_{i = 1}^m (a x_i + b y_i) \vect{b}_i 
+        = a \sum_{i} x_i \vect{b}_i + b \sum_{i} y_i \vect{b}_i 
+        = a L(\vect{x}) + b L(\vect{y})
+\] 
+\end{proof}
