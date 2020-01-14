@@ -1,0 +1,22 @@
+\chapter{Linear Algebra Basics}
+
+\section{Linear Functions}
+
+A function $L \colon \R^m \rightarrow \R^n$ is a linear function if for all
+$\vect{x}, \vect{y} \in \R^m$ and for all $a, b \in \R$ 
+\[
+    L(a \vect{x} + b \vect{y}) = a L(\vect{x}) + b L(\vect{y}).
+\]
+It follows (by induction) that for all $\vect{x}_1, \ldots, \vect{x}_r \in \R^m$
+and all $a_1, \ldots, a_r \in \R$
+\[
+    L(a_1 \vect{x}_1 + \cdots + a_r \vect{x}_r) = 
+        a_1 L(\vect{x}_1) + \cdots + a_r L(\vect{x}_r).
+\]
+
+\begin{theorem}
+A linear function $L \colon \R^m \rightarrow \R^n$ is completely determined by 
+its effect on the standard basis vectors $\vect{e}_1, \ldots, \vect{e}_m$ of $\R^m$.
+An arbitrary choice of vectors $L(\vect{e}_1), \ldots, L(\vect{e}_m)$ of $\R^n$ 
+determines a linear function from $\R^m$ to $\R^n$.
+\end{theorem}
