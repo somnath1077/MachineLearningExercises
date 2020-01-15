@@ -113,5 +113,21 @@ $\nabla C \cdot \Delta \vect{v}$ is $\Delta \vect{v} = - \eta \nabla C$,
 where $\eta = \epsilon / \norm{\nabla C}$.
 \end{exercise}
 \begin{solution}
-
+The Cauchy-Schwarz inequality tells us that 
+\begin{align*}
+    |C_{v_1}^{(1)} \Delta v_1 + \cdots + C_{v_m}^{(1)} \Delta v_m | 
+        & \leq \left ( (C_{v_1}^{(1)})^2 + \cdots + (C_{v_m}^{(1)})^2 \right )^{1/2}
+        \left ( (\Delta v_1)^2 + \cdots + (\Delta v_m)^2 \right )^{1/2} \\
+        & = \norm{\nabla C} \cdot \epsilon,
+\end{align*}
+where $C_{v_i}^{(1)} = \frac{\partial C}{\partial v_i}$. Since the right-hand
+side is a positive number no matter what the values of the partial
+derivatives~$C_{v_i}^{(1)}$ and the changes~$\Delta v_i$ in the values of the
+variables, the smallest possible value of the left-hand side is $- \norm{\nabla
+C} \cdot \epsilon$.  Since we are trying to minimize $\Delta C$ which is
+approximated by the left-hand side, the goal is to find values for the $\Delta
+v_i$ such that minimizes the left-hand side. Observe that when we set $\Delta
+v_i := - \epsilon \cdot \frac{\nabla C}{\norm{\nabla C}}$ for all $1 \leq i
+\leq m$, then the left-hand side indeed equals the said minimum value. Hence it
+must be that this setting of the $\Delta v_i$s is the optimum.
 \end{solution}
