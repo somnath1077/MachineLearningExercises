@@ -154,3 +154,48 @@ net.SGD(training_data=train,
         test_data=test)
 Accuracy: 96.12
 ---------------------------------------------------
+net = Network([784, 100, 100, 10])
+train, validate, test = load_data_wrapper()
+net.SGD(training_data=train,
+        epochs=30,
+        mini_batch_size=15,
+        eta=4.0,
+        test_data=test)
+Accuracy: 96.49
+---------------------------------------------------
+net = Network([784, 100, 100, 10])
+train, validate, test = load_data_wrapper()
+net.SGD(training_data=train,
+        epochs=30,
+        mini_batch_size=15,
+        eta=3.0,
+        test_data=test)
+Accuracy: 96.33
+----------------------------------------------------
+net = Network([784, 100, 100, 10])
+train, validate, test = load_data_wrapper()
+net.SGD(training_data=train,
+        epochs=30,
+        mini_batch_size=20,
+        eta=3.0,
+        test_data=test)
+Accuracy: 87.12
+-----------------------------------------------------
+net = Network([784, 100, 100, 10])
+train, validate, test = load_data_wrapper()
+net.SGD(training_data=train,
+        epochs=30,
+        mini_batch_size=20,
+        eta=4.0,
+        test_data=test)
+Accuracy: 96.14
+-------------------------------------------------------
+net = Network([784, 100, 100, 10])
+train, validate, test = load_data_wrapper()
+net.SGD(training_data=train,
+        epochs=30,
+        mini_batch_size=20,
+        eta=5.0,
+        test_data=test)
+Accuracy: 87.23
+--------------------------------------------------------
