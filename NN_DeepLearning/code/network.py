@@ -42,7 +42,11 @@ class Network(object):
             a = sigmoid(np.dot(w, a) + b)
         return a
 
-    def SGD(self, training_data, epochs, mini_batch_size, eta,
+    def SGD(self,
+            training_data,
+            epochs,
+            mini_batch_size,
+            eta,
             test_data=None):
         """Train the neural network using mini-batch stochastic
         gradient descent.  The ``training_data`` is a list of tuples
@@ -51,7 +55,15 @@ class Network(object):
         self-explanatory.  If ``test_data`` is provided then the
         network will be evaluated against the test data after each
         epoch, and partial progress printed out.  This is useful for
-        tracking progress, but slows things down substantially."""
+        tracking progress, but slows things down substantially.
+
+        Since both the training and the test data are zipped objects,
+        in order to find out their lengths, we need to first
+        convert them into a list. Python 2.7 to Python 3.7 problem!
+        """
+        training_data = list(training_data)
+        test_data = list(test_data)
+
         if test_data:
             n_test = len(test_data)
 
@@ -60,10 +72,12 @@ class Network(object):
         for j in range(epochs):
             random.shuffle(training_data)
             mini_batches = [
-                training_data[k:k+mini_batch_size]
+                training_data[k: k + mini_batch_size]
                 for k in range(0, n, mini_batch_size)]
+
             for mini_batch in mini_batches:
                 self.update_mini_batch(mini_batch, eta)
+
             if test_data:
                 print("Epoch {0}: {1} / {2}".format(
                     j, self.evaluate(test_data), n_test))
