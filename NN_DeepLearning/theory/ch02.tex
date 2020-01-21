@@ -36,6 +36,7 @@ layer~$l$.
 With this notation in hand, we may write the backpropagation equations
 as:
 \begin{align}
+\setlength{\jot}{12pt}
     \delta^{L} & = \nabla_{a^L} C \odot \sigma'(z^L) \\
     \delta^{l} & = ( \trans{(w^{l + 1})} \delta^{l + 1} ) \odot \sigma'(z^l) \\
     \frac{\partial C}{\partial b_j^{l}} & = \delta_{j}^l \\
