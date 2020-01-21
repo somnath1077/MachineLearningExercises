@@ -1,0 +1,43 @@
+\chapter{The Backpropagation Algorithm}
+
+\section{The Backpropagation Equations}
+
+Before we describe anything, we briefly recap notation. We let 
+$C$ denote the cost function and $\sigma$ the activation function 
+of the neurons. 
+\begin{enumerate}
+    \item $w_{j k}^{l}$ is the weight of the link between the $j$th
+        neuron in layer~$l$ and the $k$th neuron in layer~$l - 1$.
+    \item $b_j^l$ is the bias of neuron $j$ in layer~$l$.
+    \item $z_{j}^l$ is the weighted input to neuron~$j$ in layer~$l$.
+    \item $a_j^{l} = \sigma(z_{j}^l)$ is the activation of neuron~$j$ in 
+        layer~$l$.
+    \item $\delta_{j}^{l} := \partial C / \partial z_{j}^{l}$ is 
+        the ``error'' of neuron~$j$ in layer~$l$.
+\end{enumerate}
+
+Using this notation, we may write the weighted output to neuron~$j$
+in the $l$th layer as:
+\[
+    z_{j}^{l} = \sum_{k} w_{j k}^l a_{k}^{l - 1} + b_{j}^l = 
+                \sum_{k} w_{j k}^l \sigma (z_{k}^{l - 1}) + b_{j}^l, 
+\]
+where the index~$k$ runs over all neurons in layer~$l - 1$ and 
+$2 \leq l \leq L$. Symbols such as $w^{l}$, $b^{l}$, $a^{l}$ without 
+subscripts refer to either matrices or vectors as the case may be. 
+For example, $w^{l}$ refers to the matrix whose $(j, k)$th element 
+is $w_{j k}^{l}$. This matrix has as many rows as there are neurons
+in the $l$th layer and as many columns as there are neurons in 
+layer~$l - 1$. The symbol~$b^{l}$ refers to the vector of 
+biases~$b_{j}^l$ of the neurons in layer~$l$; similarly, $a^{l}$ 
+refers to the vector of activations~$a_{j}^l$ of the neurons in 
+layer~$l$.
+
+With this notation in hand, we may write the backpropagation equations
+as:
+\begin{align}
+    \delta^{L} & = \nabla_{a^L} C \odot \sigma'(z^L) \\
+    \delta^{l} & = ( \trans{(w^{l + 1})} \delta^{l + 1} ) \odot \sigma'(z^l) \\
+    \frac{\partial C}{\partial b_j^{l}} & = \delta_{j}^l \\
+    \frac{\partial C}{\partial w_{j k}^l} & = a_{k}^{l - 1} \delta_{j}^l
+\end{align}
