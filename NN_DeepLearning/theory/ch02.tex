@@ -35,10 +35,45 @@ layer~$l$.
 
 With this notation in hand, we may write the backpropagation equations
 as:
-\begin{align}
+\begin{equation}
+\boxed{
 \setlength{\jot}{12pt}
+\begin{aligned}
     \delta^{L} & = \nabla_{a^L} C \odot \sigma'(z^L) \\
     \delta^{l} & = ( \trans{(w^{l + 1})} \delta^{l + 1} ) \odot \sigma'(z^l) \\
     \frac{\partial C}{\partial b_j^{l}} & = \delta_{j}^l \\
     \frac{\partial C}{\partial w_{j k}^l} & = a_{k}^{l - 1} \delta_{j}^l
-\end{align}
+\end{aligned}
+}
+\end{equation}
+
+\section{Backpropagation Applied to Gradient Descent} 
+
+The backpropagation procedure calculates the gradient of the cost 
+function~$C$ with respect to a single input example. To make use of 
+backprop in the context of stochastic gradient descent, we need to take 
+the mean of the gradient computed over all examples in a mini batch. 
+Let's suppose that we have a mini batch with $m$ examples 
+$x_1, \ldots, x_m$.
+\begin{enumerate}
+    \item For each training example~$x$, set the input activation
+        $a^1 (x)$ and perform the following steps:
+        \begin{enumerate}
+            \item \textbf{Feedforward.} For $2 \leq l \leq L$, set 
+                $z^l (x) = w^l a^{l - 1} (x) + b^l$ and 
+                $a^l (x) = \sigma (z^l (x))$.
+            \item \textbf{Output Error.} Calculate 
+                $\delta^L (x) = \nabla_{a^L} C(x) \odot \sigma' (z^L (x) )$.
+            \item \textbf{Backprop.} For $L - 1 \leq l \leq 2$, 
+                $\delta^l (x) = ( \trans{(w^{l + 1})} \delta^{l + 1} (x) ) 
+                                    \odot \sigma' (z^l (x))$.
+            \item \textbf{Gradients.} Calculate 
+            $ \frac{\partial C}{\partial b_j^{l}} (x) = \delta_{j}^l (x)$
+            and $\frac{\partial C}{\partial w_{j k}^l} (x) 
+                    = a_{k}^{l - 1} \delta_{j}^l (x)$.
+        \end{enumerate}
+    \item \textbf{Gradient Descent.} For $L \leq l \leq 2$, set 
+        $w^l = w^l - \frac{\eta}{m} \sum_{x} \delta^{l} (x) \trans{(a^{l - 1} (x))}$
+        and
+        $b^l = b^l - \frac{\eta}{m} \sum_{x} \delta^l (x)$.
+\end{enumerate}
