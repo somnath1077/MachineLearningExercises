@@ -11,7 +11,7 @@ features.
 
 """
 
-#### Libraries
+# Libraries
 # Standard library
 import json
 import random
@@ -21,7 +21,7 @@ import sys
 import numpy as np
 
 
-#### Define the quadratic and cross-entropy cost functions
+# Define the quadratic and cross-entropy cost functions
 
 class QuadraticCost(object):
 
@@ -64,7 +64,7 @@ class CrossEntropyCost(object):
         return (a - y)
 
 
-#### Main Network class
+# Main Network class
 class Network(object):
 
     def __init__(self, sizes, cost=CrossEntropyCost):
