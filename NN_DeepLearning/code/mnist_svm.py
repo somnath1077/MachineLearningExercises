@@ -7,7 +7,7 @@ data set, using an SVM classifier."""
 
 #### Libraries
 # My libraries
-import mnist_loader
+import code.mnist_loader as mnist_loader
 
 # Third-party libraries
 from sklearn import svm
