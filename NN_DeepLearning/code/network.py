@@ -110,7 +110,6 @@ class Network(object):
 
         # feedforward
         activation = x
-
         # list to store all the activations, layer by layer
         activations = [x]
         zs = []  # list to store all the z vectors, layer by layer
