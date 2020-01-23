@@ -45,7 +45,7 @@ def load_data():
         u.encoding = 'latin1'
         training_data, validation_data, test_data = u.load()
 
-    return (training_data, validation_data, test_data)
+    return training_data, validation_data, test_data
 
 
 def load_data_wrapper():
