@@ -21,8 +21,10 @@ from naive ideas."""
 # Standard library
 from collections import defaultdict
 
+
 # My libraries
-import mnist_loader
+from code import mnist_loader
+
 
 def main():
     training_data, validation_data, test_data = mnist_loader.load_data()
@@ -35,6 +37,7 @@ def main():
                       for image, digit in zip(test_data[0], test_data[1]))
     print("Baseline classifier using average darkness of image.")
     print("%s of %s values correct." % (num_correct, len(test_data[1])))
+
 
 def avg_darknesses(training_data):
     """ Return a defaultdict whose keys are the digits 0 through 9.
@@ -51,14 +54,16 @@ def avg_darknesses(training_data):
         avgs[digit] = darknesses[digit] / n
     return avgs
 
+
 def guess_digit(image, avgs):
     """Return the digit whose average darkness in the training data is
     closest to the darkness of ``image``.  Note that ``avgs`` is
     assumed to be a defaultdict whose keys are 0...9, and whose values
     are the corresponding average darknesses across the training data."""
     darkness = sum(image)
-    distances = {k: abs(v-darkness) for k, v in avgs.iteritems()}
+    distances = {k: abs(v - darkness) for k, v in avgs.iteritems()}
     return min(distances, key=distances.get)
+
 
 if __name__ == "__main__":
     main()
