@@ -156,26 +156,17 @@ class Network(object):
         # The ith element of activations is a np array of dimension:
         # number of neurons in ith layer * mini-batch size
         assert len(activations) == len(self.sizes)
-        # print(zs[-1].shape)
         assert zs[-1].shape[0] == self.sizes[-1]
         assert zs[-1].shape[1] == X.shape[1]
         assert activations[-1].shape == Y.shape == zs[-1].shape
         delta = self.cost_derivative(activations[-1], Y) * sigmoid_prime(zs[-1])
-        # print(f'Shape of delta = {delta.shape}')
         nabla_b[-1] = np.sum(delta, axis=1).reshape(nabla_b[-1].shape)
 
         A = activations[-2].transpose()
-        # print(f'Shape of A = {A.shape}')
-        # print(f'Shape of delta * A = {np.dot(delta, A).shape}')
-        # print(f'Shape of np.sum(np.dot(delta, A), axis=1) = {np.sum(np.dot(delta, A), axis=1).shape}')
-        # print(f'Shape of nabla_w[-1].shape = {nabla_w[-1].shape}')
-        # print(f'The shape of delta.T = {delta.T.shape}')
         for delta_x, A_x in zip(delta.T, A):
             delta_x = delta_x.reshape((delta.shape[0], 1))
             A_x = A_x.reshape((A.shape[1], 1)).T
-            # print(f'shape of np.dot(delta_x, A_x) = {np.dot(delta_x, A_x).shape}')
             nabla_w[-1] += np.dot(delta_x, A_x)
-        # print(f'Shape of nabla_w[-1].shape after = {nabla_w[-1].shape}')
 
         for l in range(2, self.num_layers):
             z = zs[-l]
