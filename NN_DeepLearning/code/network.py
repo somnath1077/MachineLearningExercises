@@ -12,8 +12,9 @@ and omits many desirable features.
 # Libraries
 # Standard library
 import random
-
 # Third-party libraries
+import sys
+
 import numpy as np
 
 
@@ -93,16 +94,23 @@ class Network(object):
         nabla_w = [np.zeros(w.shape) for w in self.weights]
 
         # X = []
-        # Y =[]
+        # Y = []
+        # cnt = 1
         # for x, y in mini_batch:
-        #     X.append(x)
-        #     Y.append(y)
+            # print(f'{cnt}: {x.shape}')
+            # print(f'{cnt}: {y.shape}')
+            # cnt += 1
+            # X.append(x)
+            # Y.append(y)
+
         # X = np.array(X).reshape((X[0].shape[0], len(X)))
         # print(X.shape)
         # Y = np.array(Y).reshape((Y[0].shape[0], len(Y)))
         # print(Y.shape)
+        # delta_nabla_b, delta_nabla_w = self.backprop_full_matrix_version(X, Y)
+        # nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
+        # nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
         for x, y in mini_batch:
-            # delta_nabla_b, delta_nabla_w = self.backprop_full_matrix_version(X, Y)
             delta_nabla_b, delta_nabla_w = self.backprop(x, y)
             nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
             nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
@@ -133,11 +141,25 @@ class Network(object):
 
         for b, w in zip(self.biases, self.weights):
             z = np.dot(w, activation) + b
+            assert z.shape[0] == w.shape[0]
+            # The ith column of z is the weighted input corresponding
+            # to the ith example in the mini-batch
+            assert z.shape[1] == X.shape[1]
             zs.append(z)
             activation = sigmoid(z)
+            assert activation.shape[0] == w.shape[0]
+            assert activation.shape[1] == X.shape[1]
             activations.append(activation)
 
         # backward pass
+
+        # The ith element of activations is a np array of dimension:
+        # number of neurons in ith layer * mini-batch size
+        assert len(activations) == len(self.sizes)
+        # print(zs[-1].shape)
+        assert zs[-1].shape[0] == self.sizes[-1]
+        assert zs[-1].shape[1] == X.shape[1]
+        assert activations[-1].shape == Y.shape == zs[-1].shape
         delta = self.cost_derivative(activations[-1], Y) * sigmoid_prime(zs[-1])
         # print(f'Shape of delta = {delta.shape}')
         nabla_b[-1] = np.sum(delta, axis=1).reshape(nabla_b[-1].shape)
@@ -147,7 +169,13 @@ class Network(object):
         # print(f'Shape of delta * A = {np.dot(delta, A).shape}')
         # print(f'Shape of np.sum(np.dot(delta, A), axis=1) = {np.sum(np.dot(delta, A), axis=1).shape}')
         # print(f'Shape of nabla_w[-1].shape = {nabla_w[-1].shape}')
-        nabla_w[-1] = np.dot(delta, A).reshape(nabla_w[-1].shape)
+        # print(f'The shape of delta.T = {delta.T.shape}')
+        for delta_x, A_x in zip(delta.T, A):
+            delta_x = delta_x.reshape((delta.shape[0], 1))
+            A_x = A_x.reshape((A.shape[1], 1)).T
+            # print(f'shape of np.dot(delta_x, A_x) = {np.dot(delta_x, A_x).shape}')
+            nabla_w[-1] += np.dot(delta_x, A_x)
+        # print(f'Shape of nabla_w[-1].shape after = {nabla_w[-1].shape}')
 
         for l in range(2, self.num_layers):
             z = zs[-l]
@@ -157,7 +185,10 @@ class Network(object):
             nabla_b[-l] = np.sum(delta, axis=1).reshape(nabla_b[-l].shape)
 
             act = activations[-l - 1].transpose()
-            nabla_w[-l] = np.dot(delta, act).reshape(nabla_w[-l].shape)
+            for delta_x, act_x in zip(delta.T, act):
+                delta_x = delta_x.reshape((delta.shape[0], 1))
+                act_x = act_x.reshape((act.shape[1], 1)).T
+                nabla_w[-l] += np.dot(delta_x, act_x)
 
         return nabla_b, nabla_w
 
