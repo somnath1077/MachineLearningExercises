@@ -92,13 +92,74 @@ class Network(object):
         nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
 
+        # X = []
+        # Y =[]
+        # for x, y in mini_batch:
+        #     X.append(x)
+        #     Y.append(y)
+        # X = np.array(X).reshape((X[0].shape[0], len(X)))
+        # print(X.shape)
+        # Y = np.array(Y).reshape((Y[0].shape[0], len(Y)))
+        # print(Y.shape)
         for x, y in mini_batch:
+            # delta_nabla_b, delta_nabla_w = self.backprop_full_matrix_version(X, Y)
             delta_nabla_b, delta_nabla_w = self.backprop(x, y)
             nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
             nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
 
         self.weights = [w - (eta / len(mini_batch)) * nw for w, nw in zip(self.weights, nabla_w)]
         self.biases = [b - (eta / len(mini_batch)) * nb for b, nb in zip(self.biases, nabla_b)]
+
+    def backprop_full_matrix_version(self, X, Y):
+        """Return a tuple ``(nabla_b, nabla_w)`` representing the
+           mean gradient for the cost function C computed over all
+           the examples in the mini-batch represented by the arrays X and Y.
+
+           X: a numpy array whose columns ar the examples of the mini-batch
+                That is, X = [x_1, x_2, ..., x_m]
+           Y: a numpy array whose columns represent the labels y_1, y_2, ..., y_m
+                corresponding to the examples x_1, ..., x_m
+
+           ``nabla_b`` and ``nabla_w`` are layer-by-layer lists of
+           numpy arrays, similar to ``self.biases`` and ``self.weights``."""
+        nabla_b = [np.zeros(b.shape) for b in self.biases]
+        nabla_w = [np.zeros(w.shape) for w in self.weights]
+
+        # feedforward
+        activation = X
+        # list to store all the activations, layer by layer
+        activations = [X]
+        zs = []  # list to store all the z vectors, layer by layer
+
+        for b, w in zip(self.biases, self.weights):
+            z = np.dot(w, activation) + b
+            zs.append(z)
+            activation = sigmoid(z)
+            activations.append(activation)
+
+        # backward pass
+        delta = self.cost_derivative(activations[-1], Y) * sigmoid_prime(zs[-1])
+        # print(f'Shape of delta = {delta.shape}')
+        nabla_b[-1] = np.sum(delta, axis=1).reshape(nabla_b[-1].shape)
+
+        A = activations[-2].transpose()
+        # print(f'Shape of A = {A.shape}')
+        # print(f'Shape of delta * A = {np.dot(delta, A).shape}')
+        # print(f'Shape of np.sum(np.dot(delta, A), axis=1) = {np.sum(np.dot(delta, A), axis=1).shape}')
+        # print(f'Shape of nabla_w[-1].shape = {nabla_w[-1].shape}')
+        nabla_w[-1] = np.dot(delta, A).reshape(nabla_w[-1].shape)
+
+        for l in range(2, self.num_layers):
+            z = zs[-l]
+            sp = sigmoid_prime(z)
+
+            delta = np.dot(self.weights[-l + 1].transpose(), delta) * sp
+            nabla_b[-l] = np.sum(delta, axis=1).reshape(nabla_b[-l].shape)
+
+            act = activations[-l - 1].transpose()
+            nabla_w[-l] = np.dot(delta, act).reshape(nabla_w[-l].shape)
+
+        return nabla_b, nabla_w
 
     def backprop(self, x, y):
         """Return a tuple ``(nabla_b, nabla_w)`` representing the

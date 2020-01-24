@@ -83,7 +83,7 @@ def load_data_wrapper():
     test_data = zip(test_inputs, te_d[1])
     # test_data = [(test_inp, test_res) for test_inp in test_inputs
     #             for test_res in te_d[1]]
-    return (training_data, validation_data, test_data)
+    return training_data, validation_data, test_data
 
 
 def vectorized_result(j):
