@@ -8,10 +8,10 @@ and ``load_data_wrapper``.  In practice, ``load_data_wrapper`` is the
 function usually called by our neural network code.
 """
 
+import gzip
 # Libraries
 # Standard library
 import pickle
-import gzip
 
 # Third-party libraries
 import numpy as np
@@ -45,7 +45,7 @@ def load_data():
         u.encoding = 'latin1'
         training_data, validation_data, test_data = u.load()
 
-    return (training_data, validation_data, test_data)
+    return training_data, validation_data, test_data
 
 
 def load_data_wrapper():
@@ -83,7 +83,7 @@ def load_data_wrapper():
     test_data = zip(test_inputs, te_d[1])
     # test_data = [(test_inp, test_res) for test_inp in test_inputs
     #             for test_res in te_d[1]]
-    return (training_data, validation_data, test_data)
+    return training_data, validation_data, test_data
 
 
 def vectorized_result(j):

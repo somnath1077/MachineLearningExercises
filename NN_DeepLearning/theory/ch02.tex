@@ -1,0 +1,79 @@
+\chapter{The Backpropagation Algorithm}
+
+\section{The Backpropagation Equations}
+
+Before we describe anything, we briefly recap notation. We let 
+$C$ denote the cost function and $\sigma$ the activation function 
+of the neurons. 
+\begin{enumerate}
+    \item $w_{j k}^{l}$ is the weight of the link between the $j$th
+        neuron in layer~$l$ and the $k$th neuron in layer~$l - 1$.
+    \item $b_j^l$ is the bias of neuron $j$ in layer~$l$.
+    \item $z_{j}^l$ is the weighted input to neuron~$j$ in layer~$l$.
+    \item $a_j^{l} = \sigma(z_{j}^l)$ is the activation of neuron~$j$ in 
+        layer~$l$.
+    \item $\delta_{j}^{l} := \partial C / \partial z_{j}^{l}$ is 
+        the ``error'' of neuron~$j$ in layer~$l$.
+\end{enumerate}
+
+Using this notation, we may write the weighted output to neuron~$j$
+in the $l$th layer as:
+\[
+    z_{j}^{l} = \sum_{k} w_{j k}^l a_{k}^{l - 1} + b_{j}^l = 
+                \sum_{k} w_{j k}^l \sigma (z_{k}^{l - 1}) + b_{j}^l, 
+\]
+where the index~$k$ runs over all neurons in layer~$l - 1$ and 
+$2 \leq l \leq L$. Symbols such as $w^{l}$, $b^{l}$, $a^{l}$ without 
+subscripts refer to either matrices or vectors as the case may be. 
+For example, $w^{l}$ refers to the matrix whose $(j, k)$th element 
+is $w_{j k}^{l}$. This matrix has as many rows as there are neurons
+in the $l$th layer and as many columns as there are neurons in 
+layer~$l - 1$. The symbol~$b^{l}$ refers to the vector of 
+biases~$b_{j}^l$ of the neurons in layer~$l$; similarly, $a^{l}$ 
+refers to the vector of activations~$a_{j}^l$ of the neurons in 
+layer~$l$.
+
+With this notation in hand, we may write the backpropagation equations
+as:
+\begin{equation}
+\boxed{
+\setlength{\jot}{12pt}
+\begin{aligned}
+    \delta^{L} & = \nabla_{a^L} C \odot \sigma'(z^L) \\
+    \delta^{l} & = ( \trans{(w^{l + 1})} \delta^{l + 1} ) \odot \sigma'(z^l) \\
+    \frac{\partial C}{\partial b_j^{l}} & = \delta_{j}^l \\
+    \frac{\partial C}{\partial w_{j k}^l} & = a_{k}^{l - 1} \delta_{j}^l
+\end{aligned}
+}
+\end{equation}
+
+\section{Backpropagation Applied to Gradient Descent} 
+
+The backpropagation procedure calculates the gradient of the cost 
+function~$C$ with respect to a single input example. To make use of 
+backprop in the context of stochastic gradient descent, we need to take 
+the mean of the gradient computed over all examples in a mini batch. 
+Let's suppose that we have a mini batch with $m$ examples 
+$x_1, \ldots, x_m$.
+\begin{enumerate}
+    \item For each training example~$x$, set the input activation
+        $a^1 (x)$ and perform the following steps:
+        \begin{enumerate}
+            \item \textbf{Feedforward.} For $2 \leq l \leq L$, set 
+                $z^l (x) = w^l a^{l - 1} (x) + b^l$ and 
+                $a^l (x) = \sigma (z^l (x))$.
+            \item \textbf{Output Error.} Calculate 
+                $\delta^L (x) = \nabla_{a^L} C(x) \odot \sigma' (z^L (x) )$.
+            \item \textbf{Backprop.} For $L - 1 \leq l \leq 2$, 
+                $\delta^l (x) = ( \trans{(w^{l + 1})} \delta^{l + 1} (x) ) 
+                                    \odot \sigma' (z^l (x))$.
+            \item \textbf{Gradients.} Calculate 
+            $ \frac{\partial C}{\partial b_j^{l}} (x) = \delta_{j}^l (x)$
+            and $\frac{\partial C}{\partial w_{j k}^l} (x) 
+                    = a_{k}^{l - 1} \delta_{j}^l (x)$.
+        \end{enumerate}
+    \item \textbf{Gradient Descent.} For $L \leq l \leq 2$, set 
+        $w^l = w^l - \frac{\eta}{m} \sum_{x} \delta^{l} (x) \trans{(a^{l - 1} (x))}$
+        and
+        $b^l = b^l - \frac{\eta}{m} \sum_{x} \delta^l (x)$.
+\end{enumerate}

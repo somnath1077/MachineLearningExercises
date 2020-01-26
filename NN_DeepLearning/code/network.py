@@ -12,8 +12,9 @@ and omits many desirable features.
 # Libraries
 # Standard library
 import random
-
 # Third-party libraries
+import sys
+
 import numpy as np
 
 
@@ -92,17 +93,95 @@ class Network(object):
         nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
 
+        # X = []
+        # Y = []
+        # cnt = 1
+        # for x, y in mini_batch:
+            # print(f'{cnt}: {x.shape}')
+            # print(f'{cnt}: {y.shape}')
+            # cnt += 1
+            # X.append(x)
+            # Y.append(y)
+
+        # X = np.array(X).reshape((X[0].shape[0], len(X)))
+        # print(X.shape)
+        # Y = np.array(Y).reshape((Y[0].shape[0], len(Y)))
+        # print(Y.shape)
+        # delta_nabla_b, delta_nabla_w = self.backprop_full_matrix_version(X, Y)
+        # nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
+        # nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
         for x, y in mini_batch:
             delta_nabla_b, delta_nabla_w = self.backprop(x, y)
-            nabla_b = [nb + dnb for nb, dnb in
-                       zip(nabla_b, delta_nabla_b)]
-            nabla_w = [nw + dnw for nw, dnw in
-                       zip(nabla_w, delta_nabla_w)]
+            nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
+            nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
 
-        self.weights = [w - (eta / len(mini_batch)) * nw
-                        for w, nw in zip(self.weights, nabla_w)]
-        self.biases = [b - (eta / len(mini_batch)) * nb
-                       for b, nb in zip(self.biases, nabla_b)]
+        self.weights = [w - (eta / len(mini_batch)) * nw for w, nw in zip(self.weights, nabla_w)]
+        self.biases = [b - (eta / len(mini_batch)) * nb for b, nb in zip(self.biases, nabla_b)]
+
+    def backprop_full_matrix_version(self, X, Y):
+        """Return a tuple ``(nabla_b, nabla_w)`` representing the
+           mean gradient for the cost function C computed over all
+           the examples in the mini-batch represented by the arrays X and Y.
+
+           X: a numpy array whose columns ar the examples of the mini-batch
+                That is, X = [x_1, x_2, ..., x_m]
+           Y: a numpy array whose columns represent the labels y_1, y_2, ..., y_m
+                corresponding to the examples x_1, ..., x_m
+
+           ``nabla_b`` and ``nabla_w`` are layer-by-layer lists of
+           numpy arrays, similar to ``self.biases`` and ``self.weights``."""
+        nabla_b = [np.zeros(b.shape) for b in self.biases]
+        nabla_w = [np.zeros(w.shape) for w in self.weights]
+
+        # feedforward
+        activation = X
+        # list to store all the activations, layer by layer
+        activations = [X]
+        zs = []  # list to store all the z vectors, layer by layer
+
+        for b, w in zip(self.biases, self.weights):
+            z = np.dot(w, activation) + b
+            assert z.shape[0] == w.shape[0]
+            # The ith column of z is the weighted input corresponding
+            # to the ith example in the mini-batch
+            assert z.shape[1] == X.shape[1]
+            zs.append(z)
+            activation = sigmoid(z)
+            assert activation.shape[0] == w.shape[0]
+            assert activation.shape[1] == X.shape[1]
+            activations.append(activation)
+
+        # backward pass
+
+        # The ith element of activations is a np array of dimension:
+        # number of neurons in ith layer * mini-batch size
+        assert len(activations) == len(self.sizes)
+        assert zs[-1].shape[0] == self.sizes[-1]
+        assert zs[-1].shape[1] == X.shape[1]
+        assert activations[-1].shape == Y.shape == zs[-1].shape
+        delta = self.cost_derivative(activations[-1], Y) * sigmoid_prime(zs[-1])
+        nabla_b[-1] = np.sum(delta, axis=1).reshape(nabla_b[-1].shape)
+
+        A = activations[-2].transpose()
+        for delta_x, A_x in zip(delta.T, A):
+            delta_x = delta_x.reshape((delta.shape[0], 1))
+            A_x = A_x.reshape((A.shape[1], 1)).T
+            nabla_w[-1] += np.dot(delta_x, A_x)
+
+        for l in range(2, self.num_layers):
+            z = zs[-l]
+            sp = sigmoid_prime(z)
+
+            delta = np.dot(self.weights[-l + 1].transpose(), delta) * sp
+            nabla_b[-l] = np.sum(delta, axis=1).reshape(nabla_b[-l].shape)
+
+            act = activations[-l - 1].transpose()
+            for delta_x, act_x in zip(delta.T, act):
+                delta_x = delta_x.reshape((delta.shape[0], 1))
+                act_x = act_x.reshape((act.shape[1], 1)).T
+                nabla_w[-l] += np.dot(delta_x, act_x)
+
+        return nabla_b, nabla_w
 
     def backprop(self, x, y):
         """Return a tuple ``(nabla_b, nabla_w)`` representing the
@@ -114,19 +193,18 @@ class Network(object):
 
         # feedforward
         activation = x
-
         # list to store all the activations, layer by layer
         activations = [x]
         zs = []  # list to store all the z vectors, layer by layer
 
         for b, w in zip(self.biases, self.weights):
-            z = np.dot(w, activation)+b
+            z = np.dot(w, activation) + b
             zs.append(z)
             activation = sigmoid(z)
             activations.append(activation)
+
         # backward pass
-        delta = self.cost_derivative(activations[-1], y) * \
-            sigmoid_prime(zs[-1])
+        delta = self.cost_derivative(activations[-1], y) * sigmoid_prime(zs[-1])
         nabla_b[-1] = delta
         nabla_w[-1] = np.dot(delta, activations[-2].transpose())
         # Note that the variable l in the loop below is used a little
@@ -138,10 +216,10 @@ class Network(object):
         for l in range(2, self.num_layers):
             z = zs[-l]
             sp = sigmoid_prime(z)
-            delta = np.dot(self.weights[-l+1].transpose(), delta) * sp
+            delta = np.dot(self.weights[-l + 1].transpose(), delta) * sp
             nabla_b[-l] = delta
-            nabla_w[-l] = np.dot(delta, activations[-l-1].transpose())
-        return (nabla_b, nabla_w)
+            nabla_w[-l] = np.dot(delta, activations[-l - 1].transpose())
+        return nabla_b, nabla_w
 
     def evaluate(self, test_data):
         """Return the number of test inputs for which the neural
@@ -155,7 +233,7 @@ class Network(object):
     def cost_derivative(self, output_activations, y):
         """Return the vector of partial derivatives \partial C_x /
         \partial a for the output activations."""
-        return (output_activations-y)
+        return output_activations - y
 
 
 # Miscellaneous functions
