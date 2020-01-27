@@ -13,8 +13,8 @@ def main(size, epochs, mini_batch_size, eta):
 
 
 if __name__ == '__main__':
-    size = [784, 123, 10]
-    epochs = 50
-    mini_batch_size = 12
+    size = [784, 128, 10]
+    epochs = 100
+    mini_batch_size = 10
     eta = 3.0
     main(size, epochs, mini_batch_size, eta)
