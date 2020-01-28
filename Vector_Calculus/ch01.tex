@@ -50,4 +50,46 @@ the set of vectors in~$\R^n$ that $L$ maps~$\R^m$ to. In symbols, $\image (L)
 in~$\R^n$: $\kernel (L) := \{\vect{x} \in \R^m \colon L(\vect{x}) =
 \vect{0}_n\}$.
 
+\begin{theorem}
+Let $L \colon \R^m \rightarrow \R^n$ be a linear function. Then the following
+hold:
+\begin{enumerate}
+	\item $\image (L)$ is a subspace of $\R^n$;
+	\item $\kernel (L)$ is a subspace of $\R^m$;
+	\item $\dim (\image (L)) + \dim (\kernel (L)) = \dim (\R^m) = m$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+The proof of~$(1)$ and~$(2)$ are similar. For proving~$(1)$, let 
+$\vect{z}_1, \vect{z}_2 \in \image(L)$ and $\alpha, \beta \in \R$. 
+Then there exist $\vect{x}_1, \vect{x}_2 \in \R^m$ such that 
+\[
+	L(\alpha \vect{x}_1 + \beta \vect{x}_2) = \alpha  \vect{z}_1 + \beta \vect{z}_2,
+\]
+implying that $\alpha  \vect{z}_1 + \beta \vect{z}_2 \in \image (L)$. Since 
+$\image(L)$ is closed under vector addition and multiplication by scalars, it is 
+a vector space. Since it is a subset of $\R^n$, it must be a subspace of $\R^n$.
 
+To prove~$(3)$, let us assume that $\dim ( \kernel (L)) = k$ and that 
+$\vect{b}_1, \ldots, \vect{b}_k$ is a basis of $\kernel (L)$. Extend this 
+basis to a basis $\vect{b}_1, \ldots, \vect{b}_k, \vect{b}_{k + 1}, \ldots, \vect{b}_m$
+for $\R^m$. Then for every vector $\vect{x} \in \R^m$ there exist scalars 
+$\beta_1, \ldots, \beta_m$ such that $\vect{x} = \sum_{i = 1}^k \beta_i \vect{b}_i$. 
+Moreover since $L$ is linear,
+\begin{align*}
+	L(\vect{x}) & = \sum_{i = 1}^{m} \beta_i L(\vect{b}_i) \\
+				& = \sum_{i = k + 1}^{m} \beta_i L(\vect{b}_i).
+\end{align*}
+This shows that every vector in $\image (L)$ can be expressed as a linear 
+combination of the vectors $L(\vect{b}_{k + 1}), \ldots, L(\vect{b}_m)$. 
+To show that they form a basis of $\image (L)$, it is sufficient to show
+that they are linearly independent. Suppose not. Then there exist scalars 
+$\beta_{k + 1}, \ldots, \beta_m$, not all zero, such that 
+$\sum_{i = k + 1}^m \beta_i L(\vect{b}_i) = \vect{0}_n$. By the linearity of~$L$, 
+we have $L(\sum_{i = k + 1}^m \beta_i \vect{b}_i) = \vect{0}_n$ and hence 
+$\vect{0}_m \neq \sum_{i = k + 1}^m \beta_i \vect{b}_i \in \kernel (L)$. 
+This is a contradiction since the vectors $\vect{b}_{k + 1}, \ldots, \vect{b}_m$
+are not in the space spanned by the vectors $\vect{b}_1, \ldots, \vect{b}_k$. 
+Thus the vectors $\beta_{k + 1}, \ldots, \beta_m$ must be independent and form
+a basis of $\image (L)$. This proves~$(3)$. 
+\end{proof}
