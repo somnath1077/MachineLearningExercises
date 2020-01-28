@@ -61,7 +61,7 @@ class CrossEntropyCost(object):
         consistent with the delta method for other cost classes.
 
         """
-        return (a - y)
+        return a - y
 
 
 # Main Network class
@@ -82,6 +82,8 @@ class Network(object):
         self.sizes = sizes
         self.default_weight_initializer()
         self.cost = cost
+        self.biases = list()
+        self.weights = list()
 
     def default_weight_initializer(self):
         """Initialize each weight using a Gaussian distribution with mean 0
@@ -152,10 +154,13 @@ class Network(object):
         are empty if the corresponding flag is not set.
 
         """
-        if evaluation_data: n_data = len(evaluation_data)
+        if evaluation_data:
+            n_data = len(evaluation_data)
+
         n = len(training_data)
         evaluation_cost, evaluation_accuracy = [], []
         training_cost, training_accuracy = [], []
+
         for j in range(epochs):
             random.shuffle(training_data)
             mini_batches = [
@@ -183,9 +188,8 @@ class Network(object):
                 evaluation_accuracy.append(accuracy)
                 print("Accuracy on evaluation data: {} / {}".format(
                     self.accuracy(evaluation_data), n_data))
-            print
-        return evaluation_cost, evaluation_accuracy, \
-               training_cost, training_accuracy
+
+        return evaluation_cost, evaluation_accuracy, training_cost, training_accuracy
 
     def update_mini_batch(self, mini_batch, eta, lmbda, n):
         """Update the network's weights and biases by applying gradient
@@ -223,7 +227,7 @@ class Network(object):
             activation = sigmoid(z)
             activations.append(activation)
         # backward pass
-        delta = (self.cost).delta(zs[-1], activations[-1], y)
+        delta = self.cost.delta(zs[-1], activations[-1], y)
         nabla_b[-1] = delta
         nabla_w[-1] = np.dot(delta, activations[-2].transpose())
         # Note that the variable l in the loop below is used a little
@@ -238,7 +242,7 @@ class Network(object):
             delta = np.dot(self.weights[-l + 1].transpose(), delta) * sp
             nabla_b[-l] = delta
             nabla_w[-l] = np.dot(delta, activations[-l - 1].transpose())
-        return (nabla_b, nabla_w)
+        return nabla_b, nabla_w
 
     def accuracy(self, data, convert=False):
         """Return the number of inputs in ``data`` for which the neural
