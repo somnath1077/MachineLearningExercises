@@ -80,10 +80,10 @@ class Network(object):
         """
         self.num_layers = len(sizes)
         self.sizes = sizes
-        self.default_weight_initializer()
-        self.cost = cost
         self.biases = list()
         self.weights = list()
+        self.default_weight_initializer()
+        self.cost = cost
 
     def default_weight_initializer(self):
         """Initialize each weight using a Gaussian distribution with mean 0
@@ -154,6 +154,9 @@ class Network(object):
         are empty if the corresponding flag is not set.
 
         """
+        training_data = list(training_data)
+        evaluation_data = list(evaluation_data)
+
         if evaluation_data:
             n_data = len(evaluation_data)
 
@@ -164,25 +167,29 @@ class Network(object):
         for j in range(epochs):
             random.shuffle(training_data)
             mini_batches = [
-                training_data[k:k + mini_batch_size]
+                training_data[k: k + mini_batch_size]
                 for k in range(0, n, mini_batch_size)]
             for mini_batch in mini_batches:
                 self.update_mini_batch(
                     mini_batch, eta, lmbda, len(training_data))
             print("Epoch %s training complete" % j)
+
             if monitor_training_cost:
                 cost = self.total_cost(training_data, lmbda)
                 training_cost.append(cost)
                 print("Cost on training data: {}".format(cost))
+
             if monitor_training_accuracy:
                 accuracy = self.accuracy(training_data, convert=True)
                 training_accuracy.append(accuracy)
                 print("Accuracy on training data: {} / {}".format(
                     accuracy, n))
+
             if monitor_evaluation_cost:
                 cost = self.total_cost(evaluation_data, lmbda, convert=True)
                 evaluation_cost.append(cost)
                 print("Cost on evaluation data: {}".format(cost))
+
             if monitor_evaluation_accuracy:
                 accuracy = self.accuracy(evaluation_data)
                 evaluation_accuracy.append(accuracy)
