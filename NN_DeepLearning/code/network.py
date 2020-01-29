@@ -12,7 +12,6 @@ and omits many desirable features.
 # Libraries
 # Standard library
 import random
-import sys
 
 import numpy as np
 
@@ -84,6 +83,8 @@ class Network(object):
             if test_data:
                 print("Epoch {0}: {1} / {2}".format(
                     j, self.evaluate(test_data), n_test))
+                print(f'weights = {self.weights}')
+                print(f'biases = {self.biases}')
             else:
                 print("Epoch {0} complete".format(j))
 
