@@ -16,4 +16,6 @@ def cross_entropy(y, a):
 x = np.linspace(0.01, 0.99, 1000)
 f_x = np.array([cross_entropy(i, i) for i in x])
 
+plt.xlabel(r'$y$')
+plt.ylabel(r'$y \log (y) + (1 - y) \log (1 - y)$')
 plt.plot(x, f_x)
