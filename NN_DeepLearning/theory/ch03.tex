@@ -29,4 +29,44 @@ is called the binary entropy function and behaves as shown in Figure~\ref{fig:bi
 \label{fig:binary_entropy}
 \end{figure}
 
+\begin{exercise}
+Partial derivatives of the cross-entropy cost function in multi-layer
+networks.
+\end{exercise}
+\begin{solution}
+The cross-entropy function for a single training example~$x$ for the last
+layer~$L$ of the network is defined as:
+\[
+    C(x) = - \sum_j \left [ y_j \ln (a_j^L) + (1 - y_j) \ln(1 - a_j^L) \right ],
+\]
+where the sum is over all neurons~$j$ in layer~$L$. To recap notation,  
+\[
+a_j^L = \sigma(z_j^L) = \sum_k w_{j k}^L a_k^{L - 1} + b_j^L.
+\]
+For this training example~$x$,
+\begin{align*}
+    \frac{\partial C(x)}{\partial z_j^L} 
+        & = - \frac{y_j}{a_j^L} \cdot \sigma' (z_j^L) + \frac{1 - y_j}{1 - a_j^L} \cdot \sigma' (z_j^L) \\
+        & = \frac{-y_j + y_j a_j^L + a_j^L - y_j a_j^L}{a_j^L (1 - a_j^L)} \cdot \sigma' (z_j^L) \\
+        & = a_j^L - y_j.
+\end{align*}
+The last equality follows since $\sigma' (z_j^L) = a_j^L (1 - a_j^L)$.
 
+Again, for this single training example~$x$, $\partial C (x) / \partial w_{j k}^L$ 
+is given by:
+\begin{align*}
+    \frac{\partial C (x)}{\partial w_{j k}^L} 
+        & = \frac{\partial C}{\partial z_j^L} \cdot \frac{\partial z_j^L}{\partial w_{j k}^L} \\
+        & = (a_j^l - y_j) \cdot a_k^{L - 1}. 
+\end{align*}
+For $n$ training examples, the cost function is defined as $\frac{1}{n} \sum_{x} C(x)$ and 
+this derivative is: 
+\[
+    \frac{\partial C (x)}{\partial w_{j k}^L} = \frac{1}{n} \sum_x a_k^{L - 1} (a_j^L - y_j).
+\]
+If we were to replace $C(x)$ by the usual quadratic cost $\frac{1}{2}(y_j - a_j^L)^2$, then 
+the same derivative would have been:
+\[
+    \frac{1}{n} \sum_x a_k^{L - 1} (a_j^L - y_j) \cdot \sigma' (z_j^L).
+\]
+\end{solution}
