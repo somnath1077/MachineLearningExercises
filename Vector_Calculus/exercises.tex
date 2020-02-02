@@ -77,6 +77,7 @@
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{fontspec}
+\usepackage[charter]{mathdesign}
 
 \setmainfont{XCharter}
 %\usepackage[libertine,cmintegrals,cmbraces,vvarbb]{newtxmath}
@@ -93,23 +94,6 @@
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{example}{Example}[chapter]
 \newtheorem*{note}{Note}
-\newcommand{\samplecomp}{m_{\mathcal{H}}}
-\newcommand{\SampleComp}[2]{m_{\mathcal{H}}(#1, #2)}
-\newcommand{\usamplecomp}[2]{m_{\mathcal{H}}^{\text{UC}}(#1, #2)}
-\newcommand{\USampleComp}{m_{\mathcal{H}}^{\text{UC}}}
-\newcommand{\nusamplecomp}{\ensuremath{m_{\mathcal{H}}^{\text{NUL}}}}
-\newcommand{\pacerror}[1]{L_{\mathcal{D}, f}(#1)}
-\newcommand{\vcdim}{\ensuremath{\text{VCdim}}}
-\newcommand{\algo}{\ensuremath{\mathcal{A}}}
-\newcommand{\hypclass}{\ensuremath{\mathcal{H}}}
-\newcommand{\parity}[1]{\ensuremath{\mathcal{H}_{#1\text{-parity}}}}
-\newcommand{\rect}[1]{\ensuremath{\mathcal{H}_{\text{rect}}^{#1}}}
-\newcommand{\conj}[1]{\ensuremath{\mathcal{H}_{\text{con}}^{#1}}}
-\newcommand{\mconj}[1]{\ensuremath{\mathcal{H}_{\text{mcon}}^{#1}}}
-\newcommand{\zeroone}{\ensuremath{\operatorname{0-1}}}
-\newcommand{\dom}{\ensuremath{\mathcal{X}}}
-\newcommand{\range}{\ensuremath{\mathcal{Y}}}
-\newcommand{\Nat}{\ensuremath{\mathbf{N}}}
 \newcommand{\dist}{\ensuremath{\mathcal{D}}}
 \newcommand{\R}{\ensuremath{\mathbf{R}}}
 \newcommand{\Rone}{\ensuremath{\mathbf{R}}}
@@ -127,7 +111,7 @@
 \newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
 \newcommand{\basisvec}{\ensuremath{\boldsymbol{e}}}
 \newcommand{\vect}[1]{\ensuremath{\boldsymbol{#1}}}
-%\newcommand{\conj}[1]{\ensuremath{\bar{#1}}}
+\newcommand{\conj}[1]{\ensuremath{\bar{#1}}}
 
 \DeclareMathOperator{\ERM}{ERM}
 \DeclareMathOperator{\pos}{POS}
@@ -138,8 +122,12 @@
 \DeclareMathOperator{\image}{Im}
 \DeclareMathOperator{\kernel}{Ker}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\newcommand{\trans}[1]{\ensuremath{#1}^{\intercal}}
 
-\newtheorem{exercise}{Exercise}
+
+%\newtheorem{example}{Example}[chapter]
+
+\newtheorem{exercise}{Exercise}[chapter]
 
 \newenvironment{solution}
   {\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}

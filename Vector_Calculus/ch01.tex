@@ -93,3 +93,100 @@ are not in the space spanned by the vectors $\vect{b}_1, \ldots, \vect{b}_k$.
 Thus the vectors $\beta_{k + 1}, \ldots, \beta_m$ must be independent and form
 a basis of $\image (L)$. This proves~$(3)$. 
 \end{proof}
+
+\section{Quadratic Forms}
+
+A function $q \colon \R^m \rightarrow \R$ is called a \emph{quadratic form} 
+if there exists a real symmetric $m \times m$ matrix $A$ such that for all 
+$\vect{x} \in \R^m$ such that
+\[
+	q(\vect{x}) = \trans{\vect{x}} A \vect{x}.
+\]
+The right-hand side of the equation may be written as:
+\begin{align*}
+(x_1, \ldots, x_m) \begin{pmatrix} 
+						a_{11} & a_{12} & \cdots & a_{m 1} \\
+						\vdots & \vdots & \cdots & \vdots \\
+						a_{m1} & a_{m2} & \cdots & a_{mm} 	
+                   \end{pmatrix} 
+				   \begin{pmatrix}
+						x_1 \\
+						\vdots \\
+						x_m
+				   \end{pmatrix} & = (x_1, \ldots, x_m) [x_1 A_{* 1} + \cdots + x_m A_{* m}] \\
+								 & = \sum_{i = 1}^m \sum_{j = 1}^m x_i a_{ij} x_j.
+\end{align*} 
+The symbol $A_{* j}$ denotes the $j$th column of $A$. The name ``quadratic'' form arises 
+from the last expression which is what a quadratic expression in $m$ variables looks like.
+\begin{example}
+The function 
+\[
+	q(h_1, h_2, h_3) = h_1^2 + h_2^2 + h_3^2 + 2h_1h_2 + 2h_2h_3 + 2h_1h_3 = (h_1 + h_2 + h_3)^2
+\]
+can be expressed as $\trans{\vect{h}} A \vect{h}$, where $A$ is the all-ones $3 \times 3$ matrix. 
+\end{example}
+
+\subsection{Definiteness}
+A quadratic form $q \colon \R^m \rightarrow \R$ is 
+\begin{enumerate}
+	\item \emph{positive definite} if for all non-zero $\vect{x} \in \R^m$, $q(\vect{x}) > 0$;
+	\item \emph{negative\begin{equation}
+	A \vect{x} =  \lambda \vect{x}.
+\end{equation}
+ definite} if for all non-zero $\vect{x} \in \R^m$, $q(\vect{x}) > 0$;
+	\item \emph{indefinite} if $q(\vect{x})$ takes on both positive and negative values.  
+\end{enumerate}
+
+\begin{example}
+Let $q(\vect{h}) = -h_1^2 + 2h_2^2 - h_3^2$ such that the matrix associated with~$q$ is
+\[
+	\begin{pmatrix}
+	-1 & 0 & 0 \\
+	0  & 2 & 0 \\
+    0  & 0 & -1 
+	\end{pmatrix}.
+\]
+The $q(0, 1, 0) = 2$ and $q(1, 0, 1) = -2$. Thus the quardatic form $q$ is indefinite.
+\end{example}    
+
+\begin{example}
+The quadratic form $q(h_1, h_2, h_3) = h_1^2 + h_2^2 + 4h_3^2 + 2h_1h_2 - 4h_2h_3 - 4h_1 h_3$
+is positive definite, since we may re-write $q(h_1, h_2, h_3)$ as $(h_1 + h_2 - 2h_3)^2$
+which is strictly positive for all $(h_1, h_2, h_3) \in \R^3 \setminus \{\vect{0}\}$.
+\end{example}
+To characterize the definiteness of quadratic forms, we make use of the following 
+properties of real symmetric matrices.
+\begin{lemma}
+The eigenvectors of a real symmetric matrix~$A$ are real.
+\end{lemma}
+\begin{proof}
+Suppose that $A$ is an $m \times m$ matrix and suppose that some eigenvalue~$\lambda$ 
+is complex. Let $\vect{x}$ be a eigenvector corresponding to it, which can be a complex 
+vector. Then 
+\begin{equation}\label{pf:real_eigen1}
+	A \vect{x} =  \lambda \vect{x}.
+\end{equation}
+Taking complex conjugates on each side, we get:
+\begin{equation}\label{pf:real_eigen2}
+	A \conj{\vect{x}} =  \conj{\lambda} \conj{\vect{x}}.
+\end{equation}
+Pre-multiply~(\ref{pf:real_eigen1})  by $\conj{\vect{x}}$ 
+and~(\ref{pf:real_eigen2}) by $\trans{\vect{x}}$ 
+to obtain:
+\begin{eqnarray}
+	\trans{\conj{\vect{x}}} A \vect{x} =  \trans{\conj{\vect{x}}} \lambda \vect{x} \label{pf:real_eigen3}\\
+	\trans{\vect{x} }A \conj{\vect{x}} =  \trans{\vect{x}} \conj{\lambda} \conj{\vect{x}} \label{pf:real_eigen4}.
+\end{eqnarray}
+Take the transpose of equation~(\ref{pf:real_eigen4}), we obtain: 
+$\trans{\conj{\vect{x}}} A \vect{x} =  \trans{\conj{\vect{x}}} \conj{\lambda} \vect{x}$, 
+where we made use of the fact that $A$ is symmetric. Now subtracting this equation from~(\ref{pf:real_eigen3}),
+we obtain: 
+\[
+\trans{\vect{x}} (\lambda - \conj{\lambda}) \conj{\vect{x}} = 0.
+\]
+Since $\trans{\vect{x}} \conj{\vect{x}}$ is the sum of products of complex conjugates, 
+it is not zero unless each component of $\vect{x}$ is zero. Since this is not the case 
+($\vect{x}$ is an eigenvector), we must have $\lambda = \conj{\lambda}$ and hence $\lambda$
+is real. 
+\end{proof} 
+
