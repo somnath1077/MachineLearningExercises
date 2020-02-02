@@ -130,10 +130,7 @@ can be expressed as $\trans{\vect{h}} A \vect{h}$, where $A$ is the all-ones $3 
 A quadratic form $q \colon \R^m \rightarrow \R$ is 
 \begin{enumerate}
 	\item \emph{positive definite} if for all non-zero $\vect{x} \in \R^m$, $q(\vect{x}) > 0$;
-	\item \emph{negative\begin{equation}
-	A \vect{x} =  \lambda \vect{x}.
-\end{equation}
- definite} if for all non-zero $\vect{x} \in \R^m$, $q(\vect{x}) > 0$;
+	\item \emph{negative definite} if for all non-zero $\vect{x} \in \R^m$, $q(\vect{x}) > 0$;
 	\item \emph{indefinite} if $q(\vect{x})$ takes on both positive and negative values.  
 \end{enumerate}
 
@@ -190,3 +187,50 @@ it is not zero unless each component of $\vect{x}$ is zero. Since this is not th
 is real. 
 \end{proof} 
 
+\begin{example}
+Consider the unit matrix 
+\[
+I_2 = \begin{pmatrix}
+		1 & 0 \\
+		0 & 1 \\
+	 \end{pmatrix}.
+\]
+This has as eigenvalues $1$ and $1$, which are clearly not distinct. In general,
+$I_m$ has $m$ eigenvalues all of which are $1$. Note that $I_m$ has rank~$m$.  
+On the other hand, the matrix
+\[
+	\begin{pmatrix}
+		1 & 1 \\
+		1 & 1 \\
+	 \end{pmatrix}
+\]
+has rank one and has two distinct eigenvalues~$0, 2$ which are the roots of 
+the equation: $(1 - \lambda)^2 - 1 = 0$. Thus the rank of a matrix has 
+nothing to do with the number of distinct eigenvalues. 
+\end{example}
+
+Now that we know that a real symmetric matrix has only real eigenvalues, what can we say 
+about the corresponding eigenvectors?
+\begin{lemma}
+The eigenvectors of a real symmetric matrix corresponding to distinct eigenvalues are 
+mutually orthogonal.
+\end{lemma}
+\begin{proof}
+Let $\lambda_i$ and $\lambda_j$ be two distinct eigenvalues of a real symmetric matrix $A$.
+Let $\vect{x}_i$ and $\vect{x}_j$ be eigenvectors corresponding to these eigenvalues. 
+Then $A \vect{x}_i = \lambda_i \vect{x}_i$ and $A \vect{x}_j = \lambda_j \vect{x}_j$. 
+Pre-multiplying the first of these equations by $\trans{\vect{x}_j}$ and the second 
+by $\trans{\vect{x}_i}$, we obtain: 
+\begin{eqnarray}
+	\trans{\vect{x}_j} A \vect{x}_i = \trans{\vect{x}_j} \lambda_i \vect{x}_i \label{pf:orthogonal1} \\
+	\trans{\vect{x}_i} A \vect{x}_j = \trans{\vect{x}_i} \lambda_j \vect{x}_j \label{pf:orthogonal2}
+\end{eqnarray}
+Taking the transpose of the second of these equations, we obtain:
+\begin{equation} \label{pf:orthogonal3}
+	\trans{\vect{x}_j} A \vect{x}_i = \trans{\vect{x}_j} \lambda_j \vect{x}_i.
+\end{equation}
+Now the right-hand sides of equations~(\ref{pf:orthogonal1}) and~(\ref{pf:orthogonal2}) are 
+identical. Hence $ \trans{\vect{x}_j} (\lambda_i - \lambda_j) \vect{x}_i = 0$ and since 
+$\lambda_i \neq \lambda_j$, it must be that the vectors $\vect{x}_i$ and $\vect{x}_j$ 
+are orthogonal.
+\end{proof}
