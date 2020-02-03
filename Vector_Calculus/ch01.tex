@@ -210,7 +210,9 @@ nothing to do with the number of distinct eigenvalues.
 \end{example}
 
 Now that we know that a real symmetric matrix has only real eigenvalues, what can we say 
-about the corresponding eigenvectors?
+about the corresponding eigenvectors? It turns out that the eigenvectors corresponding 
+to the eigenvalues of a real symmetric matrix form an orthonormal basis for $\R^m$. 
+We show this using a sequence of lemmas.
 \begin{lemma}
 The eigenvectors of a real symmetric matrix corresponding to distinct eigenvalues are 
 mutually orthogonal.
@@ -233,4 +235,67 @@ Now the right-hand sides of equations~(\ref{pf:orthogonal1}) and~(\ref{pf:orthog
 identical. Hence $ \trans{\vect{x}_j} (\lambda_i - \lambda_j) \vect{x}_i = 0$ and since 
 $\lambda_i \neq \lambda_j$, it must be that the vectors $\vect{x}_i$ and $\vect{x}_j$ 
 are orthogonal.
+\end{proof}
+
+\begin{lemma}
+Let $A \in \R^{m \times m}$ and let $\lambda$ be an eigenvalue. 
+The eigenvectors belonging to~$\lambda$ form a subspace $\eigenspace{A}{\lambda}$ 
+of~$\R^m$.
+\end{lemma}
+\begin{proof}
+Let $\vect{x}_1$ and $\vect{x}_2$ are two eigenvectors belonging to $\lambda$.
+Then 
+\[
+    A (a \vect{x}_1 + b \vect{x}_2) = 
+        a A \vect{x}_1 + b A \vect{x}_2 = 
+        \lambda (a \vect{x}_1 + b \vect{x}_2).
+\]
+Thus any linear combination of the eigenvectors is also an eigenvector of $\lambda$,
+showing that this set of vectors is indeed a subspace. 
+\end{proof}
+
+\begin{lemma}
+Let $A \in \R^{m \times m}$ be a real symmetric matrix. Then the algebraic multiplicity 
+of each eigenvalue of $A$ equals its geometric multiplicity. 
+\end{lemma}
+\begin{proof}
+Let $\lambda_i$ be an eigenvalue with algebraic multiplicity~$k$.  Suppose that
+$\dim(\eigenspace{A}{\lambda_i}) = r$ and let $\{\vect{v}_1, \ldots, \vect{v}_r\}$ be an
+orthonormal basis for $\eigenspace{A}{\lambda_i}$.  Extend this to an
+orthonormal basis $\{\vect{v}_1, \ldots, \vect{v}_r, \vect{v}_{r + 1}, \ldots, \vect{v}_m\}$ 
+for $\R^m$. 
+
+Define $S = [\vect{v}_1, \ldots, \vect{v}_r, \vect{v}_{r + 1}, \ldots, \vect{v}_m]$ 
+to be the $m \times m$ matrix whose columns are the basis vectors. 
+Then $S$ is an orthonormal matrix and $S^{-1} = \trans{S}$. Consider the 
+matrix $S^{-1} A S$. This is similar to $A$ and therefore has the 
+same eigenvalues as $A$ including the same multiplicities. 
+
+We may write $S^{-1} A S$ as:
+\begin{align*}
+    S^{-1} A S & = \begin{pmatrix} 
+                        -\trans{\vect{v}_1}- \\
+                         \vdots \\
+                        -\trans{\vect{v}_m}- 
+                   \end{pmatrix} 
+                   A 
+                   \begin{pmatrix}
+                    \vect{v}_1 & \vect{v}_2 & \ldots & \vect{v}_m \\
+                        |      &    |       &        &    |       
+                   \end{pmatrix} \\
+              & = \begin{pmatrix} 
+                        -\trans{\vect{v}_1}- \\
+                         \vdots \\
+                        -\trans{\vect{v}_m}- 
+                   \end{pmatrix} 
+                   \begin{pmatrix}
+                    \lambda \vect{v}_1 & \ldots & \lambda \vect{v}_r & A \vect{v}_{r + 1} & \ldots & A \vect{v}_m \\
+                            |          &        &         |          &          |         &        &     |
+                   \end{pmatrix} \\
+             & = \left ( \begin{array}{c|c}
+                    \lambda I_r         & \vect{0}_{r, m - r} \\ \hline
+                    \vect{0}_{m - r, r} & \trans{C} A C 
+                 \end{array} \right ),
+\end{align*}
+where $C = [\vect{v}_{r + 1}, \ldots, \vect{v}_m]$.
 \end{proof}
