@@ -213,7 +213,7 @@ Now that we know that a real symmetric matrix has only real eigenvalues, what ca
 about the corresponding eigenvectors? It turns out that the eigenvectors corresponding 
 to the eigenvalues of a real symmetric matrix form an orthonormal basis for $\R^m$. 
 We show this using a sequence of lemmas.
-\begin{lemma}
+\begin{lemma}\label{lemma:orthogonal_eigenvectors}
 The eigenvectors of a real symmetric matrix corresponding to distinct eigenvalues are 
 mutually orthogonal.
 \end{lemma}
@@ -237,7 +237,7 @@ $\lambda_i \neq \lambda_j$, it must be that the vectors $\vect{x}_i$ and $\vect{
 are orthogonal.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lemma:eigenspace}
 Let $A \in \R^{m \times m}$ and let $\lambda$ be an eigenvalue. 
 The eigenvectors belonging to~$\lambda$ form a subspace $\eigenspace{A}{\lambda}$ 
 of~$\R^m$.
@@ -254,7 +254,7 @@ Thus any linear combination of the eigenvectors is also an eigenvector of $\lamb
 showing that this set of vectors is indeed a subspace. 
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lemma:alg_geom_mult}
 Let $A \in \R^{m \times m}$ be a symmetric matrix. Then the algebraic multiplicity 
 of each eigenvalue of $A$ equals its geometric multiplicity. 
 \end{lemma}
@@ -306,3 +306,67 @@ and
 Since we know that in the RHS, the term $\lambda_i - \lambda$ is raised to the $m$th power, 
 we must have $r \leq m$. 
 \end{proof}
+
+Although we do not prove it here, the fact remains that for real symmetric
+matrices, the algebraic multiplicity of an eigenvalue equals its geometric
+multiplicity.  Since eigenvectors corresponding to two distinct eigenvalues of
+a real symmetric matrix are orthogonal
+(Lemma~\ref{lemma:orthogonal_eigenvectors}), by Lemmas~\ref{lemma:eigenspace}
+and~\ref{lemma:alg_geom_mult}, the eigenspaces of distinct eigenvectors are
+mutually orthogonal.
+\begin{lemma}\label{lemma:orthonormal_basis}
+Let $A \in \R^{m \times m}$ be a symmetric matrix. Then there exist an
+orthonormal set of eigenvectors that form a basis for $\R^m$.
+\end{lemma}
+\begin{proof}
+Let $\lambda_1, \ldots, \lambda_r$ be the distinct eigenvalues of $A$ with
+algebraic multiplicities $m_1, \ldots, m_r$, respectively. Then $\sum_i m_i =
+m$. Since the geometric multiplicity of an eigenvalue equals its algebraic
+multiplicity, we have $\dim(\eigenspace{A}{\lambda_i}) = m_i$.  Since the
+eigenspaces $\eigenspace{A}{\lambda_1}, \ldots, \eigenspace{A}{\lambda_r}$ are
+mutually orthogonal, the union of their orthonormal bases is an independent set
+of vectors of size~$m$.  Hence this forms a basis for $\R^m$.
+\end{proof}
+
+We can use Lemma~\ref{lemma:orthonormal_basis} to diagonalize a symmetric
+matrix $A \in \R^{m \times m}$.  Let $\lambda_1, \ldots, \lambda_m$ be its
+eigenvalues, in no particular order. These eigenvalues need not be distinct.
+Let $\vect{u}_1, \ldots, \vect{u}_m$ be an orthonormal set of eigenvectors that
+form a basis for $\R^m$. Define $P = [\vect{u}_1, \ldots, \vect{u}_m]$. Then
+$P^{-1} A P = D$, where $D$ is a diagonal matrix whose main diagonal contains
+the eigenvalues $\lambda_1, \ldots, \lambda_m$.
+
+\begin{lemma}
+Let $A \in \R^{m \times m}$ be a symmetric matrix. Then for any $\vect{x} \in R^m$,
+\[
+    \lambda_{\text{min}} \cdot \norm{\vect{x}}^2 \leq \trans{\vect{x}} A \vect{x} 
+    \leq \lambda_{\text{max}} \cdot \norm{\vect{x}}^2,
+\]
+where $ \lambda_{\text{min}} $ and $ \lambda_{\text{max}} $ are a minimum 
+and a maximum eigenvalue of $A$. 
+\end{lemma}
+\begin{proof}
+Write $\vect{x} = \sum_{i = 1}^m a_i \vect{u}_i$, where $\vect{u}_1, \ldots, \vect{u}_m$
+are an orthonormal set of eigenvectors that form a basis for $\R^m$. Then
+\begin{align*}
+\trans{\vect{x}} A \vect{x} & =  \left ( \sum_{i = 1}^m a_i \trans{\vect{u}_i} \right ) 
+                                 \cdot A \cdot 
+                                 \left ( \sum_{i = 1}^m a_i \vect{u}_i \right ) \\
+& =  \left ( \sum_{i = 1}^m a_i \trans{\vect{u}_i} \right ) \cdot 
+     \left ( \sum_{i = 1}^m a_i \lambda_i \vect{u}_i \right ) \\
+& = \sum_{i = 1}^{m} a_i^2 \lambda_i \trans{\vect{u}_i} \vect{u}_i \\
+& =  \sum_{i = 1}^{m} a_i^2 \lambda_i. 
+\end{align*}
+The last term lies clearly between $ \lambda_{\text{min}} \cdot \norm{\vect{x}}^2 $
+and $\lambda_{\text{max}} \cdot \norm{\vect{x}}^2$. 
+\end{proof}
+
+We can now state the characterization of quadractic forms.
+\begin{theorem}
+A real symmetric matrix $A$ is 
+\begin{enumerate}
+    \item positive definite iff all its eigenvalues are strictly positive;
+    \item negative definite iff all its eigenvalues are strictly negative;
+    \item indefinite iff some of its eigenvalues are positive and some are negative.
+\end{enumerate}
+\end{theorem}
