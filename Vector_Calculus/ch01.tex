@@ -297,5 +297,12 @@ We may write $S^{-1} A S$ as:
                     \vect{0}_{m - r, r} & \trans{C} A C 
                  \end{array} \right ),
 \end{align*}
-where $C = [\vect{v}_{r + 1}, \ldots, \vect{v}_m]$. 
+where $C = [\vect{v}_{r + 1}, \ldots, \vect{v}_m]$. The characteristic polynomials 
+$\det (S^{-1} A S - \lambda I_m)$ and $\det (A - \lambda I_m)$ are identical 
+and 
+\[
+   \det (S^{-1} A S - \lambda I_m) = (\lambda_i - \lambda)^r \det (\trans{C} A C - \lambda I_{m - r}). 
+\]
+Since we know that in the RHS, the term $\lambda_i - \lambda$ is raised to the $m$th power, 
+we must have $r \leq m$. 
 \end{proof}
