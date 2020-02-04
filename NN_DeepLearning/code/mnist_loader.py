@@ -40,7 +40,7 @@ def load_data():
     That's done in the wrapper function ``load_data_wrapper()``, see
     below.
     """
-    with gzip.open('../data/mnist.pkl.gz', 'rb') as ff:
+    with gzip.open('NN_DeepLearning/data/mnist.pkl.gz', 'rb') as ff:
         u = pickle._Unpickler(ff)
         u.encoding = 'latin1'
         training_data, validation_data, test_data = u.load()
