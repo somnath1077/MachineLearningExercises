@@ -1,5 +1,6 @@
 \chapter{Improving the Way Neural Networks Learn}
 
+\section{The Cross-Entropy Cost Function}
 
 \begin{exercise}
 Show that the cross-entropy function is minimized when $\sigma(z) = y$ for all inputs.
@@ -70,3 +71,34 @@ the same derivative would have been:
     \frac{1}{n} \sum_x a_k^{L - 1} (a_j^L - y_j) \cdot \sigma' (z_j^L).
 \]
 \end{solution}
+
+\subsection{Deriving the Cross-Entropy Function}
+
+Given a single neuron with $r$ input weights $w_1, \ldots, w_r$ and bias~$b$,
+and a single input $\vect{x} = \trans{(x_1, \ldots, x_r)}$, we would like the
+cost function $C$ to depend on the weights and the bias as follows:
+\begin{align}
+    \frac{\partial C}{\partial w_j} & = x_j (a - y) \\
+    \frac{\partial C}{\partial b}   & = a - y, \label{eqn:cost_bias}
+\end{align}
+where $a = \sigma(\sum_{j} w_j x_j + b)$ and $y$ is the desired output 
+corresponding to $\vect{x}$. 
+
+Using the chain rule, we obtain:
+\begin{align}
+    \frac{\partial C}{\partial b} & = 
+        \frac{\partial C}{\partial a} \cdot 
+        \frac{\partial a}{\partial z} \cdot 
+        \frac{\partial z}{\partial b} \nonumber \\
+        & = \frac{\partial C}{\partial a} \cdot \sigma'(z) \nonumber \\ 
+        & = \frac{\partial C}{\partial a} \cdot a (1 - a) \label{eqn:cross_entropy} 
+\end{align}
+From equations~(\ref{eqn:cost_bias} and~\ref{eqn:cross_entropy}), we obtain:
+\[
+    \frac{\partial C}{\partial a} = \frac{a - y}{a (1 - a)} = 
+        \frac{1}{1 - a} - y \left ( \frac{1}{1 - a} + \frac{1}{a}\right ).
+\]
+Integrating both sides wrt~$a$, we obtain:
+\[
+    C = - [(1 - y) \ln (1 - a) + y \ln (a)] + \text{ a constant}.
+\]
