@@ -33,7 +33,12 @@ def plot_activations(z_initial: np.array,
             activations_list[i] = f_z
 
     for col in range(activations_list.shape[1]):
-        plt.plot(z_idx_range, activations_list[:, col])
+        plt.plot(z_idx_range,
+                 activations_list[:, col],
+                 label=f'Activation {col}')
+    plt.xlabel(f'Range of values for z_{idx}')
+    plt.ylabel(f'Neuron Activations')
+    plt.legend()
 
 
 if __name__ == '__main__':
