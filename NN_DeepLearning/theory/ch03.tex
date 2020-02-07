@@ -102,3 +102,41 @@ Integrating both sides wrt~$a$, we obtain:
 \[
     C = - [(1 - y) \ln (1 - a) + y \ln (a)] + \text{ a constant}.
 \]
+
+\section{Softmax}
+
+Consider a classification problem, where labelled examples take the form 
+$(\vect{x}, y)$, where $\vect{x} \in \R^m$ and $\vect{y} \in \{0, 1\}^J$ 
+denotes to which of the $J$ classes $\vect{x}$ belongs to. 
+In such cases, it makes sense to have the last 
+layer of the neural network to have $J$ neurons with the softmax activation:
+\begin{align*}
+    z_j^L & = \sum_k w_{j k}^L a_{k}^{L - 1} + b_j \\
+    a_j^L & = \frac{e^{z_j^L}}{ \sum_{i = 1}^J e^{z_i^L}}
+\end{align*}
+
+The cost associated with the input $(\vect{x}, \vect{y})$ where $y_r = 1$ 
+is defined as the negative log-likelihood of the activation $a_{y_r}^L$:
+\[
+    C(\vect{x}, \vect{y}) = - \ln a_{y_r}^L.
+\]
+
+The partial derivatives $\partial C / \partial b_j^L$ and   $\partial C / \partial w_{j k}^L$
+can be computed easily as follows. Depending on whether the index $j$ and the class index~$y_r$
+are the same or not, we have two cases for each partial derivative.
+\begin{align}
+    \frac{\partial C}{\partial b_{y_r}^L} 
+        & =   - \frac{1}{a_{y_r}^L} \cdot 
+            \left [ \frac{e^{z_{y_r}^L}}{ \sum_{i = 1}^J e^{z_i^L}} - 
+                    \left ( \frac{e^{z_{y_r}^L}}{ \sum_{i = 1}^J e^{z_i^L}} \right )^2 
+            \right ] \\
+\frac{\partial C}{\partial b_j^L} 
+      & = 
+    - \frac{1}{a_{y_r}^L} \cdot \left [ 0 - \frac{e^{z_{y_r}^L} e^{z_j^L}}{ \left ( \sum_{i = 1}^J e^{z_i^L} \right )^2} 
+                            \right ]. 
+\end{align}
+These two expressions can be summarized into one: 
+\begin{equation}
+\frac{\partial C}{\partial b_j^L} = a_{y_r}^L - y_j.
+\end{equation}
+
