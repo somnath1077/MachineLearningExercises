@@ -147,3 +147,24 @@ can be written as:
 \frac{\partial C}{\partial w_{j k}^L} = a_{k}^{L - 1} \cdot (a_{j}^L - y_j). 
 \end{equation}
 
+\begin{exercise}
+Where does the ``softmax'' name come from? Consider the following variant 
+of the softmax function:
+\[
+    a_j^L =  \frac{e^{c z_j^L}}{ \sum_{i = 1}^J e^{c z_i^L}},
+\]
+where $c$ is a positive constant. What is the limit of $a_j^L$ 
+as $c \to \infty$?
+\end{exercise}
+\begin{solution}
+Let $z_r^L = \max_i \{z_i^L\}$. We could then write the modified softmax
+function as:
+\[
+    a_j^L =  \frac{e^{c (z_j^L - z_r^L)}}{ 1 + \sum_{i \neq r} e^{c (z_i^L - z_r^L)}}. 
+\]
+If $j = r$, then the numerator is $1$ and the denominator approaches $1$ as $c \to \infty$
+and $a_j^L \to 1$. On the other hand, if $j \neq r$, the numerator $\to 0$ as $c \to \infty$;
+the denominator in any case approaches~$1$ and hence~$a_j^L \to 0$. The point here is 
+that $a_j^L = 1$ if $z_j^L$ is the maximum and $a_j^L = 0$ otherwise. 
+\end{solution}
+
