@@ -208,14 +208,79 @@ class Network(object):
         """
         nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
+        X = []
+        Y = []
         for x, y in mini_batch:
-            delta_nabla_b, delta_nabla_w = self.backprop(x, y)
-            nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
-            nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
+            X.append(x)
+            Y.append(y)
+        X = np.column_stack(X)
+        Y = np.column_stack(Y)
+        delta_nabla_b, delta_nabla_w = self.backprop_full_matrix(X, Y)
+        nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
+        nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
+        #for x, y in mini_batch:
+        #    delta_nabla_b, delta_nabla_w = self.backprop(x, y)
+        #    nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
+        #    nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
         self.weights = [(1 - eta * (lmbda / n)) * w - (eta / len(mini_batch)) * nw
                         for w, nw in zip(self.weights, nabla_w)]
         self.biases = [b - (eta / len(mini_batch)) * nb
                        for b, nb in zip(self.biases, nabla_b)]
+
+
+    def backprop_full_matrix(self, X, Y):
+        """
+           This full matrix version returns a tuple ``(nabla_b, nabla_w)``
+           representing the mean gradient for the cost function C computed over all
+           the examples in the mini-batch represented by the arrays X and Y.
+
+           X: a numpy array whose columns ar the examples of the mini-batch
+                That is, X = [x_1, x_2, ..., x_m]
+           Y: a numpy array whose columns represent the labels y_1, y_2, ..., y_m
+                corresponding to the examples x_1, ..., x_m
+
+           ``nabla_b`` and ``nabla_w`` are layer-by-layer lists of
+           numpy arrays, similar to ``self.biases`` and ``self.weights``."""
+        nabla_b = [np.zeros(b.shape) for b in self.biases]
+        nabla_w = [np.zeros(w.shape) for w in self.weights]
+
+        # feedforward
+        activation = X
+        # list to store all the activations, layer by layer
+        activations = [X]
+        zs = []  # list to store all the z vectors, layer by layer
+
+        for b, w in zip(self.biases, self.weights):
+            z = np.dot(w, activation) + b
+            # The ith column of z is the weighted input corresponding
+            # to the ith example in the mini-batch
+            assert z.shape[1] == X.shape[1]
+            zs.append(z)
+            activation = sigmoid(z)
+            activations.append(activation)
+
+        # backward pass
+
+        # The ith element of activations is a np array of dimension:
+        # number of neurons in ith layer * mini-batch size
+        assert len(activations) == len(self.sizes)
+        delta = self.cost.delta(zs[-1], 
+                                activations[-1], Y) * sigmoid_prime(zs[-1])
+        nabla_b[-1] = np.sum(delta, axis=1).reshape(nabla_b[-1].shape)
+
+        A = activations[-2].transpose()
+        nabla_w[-1] = np.dot(delta, A)
+        for l in range(2, self.num_layers):
+            z = zs[-l]
+            sp = sigmoid_prime(z)
+
+            delta = np.dot(self.weights[-l + 1].transpose(), delta) * sp
+            nabla_b[-l] = np.sum(delta, axis=1).reshape(nabla_b[-l].shape)
+
+            act = activations[-l - 1].transpose()
+            nabla_w[-l] = np.dot(delta, act)
+
+        return nabla_b, nabla_w
 
     def backprop(self, x, y):
         """Return a tuple ``(nabla_b, nabla_w)`` representing the
