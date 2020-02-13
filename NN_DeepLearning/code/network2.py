@@ -174,6 +174,9 @@ class Network(object):
                     mini_batch, eta, lmbda, len(training_data))
             print("Epoch %s training complete" % j)
 
+            w_len = np.sqrt(np.sum(self.weights ** 2))
+            print(f"Length of weight vector = {w_len}")
+
             if monitor_training_cost:
                 cost = self.total_cost(training_data, lmbda)
                 training_cost.append(cost)
@@ -196,7 +199,10 @@ class Network(object):
                 print("Accuracy on evaluation data: {} / {}".format(
                     self.accuracy(evaluation_data), n_data))
 
-        return evaluation_cost, evaluation_accuracy, training_cost, training_accuracy
+        return (evaluation_cost,
+                evaluation_accuracy,
+                training_cost,
+                training_accuracy)
 
     def update_mini_batch(self, mini_batch, eta, lmbda, n):
         """Update the network's weights and biases by applying gradient
@@ -222,7 +228,8 @@ class Network(object):
         #    delta_nabla_b, delta_nabla_w = self.backprop(x, y)
         #    nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
         #    nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
-        self.weights = [(1 - eta * (lmbda / n)) * w - (eta / len(mini_batch)) * nw
+        self.weights = [(1 - eta * (lmbda / n)) * w -
+                        (eta / len(mini_batch)) * nw
                         for w, nw in zip(self.weights, nabla_w)]
         self.biases = [b - (eta / len(mini_batch)) * nb
                        for b, nb in zip(self.biases, nabla_b)]
@@ -231,13 +238,14 @@ class Network(object):
     def backprop_full_matrix(self, X, Y):
         """
            This full matrix version returns a tuple ``(nabla_b, nabla_w)``
-           representing the mean gradient for the cost function C computed over all
-           the examples in the mini-batch represented by the arrays X and Y.
+           representing the mean gradient for the cost function C computed
+           over all the examples in the mini-batch represented by the
+           arrays X and Y.
 
            X: a numpy array whose columns ar the examples of the mini-batch
-                That is, X = [x_1, x_2, ..., x_m]
-           Y: a numpy array whose columns represent the labels y_1, y_2, ..., y_m
-                corresponding to the examples x_1, ..., x_m
+              That is, X = [x_1, x_2, ..., x_m]
+           Y: a numpy array whose columns represent the labels
+              y_1, y_2, ..., y_m corresponding to the examples x_1, ..., x_m
 
            ``nabla_b`` and ``nabla_w`` are layer-by-layer lists of
            numpy arrays, similar to ``self.biases`` and ``self.weights``."""
@@ -264,7 +272,7 @@ class Network(object):
         # The ith element of activations is a np array of dimension:
         # number of neurons in ith layer * mini-batch size
         assert len(activations) == len(self.sizes)
-        delta = self.cost.delta(zs[-1], 
+        delta = self.cost.delta(zs[-1],
                                 activations[-1], Y) * sigmoid_prime(zs[-1])
         nabla_b[-1] = np.sum(delta, axis=1).reshape(nabla_b[-1].shape)
 
