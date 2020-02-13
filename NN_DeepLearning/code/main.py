@@ -12,17 +12,17 @@ def main(size, epochs, mini_batch_size, eta, lmbda):
             eta=eta,
             evaluation_data=test,
             lmbda=lmbda,
-            monitor_evaluation_cost=True,
+            monitor_evaluation_cost=False,
             monitor_evaluation_accuracy=True,
-            monitor_training_cost=True,
+            monitor_training_cost=False,
             monitor_training_accuracy=True,
-            monitor_weight_vector_length=True)
+            monitor_weight_vector_length=False)
 
 
 if __name__ == '__main__':
     size = [784, 100, 10]
-    epochs = 50
+    epochs = 150
     mini_batch_size = 30
-    eta = 3.0
-    lmbda = 0.00
+    eta = 0.5
+    lmbda = 5.0
     main(size, epochs, mini_batch_size, eta, lmbda)
