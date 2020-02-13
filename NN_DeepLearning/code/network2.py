@@ -134,7 +134,8 @@ class Network(object):
             monitor_evaluation_cost=False,
             monitor_evaluation_accuracy=False,
             monitor_training_cost=False,
-            monitor_training_accuracy=False):
+            monitor_training_accuracy=False,
+            monitor_weight_vector_length=False):
         """Train the neural network using mini-batch stochastic gradient
         descent.  The ``training_data`` is a list of tuples ``(x, y)``
         representing the training inputs and the desired outputs.  The
@@ -174,9 +175,6 @@ class Network(object):
                     mini_batch, eta, lmbda, len(training_data))
             print("Epoch %s training complete" % j)
 
-            w_len = np.sqrt(np.sum(self.weights ** 2))
-            print(f"Length of weight vector = {w_len}")
-
             if monitor_training_cost:
                 cost = self.total_cost(training_data, lmbda)
                 training_cost.append(cost)
@@ -198,6 +196,11 @@ class Network(object):
                 evaluation_accuracy.append(accuracy)
                 print("Accuracy on evaluation data: {} / {}".format(
                     self.accuracy(evaluation_data), n_data))
+
+            if monitor_weight_vector_length:
+                wt_mat_sq = [np.square(w) for w in self.weights]
+                wt_mat_sum = [np.sum(wt_mat) for wt_mat in wt_mat_sq]
+                print(f"Length of weight vector = {np.sqrt(np.sum(wt_mat_sum))}")
 
         return (evaluation_cost,
                 evaluation_accuracy,
@@ -224,7 +227,7 @@ class Network(object):
         delta_nabla_b, delta_nabla_w = self.backprop_full_matrix(X, Y)
         nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
         nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
-        #for x, y in mini_batch:
+        # for x, y in mini_batch:
         #    delta_nabla_b, delta_nabla_w = self.backprop(x, y)
         #    nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
         #    nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
@@ -233,7 +236,6 @@ class Network(object):
                         for w, nw in zip(self.weights, nabla_w)]
         self.biases = [b - (eta / len(mini_batch)) * nb
                        for b, nb in zip(self.biases, nabla_b)]
-
 
     def backprop_full_matrix(self, X, Y):
         """
