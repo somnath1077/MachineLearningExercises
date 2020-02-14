@@ -135,7 +135,8 @@ class Network(object):
             monitor_evaluation_accuracy=False,
             monitor_training_cost=False,
             monitor_training_accuracy=False,
-            monitor_weight_vector_length=False):
+            monitor_weight_vector_length=False,
+            regularization='L2'):
         """Train the neural network using mini-batch stochastic gradient
         descent.  The ``training_data`` is a list of tuples ``(x, y)``
         representing the training inputs and the desired outputs.  The
@@ -171,8 +172,11 @@ class Network(object):
                 training_data[k: k + mini_batch_size]
                 for k in range(0, n, mini_batch_size)]
             for mini_batch in mini_batches:
-                self.update_mini_batch(
-                    mini_batch, eta, lmbda, len(training_data))
+                self.update_mini_batch(mini_batch,
+                                       eta,
+                                       lmbda,
+                                       len(training_data),
+                                       regularization=regularization)
             print("Epoch %s training complete" % j)
 
             if monitor_training_cost:
@@ -207,7 +211,7 @@ class Network(object):
                 training_cost,
                 training_accuracy)
 
-    def update_mini_batch(self, mini_batch, eta, lmbda, n):
+    def update_mini_batch(self, mini_batch, eta, lmbda, n, regularization='L2'):
         """Update the network's weights and biases by applying gradient
         descent using backpropagation to a single mini batch.  The
         ``mini_batch`` is a list of tuples ``(x, y)``, ``eta`` is the
@@ -231,9 +235,18 @@ class Network(object):
         #    delta_nabla_b, delta_nabla_w = self.backprop(x, y)
         #    nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
         #    nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
-        self.weights = [(1 - eta * (lmbda / n)) * w -
-                        (eta / len(mini_batch)) * nw
-                        for w, nw in zip(self.weights, nabla_w)]
+        if regularization == 'L2':
+            self.weights = [(1 - eta * (lmbda / n)) * w -
+                            (eta / len(mini_batch)) * nw
+                            for w, nw in zip(self.weights, nabla_w)]
+        elif regularization == 'L1':
+            self.weights = [w - eta * (lmbda / n) * np.sign(w) -
+                            (eta / len(mini_batch)) * nw
+                            for w, nw in zip(self.weights, nabla_w)]
+        else:
+            print('Please specify proper regularization!')
+            sys.exit(1)
+
         self.biases = [b - (eta / len(mini_batch)) * nb
                        for b, nb in zip(self.biases, nabla_b)]
 

@@ -16,7 +16,8 @@ def main(size, epochs, mini_batch_size, eta, lmbda):
             monitor_evaluation_accuracy=True,
             monitor_training_cost=False,
             monitor_training_accuracy=True,
-            monitor_weight_vector_length=False)
+            monitor_weight_vector_length=False,
+            regularization='L1')
 
 
 if __name__ == '__main__':
