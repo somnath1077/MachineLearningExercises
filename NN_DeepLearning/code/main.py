@@ -34,8 +34,8 @@ if __name__ == '__main__':
     size = [784, 100, 100, 10]
     epochs = 30
     mini_batch_size = 30
-    eta = 3.0
-    lmbda = 1.0
+    eta = 4.5
+    lmbda = 0.5
     monitor_evaluation_cost = False
     monitor_evaluation_accuracy = True
     monitor_training_cost = False
