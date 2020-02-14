@@ -18,6 +18,8 @@ import random
 import sys
 
 # Third-party libraries
+from typing import List, Tuple
+
 import numpy as np
 
 
@@ -175,7 +177,7 @@ class Network(object):
                 self.update_mini_batch(mini_batch,
                                        eta,
                                        lmbda,
-                                       len(training_data),
+                                       n=len(training_data),
                                        regularization=regularization)
             print("Epoch %s training complete" % j)
 
@@ -211,7 +213,12 @@ class Network(object):
                 training_cost,
                 training_accuracy)
 
-    def update_mini_batch(self, mini_batch, eta, lmbda, n, regularization='L2'):
+    def update_mini_batch(self,
+                          mini_batch: List[Tuple[np.array, np.array]],
+                          eta: float,
+                          lmbda: float,
+                          n: int,
+                          regularization: str ='L2'):
         """Update the network's weights and biases by applying gradient
         descent using backpropagation to a single mini batch.  The
         ``mini_batch`` is a list of tuples ``(x, y)``, ``eta`` is the
