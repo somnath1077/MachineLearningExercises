@@ -284,7 +284,7 @@ class Network(object):
             z = np.dot(w, activation) + b
             # The ith column of z is the weighted input corresponding
             # to the ith example in the mini-batch
-            assert z.shape[1] == X.shape[1]
+            # assert z.shape[1] == X.shape[1]
             zs.append(z)
             activation = sigmoid(z)
             activations.append(activation)
@@ -293,9 +293,8 @@ class Network(object):
 
         # The ith element of activations is a np array of dimension:
         # number of neurons in ith layer * mini-batch size
-        assert len(activations) == len(self.sizes)
-        delta = self.cost.delta(zs[-1],
-                                activations[-1], Y) * sigmoid_prime(zs[-1])
+        # assert len(activations) == len(self.sizes)
+        delta = self.cost.delta(zs[-1], activations[-1], Y) * sigmoid_prime(zs[-1])
         nabla_b[-1] = np.sum(delta, axis=1).reshape(nabla_b[-1].shape)
 
         A = activations[-2].transpose()

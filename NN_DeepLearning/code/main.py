@@ -22,8 +22,8 @@ def main(size, epochs, mini_batch_size, eta, lmbda):
 
 if __name__ == '__main__':
     size = [784, 100, 100, 10]
-    epochs = 100
+    epochs = 30
     mini_batch_size = 30
-    eta = 0.9
-    lmbda = 5.0
+    eta = 3.0
+    lmbda = 2.0
     main(size, epochs, mini_batch_size, eta, lmbda)
