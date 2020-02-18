@@ -347,3 +347,29 @@ size = [784, 600, 10]
     regularization = 'L2'
  Accuracy: 97.80
  --------------------------------------------------------
+ size = [784, 800, 10]
+    epochs = 50
+    mini_batch_size = 20
+    eta = 3.0
+    lmbda = 1.0
+    monitor_evaluation_cost = False
+    monitor_evaluation_accuracy = True
+    monitor_training_cost = False
+    monitor_training_accuracy = True
+    monitor_weight_vector_length = False
+    regularization = 'L2'
+  Accuracy: 97.93
+  --------------------------------------------------------
+  size = [784, 500, 10]
+    epochs = 50
+    mini_batch_size = 20
+    eta = 4.0
+    lmbda = 0.5
+    monitor_evaluation_cost = False
+    monitor_evaluation_accuracy = True
+    monitor_training_cost = False
+    monitor_training_accuracy = True
+    monitor_weight_vector_length = False
+    regularization = 'L2'
+  Accuracy: 98.28
+  -----------------------------------------------------------

@@ -294,7 +294,7 @@ class Network(object):
         # The ith element of activations is a np array of dimension:
         # number of neurons in ith layer * mini-batch size
         # assert len(activations) == len(self.sizes)
-        delta = self.cost.delta(zs[-1], activations[-1], Y) * sigmoid_prime(zs[-1])
+        delta = self.cost.delta(zs[-1], activations[-1], Y)
         nabla_b[-1] = np.sum(delta, axis=1).reshape(nabla_b[-1].shape)
 
         A = activations[-2].transpose()
