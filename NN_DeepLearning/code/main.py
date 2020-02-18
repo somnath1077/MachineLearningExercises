@@ -31,7 +31,7 @@ def main(size,
 
 
 if __name__ == '__main__':
-    size = [784, 600, 10]
+    size = [784, 800, 10]
     epochs = 50
     mini_batch_size = 20
     eta = 3.0
