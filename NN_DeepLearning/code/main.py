@@ -6,6 +6,7 @@ def main(size,
          epochs,
          mini_batch_size,
          eta,
+         decay,
          lmbda,
          monitor_evaluation_cost=False,
          monitor_evaluation_accuracy=True,
@@ -20,6 +21,7 @@ def main(size,
             epochs=epochs,
             mini_batch_size=mini_batch_size,
             eta=eta,
+            decay=decay,
             evaluation_data=test,
             lmbda=lmbda,
             monitor_evaluation_cost=monitor_evaluation_cost,
@@ -33,23 +35,25 @@ def main(size,
 if __name__ == '__main__':
     size = [784, 500, 10]
     epochs = 30
-    mini_batch_size = 20
-    eta = 4.0
-    lmbda = 0.5/
-    monitor_evaluation_cost = False
-    monitor_evaluation_accuracy = True
-    monitor_training_cost = False
-    monitor_training_accuracy = True
-    monitor_weight_vector_length = False
-    regularization = 'L2'
+    mini_batch_sz = 20
+    eta = 3.0
+    decay = 0.001
+    lmbda = 0.5
+    evaluation_cost = False
+    evaluation_accuracy = True
+    training_cost = False
+    training_accuracy = False
+    wt_vect_length = False
+    reg = 'L2'
     main(size,
          epochs,
-         mini_batch_size,
+         mini_batch_sz,
          eta,
+         decay,
          lmbda,
-         monitor_evaluation_cost,
-         monitor_evaluation_accuracy,
-         monitor_training_cost,
-         monitor_training_accuracy,
-         monitor_weight_vector_length,
-         regularization)
+         evaluation_cost,
+         evaluation_accuracy,
+         training_cost,
+         training_accuracy,
+         wt_vect_length,
+         reg)

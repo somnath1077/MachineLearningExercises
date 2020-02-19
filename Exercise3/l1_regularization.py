@@ -8,8 +8,8 @@ def optimize_theta(X: matrix, y: matrix, L1_param: float):
     """
     Implements the co-ordinate descent algorithm to find 
     the optimum weight vector theta that minimizes the 
-    sum of squares error function + L1 regularization. 
-    Lambda is the parameter of the L1 regularization term.
+    sum of squares error function + L1 reg. 
+    Lambda is the parameter of the L1 reg term.
     """
     n_cols = X.shape[1]
 

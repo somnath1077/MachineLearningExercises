@@ -30,7 +30,7 @@ def gradient(inputs: np.ndarray,
     :param theta: the vector of parameters, relative to which the gradient
         is being computed
     :param weights: the vector of weights
-    :param lamb: regularization parameter
+    :param lamb: reg parameter
     :return: gradient at the point theta
     """
     z = z_vector(inputs, labels, theta, query, weights)

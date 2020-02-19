@@ -4,7 +4,7 @@
 An improved version of network.py, implementing the stochastic
 gradient descent learning algorithm for a feedforward neural network.
 Improvements include the addition of the cross-entropy cost function,
-regularization, and better initialization of network weights.  Note
+reg, and better initialization of network weights.  Note
 that I have focused on making the code simple, easily readable, and
 easily modifiable.  It is not optimized, and omits many desirable
 features.
@@ -16,7 +16,6 @@ features.
 import json
 import random
 import sys
-
 # Third-party libraries
 from typing import List, Tuple
 
@@ -130,7 +129,12 @@ class Network(object):
             a = sigmoid(np.dot(w, a) + b)
         return a
 
-    def SGD(self, training_data, epochs, mini_batch_size, eta,
+    def SGD(self,
+            training_data,
+            epochs,
+            mini_batch_size,
+            eta,
+            decay=0.001,
             lmbda=0.0,
             evaluation_data=None,
             monitor_evaluation_cost=False,
@@ -143,7 +147,7 @@ class Network(object):
         descent.  The ``training_data`` is a list of tuples ``(x, y)``
         representing the training inputs and the desired outputs.  The
         other non-optional parameters are self-explanatory, as is the
-        regularization parameter ``lmbda``.  The method also accepts
+        reg parameter ``lmbda``.  The method also accepts
         ``evaluation_data``, usually either the validation or test
         data.  We can monitor the cost and accuracy on either the
         evaluation data or the training data, by setting the
@@ -181,6 +185,11 @@ class Network(object):
                                        regularization=regularization)
             print("Epoch %s training complete" % j)
 
+            cost = self.total_cost(evaluation_data, lmbda, convert=True)
+            evaluation_cost.append(cost)
+            if len(evaluation_cost) >= 2 and evaluation_cost[-1] > evaluation_cost[-2]:
+                eta = eta * (1 - decay)
+
             if monitor_training_cost:
                 cost = self.total_cost(training_data, lmbda)
                 training_cost.append(cost)
@@ -193,8 +202,8 @@ class Network(object):
                     accuracy, n))
 
             if monitor_evaluation_cost:
-                cost = self.total_cost(evaluation_data, lmbda, convert=True)
-                evaluation_cost.append(cost)
+                # cost = self.total_cost(evaluation_data, lmbda, convert=True)
+                # evaluation_cost.append(cost)
                 print("Cost on evaluation data: {}".format(cost))
 
             if monitor_evaluation_accuracy:
@@ -218,11 +227,11 @@ class Network(object):
                           eta: float,
                           lmbda: float,
                           n: int,
-                          regularization: str ='L2'):
+                          regularization: str = 'L2'):
         """Update the network's weights and biases by applying gradient
         descent using backpropagation to a single mini batch.  The
         ``mini_batch`` is a list of tuples ``(x, y)``, ``eta`` is the
-        learning rate, ``lmbda`` is the regularization parameter, and
+        learning rate, ``lmbda`` is the reg parameter, and
         ``n`` is the total size of the training data set.
 
         """
@@ -251,7 +260,7 @@ class Network(object):
                             (eta / len(mini_batch)) * nw
                             for w, nw in zip(self.weights, nabla_w)]
         else:
-            print('Please specify proper regularization!')
+            print('Please specify proper reg!')
             sys.exit(1)
 
         self.biases = [b - (eta / len(mini_batch)) * nb
@@ -294,7 +303,8 @@ class Network(object):
         # The ith element of activations is a np array of dimension:
         # number of neurons in ith layer * mini-batch size
         # assert len(activations) == len(self.sizes)
-        delta = self.cost.delta(zs[-1], activations[-1], Y)
+        # delta = self.cost.delta(zs[-1], activations[-1], Y)
+        delta = activations[-1] - Y
         nabla_b[-1] = np.sum(delta, axis=1).reshape(nabla_b[-1].shape)
 
         A = activations[-2].transpose()
@@ -328,7 +338,8 @@ class Network(object):
             activation = sigmoid(z)
             activations.append(activation)
         # backward pass
-        delta = self.cost.delta(zs[-1], activations[-1], y)
+        # delta = self.cost.delta(zs[-1], activations[-1], y)
+        delta = activations[-1] - y
         nabla_b[-1] = delta
         nabla_w[-1] = np.dot(delta, activations[-2].transpose())
         # Note that the variable l in the loop below is used a little
