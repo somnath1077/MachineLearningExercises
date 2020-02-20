@@ -183,7 +183,7 @@ class Network(object):
                                        lmbda,
                                        n=len(training_data),
                                        regularization=regularization)
-            print("Epoch %s training complete" % j)
+            print("Epoch %s training complete" % (j + 1))
 
             cost = self.total_cost(evaluation_data, lmbda, convert=True)
             evaluation_cost.append(cost)
