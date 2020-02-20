@@ -321,6 +321,9 @@ class Network(object):
 
         return nabla_b, nabla_w
 
+    def create_dropout_weights(self, weights, biases):
+        pass
+
     def backprop(self, x, y):
         """Return a tuple ``(nabla_b, nabla_w)`` representing the
         gradient for the cost function C_x.  ``nabla_b`` and
