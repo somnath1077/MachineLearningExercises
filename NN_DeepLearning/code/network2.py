@@ -152,6 +152,7 @@ class Network(object):
             eta,
             decay=0.001,
             lmbda=0.0,
+            dropout=0.1,
             evaluation_data=None,
             monitor_evaluation_cost=False,
             monitor_evaluation_accuracy=False,
@@ -198,7 +199,8 @@ class Network(object):
                                        eta,
                                        lmbda,
                                        n=len(training_data),
-                                       regularization=regularization)
+                                       regularization=regularization,
+                                       dropout=dropout)
             print("Epoch %s training complete" % (j + 1))
 
             cost = self.total_cost(evaluation_data, lmbda, convert=True)
@@ -243,7 +245,8 @@ class Network(object):
                           eta: float,
                           lmbda: float,
                           n: int,
-                          regularization: str = 'L2'):
+                          regularization: str = 'L2',
+                          dropout: float = 0.1):
         """Update the network's weights and biases by applying gradient
         descent using backpropagation to a single mini batch.  The
         ``mini_batch`` is a list of tuples ``(x, y)``, ``eta`` is the
@@ -260,7 +263,7 @@ class Network(object):
             Y.append(y)
         X = np.column_stack(X)
         Y = np.column_stack(Y)
-        delta_nabla_b, delta_nabla_w = self.backprop_full_matrix_dropout(X, Y, dropout=0.1)
+        delta_nabla_b, delta_nabla_w = self.backprop_full_matrix_dropout(X, Y, dropout)
         nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
         nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
         # for x, y in mini_batch:

@@ -8,6 +8,7 @@ def main(size,
          eta,
          decay,
          lmbda,
+         dropout,
          monitor_evaluation_cost=False,
          monitor_evaluation_accuracy=True,
          monitor_training_cost=False,
@@ -24,6 +25,7 @@ def main(size,
             decay=decay,
             evaluation_data=test,
             lmbda=lmbda,
+            dropout=dropout,
             monitor_evaluation_cost=monitor_evaluation_cost,
             monitor_evaluation_accuracy=monitor_evaluation_accuracy,
             monitor_training_cost=monitor_training_cost,
@@ -39,6 +41,7 @@ if __name__ == '__main__':
     eta = 0.08
     decay = 0.0001
     lmbda = 0.01
+    dropout = 0.1
     evaluation_cost = False
     evaluation_accuracy = True
     training_cost = False
@@ -51,6 +54,7 @@ if __name__ == '__main__':
          eta,
          decay,
          lmbda,
+         dropout,
          evaluation_cost,
          evaluation_accuracy,
          training_cost,
