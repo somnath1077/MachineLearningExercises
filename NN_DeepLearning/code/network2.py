@@ -329,7 +329,7 @@ class Network(object):
             sz = nrow * ncol
             n = np.rint(dropout * sz)
             
-            B = np.ones((sz, 1), dtype=float64)
+            B = np.ones((sz, 1), dtype=np.float64)
             idx = np.random.choice(sz, size=n, replace=False)  
             B[idx] = 0.0
             
