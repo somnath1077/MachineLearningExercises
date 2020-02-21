@@ -35,7 +35,8 @@ if __name__ == '__main__':
     left = -0.0
     right = 1.0
     num_pts = 1000
-    wt_bias = [(9.0, -4.0), (8.0, -4.0), (7.0, -4.0), (6.0, -4.0), (5.0, -4), (999.0, -400.0)]
+    wt_bias = [(9.0, -4.0), (8.0, -4.0), (7.0, -4.0), (6.0, -4.0), (5.0, -40),
+               (999.0, -400.0), (999.0, -300.0), (999.0, -700.0)]
     for weight, bias in wt_bias:
         x_vals = np.linspace(left, right, num_pts)
         y_vals = sigmoid(np.array([weight * x + bias for x in x_vals]))
