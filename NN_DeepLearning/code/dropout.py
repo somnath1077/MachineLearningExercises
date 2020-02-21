@@ -8,8 +8,10 @@ def create_dropout_weights(weight_matrix_list: List[np.array], dropout: float):
         nrow = w.shape[0]
         ncol = w.shape[1]
         sz = nrow * ncol
-        n = np.rint(dropout * sz)
+        n = int(np.rint(dropout * sz))
 
+        print(f'sz = {sz}')
+        print(f'n = {n}')
         B = np.ones((sz, 1), dtype=np.float64)
         idx = np.random.choice(sz, size=n, replace=False)
         B[idx] = 0.0
@@ -24,7 +26,7 @@ if __name__ == '__main__':
     C = np.array([[1, 2, 3]])
     lst = [A, B, C]
 
-    ret = create_dropout_weights(lst, 1.0)
+    ret = create_dropout_weights(lst, 0.5)
     for w in ret:
         print(w)
-    
+
