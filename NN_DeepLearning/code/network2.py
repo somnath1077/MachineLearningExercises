@@ -321,8 +321,22 @@ class Network(object):
 
         return nabla_b, nabla_w
 
-    def create_dropout_weights(self, weights, biases):
-        pass
+    def create_dropout_weights(self, weight_matrix_list: List[np.array], dropout: float):
+        ret = []
+        for w in weight_matrix_list:
+            nrow = w.shape[0]
+            ncol = w.shape[1]
+            sz = nrow * ncol
+            n = np.rint(dropout * sz)
+            
+            B = np.ones((sz, 1), dtype=float64)
+            idx = np.random.choice(sz, size=n, replace=False)  
+            B[idx] = 0.0
+            
+            B =  B.reshape((nrow, ncol))
+            ret.append(w * B)
+        return ret
+        
 
     def backprop(self, x, y):
         """Return a tuple ``(nabla_b, nabla_w)`` representing the
