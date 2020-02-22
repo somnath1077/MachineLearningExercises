@@ -442,5 +442,20 @@ size = [784, 600, 10]
     training_accuracy = False
     wt_vect_length = False
     reg = 'L2'
-  Accuracy: 97.83
+ Accuracy: 97.83
   -------------------------------------------------------------
+  size = [784, 300, 10]
+    epochs = 30
+    mini_batch_sz = 10
+    eta = 0.08
+    decay = 0.0001
+    lmbda = 0.01
+    dropout = 0.02
+    evaluation_cost = False
+    evaluation_accuracy = True
+    training_cost = False
+    training_accuracy = False
+    wt_vect_length = False
+    reg = 'L2'
+ Accuracy: 98.14
+ ----------------------------------------------
