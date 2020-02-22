@@ -41,7 +41,7 @@ if __name__ == '__main__':
     eta = 0.08
     decay = 0.0001
     lmbda = 0.01
-    dropout = 0.05
+    dropout = 0.02
     evaluation_cost = False
     evaluation_accuracy = True
     training_cost = False
