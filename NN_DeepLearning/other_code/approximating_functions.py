@@ -35,7 +35,7 @@ def build_network(samples: List[Tuple[float, float]]):
 
         weight1 = 1000
         bias1 = - x * weight1
-        weight2 = 0.5 * (f_x - curr_neuron_val)
+        weight2 = f_x - curr_neuron_val
 
         curr_neuron_val += f_x - curr_neuron_val
 
@@ -53,9 +53,7 @@ def evaluate_network(samples: List[Tuple[float, float]], network: np.array):
             weight2 = network[idx][2]
 
             net_val += sigmoid(weight1 * x + bias1) * weight2
-
         ret.append((x, net_val))
-
     return ret
 
 
@@ -70,10 +68,12 @@ def estimate_loss(samples: List[Tuple[float, float]], network_vals: List[Tuple[f
 def f1_nielsen(x):
     return 0.2 + 0.4 * x ** 2 + 0.3 * x * np.sin(15 * x) + 0.05 * np.cos(50 * x)
 
+def f2(x):
+    return x**2
 
 if __name__ == '__main__':
 
-    samples = create_samples(f1_nielsen, left=-1.0, right=4.0, num_samples=2000)
+    samples = create_samples(f2, left=-1.0, right=4.0, num_samples=500)
     net = build_network(samples)
     net_vals = evaluate_network(samples, net)
 
