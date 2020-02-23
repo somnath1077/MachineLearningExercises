@@ -46,13 +46,7 @@ def build_network(samples: List[Tuple[float, float]]):
 def evaluate_network(samples: List[Tuple[float, float]], network: np.array):
     ret = []
     for x, f_x in samples:
-        net_val = 0.0
-        for idx in range(network.shape[0]):
-            weight1 = network[idx][0]
-            bias1 = network[idx][1]
-            weight2 = network[idx][2]
-
-            net_val += sigmoid(weight1 * x + bias1) * weight2
+        net_val = np.sum(sigmoid((network[:, 0] * x + network[:, 1])) * network[:, 2])
         ret.append((x, net_val))
     return ret
 
