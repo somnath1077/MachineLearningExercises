@@ -67,7 +67,7 @@ if __name__ == '__main__':
         return x**2
 
 
-    samples = create_samples(f, left=-4.0, right=4.0, num_samples=1000)
+    samples = create_samples(f, left=-4.0, right=4.0, num_samples=10000)
     net = build_network(samples)
     net_vals = evaluate_network(samples, net)
 
