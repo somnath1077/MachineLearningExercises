@@ -3,12 +3,15 @@ from typing import List, Tuple
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def create_samples(f, left: float, right: float, num_samples: int):
     x_vals = np.linspace(left, right, num_samples)
     return [(x, f(x)) for x in x_vals]
 
+
 def sigmoid(z: np.array):
     return 1.0 / (1 + np.exp(-1.0 * z))
+
 
 def build_network(samples: List[Tuple[float, float]]):
     """
@@ -39,6 +42,7 @@ def build_network(samples: List[Tuple[float, float]]):
         ret[idx] = [weight1, bias1, weight2]
     return ret
 
+
 def evaluate_network(samples: List[Tuple[float, float]], network: np.array):
     ret = []
     for x, f_x in samples:
@@ -54,25 +58,27 @@ def evaluate_network(samples: List[Tuple[float, float]], network: np.array):
 
     return ret
 
+
 def estimate_loss(samples: List[Tuple[float, float]], network_vals: List[Tuple[float, float]]):
     real_vals = np.array([f_x for _, f_x in samples])
     est_vals = np.array([f_x for _, f_x in network_vals])
 
-    return np.mean((real_vals - est_vals)**2)
+    return np.mean((real_vals - est_vals) ** 2)
+
+
+# This is the function from Nielsen's book
+def f1_nielsen(x):
+    return 0.2 + 0.4 * x ** 2 + 0.3 * x * np.sin(15 * x) + 0.05 * np.cos(50 * x)
 
 
 if __name__ == '__main__':
 
-    def f(x):
-        return x**2
-
-
-    samples = create_samples(f, left=-4.0, right=4.0, num_samples=10000)
+    samples = create_samples(f1_nielsen, left=-1.0, right=5.0, num_samples=1000)
     net = build_network(samples)
     net_vals = evaluate_network(samples, net)
 
     x_vals = []
-    f_x =[]
+    f_x = []
     net_x = []
 
     for i in range(len(samples)):
