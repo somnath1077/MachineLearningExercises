@@ -67,7 +67,7 @@ def f2(x):
 
 if __name__ == '__main__':
 
-    samples = create_samples(f2, left=-5.0, right=5.0, num_samples=100)
+    samples = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=200)
     net = build_network(samples)
     net_vals = evaluate_network(samples, net)
 
@@ -80,7 +80,7 @@ if __name__ == '__main__':
         f_x.append(samples[i][1])
         net_x.append(net_vals[i][1])
 
-    plt.plot(x_vals, f_x, color='blue')
-    plt.plot(x_vals, net_x, color='red')
+    plt.plot(x_vals, f_x, color='green')
+    plt.plot(x_vals, net_x, color='blue')
     plt.show()
     print(estimate_loss(samples, net_vals))
