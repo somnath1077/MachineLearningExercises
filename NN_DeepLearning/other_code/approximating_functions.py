@@ -58,6 +58,21 @@ def estimate_loss(samples: List[Tuple[float, float]], network_vals: List[Tuple[f
     return np.mean((real_vals - est_vals) ** 2)
 
 
+def plot_network(samples: List[Tuple[float, float]], network_vals: List[Tuple[float, float]]):
+    x_vals = []
+    f_x = []
+    net_x = []
+
+    for i in range(len(samples)):
+        x_vals.append(samples[i][0])
+        f_x.append(samples[i][1])
+        net_x.append(network_vals[i][1])
+
+    plt.plot(x_vals, f_x, color='green', label='actual')
+    plt.plot(x_vals, net_x, color='blue', label='network')
+    plt.legend()
+    plt.show()
+
 # This is the function from Nielsen's book
 def f1_nielsen(x):
     return 0.2 + 0.4 * x ** 2 + 0.3 * x * np.sin(15 * x) + 0.05 * np.cos(50 * x)
@@ -66,21 +81,9 @@ def f2(x):
     return x**2
 
 if __name__ == '__main__':
-
     samples = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=200)
     net = build_network(samples)
     net_vals = evaluate_network(samples, net)
 
-    x_vals = []
-    f_x = []
-    net_x = []
-
-    for i in range(len(samples)):
-        x_vals.append(samples[i][0])
-        f_x.append(samples[i][1])
-        net_x.append(net_vals[i][1])
-
-    plt.plot(x_vals, f_x, color='green')
-    plt.plot(x_vals, net_x, color='blue')
-    plt.show()
+    plot_network(samples, net_vals)
     print(estimate_loss(samples, net_vals))
