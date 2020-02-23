@@ -73,7 +73,7 @@ def f2(x):
 
 if __name__ == '__main__':
 
-    samples = create_samples(f2, left=-1.0, right=4.0, num_samples=500)
+    samples = create_samples(f2, left=-5.0, right=5.0, num_samples=100)
     net = build_network(samples)
     net_vals = evaluate_network(samples, net)
 
