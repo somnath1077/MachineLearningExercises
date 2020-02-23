@@ -32,7 +32,7 @@ def build_network(samples: List[Tuple[float, float]]):
 
         weight1 = 1000
         bias1 = - x * weight1
-        weight2 = 0.5 * (f_x - curr_neuron_val)
+        weight2 = f_x - curr_neuron_val
 
         curr_neuron_val = f_x - curr_neuron_val
 
