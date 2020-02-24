@@ -4,16 +4,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def create_samples(f, left: float, right: float, num_samples: int):
+def create_samples(f, left: float, right: float, num_samples: int) -> List[Tuple[float, float]]:
+    """
+        This function takes in a function f, an interval [left, right]
+        and a parameter num_samples for the number of times one wishes
+        to sample from the function f in the given interval. Samples
+        are taken at equidistant points in the stated interval.
+
+        In the network to be constructed, the number of neurons in the
+        the hidden layer equals the number of samples.
+    """
     x_vals = np.linspace(left, right, num_samples)
     return [(x, f(x)) for x in x_vals]
 
 
-def sigmoid(z: np.array):
+def sigmoid(z: np.array) -> np.array:
     return 1.0 / (1 + np.exp(-1.0 * z))
 
 
-def build_network(samples: List[Tuple[float, float]]):
+def build_network(samples: List[Tuple[float, float]]) -> np.array:
     """
         From samples, construct a matrix whose rows look like:
 
@@ -37,28 +46,31 @@ def build_network(samples: List[Tuple[float, float]]):
         bias1 = - x * weight1
         weight2 = f_x - curr_neuron_val
 
-        curr_neuron_val += f_x - curr_neuron_val
+        curr_neuron_val += weight2
 
         ret[idx] = [weight1, bias1, weight2]
     return ret
 
 
-def evaluate_network(samples: List[Tuple[float, float]], network: np.array):
+def evaluate_network(samples: List[Tuple[float, float]],
+                     network: np.array) -> List[Tuple[float, float]]:
     ret = []
     for x, f_x in samples:
-        net_val = np.sum(sigmoid((network[:, 0] * x + network[:, 1])) * network[:, 2])
+        net_val = float(np.sum(sigmoid((network[:, 0] * x + network[:, 1])) * network[:, 2]))
         ret.append((x, net_val))
     return ret
 
 
-def estimate_loss(samples: List[Tuple[float, float]], network_vals: List[Tuple[float, float]]):
+def estimate_loss(samples: List[Tuple[float, float]],
+                  network_vals: List[Tuple[float, float]]) -> np.array:
     real_vals = np.array([f_x for _, f_x in samples])
     est_vals = np.array([f_x for _, f_x in network_vals])
 
     return np.mean((real_vals - est_vals) ** 2)
 
 
-def plot_network(samples: List[Tuple[float, float]], network_vals: List[Tuple[float, float]]):
+def plot_network(samples: List[Tuple[float, float]],
+                 network_vals: List[Tuple[float, float]]):
     x_vals = []
     f_x = []
     net_x = []
@@ -73,17 +85,21 @@ def plot_network(samples: List[Tuple[float, float]], network_vals: List[Tuple[fl
     plt.legend()
     plt.show()
 
+
 # This is the function from Nielsen's book
 def f1_nielsen(x):
     return 0.2 + 0.4 * x ** 2 + 0.3 * x * np.sin(15 * x) + 0.05 * np.cos(50 * x)
 
+
 def f2(x):
-    return x**2
+    return x ** 2
+
 
 if __name__ == '__main__':
-    samples = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=200)
-    net = build_network(samples)
-    net_vals = evaluate_network(samples, net)
+    samples_for_net = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=20)
+    net = build_network(samples_for_net)
+    samples_for_plot = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=1000)
+    net_vals = evaluate_network(samples_for_plot, net)
 
-    plot_network(samples, net_vals)
-    print(estimate_loss(samples, net_vals))
+    plot_network(samples_for_plot, net_vals)
+    print(estimate_loss(samples_for_plot, net_vals))
