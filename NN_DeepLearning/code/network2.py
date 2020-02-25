@@ -38,6 +38,7 @@ def create_dropout_weights(weight_matrix_list: List[np.array], dropout: float):
         ret.append(w * B)
     return ret
 
+
 # Define the quadratic and cross-entropy cost functions
 
 class QuadraticCost(object):
@@ -340,8 +341,6 @@ class Network(object):
 
         return nabla_b, nabla_w
 
-
-
     def backprop_full_matrix_dropout(self, X, Y, dropout: float = 0.1):
         """
            This full matrix version returns a tuple ``(nabla_b, nabla_w)``
@@ -398,9 +397,6 @@ class Network(object):
             nabla_w[-l] = np.dot(delta, act)
 
         return nabla_b, nabla_w
-
-
-        
 
     def backprop(self, x, y):
         """Return a tuple ``(nabla_b, nabla_w)`` representing the
