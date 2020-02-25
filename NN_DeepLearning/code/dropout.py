@@ -1,5 +1,6 @@
-import numpy as np
 from typing import List
+
+import numpy as np
 
 
 def create_dropout_weights(weight_matrix_list: List[np.array], dropout: float):
@@ -20,6 +21,7 @@ def create_dropout_weights(weight_matrix_list: List[np.array], dropout: float):
         ret.append(w * B)
     return ret
 
+
 if __name__ == '__main__':
     A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
     B = np.array([[1], [2], [3]])
@@ -29,4 +31,3 @@ if __name__ == '__main__':
     ret = create_dropout_weights(lst, 0.5)
     for w in ret:
         print(w)
-
