@@ -41,6 +41,7 @@ def load_data():
     below.
     """
     path_to_this = os.path.abspath('.')
+    # This file is called code.py and so the path till the parent of this file is path_to_this[:-4]
     path_to_data = path_to_this[:-4] + "data/mnist.pkl.gz"
     with gzip.open(path_to_data, 'rb') as ff:
         u = pickle._Unpickler(ff)
