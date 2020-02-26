@@ -48,7 +48,7 @@ if __name__ == '__main__':
     x_interval = [1.0, 5.0]
     y_interval = [-2.0, 3.0]
     net = xy_tower(x_interval, y_interval)
-    xy_list = [[2.0, 0.0, 1.0], [1.01, -1.99, 1.0], [0.0, 0.0, 0.0]]
+    xy_list = [[2.0, 0.0, 1.0], [1.01, -1.99, 1.0], [0.0, 0.0, 0.0], [-2.0, 1.0, 0.0]]
     for x, y, answer in xy_list:
         net_eval = evaluate_net([x, y], net)
         if net_eval != answer:
