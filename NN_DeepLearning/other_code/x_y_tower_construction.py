@@ -9,9 +9,9 @@ def sigmoid(z: np.array):
 
 def xy_tower(x_int: List[float], y_int: List[float]):
     """
-        Given an x-interval, an y-interval and a height, this function constructs
-        a neural network that outputs = 1 iff (x, y) \in x_int \cross y_int
-        and 0 otherwise.
+        Given open intervals on the x-axis x_int and the y-axis y_int,
+        this function constructs a neural network that outputs = 1
+        iff (x, y) \in x_int \cross y_int and 0 otherwise.
     :return:
     """
     w_x1 = w_x2 = w_y1 = w_y2 = 10000.0
