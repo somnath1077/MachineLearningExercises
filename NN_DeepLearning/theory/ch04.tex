@@ -105,9 +105,11 @@ This idea is used to generalize the result to functions of several variables.
 In order to generalize this to functions of two variables, we need to first 
 construct step functions on the plane. We could then construct networks 
 that represent indicator functions for rectangular regions in $\R^2$. By taking a 
-linear combination of indicator functions with appropriate weights, we can 
-approximate a continuous function $f \colon \R^2 \to \R^1$. 
+linear combination of such indicator functions with appropriate weights, we can 
+approximate any continuous function $f \colon \R^2 \to \R^1$. 
 
+The network used to approximate a step function in $\R^2$ is shown in 
+Figure~\ref{fig:tower_function}.
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{TowerFunction.jpg}
