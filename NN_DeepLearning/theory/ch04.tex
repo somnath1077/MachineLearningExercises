@@ -64,7 +64,7 @@ of how we can approximate arbitrary continuous functions from $\R^m \to \R^n$.
 
 \section{Functions of One Variable}
 
-The network described in the last section acts as an indicator function 
+The network described in the last section acts as an indiacator function
 for an interval $[s_1, s_2]$ of the real line. Consider a function 
 $f \colon \Rone \to \Rone$ whose mean value in the interval $[s_1, s_2]$ 
 is $y$. If we were to now weight the output of the network by $y$ by 
@@ -72,15 +72,41 @@ adding an extra output node with a linear activation function, the resulting
 output of this new network will be a $y$ whenever $x \in (s_1, s_2)$ and a $0$ 
 otherwise. Piecing together several of these networks would allow us 
 to output the approximate value of $f$ over several intervals. 
+
+In Figure~\ref{fig:one_variable_function}, we show a network that approximates 
+a function $f$ over an interval $[s_1, s_5]$. In order to do this, this interval 
+is first broken down into four sub-intervals $[s_1, s_2]$, $[s_2, s_3]$, $[s_3, s_4]$
+and $[s_4, s_5]$. The top-most neuron from the second hidden layer from the left 
+represents the output of the indicator function that detects whether the input $x$ 
+lies in the interval $[s_1, s_2]$. This neuron is labelled $I[s_1, s_2]$ to 
+represent this fact. The output weight from this neuron is labelled $f[s_1, s_2]$
+which represents the average value of the function $f$ in the interval $[s_1, s_2]$.
+
+The output neuron has a linear activation whereas the remaining neurons in the two 
+hidden layers are sigmoid neurons. The network as a whole functions as follows: 
+when $x \in [s_i, s_{i + 1}]$ for $i \in \{1, 2, 3, 4\}$, the corresponding sub-network 
+$I[s_1, s_{i + 1}]$ outputs a $1$; all other sub-networks output $0$. The final output
+of the network is then $f[s_i, s_{i + 1}]$, the approximate value of $f$ in this interval. 
+By increasing the number of intervals, one can obtain better and better approximations 
+of $f$ over larger intervals. 
+
+This idea is used to generalize the result to functions of several variables. 
+
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{OneVariableFunctions.jpg}
 \end{center}
 \caption{Network that approximates a function on the range $[s_1, s_5]$}
-\label{fig:one_variable_functions}
+\label{fig:one_variable_function}
 \end{figure}
 
 \section{Functions of Several Variables}
+
+In order to generalize this to functions of two variables, we need to first 
+construct step functions on the plane. We could then construct networks 
+that represent indicator functions for rectangular regions in $\R^2$. By taking a 
+linear combination of indicator functions with appropriate weights, we can 
+approximate a continuous function $f \colon \R^2 \to \R^1$. 
 
 \begin{figure}[ht]
 \begin{center}
