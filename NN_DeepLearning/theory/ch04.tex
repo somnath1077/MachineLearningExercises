@@ -65,6 +65,11 @@ of how we can approximate arbitrary continuous functions from $\R^m \to \R^n$.
 \section{Functions of One Variable}
 
 The network described in the last section acts as an indicator function 
-for an interval $[s_1, s_2]$ of the real line. We can piece together these 
-network fragments to create a set of indicator  
+for an interval $[s_1, s_2]$ of the real line. Consider a function 
+$f \colon \Rone \to \Rone$ whose mean value in the interval $[s_1, s_2]$ 
+is $y$. If we were to now weight the output of the network by $y$ by 
+adding an extra output node with a linear activation function, the resulting 
+output of this new network will be a $y$ whenever $x \in (s_1, s_2)$ and a $0$ 
+otherwise. Piecing together several of these networks would allow us 
+to output the approximate value of $f$ over several intervals. 
 \section{Functions of Several Variables}
