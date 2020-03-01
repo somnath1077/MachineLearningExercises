@@ -138,7 +138,40 @@ linear combination of such indicator functions with appropriate weights, we can
 approximate any continuous function $f \colon \R^2 \to \R^1$. 
 
 The network used to approximate a step function in $\R^2$ is shown in 
-Figure~\ref{fig:tower_function}.
+Figure~\ref{fig:tower_function}. This network has two sub-networks: one 
+for creating a step function along the $x$-axis and another for the $y$-axis. 
+The construction of these sub-networks is exactly the same as in the case of 
+one-variable functions with the difference being that the output neuron now has to 
+output a $1$ iff $(x, y) \in (s_x^1, s_x^2) \times (s_y^1, s_y^2)$. This is achieved 
+by adjusting the bias of the output neuron to $- 3h/2$, where $h$ is some large number.
+  
+Let us look at this network a little more closely. 
+The top two neurons of the first hidden layer labelled $s_x^1$ and $s_x^2$ to indicate 
+the fact that they help create the indicator function for the interval $(s_x^1, s_x^2)$ 
+on the $x$-axis. Let their input weight and bias be $w_1, b_1$ and $w_2, b_2$, respectively. 
+Similarly, the bottom two neurons of the first hidden layer and labelled $s_y^1$ and $s_y^2$.
+Let their input weight and bias be $w_3, b_3$ and $w_4, b_4$, respectively. Now if the input 
+to the network is $(x, y)$, the weighted input to the output neuron is given by:
+\[
+    h \cdot \sigma (w_1 x + b_1) - h \cdot \sigma (w_2 x + b_2) + h \cdot \sigma (w_3 y + b_3) 
+    -h \cdot \sigma (w_4 y + b_4).
+\]
+The crucial observation here is that when $x \in (s_x^1, s_x^2)$ and $y \in (s_y^1, s_y^2)$ 
+then this weighted input is $\approx 2h$; otherwise, this is $< h$. Hence the output in the 
+first case is $\sigma (2h - 3h/2) = \sigma (h / 2) \approx 1$, whereas in the second case
+is $\sigma (h - 3h/2) = \sigma (-h/2) \approx 0$. This hold whenever $h$ is some very large number.
+The bias is selected so that it's absolute value is a number between $h$ and $2h$. Any number will 
+suffice. We just chose $-3h/2$.
+
+Also not that we can extend this naturally for functions of three or more variables. For three 
+variables, we would have another sub-network that creates an indicator for an interval 
+$(s_z^1, s_z^2)$ on the $z$-axis. This sub-network would then be wired to the output neuron whose
+bias would have to be modified to $-5h/2$. Again the bias can be any number whose absolute value 
+is between $2h$ and $3h$. For an $n$-variable function, we will have $n$ sub-networks, each 
+creating an indicator function for an interval along the appropriate axis, connecting 
+to the output neuron with bias $- (h + h - 1)/2 = - (2h - 1) / 2$. These can then be connected 
+with other sub-networks for an extended range of intervals to approximate a function on this
+range of intervals.     
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{TowerFunction.jpg}
@@ -146,5 +179,11 @@ Figure~\ref{fig:tower_function}.
 \caption{Network that approximates a tower function in two variables}
 \label{fig:tower_function}
 \end{figure}
+
+Finally, we consider the case of functions~$f$ from $\R^n$ to $\R^m$. Any such function can be 
+decomposed into $m$ functions $f_1(x_1, \ldots, x_n), \ldots, f_m(x_1, \ldots, x_n)$ 
+from $\R^n \to \R^1$. Hence this case can be handled by combining 
+$m$ networks one for each of the $m$ functions.  
+
 
 
