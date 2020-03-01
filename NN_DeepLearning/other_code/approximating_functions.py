@@ -70,7 +70,8 @@ def estimate_loss(samples: List[Tuple[float, float]],
 
 
 def plot_network(samples: List[Tuple[float, float]],
-                 network_vals: List[Tuple[float, float]]):
+                 network_vals: List[Tuple[float, float]],
+                 num_neurons: int):
     x_vals = []
     f_x = []
     net_x = []
@@ -80,8 +81,10 @@ def plot_network(samples: List[Tuple[float, float]],
         f_x.append(samples[i][1])
         net_x.append(network_vals[i][1])
 
-    plt.plot(x_vals, f_x, color='green', label='actual')
-    plt.plot(x_vals, net_x, color='blue', label='network')
+    plt.plot(x_vals, f_x, color='green', label=r'$f(x)$')
+    plt.plot(x_vals, net_x, color='blue', label=f'network with {num_neurons} neurons')
+    plt.xlabel(r'$x$')
+    plt.ylabel(r'Output of $f$/Network')
     plt.legend()
     plt.show()
 
@@ -96,10 +99,10 @@ def f2(x):
 
 
 if __name__ == '__main__':
-    samples_for_net = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=500)
+    samples_for_net = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=10)
     net = build_network(samples_for_net)
     samples_for_plot = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=1000)
     net_vals = evaluate_network(samples_for_plot, net)
 
-    plot_network(samples_for_plot, net_vals)
+    plot_network(samples_for_plot, net_vals, net.shape[0])
     print(estimate_loss(samples_for_plot, net_vals))

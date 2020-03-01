@@ -62,7 +62,7 @@ of how we can approximate arbitrary continuous functions from $\R^m \to \R^n$.
 \label{fig:nn_rect_func}
 \end{figure}
 
-The output of such a network is shown in Figure~\ref{fig:x_step_function}.
+
 
 \section{Functions of One Variable}
 \begin{figure}[ht]
@@ -107,6 +107,18 @@ This idea is used to generalize the result to functions of several variables.
 \end{center}
 \caption{Network that approximates a function on the range $[s_1, s_5]$}
 \label{fig:one_variable_function}
+\end{figure}
+
+The output of such a network is shown in Figure~\ref{fig:x_step_function}. 
+We created a small program that approximates the function provided in 
+Nielsen's book: $f(x) = 0.2 + 0.4 x^2 + 0.3 x \sin(15 x) + 0.05 \cos(50 x)$. 
+We show some of the results in Figures~\ref{fig:one_variable_10neurons}.
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.5]{OneVar10Neurons.png}
+\end{center}
+\caption{Approximating with 10 neurons.}
+\label{fig:one_variable_10neurons}
 \end{figure}
 
 \section{Functions of Several Variables}
