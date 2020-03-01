@@ -61,10 +61,7 @@ of how we can approximate arbitrary continuous functions from $\R^m \to \R^n$.
 \caption{Network of sigmoid neurons to output a rectangle function.}
 \label{fig:nn_rect_func}
 \end{figure}
-
-
-
-\section{Functions of One Variable}
+The output of such a network is shown in Figure~\ref{fig:x_step_function}. 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{xStepFunction.png}
@@ -73,7 +70,11 @@ of how we can approximate arbitrary continuous functions from $\R^m \to \R^n$.
 \label{fig:x_step_function}
 \end{figure}
 
-The network described in the last section acts as an indiacator function
+
+
+\section{Functions of One Variable}
+
+The network described in the last section acts as an indicator function
 for an interval $[s_1, s_2]$ of the real line. Consider a function 
 $f \colon \Rone \to \Rone$ whose mean value in the interval $[s_1, s_2]$ 
 is $y$. If we were to now weight the output of the network by $y$ by 
@@ -97,9 +98,8 @@ when $x \in [s_i, s_{i + 1}]$ for $i \in \{1, 2, 3, 4\}$, the corresponding sub-
 $I[s_1, s_{i + 1}]$ outputs a $1$; all other sub-networks output $0$. The final output
 of the network is then $f[s_i, s_{i + 1}]$, the approximate value of $f$ in this interval. 
 By increasing the number of intervals, one can obtain better and better approximations 
-of $f$ over larger intervals. 
-
-This idea is used to generalize the result to functions of several variables. 
+of $f$ over larger intervals. This idea is used to generalize the result to 
+functions of several variables. 
 
 \begin{figure}[ht]
 \begin{center}
@@ -109,15 +109,23 @@ This idea is used to generalize the result to functions of several variables.
 \label{fig:one_variable_function}
 \end{figure}
 
-The output of such a network is shown in Figure~\ref{fig:x_step_function}. 
 We created a small program that approximates the function provided in 
 Nielsen's book: $f(x) = 0.2 + 0.4 x^2 + 0.3 x \sin(15 x) + 0.05 \cos(50 x)$. 
 We show some of the results in Figures~\ref{fig:one_variable_10neurons}.
 \begin{figure}[ht]
+\centering
+\begin{minipage}[b]{0.4\textwidth}
 \begin{center}
-\includegraphics[scale=0.5]{OneVar10Neurons.png}
+\includegraphics[width=\textwidth]{OneVar10Neurons.png} 
 \end{center}
-\caption{Approximating with 10 neurons.}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.4\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth]{OneVar50Neurons.png} 
+\end{center}
+\end{minipage}
+\caption{Approximating with 10 neurons and 50 neurons.}
 \label{fig:one_variable_10neurons}
 \end{figure}
 

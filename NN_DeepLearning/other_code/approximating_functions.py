@@ -99,7 +99,7 @@ def f2(x):
 
 
 if __name__ == '__main__':
-    samples_for_net = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=10)
+    samples_for_net = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=50)
     net = build_network(samples_for_net)
     samples_for_plot = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=1000)
     net_vals = evaluate_network(samples_for_plot, net)
