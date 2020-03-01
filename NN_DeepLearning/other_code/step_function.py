@@ -10,9 +10,9 @@ def sigmoid(z: np.array):
 
 def x_step(x_int: List[float]):
     """
-        Given open intervals on the x-axis x_int and the y-axis y_int,
+        Given open intervals on the x-axis x_int
         this function constructs a neural network that outputs = 1
-        iff (x, y) \in x_int \cross y_int and 0 otherwise.
+        iff x \in x_int and 0 otherwise.
     :return:
     """
     w_x1 = w_x2 = 10000.0
