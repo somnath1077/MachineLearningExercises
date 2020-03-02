@@ -43,6 +43,9 @@ def surface_plot(X, Y, Z, title='Surface'):
     ax.plot_surface(X, Y, Z, rstride=1, cstride=1,
                     cmap='winter', edgecolor='none')
     ax.set_title(title)
+    ax.set_xlabel('x')
+    ax.set_ylabel('y')
+    ax.set_zlabel('z')
 
     plt.show()
 
