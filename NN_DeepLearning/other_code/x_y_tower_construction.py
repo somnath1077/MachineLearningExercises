@@ -51,7 +51,7 @@ if __name__ == '__main__':
     y_interval = [-2.0, 3.0]
     net = xy_tower(x_interval, y_interval)
     x_vals = np.linspace(-3.0, 6.0, 100)
-    y_vals = np.linspace(-3.0"", 6.0, 100)
+    y_vals = np.linspace(-3.0, 6.0, 100)
     X, Y = np.meshgrid(x_vals, y_vals)
     z = []
     for i in range(X.shape[0]):
