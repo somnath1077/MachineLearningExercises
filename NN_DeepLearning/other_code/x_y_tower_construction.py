@@ -16,7 +16,7 @@ def xy_tower(x_int: List[float], y_int: List[float]):
         iff (x, y) \in x_int \cross y_int and 0 otherwise.
     :return:
     """
-    w_x1 = w_x2 = w_y1 = w_y2 = 10000.0
+    w_x1 = w_x2 = w_y1 = w_y2 = 100000.0
 
     b_x1 = - x_int[0] * w_x1
     b_x2 = - x_int[1] * w_x2
@@ -57,5 +57,10 @@ if __name__ == '__main__':
     for i in range(X.shape[0]):
         for j in range(X.shape[1]):
             z.append(evaluate_net([X[i, j], Y[i, j]], net))
+    num_ones = np.sum([i for i in z if i == 1])
+    num_zeros = np.sum(i for i in z if i == 0)
+    print(num_ones)
+    print(num_zeros)
+    print(len(z))
     Z = np.array(z).reshape(X.shape)
     surface_plot(X, Y, Z, "Tower Function")
