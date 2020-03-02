@@ -52,19 +52,6 @@ if __name__ == '__main__':
     net = xy_tower(x_interval, y_interval)
     x_vals = np.arange(-3.0, 6.0, 0.1).reshape((-1, 1))
     y_vals = np.arange(-3.0, 6.0, 0.1).reshape((-1, 1))
-    # z_vals = np.array([evaluate_net([x, y], net) for x in x_vals for y in y_vals]).reshape((-1, 1))
-    # x_vals = [1, 2, 3, 9]
-    # y_vals = [4, 5, 6]
     X, Y = np.meshgrid(x_vals, y_vals)
-    z_vals = np.array([evaluate_net([x, y], net) for x in np.nditer(X) for y in np.nditer(Y)]).reshape(X.shape)
-    # print(x_vals)
-    # print(X)
-    # print(Y)
+    Z = np.array([evaluate_net([x, y], net) for x in np.nditer(X) for y in np.nditer(Y)]).reshape(X.shape)
     surface_plot(X, Y, Z)
-    # xy_list = [[2.0, 0.0, 1.0], [1.01, -1.99, 1.0], [0.0, 0.0, 0.0], [-2.0, 1.0, 0.0]]
-    # for x, y, answer in xy_list:
-    #     net_eval = evaluate_net([x, y], net)
-    #     if net_eval != answer:
-    #         print(f'Failed {x}, {y}, {answer}. Got {net_eval}')
-    #     else:
-    #         print(f'Passed {x}, {y}, {answer}')
