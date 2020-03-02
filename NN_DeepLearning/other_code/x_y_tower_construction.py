@@ -50,8 +50,12 @@ if __name__ == '__main__':
     x_interval = [1.0, 5.0]
     y_interval = [-2.0, 3.0]
     net = xy_tower(x_interval, y_interval)
-    x_vals = np.arange(-3.0, 6.0, 0.1).reshape((-1, 1))
-    y_vals = np.arange(-3.0, 6.0, 0.1).reshape((-1, 1))
+    x_vals = np.linspace(-3.0, 6.0, 100)
+    y_vals = np.linspace(-3.0"", 6.0, 100)
     X, Y = np.meshgrid(x_vals, y_vals)
-    Z = np.array([evaluate_net([x, y], net) for x in np.nditer(X) for y in np.nditer(Y)]).reshape(X.shape)
-    surface_plot(X, Y, Z)
+    z = []
+    for i in range(X.shape[0]):
+        for j in range(X.shape[1]):
+            z.append(evaluate_net([X[i, j], Y[i, j]], net))
+    Z = np.array(z).reshape(X.shape)
+    surface_plot(X, Y, Z, "Tower Function")

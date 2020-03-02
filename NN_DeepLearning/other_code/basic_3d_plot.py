@@ -35,14 +35,14 @@ def wireframe_plot(X, Y, Z, color='green'):
     plt.show()
 
 
-def surface_plot(X, Y, Z):
+def surface_plot(X, Y, Z, title='Surface'):
     fig = plt.figure()
     ax = Axes3D(fig)
     # ax = plt.axes(projection='3d')
 
     ax.plot_surface(X, Y, Z, rstride=1, cstride=1,
                     cmap='winter', edgecolor='none')
-    ax.set_title('surface')
+    ax.set_title(title)
 
     plt.show()
 
