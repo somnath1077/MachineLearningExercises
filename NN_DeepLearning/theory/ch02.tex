@@ -41,7 +41,7 @@ as:
 \begin{aligned}
     \delta^{L} & = \nabla_{a^L} C \odot \sigma'(z^L) \\
     \delta^{l} & = ( \trans{(w^{l + 1})} \delta^{l + 1} ) \odot \sigma'(z^l) \\
-    \frac{\partial C}{\partial b_j^{l}} & = \delta_{j}^l \\
+    \frac{\partial C}{\partial b_j^{l}} & = \delta_{j}^l := \frac{\partial C}{\partial z_j^l}\\
     \frac{\partial C}{\partial w_{j k}^l} & = a_{k}^{l - 1} \delta_{j}^l
 \end{aligned}
 }

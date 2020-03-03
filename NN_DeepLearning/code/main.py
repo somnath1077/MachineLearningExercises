@@ -15,15 +15,15 @@ def main(size,
          monitor_training_accuracy=True,
          monitor_weight_vector_length=False,
          regularization='L1'):
-    train, val, test = load_data_wrapper()
+    train_data, val_data, test_data = load_data_wrapper()
     net = Network(size)
     # net.large_weight_initializer()
-    net.SGD(training_data=train,
+    net.SGD(training_data=train_data,
             epochs=epochs,
             mini_batch_size=mini_batch_size,
             eta=eta,
             decay=decay,
-            evaluation_data=test,
+            evaluation_data=val_data,
             lmbda=lmbda,
             dropout=dropout,
             monitor_evaluation_cost=monitor_evaluation_cost,
@@ -35,12 +35,12 @@ def main(size,
 
 
 if __name__ == '__main__':
-    size = [784, 400, 10]
+    size = [784, 30, 30, 30, 10]
     epochs = 30
     mini_batch_sz = 10
-    eta = 0.08
+    eta = 0.1
     decay = 0.0001
-    lmbda = 0.01
+    lmbda = 5.0
     dropout = 0.02
     evaluation_cost = False
     evaluation_accuracy = True
