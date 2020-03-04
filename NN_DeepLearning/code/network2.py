@@ -143,7 +143,8 @@ class Network(object):
     def feedforward(self, a):
         """Return the output of the network if ``a`` is input."""
         for b, w in zip(self.biases, self.weights):
-            a = sigmoid(np.dot(w, a) + b)
+            # a = sigmoid(np.dot(w, a) + b)
+            a = tanh(np.dot(w, a) + b)
         return a
 
     def SGD(self,
@@ -372,7 +373,8 @@ class Network(object):
             # to the ith example in the mini-batch
             # assert z.shape[1] == X.shape[1]
             zs.append(z)
-            activation = sigmoid(z)
+            # activation = sigmoid(z)
+            activation = tanh(z)
             activations.append(activation)
 
         # backward pass
@@ -388,7 +390,8 @@ class Network(object):
         nabla_w[-1] = np.dot(delta, A)
         for l in range(2, self.num_layers):
             z = zs[-l]
-            sp = sigmoid_prime(z)
+            # sp = sigmoid_prime(z)
+            sp = tanh_prime(z)
 
             delta = np.dot(weights[-l + 1].transpose(), delta) * sp
             nabla_b[-l] = np.sum(delta, axis=1).reshape(nabla_b[-l].shape)
@@ -528,3 +531,11 @@ def sigmoid(z):
 def sigmoid_prime(z):
     """Derivative of the sigmoid function."""
     return sigmoid(z) * (1 - sigmoid(z))
+
+
+def tanh(z):
+    return np.tanh(z)
+
+
+def tanh_prime(z):
+    return 1 - np.tanh(z) ** 2
