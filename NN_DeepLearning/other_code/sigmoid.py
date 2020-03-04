@@ -6,8 +6,8 @@ Created on Fri Feb  7 07:43:00 2020
 @author: somnath
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def sigmoid(z: np.array):
@@ -24,6 +24,7 @@ def weighted_input(w: np.array, b: np.array, x: np.array):
 def create_input(weight, bias, left, right, num_pts=1000):
     return np.array([weight * x + bias for x in np.linspace(left, right, num_pts)])
 
+
 if __name__ == '__main__':
     # w = np.array([2.0, 3.0]).reshape((2, 1))
     # b = np.array([1.0, 1.0]).reshape((2, 1))
@@ -35,7 +36,7 @@ if __name__ == '__main__':
     left = -0.0
     right = 3.0
     num_pts = 1000
-    #wt_bias = [(9.0, -4.0), (8.0, -4.0), (7.0, -4.0), (6.0, -4.0), (5.0, -40),
+    # wt_bias = [(9.0, -4.0), (8.0, -4.0), (7.0, -4.0), (6.0, -4.0), (5.0, -40),
     #           (999.0, -400.0), (999.0, -300.0), (999.0, -700.0)]
     wt_bias = [(1000.0, -1000.0), (1000.0, -1500.0), (1000.0, -2000.0)]
     for weight, bias in wt_bias:
