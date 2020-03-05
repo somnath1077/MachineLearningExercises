@@ -54,7 +54,7 @@ class QuadraticCost(object):
     @staticmethod
     def delta(z, a, y):
         """Return the error delta from the output layer."""
-        return (a - y) * sigmoid_prime(z)
+        return (a - y) * tanh_prime(z)
 
 
 class CrossEntropyCost(object):
