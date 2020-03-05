@@ -23,7 +23,7 @@ from collections import defaultdict
 
 
 # My libraries
-from code import mnist_loader
+from NN_DeepLearning.code import mnist_loader
 
 
 def main():

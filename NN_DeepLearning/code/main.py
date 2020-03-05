@@ -1,5 +1,5 @@
 from NN_DeepLearning.code.mnist_loader import load_data_wrapper
-from NN_DeepLearning.code.network2 import Network, QuadraticCost
+from NN_DeepLearning.code.network2 import Network
 
 
 def main(size,
