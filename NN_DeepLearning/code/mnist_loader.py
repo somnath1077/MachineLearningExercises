@@ -51,7 +51,7 @@ def load_data():
     return training_data, validation_data, test_data
 
 
-def load_data_wrapper():
+def load_data_wrapper(transform_y=False):
     """Return a tuple containing ``(training_data, validation_data,
     test_data)``. Based on ``load_data``, but the format is more
     convenient for use in our implementation of neural networks.
@@ -74,7 +74,7 @@ def load_data_wrapper():
     code."""
     tr_d, va_d, te_d = load_data()
     training_inputs = [np.reshape(x, (784, 1)) for x in tr_d[0]]
-    training_results = [vectorized_result(y) for y in tr_d[1]]
+    training_results = [vectorized_result(y, transform_y) for y in tr_d[1]]
     training_data = zip(training_inputs, training_results)
     # training_data = [(tr_inp, tr_res) for tr_inp in training_inputs
     #                 for tr_res in training_results]
@@ -89,11 +89,15 @@ def load_data_wrapper():
     return training_data, validation_data, test_data
 
 
-def vectorized_result(j):
+def vectorized_result(j, transform_y=False):
     """Return a 10-dimensional unit vector with a 1.0 in the jth
     position and zeroes elsewhere.  This is used to convert a digit
     (0...9) into a corresponding desired output from the neural
     network."""
-    e = np.zeros((10, 1))
+    repeat_digit = 0
+    if transform_y:
+        repeat_digit = -1
+    # e = np.zeros((10, 1))
+    e = np.repeat(repeat_digit, 10).reshape((10, 1))
     e[j] = 1.0
     return e

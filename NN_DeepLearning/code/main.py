@@ -1,5 +1,5 @@
 from NN_DeepLearning.code.mnist_loader import load_data_wrapper
-from NN_DeepLearning.code.network2 import Network
+from NN_DeepLearning.code.network2 import Network, QuadraticCost
 
 
 def main(size,
@@ -15,8 +15,8 @@ def main(size,
          monitor_training_accuracy=True,
          monitor_weight_vector_length=False,
          regularization='L1'):
-    train_data, val_data, test_data = load_data_wrapper()
-    net = Network(size)
+    train_data, val_data, test_data = load_data_wrapper(transform_y=True)
+    net = Network(size, cost=QuadraticCost)
     # net.large_weight_initializer()
     net.SGD(training_data=train_data,
             epochs=epochs,
@@ -35,12 +35,12 @@ def main(size,
 
 
 if __name__ == '__main__':
-    size = [784, 30, 30, 10]
+    size = [784, 300, 10]
     epochs = 30
     mini_batch_sz = 10
-    eta = 0.1
+    eta = 0.08
     decay = 0.0001
-    lmbda = 5.0
+    lmbda = 0.01
     dropout = 0.02
     evaluation_cost = False
     evaluation_accuracy = True
