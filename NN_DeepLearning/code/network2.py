@@ -85,7 +85,7 @@ class CrossEntropyCost(object):
 # Main Network class
 class Network(object):
 
-    def __init__(self, sizes, cost=CrossEntropyCost):
+    def __init__(self, sizes, activation='sigmoid'):
         """The list ``sizes`` contains the number of neurons in the respective
         layers of the network.  For example, if the list was [2, 3, 1]
         then it would be a three-layer network, with the first layer
@@ -101,7 +101,11 @@ class Network(object):
         self.biases = list()
         self.weights = list()
         self.default_weight_initializer()
-        self.cost = cost
+        self.cost = CrossEntropyCost
+        self.transform_y = False
+        if activation == 'tanh':
+            self.cost = QuadraticCost
+            self.transform_y = True
 
     def default_weight_initializer(self):
         """Initialize each weight using a Gaussian distribution with mean 0
@@ -324,8 +328,7 @@ class Network(object):
         # The ith element of activations is a np array of dimension:
         # number of neurons in ith layer * mini-batch size
         # assert len(activations) == len(self.sizes)
-        # delta = self.cost.delta(zs[-1], activations[-1], Y)
-        delta = activations[-1] - Y
+        delta = self.cost.delta(zs[-1], activations[-1], Y)
         nabla_b[-1] = np.sum(delta, axis=1).reshape(nabla_b[-1].shape)
 
         A = activations[-2].transpose()
@@ -382,8 +385,7 @@ class Network(object):
         # The ith element of activations is a np array of dimension:
         # number of neurons in ith layer * mini-batch size
         # assert len(activations) == len(self.sizes)
-        # delta = self.cost.delta(zs[-1], activations[-1], Y)
-        delta = activations[-1] - Y
+        delta = self.cost.delta(zs[-1], activations[-1], Y)
         nabla_b[-1] = np.sum(delta, axis=1).reshape(nabla_b[-1].shape)
 
         A = activations[-2].transpose()
@@ -418,8 +420,7 @@ class Network(object):
             activation = sigmoid(z)
             activations.append(activation)
         # backward pass
-        # delta = self.cost.delta(zs[-1], activations[-1], y)
-        delta = activations[-1] - y
+        delta = self.cost.delta(zs[-1], activations[-1], y)
         nabla_b[-1] = delta
         nabla_w[-1] = np.dot(delta, activations[-2].transpose())
         # Note that the variable l in the loop below is used a little
@@ -473,12 +474,13 @@ class Network(object):
         training data (the usual case), and to True if the data set is
         the validation or test data.  See comments on the similar (but
         reversed) convention for the ``accuracy`` method, above.
+        transform_y = True if we need a +1 -1 vector instead of a 0-1 vector
         """
         cost = 0.0
         for x, y in data:
             a = self.feedforward(x)
             if convert:
-                y = vectorized_result(y)
+                y = vectorized_result(y, self.transform_y)
             cost += self.cost.fn(a, y) / len(data)
         cost += 0.5 * (lmbda / len(data)) * sum(
             np.linalg.norm(w) ** 2 for w in self.weights)
@@ -512,13 +514,16 @@ def load(filename):
 
 
 # Miscellaneous functions
-def vectorized_result(j):
-    """Return a 10-dimensional unit vector with a 1.0 in the j'th position
-    and zeroes elsewhere.  This is used to convert a digit (0...9)
-    into a corresponding desired output from the neural network.
-
-    """
-    e = np.zeros((10, 1))
+def vectorized_result(j, transform_y=False):
+    """Return a 10-dimensional unit vector with a 1.0 in the jth
+    position and zeroes elsewhere.  This is used to convert a digit
+    (0...9) into a corresponding desired output from the neural
+    network."""
+    repeat_digit = 0
+    if transform_y:
+        repeat_digit = -1
+    # e = np.zeros((10, 1))
+    e = np.repeat(repeat_digit, 10).reshape((10, 1))
     e[j] = 1.0
     return e
 

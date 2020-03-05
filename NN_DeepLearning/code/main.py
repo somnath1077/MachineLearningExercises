@@ -16,7 +16,8 @@ def main(size,
          monitor_weight_vector_length=False,
          regularization='L1'):
     train_data, val_data, test_data = load_data_wrapper(transform_y=True)
-    net = Network(size, cost=QuadraticCost)
+    # we are using the tanh activation function, so we need to use +1-1 vectors
+    net = Network(size, activation='tanh')
     # net.large_weight_initializer()
     net.SGD(training_data=train_data,
             epochs=epochs,
