@@ -82,7 +82,7 @@ def plot_network(samples: List[Tuple[float, float]],
         net_x.append(network_vals[i][1])
 
     plt.plot(x_vals, f_x, color='green', label=r'$f(x)$')
-    plt.plot(x_vals, net_x, color='blue', label=f'network with {num_neurons} neurons')
+    plt.plot(x_vals, net_x, color='blue', label=f'network with {num_neurons - 1} neurons')
     plt.xlabel(r'$x$')
     plt.ylabel(r'Output of $f$/Network')
     plt.legend()
@@ -99,7 +99,7 @@ def f2(x):
 
 
 if __name__ == '__main__':
-    samples_for_net = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=50)
+    samples_for_net = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=51)
     net = build_network(samples_for_net)
     samples_for_plot = create_samples(f1_nielsen, left=-5.0, right=5.0, num_samples=1000)
     net_vals = evaluate_network(samples_for_plot, net)
