@@ -28,9 +28,9 @@ def x_step(x_int: List[float]):
     return ret
 
 
-def evaluate_net(z: List[float], net: np.array):
-    upper_x = sigmoid(net[0, 0] * z + net[0, 1]) * net[0, 2]
-    lower_x = sigmoid(net[1, 0] * z + net[1, 1]) * net[1, 2]
+def evaluate_net(x: float, net: np.array):
+    upper_x = sigmoid(net[0, 0] * x + net[0, 1]) * net[0, 2]
+    lower_x = sigmoid(net[1, 0] * x + net[1, 1]) * net[1, 2]
     bias_of_switch_node = 0
 
     wt_inp = upper_x + lower_x

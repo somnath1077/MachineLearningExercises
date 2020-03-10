@@ -63,7 +63,7 @@ def draw(x, y, pred):
 
     # fig = plt.figure()
     # ax = fig.gca(projection='3d')
-    # ax.plot_trisurf(xs, ys, z)
+    # ax.plot_trisurf(xs, ys, x)
     plt.show()
 
 

@@ -74,7 +74,7 @@ class CrossEntropyCost(object):
     @staticmethod
     def delta(z, a, y):
         """Return the error delta from the output layer.  Note that the
-        parameter ``z`` is not used by the method.  It is included in
+        parameter ``x`` is not used by the method.  It is included in
         the method's parameters in order to make the interface
         consistent with the delta method for other cost classes.
 
@@ -312,13 +312,13 @@ class Network(object):
         activation = X
         # list to store all the activations, layer by layer
         activations = [X]
-        zs = []  # list to store all the z vectors, layer by layer
+        zs = []  # list to store all the x vectors, layer by layer
 
         for b, w in zip(self.biases, self.weights):
             z = np.dot(w, activation) + b
-            # The ith column of z is the weighted input corresponding
+            # The ith column of x is the weighted input corresponding
             # to the ith example in the mini-batch
-            # assert z.shape[1] == X.shape[1]
+            # assert x.shape[1] == X.shape[1]
             zs.append(z)
             activation = sigmoid(z)
             activations.append(activation)
@@ -366,17 +366,17 @@ class Network(object):
         activation = X
         # list to store all the activations, layer by layer
         activations = [X]
-        zs = []  # list to store all the z vectors, layer by layer
+        zs = []  # list to store all the x vectors, layer by layer
 
         biases = create_dropout_weights(self.biases, dropout)
         weights = create_dropout_weights(self.weights, dropout)
         for b, w in zip(biases, weights):
             z = np.dot(w, activation) + b
-            # The ith column of z is the weighted input corresponding
+            # The ith column of x is the weighted input corresponding
             # to the ith example in the mini-batch
-            # assert z.shape[1] == X.shape[1]
+            # assert x.shape[1] == X.shape[1]
             zs.append(z)
-            # activation = sigmoid(z)
+            # activation = sigmoid(x)
             activation = tanh(z)
             activations.append(activation)
 
@@ -392,7 +392,7 @@ class Network(object):
         nabla_w[-1] = np.dot(delta, A)
         for l in range(2, self.num_layers):
             z = zs[-l]
-            # sp = sigmoid_prime(z)
+            # sp = sigmoid_prime(x)
             sp = tanh_prime(z)
 
             delta = np.dot(weights[-l + 1].transpose(), delta) * sp
@@ -413,7 +413,7 @@ class Network(object):
         # feedforward
         activation = x
         activations = [x]  # list to store all the activations, layer by layer
-        zs = []  # list to store all the z vectors, layer by layer
+        zs = []  # list to store all the x vectors, layer by layer
         for b, w in zip(self.biases, self.weights):
             z = np.dot(w, activation) + b
             zs.append(z)

@@ -37,8 +37,8 @@ def xy_tower(x_int: List[float], y_int: List[float]):
 def evaluate_net(z: List[float], net: np.array):
     hidden_layer_output_x = sigmoid(net[:2, 0] * z[0] + net[:2, 1]) * net[:2, 2]
     hidden_layer_output_y = sigmoid(net[2:, 0] * z[1] + net[2:, 1]) * net[2:, 2]
-    # print(sigmoid(net[:2, 0] * z[0] + net[:2, 1]))
-    # print(sigmoid(net[2:, 0] * z[0] + net[2:, 1]))
+    # print(sigmoid(net[:2, 0] * x[0] + net[:2, 1]))
+    # print(sigmoid(net[2:, 0] * x[0] + net[2:, 1]))
     bias_of_output_node = - 3 * net[0, 2] / 2.0
 
     wt_inp = np.sum(hidden_layer_output_x) + np.sum(hidden_layer_output_y)

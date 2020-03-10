@@ -30,7 +30,7 @@ def wireframe_plot(X, Y, Z, color='green'):
 
     ax.set_xlabel('x')
     ax.set_ylabel('y')
-    ax.set_zlabel('z')
+    ax.set_zlabel('x')
 
     plt.show()
 
@@ -45,7 +45,7 @@ def surface_plot(X, Y, Z, title='Surface'):
     ax.set_title(title)
     ax.set_xlabel('x')
     ax.set_ylabel('y')
-    ax.set_zlabel('z')
+    ax.set_zlabel('x')
 
     plt.show()
 
