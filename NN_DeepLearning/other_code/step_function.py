@@ -31,18 +31,18 @@ def x_step(x_int: List[float]):
 def evaluate_net(z: List[float], net: np.array):
     upper_x = sigmoid(net[0, 0] * z + net[0, 1]) * net[0, 2]
     lower_x = sigmoid(net[1, 0] * z + net[1, 1]) * net[1, 2]
-    bias_of_output_node = - net[0, 2] / 2.0
+    bias_of_switch_node = 0
 
     wt_inp = upper_x + lower_x
-    output = sigmoid(wt_inp + bias_of_output_node)
-    return output
+    output_of_switch = sigmoid(wt_inp + bias_of_switch_node)
+    return output_of_switch
 
 
 if __name__ == '__main__':
-    x_interval = [2.0, 4.0]
+    x_interval = [-1.0, 4.0]
     net = x_step(x_interval)
 
-    x_vals = np.arange(0.0, 5.0, 0.01)
+    x_vals = np.arange(-2.0, 5.0, 0.01)
     y_vals = [evaluate_net(x, net) for x in x_vals]
 
     plt.plot(x_vals, y_vals, linewidth=2)

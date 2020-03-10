@@ -71,7 +71,7 @@ def estimate_loss(samples: List[Tuple[float, float]],
 
 def plot_network(samples: List[Tuple[float, float]],
                  network_vals: List[Tuple[float, float]],
-                 num_neurons: int):
+                 num_intervals: int):
     x_vals = []
     f_x = []
     net_x = []
@@ -81,10 +81,13 @@ def plot_network(samples: List[Tuple[float, float]],
         f_x.append(samples[i][1])
         net_x.append(network_vals[i][1])
 
+    loss = np.round(estimate_loss(samples, network_vals), 4)
+
     plt.plot(x_vals, f_x, color='green', label=r'$f(x)$')
-    plt.plot(x_vals, net_x, color='blue', label=f'network with {num_neurons - 1} neurons')
+    plt.plot(x_vals, net_x, color='blue', label=f'network with {3 * (num_intervals - 1)} neurons')
     plt.xlabel(r'$x$')
     plt.ylabel(r'Output of $f$/Network')
+    plt.title(f'Loss = {loss}')
     plt.legend()
     plt.show()
 
