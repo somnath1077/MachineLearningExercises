@@ -36,13 +36,13 @@ def main(size,
 
 
 if __name__ == '__main__':
-    size = [784, 300, 100, 30, 10]
+    size = [784, 300, 10]
     epochs = 30
     mini_batch_sz = 10
-    eta = 0.08
+    eta = 0.01
     decay = 0.0001
     lmbda = 0.01
-    dropout = 0.02
+    dropout = 0.03
     evaluation_cost = False
     evaluation_accuracy = True
     training_cost = False
