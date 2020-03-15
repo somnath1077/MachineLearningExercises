@@ -254,6 +254,11 @@ Thus any linear combination of the eigenvectors is also an eigenvector of $\lamb
 showing that this set of vectors is indeed a subspace.
 \end{proof}
 
+The algebraic multiplicity of an eigenvalue $\lambda_i$ of a matrix $A$
+is the number of times
+$\lambda_i$ appears as a root of the equation $\det (A - \lambda I) = 0$. The geometric
+multiplicity of $\lambda_i$ is the dimension of the eigenspace $\eigenspace{A}{\lambda}$
+associated with~$\lambda_i$.
 \begin{lemma}\label{lemma:alg_geom_mult}
 Let $A \in \R^{m \times m}$ be a symmetric matrix. Then the algebraic multiplicity
 of each eigenvalue of $A$ equals its geometric multiplicity.
