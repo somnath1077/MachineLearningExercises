@@ -3,43 +3,43 @@
 \section{Linear Functions}
 
 A function $L \colon \R^m \rightarrow \R^n$ is a linear function if for all
-$\vect{x}, \vect{y} \in \R^m$ and for all $a, b \in \R$ 
+$\vect{x}, \vect{y} \in \R^m$ and for all $a, b \in \R$
 \[
     L(a \vect{x} + b \vect{y}) = a L(\vect{x}) + b L(\vect{y}).
 \]
 It follows (by induction) that for all $\vect{x}_1, \ldots, \vect{x}_r \in \R^m$
 and all $a_1, \ldots, a_r \in \R$
 \[
-    L(a_1 \vect{x}_1 + \cdots + a_r \vect{x}_r) = 
+    L(a_1 \vect{x}_1 + \cdots + a_r \vect{x}_r) =
         a_1 L(\vect{x}_1) + \cdots + a_r L(\vect{x}_r).
 \]
 
 \begin{theorem}
-A linear function $L \colon \R^m \rightarrow \R^n$ is completely determined by 
+A linear function $L \colon \R^m \rightarrow \R^n$ is completely determined by
 its effect on the standard basis vectors $\vect{e}_1, \ldots, \vect{e}_m$ of $\R^m$.
-An arbitrary choice of vectors $L(\vect{e}_1), \ldots, L(\vect{e}_m)$ of $\R^n$ 
+An arbitrary choice of vectors $L(\vect{e}_1), \ldots, L(\vect{e}_m)$ of $\R^n$
 determines a linear function from $\R^m$ to $\R^n$.
 \end{theorem}
 \begin{proof}
 Given any vector $\vect{x} \in \R^m$, we can express it as a unique linear
 combination~$ \sum_{i = 1}^m \alpha_i \vect{e}_i$ of the basis vectors.  By the
-linearity of $L$, $L(\vect{x}) = \sum_i \alpha_i L(\vect{e}_i)$ which 
+linearity of $L$, $L(\vect{x}) = \sum_i \alpha_i L(\vect{e}_i)$ which
 is completely specified by $L(\vect{e}_1), \ldots, L(\vect{e}_m)$.
 
-Let $\vect{b}_1, \ldots, \vect{b}_m$ be any vectors in $\R^n$. Define a 
-map~$L$ from $\R^m$ to $\R^n$ as follows: for 
-$\vect{x} = \sum_{i = 1}^m \alpha_i \vect{e}_i \in \R^m$, 
-$L(\vect{x}) = \sum_{i = 1}^m \alpha_i \vect{b}_i$. Then 
+Let $\vect{b}_1, \ldots, \vect{b}_m$ be any vectors in $\R^n$. Define a
+map~$L$ from $\R^m$ to $\R^n$ as follows: for
+$\vect{x} = \sum_{i = 1}^m \alpha_i \vect{e}_i \in \R^m$,
+$L(\vect{x}) = \sum_{i = 1}^m \alpha_i \vect{b}_i$. Then
 $L(\vect{e}_i) = \vect{b}_i$ for all $1 \leq i \leq m$ and for all
 $\vect{x}, \vect{y} \in \R^m$ and all $a, b \in \R$:
 \[
-    L(a \vect{x} + b \vect{y}) = \sum_{i = 1}^m (a x_i + b y_i) \vect{b}_i 
-        = a \sum_{i} x_i \vect{b}_i + b \sum_{i} y_i \vect{b}_i 
+    L(a \vect{x} + b \vect{y}) = \sum_{i = 1}^m (a x_i + b y_i) \vect{b}_i
+        = a \sum_{i} x_i \vect{b}_i + b \sum_{i} y_i \vect{b}_i
         = a L(\vect{x}) + b L(\vect{y})
-\] 
+\]
 \end{proof}
 
-Note that the domain of definition of a linear function must be a vector space. An 
+Note that the domain of definition of a linear function must be a vector space. An
 non-linear function can be defined on a subset of a vector space.
 
 \section{Image and Kernel of a Linear Function}
@@ -60,78 +60,78 @@ hold:
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-The proof of~$(1)$ and~$(2)$ are similar. For proving~$(1)$, let 
-$\vect{z}_1, \vect{z}_2 \in \image(L)$ and $\alpha, \beta \in \R$. 
-Then there exist $\vect{x}_1, \vect{x}_2 \in \R^m$ such that 
+The proof of~$(1)$ and~$(2)$ are similar. For proving~$(1)$, let
+$\vect{z}_1, \vect{z}_2 \in \image(L)$ and $\alpha, \beta \in \R$.
+Then there exist $\vect{x}_1, \vect{x}_2 \in \R^m$ such that
 \[
 	L(\alpha \vect{x}_1 + \beta \vect{x}_2) = \alpha  \vect{z}_1 + \beta \vect{z}_2,
 \]
-implying that $\alpha  \vect{z}_1 + \beta \vect{z}_2 \in \image (L)$. Since 
-$\image(L)$ is closed under vector addition and multiplication by scalars, it is 
+implying that $\alpha  \vect{z}_1 + \beta \vect{z}_2 \in \image (L)$. Since
+$\image(L)$ is closed under vector addition and multiplication by scalars, it is
 a vector space. Since it is a subset of $\R^n$, it must be a subspace of $\R^n$.
 
-To prove~$(3)$, let us assume that $\dim ( \kernel (L)) = k$ and that 
-$\vect{b}_1, \ldots, \vect{b}_k$ is a basis of $\kernel (L)$. Extend this 
+To prove~$(3)$, let us assume that $\dim ( \kernel (L)) = k$ and that
+$\vect{b}_1, \ldots, \vect{b}_k$ is a basis of $\kernel (L)$. Extend this
 basis to a basis $\vect{b}_1, \ldots, \vect{b}_k, \vect{b}_{k + 1}, \ldots, \vect{b}_m$
-for $\R^m$. Then for every vector $\vect{x} \in \R^m$ there exist scalars 
-$\beta_1, \ldots, \beta_m$ such that $\vect{x} = \sum_{i = 1}^k \beta_i \vect{b}_i$. 
+for $\R^m$. Then for every vector $\vect{x} \in \R^m$ there exist scalars
+$\beta_1, \ldots, \beta_m$ such that $\vect{x} = \sum_{i = 1}^k \beta_i \vect{b}_i$.
 Moreover since $L$ is linear,
 \begin{align*}
 	L(\vect{x}) & = \sum_{i = 1}^{m} \beta_i L(\vect{b}_i) \\
 				& = \sum_{i = k + 1}^{m} \beta_i L(\vect{b}_i).
 \end{align*}
-This shows that every vector in $\image (L)$ can be expressed as a linear 
-combination of the vectors $L(\vect{b}_{k + 1}), \ldots, L(\vect{b}_m)$. 
+This shows that every vector in $\image (L)$ can be expressed as a linear
+combination of the vectors $L(\vect{b}_{k + 1}), \ldots, L(\vect{b}_m)$.
 To show that they form a basis of $\image (L)$, it is sufficient to show
-that they are linearly independent. Suppose not. Then there exist scalars 
-$\beta_{k + 1}, \ldots, \beta_m$, not all zero, such that 
-$\sum_{i = k + 1}^m \beta_i L(\vect{b}_i) = \vect{0}_n$. By the linearity of~$L$, 
-we have $L(\sum_{i = k + 1}^m \beta_i \vect{b}_i) = \vect{0}_n$ and hence 
-$\vect{0}_m \neq \sum_{i = k + 1}^m \beta_i \vect{b}_i \in \kernel (L)$. 
+that they are linearly independent. Suppose not. Then there exist scalars
+$\beta_{k + 1}, \ldots, \beta_m$, not all zero, such that
+$\sum_{i = k + 1}^m \beta_i L(\vect{b}_i) = \vect{0}_n$. By the linearity of~$L$,
+we have $L(\sum_{i = k + 1}^m \beta_i \vect{b}_i) = \vect{0}_n$ and hence
+$\vect{0}_m \neq \sum_{i = k + 1}^m \beta_i \vect{b}_i \in \kernel (L)$.
 This is a contradiction since the vectors $\vect{b}_{k + 1}, \ldots, \vect{b}_m$
-are not in the space spanned by the vectors $\vect{b}_1, \ldots, \vect{b}_k$. 
+are not in the space spanned by the vectors $\vect{b}_1, \ldots, \vect{b}_k$.
 Thus the vectors $\beta_{k + 1}, \ldots, \beta_m$ must be independent and form
-a basis of $\image (L)$. This proves~$(3)$. 
+a basis of $\image (L)$. This proves~$(3)$.
 \end{proof}
 
 \section{Quadratic Forms}
 
-A function $q \colon \R^m \rightarrow \R$ is called a \emph{quadratic form} 
-if there exists a real symmetric $m \times m$ matrix $A$ such that for all 
+A function $q \colon \R^m \rightarrow \R$ is called a \emph{quadratic form}
+if there exists a real symmetric $m \times m$ matrix $A$ such that for all
 $\vect{x} \in \R^m$ such that
 \[
 	q(\vect{x}) = \trans{\vect{x}} A \vect{x}.
 \]
 The right-hand side of the equation may be written as:
 \begin{align*}
-(x_1, \ldots, x_m) \begin{pmatrix} 
+(x_1, \ldots, x_m) \begin{pmatrix}
 						a_{11} & a_{12} & \cdots & a_{m 1} \\
 						\vdots & \vdots & \cdots & \vdots \\
-						a_{m1} & a_{m2} & \cdots & a_{mm} 	
-                   \end{pmatrix} 
+						a_{m1} & a_{m2} & \cdots & a_{mm}
+                   \end{pmatrix}
 				   \begin{pmatrix}
 						x_1 \\
 						\vdots \\
 						x_m
 				   \end{pmatrix} & = (x_1, \ldots, x_m) [x_1 A_{* 1} + \cdots + x_m A_{* m}] \\
 								 & = \sum_{i = 1}^m \sum_{j = 1}^m x_i a_{ij} x_j.
-\end{align*} 
-The symbol $A_{* j}$ denotes the $j$th column of $A$. The name ``quadratic'' form arises 
+\end{align*}
+The symbol $A_{* j}$ denotes the $j$th column of $A$. The name ``quadratic'' form arises
 from the last expression which is what a quadratic expression in $m$ variables looks like.
 \begin{example}
-The function 
+The function
 \[
 	q(h_1, h_2, h_3) = h_1^2 + h_2^2 + h_3^2 + 2h_1h_2 + 2h_2h_3 + 2h_1h_3 = (h_1 + h_2 + h_3)^2
 \]
-can be expressed as $\trans{\vect{h}} A \vect{h}$, where $A$ is the all-ones $3 \times 3$ matrix. 
+can be expressed as $\trans{\vect{h}} A \vect{h}$, where $A$ is the all-ones $3 \times 3$ matrix.
 \end{example}
 
 \subsection{Definiteness}
-A quadratic form $q \colon \R^m \rightarrow \R$ is 
+A quadratic form $q \colon \R^m \rightarrow \R$ is
 \begin{enumerate}
 	\item \emph{positive definite} if for all non-zero $\vect{x} \in \R^m$, $q(\vect{x}) > 0$;
 	\item \emph{negative definite} if for all non-zero $\vect{x} \in \R^m$, $q(\vect{x}) > 0$;
-	\item \emph{indefinite} if $q(\vect{x})$ takes on both positive and negative values.  
+	\item \emph{indefinite} if $q(\vect{x})$ takes on both positive and negative values.
 \end{enumerate}
 
 \begin{example}
@@ -140,26 +140,26 @@ Let $q(\vect{h}) = -h_1^2 + 2h_2^2 - h_3^2$ such that the matrix associated with
 	\begin{pmatrix}
 	-1 & 0 & 0 \\
 	0  & 2 & 0 \\
-    0  & 0 & -1 
+    0  & 0 & -1
 	\end{pmatrix}.
 \]
 The $q(0, 1, 0) = 2$ and $q(1, 0, 1) = -2$. Thus the quardatic form $q$ is indefinite.
-\end{example}    
+\end{example}
 
 \begin{example}
 The quadratic form $q(h_1, h_2, h_3) = h_1^2 + h_2^2 + 4h_3^2 + 2h_1h_2 - 4h_2h_3 - 4h_1 h_3$
 is positive definite, since we may re-write $q(h_1, h_2, h_3)$ as $(h_1 + h_2 - 2h_3)^2$
 which is strictly positive for all $(h_1, h_2, h_3) \in \R^3 \setminus \{\vect{0}\}$.
 \end{example}
-To characterize the definiteness of quadratic forms, we make use of the following 
+To characterize the definiteness of quadratic forms, we make use of the following
 properties of real symmetric matrices.
 \begin{lemma}
 The eigenvectors of a real symmetric matrix~$A$ are real.
 \end{lemma}
 \begin{proof}
-Suppose that $A$ is an $m \times m$ matrix and suppose that some eigenvalue~$\lambda$ 
-is complex. Let $\vect{x}$ be a eigenvector corresponding to it, which can be a complex 
-vector. Then 
+Suppose that $A$ is an $m \times m$ matrix and suppose that some eigenvalue~$\lambda$
+is complex. Let $\vect{x}$ be a eigenvector corresponding to it, which can be a complex
+vector. Then
 \begin{equation}\label{pf:real_eigen1}
 	A \vect{x} =  \lambda \vect{x}.
 \end{equation}
@@ -167,28 +167,28 @@ Taking complex conjugates on each side, we get:
 \begin{equation}\label{pf:real_eigen2}
 	A \conj{\vect{x}} =  \conj{\lambda} \conj{\vect{x}}.
 \end{equation}
-Pre-multiply~(\ref{pf:real_eigen1})  by $\trans{\conj{\vect{x}}}$ 
-and~(\ref{pf:real_eigen2}) by $\trans{\vect{x}}$ 
+Pre-multiply~(\ref{pf:real_eigen1})  by $\trans{\conj{\vect{x}}}$
+and~(\ref{pf:real_eigen2}) by $\trans{\vect{x}}$
 to obtain:
 \begin{eqnarray}
 	\trans{\conj{\vect{x}}} A \vect{x} =  \trans{\conj{\vect{x}}} \lambda \vect{x} \label{pf:real_eigen3}\\
 	\trans{\vect{x} }A \conj{\vect{x}} =  \trans{\vect{x}} \conj{\lambda} \conj{\vect{x}} \label{pf:real_eigen4}.
 \end{eqnarray}
-Take the transpose of equation~(\ref{pf:real_eigen4}), we obtain: 
-$\trans{\conj{\vect{x}}} A \vect{x} =  \trans{\conj{\vect{x}}} \conj{\lambda} \vect{x}$, 
+Take the transpose of equation~(\ref{pf:real_eigen4}), we obtain:
+$\trans{\conj{\vect{x}}} A \vect{x} =  \trans{\conj{\vect{x}}} \conj{\lambda} \vect{x}$,
 where we made use of the fact that $A$ is symmetric. Now subtracting this equation from~(\ref{pf:real_eigen3}),
-we obtain: 
+we obtain:
 \[
 \trans{\vect{x}} (\lambda - \conj{\lambda}) \conj{\vect{x}} = 0.
 \]
-Since $\trans{\vect{x}} \conj{\vect{x}}$ is the sum of products of complex conjugates, 
-it is not zero unless each component of $\vect{x}$ is zero. Since this is not the case 
+Since $\trans{\vect{x}} \conj{\vect{x}}$ is the sum of products of complex conjugates,
+it is not zero unless each component of $\vect{x}$ is zero. Since this is not the case
 ($\vect{x}$ is an eigenvector), we must have $\lambda = \conj{\lambda}$ and hence $\lambda$
-is real. 
-\end{proof} 
+is real.
+\end{proof}
 
 \begin{example}
-Consider the unit matrix 
+Consider the unit matrix
 \[
 I_2 = \begin{pmatrix}
 		1 & 0 \\
@@ -196,7 +196,7 @@ I_2 = \begin{pmatrix}
 	 \end{pmatrix}.
 \]
 This has as eigenvalues $1$ and $1$, which are clearly not distinct. In general,
-$I_m$ has $m$ eigenvalues all of which are $1$. Note that $I_m$ has rank~$m$.  
+$I_m$ has $m$ eigenvalues all of which are $1$. Note that $I_m$ has rank~$m$.
 On the other hand, the matrix
 \[
 	\begin{pmatrix}
@@ -204,25 +204,25 @@ On the other hand, the matrix
 		1 & 1 \\
 	 \end{pmatrix}
 \]
-has rank one and has two distinct eigenvalues~$0, 2$ which are the roots of 
-the equation: $(1 - \lambda)^2 - 1 = 0$. Thus the rank of a matrix has 
-nothing to do with the number of distinct eigenvalues. 
+has rank one and has two distinct eigenvalues~$0, 2$ which are the roots of
+the equation: $(1 - \lambda)^2 - 1 = 0$. Thus the rank of a matrix has
+nothing to do with the number of distinct eigenvalues.
 \end{example}
 
-Now that we know that a real symmetric matrix has only real eigenvalues, what can we say 
-about the corresponding eigenvectors? It turns out that the eigenvectors corresponding 
-to the eigenvalues of a real symmetric matrix form an orthonormal basis for $\R^m$. 
+Now that we know that a real symmetric matrix has only real eigenvalues, what can we say
+about the corresponding eigenvectors? It turns out that the eigenvectors corresponding
+to the eigenvalues of a real symmetric matrix form an orthonormal basis for $\R^m$.
 We show this using a sequence of lemmas.
 \begin{lemma}\label{lemma:orthogonal_eigenvectors}
-The eigenvectors of a real symmetric matrix corresponding to distinct eigenvalues are 
+The eigenvectors of a real symmetric matrix corresponding to distinct eigenvalues are
 mutually orthogonal.
 \end{lemma}
 \begin{proof}
 Let $\lambda_i$ and $\lambda_j$ be two distinct eigenvalues of a real symmetric matrix $A$.
-Let $\vect{x}_i$ and $\vect{x}_j$ be eigenvectors corresponding to these eigenvalues. 
-Then $A \vect{x}_i = \lambda_i \vect{x}_i$ and $A \vect{x}_j = \lambda_j \vect{x}_j$. 
-Pre-multiplying the first of these equations by $\trans{\vect{x}_j}$ and the second 
-by $\trans{\vect{x}_i}$, we obtain: 
+Let $\vect{x}_i$ and $\vect{x}_j$ be eigenvectors corresponding to these eigenvalues.
+Then $A \vect{x}_i = \lambda_i \vect{x}_i$ and $A \vect{x}_j = \lambda_j \vect{x}_j$.
+Pre-multiplying the first of these equations by $\trans{\vect{x}_j}$ and the second
+by $\trans{\vect{x}_i}$, we obtain:
 \begin{eqnarray}
 	\trans{\vect{x}_j} A \vect{x}_i = \trans{\vect{x}_j} \lambda_i \vect{x}_i \label{pf:orthogonal1} \\
 	\trans{\vect{x}_i} A \vect{x}_j = \trans{\vect{x}_i} \lambda_j \vect{x}_j \label{pf:orthogonal2}
@@ -231,80 +231,80 @@ Taking the transpose of the second of these equations, we obtain:
 \begin{equation} \label{pf:orthogonal3}
 	\trans{\vect{x}_j} A \vect{x}_i = \trans{\vect{x}_j} \lambda_j \vect{x}_i.
 \end{equation}
-Now the right-hand sides of equations~(\ref{pf:orthogonal1}) and~(\ref{pf:orthogonal2}) are 
-identical. Hence $ \trans{\vect{x}_j} (\lambda_i - \lambda_j) \vect{x}_i = 0$ and since 
-$\lambda_i \neq \lambda_j$, it must be that the vectors $\vect{x}_i$ and $\vect{x}_j$ 
+Now the right-hand sides of equations~(\ref{pf:orthogonal1}) and~(\ref{pf:orthogonal2}) are
+identical. Hence $ \trans{\vect{x}_j} (\lambda_i - \lambda_j) \vect{x}_i = 0$ and since
+$\lambda_i \neq \lambda_j$, it must be that the vectors $\vect{x}_i$ and $\vect{x}_j$
 are orthogonal.
 \end{proof}
 
 \begin{lemma}\label{lemma:eigenspace}
-Let $A \in \R^{m \times m}$ and let $\lambda$ be an eigenvalue. 
-The eigenvectors belonging to~$\lambda$ form a subspace $\eigenspace{A}{\lambda}$ 
+Let $A \in \R^{m \times m}$ and let $\lambda$ be an eigenvalue.
+The eigenvectors belonging to~$\lambda$ form a subspace $\eigenspace{A}{\lambda}$
 of~$\R^m$.
 \end{lemma}
 \begin{proof}
 Let $\vect{x}_1$ and $\vect{x}_2$ are two eigenvectors belonging to $\lambda$.
-Then 
+Then
 \[
-    A (a \vect{x}_1 + b \vect{x}_2) = 
-        a A \vect{x}_1 + b A \vect{x}_2 = 
+    A (a \vect{x}_1 + b \vect{x}_2) =
+        a A \vect{x}_1 + b A \vect{x}_2 =
         \lambda (a \vect{x}_1 + b \vect{x}_2).
 \]
 Thus any linear combination of the eigenvectors is also an eigenvector of $\lambda$,
-showing that this set of vectors is indeed a subspace. 
+showing that this set of vectors is indeed a subspace.
 \end{proof}
 
 \begin{lemma}\label{lemma:alg_geom_mult}
-Let $A \in \R^{m \times m}$ be a symmetric matrix. Then the algebraic multiplicity 
-of each eigenvalue of $A$ equals its geometric multiplicity. 
+Let $A \in \R^{m \times m}$ be a symmetric matrix. Then the algebraic multiplicity
+of each eigenvalue of $A$ equals its geometric multiplicity.
 \end{lemma}
 \begin{proof}
 Let $\lambda_i$ be an eigenvalue with algebraic multiplicity~$k$.  Suppose that
 $\dim(\eigenspace{A}{\lambda_i}) = r$ and let $\{\vect{v}_1, \ldots, \vect{v}_r\}$ be an
 orthonormal basis for $\eigenspace{A}{\lambda_i}$.  Extend this to an
-orthonormal basis $\{\vect{v}_1, \ldots, \vect{v}_r, \vect{v}_{r + 1}, \ldots, \vect{v}_m\}$ 
-for $\R^m$. 
+orthonormal basis $\{\vect{v}_1, \ldots, \vect{v}_r, \vect{v}_{r + 1}, \ldots, \vect{v}_m\}$
+for $\R^m$.
 
-Define $S = [\vect{v}_1, \ldots, \vect{v}_r, \vect{v}_{r + 1}, \ldots, \vect{v}_m]$ 
-to be the $m \times m$ matrix whose columns are the basis vectors. 
-Then $S$ is an orthonormal matrix and $S^{-1} = \trans{S}$. Consider the 
-matrix $S^{-1} A S$. This is similar to $A$ and therefore has the 
-same eigenvalues as $A$ including the same multiplicities. 
+Define $S = [\vect{v}_1, \ldots, \vect{v}_r, \vect{v}_{r + 1}, \ldots, \vect{v}_m]$
+to be the $m \times m$ matrix whose columns are the basis vectors.
+Then $S$ is an orthonormal matrix and $S^{-1} = \trans{S}$. Consider the
+matrix $S^{-1} A S$. This is similar to $A$ and therefore has the
+same eigenvalues as $A$ including the same multiplicities.
 
 We may write $S^{-1} A S$ as:
 \begin{align*}
-    S^{-1} A S & = \begin{pmatrix} 
+    S^{-1} A S & = \begin{pmatrix}
                         -\trans{\vect{v}_1}- \\
                          \vdots \\
-                        -\trans{\vect{v}_m}- 
-                   \end{pmatrix} 
-                   A 
+                        -\trans{\vect{v}_m}-
+                   \end{pmatrix}
+                   A
                    \begin{pmatrix}
                     \vect{v}_1 & \vect{v}_2 & \ldots & \vect{v}_m \\
-                        |      &    |       &        &    |       
+                        |      &    |       &        &    |
                    \end{pmatrix} \\
-              & = \begin{pmatrix} 
+              & = \begin{pmatrix}
                         -\trans{\vect{v}_1}- \\
                          \vdots \\
-                        -\trans{\vect{v}_m}- 
-                   \end{pmatrix} 
+                        -\trans{\vect{v}_m}-
+                   \end{pmatrix}
                    \begin{pmatrix}
                     \lambda_i \vect{v}_1 & \ldots & \lambda_i \vect{v}_r & A \vect{v}_{r + 1} & \ldots & A \vect{v}_m \\
                             |          &        &         |          &          |         &        &     |
                    \end{pmatrix} \\
              & = \left ( \begin{array}{c|c}
                     \lambda_i I_r         & \vect{0}_{r, m - r} \\ \hline
-                    \vect{0}_{m - r, r} & \trans{C} A C 
+                    \vect{0}_{m - r, r} & \trans{C} A C
                  \end{array} \right ),
 \end{align*}
-where $C = [\vect{v}_{r + 1}, \ldots, \vect{v}_m]$. The characteristic polynomials 
-$\det (S^{-1} A S - \lambda I_m)$ and $\det (A - \lambda I_m)$ are identical 
-and 
+where $C = [\vect{v}_{r + 1}, \ldots, \vect{v}_m]$. The characteristic polynomials
+$\det (S^{-1} A S - \lambda I_m)$ and $\det (A - \lambda I_m)$ are identical
+and
 \[
-   \det (S^{-1} A S - \lambda I_m) = (\lambda_i - \lambda)^r \det (\trans{C} A C - \lambda I_{m - r}). 
+   \det (S^{-1} A S - \lambda I_m) = (\lambda_i - \lambda)^r \det (\trans{C} A C - \lambda I_{m - r}).
 \]
-Since we know that in the RHS, the term $\lambda_i - \lambda$ is raised to the $m$th power, 
-we must have $r \leq m$. 
+Since we know that in the RHS, the term $\lambda_i - \lambda$ is raised to the $k$th power,
+we must have $r \leq k$.
 \end{proof}
 
 Although we do not prove it here, the fact remains that for real symmetric
@@ -339,31 +339,31 @@ the eigenvalues $\lambda_1, \ldots, \lambda_m$.
 \begin{lemma}
 Let $A \in \R^{m \times m}$ be a symmetric matrix. Then for any $\vect{x} \in R^m$,
 \[
-    \lambda_{\text{min}} \cdot \norm{\vect{x}}^2 \leq \trans{\vect{x}} A \vect{x} 
+    \lambda_{\text{min}} \cdot \norm{\vect{x}}^2 \leq \trans{\vect{x}} A \vect{x}
     \leq \lambda_{\text{max}} \cdot \norm{\vect{x}}^2,
 \]
-where $ \lambda_{\text{min}} $ and $ \lambda_{\text{max}} $ are a minimum 
-and a maximum eigenvalue of $A$. 
+where $ \lambda_{\text{min}} $ and $ \lambda_{\text{max}} $ are a minimum
+and a maximum eigenvalue of $A$.
 \end{lemma}
 \begin{proof}
 Write $\vect{x} = \sum_{i = 1}^m a_i \vect{u}_i$, where $\vect{u}_1, \ldots, \vect{u}_m$
 are an orthonormal set of eigenvectors that form a basis for $\R^m$. Then
 \begin{align*}
-\trans{\vect{x}} A \vect{x} & =  \left ( \sum_{i = 1}^m a_i \trans{\vect{u}_i} \right ) 
-                                 \cdot A \cdot 
+\trans{\vect{x}} A \vect{x} & =  \left ( \sum_{i = 1}^m a_i \trans{\vect{u}_i} \right )
+                                 \cdot A \cdot
                                  \left ( \sum_{i = 1}^m a_i \vect{u}_i \right ) \\
-& =  \left ( \sum_{i = 1}^m a_i \trans{\vect{u}_i} \right ) \cdot 
+& =  \left ( \sum_{i = 1}^m a_i \trans{\vect{u}_i} \right ) \cdot
      \left ( \sum_{i = 1}^m a_i \lambda_i \vect{u}_i \right ) \\
 & = \sum_{i = 1}^{m} a_i^2 \lambda_i \trans{\vect{u}_i} \vect{u}_i \\
-& =  \sum_{i = 1}^{m} a_i^2 \lambda_i. 
+& =  \sum_{i = 1}^{m} a_i^2 \lambda_i.
 \end{align*}
 The last term lies clearly between $ \lambda_{\text{min}} \cdot \norm{\vect{x}}^2 $
-and $\lambda_{\text{max}} \cdot \norm{\vect{x}}^2$. 
+and $\lambda_{\text{max}} \cdot \norm{\vect{x}}^2$.
 \end{proof}
 
 We can now state the characterization of quadractic forms.
 \begin{theorem}
-A real symmetric matrix $A$ is 
+A real symmetric matrix $A$ is
 \begin{enumerate}
     \item positive definite iff all its eigenvalues are strictly positive;
     \item negative definite iff all its eigenvalues are strictly negative;
