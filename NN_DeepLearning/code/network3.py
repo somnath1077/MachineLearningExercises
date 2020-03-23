@@ -63,7 +63,7 @@ if GPU:
           "network3.py into set the GPU flag to False.")
     try:
         theano.config.device = 'gpu'
-    except (RuntimeError, ValueError):
+    except Exception:
         pass  # it's already set
     theano.config.floatX = 'float32'
 else:
@@ -189,7 +189,7 @@ class Network(object):
                 iteration = num_training_batches * epoch + minibatch_index
                 if iteration % 1000 == 0:
                     print("Training mini-batch number {0}".format(iteration))
-                cost_ij = train_mb(minibatch_index)
+                train_mb(minibatch_index)
                 if (iteration + 1) % num_training_batches == 0:
                     validation_accuracy = np.mean(
                         [validate_mb_accuracy(j)
