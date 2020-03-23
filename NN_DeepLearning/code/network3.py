@@ -311,7 +311,7 @@ class FullyConnectedLayer(object):
             T.dot(self.input_dropout, self.w) + self.b)
 
     def accuracy(self, y):
-        "Return the accuracy for the mini-batch."
+        """Return the accuracy for the mini-batch."""
         return T.mean(T.eq(y, self.y_out))
 
 
