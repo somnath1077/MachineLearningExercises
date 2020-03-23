@@ -34,6 +34,7 @@ import gzip
 # Libraries
 # Standard library
 import pickle
+import os
 
 # Third-party libraries
 import numpy as np
@@ -71,9 +72,15 @@ else:
 
 
 # Load the MNIST data
-def load_data_shared(filename="../data/mnist.pkl.gz"):
-    f = gzip.open(filename, 'rb')
-    training_data, validation_data, test_data = pickle.load(f)
+def load_data_shared(filename="data/mnist.pkl.gz"):
+    path_to_this = os.path.abspath('.')
+    # This module is called code and so the path till the parent of this file is path_to_this[:-4]
+    path_to_data = path_to_this[:-4] + filename
+    f = gzip.open(path_to_data, 'rb')
+    u = pickle._Unpickler(f)
+    u.encoding = 'latin1'
+    training_data, validation_data, test_data = u.load()
+    # training_data, validation_data, test_data = pickle.load(f)
     f.close()
 
     def shared(data):
