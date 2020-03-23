@@ -31,10 +31,10 @@ versions of Theano.
 """
 
 import gzip
+import os
 # Libraries
 # Standard library
 import pickle
-import os
 
 # Third-party libraries
 import numpy as np
@@ -57,7 +57,7 @@ def ReLU(z):
 
 
 # Constants
-GPU = False
+GPU = True
 if GPU:
     print("Trying to run under a GPU.  If this is not desired, then modify "
           "network3.py into set the GPU flag to False.")
@@ -113,15 +113,16 @@ class Network(object):
         self.x = T.matrix("x")
         self.y = T.ivector("y")
         init_layer = self.layers[0]
-        init_layer.set_inpt(self.x, self.x, self.mini_batch_size)
+        init_layer.set_input(self.x, self.x, self.mini_batch_size)
         for j in range(1, len(self.layers)):
             prev_layer, layer = self.layers[j - 1], self.layers[j]
-            layer.set_inpt(
+            layer.set_input(
                 prev_layer.output,
                 prev_layer.output_dropout,
                 self.mini_batch_size)
         self.output = self.layers[-1].output
         self.output_dropout = self.layers[-1].output_dropout
+        self.test_mb_predictions = None
 
     def SGD(self, training_data, epochs, mini_batch_size, eta,
             validation_data, test_data, lmbda=0.0):
@@ -257,11 +258,14 @@ class ConvPoolLayer(object):
                 dtype=theano.config.floatX),
             borrow=True)
         self.params = [self.w, self.b]
+        self.input = None
+        self.output = None
+        self.output_dropout = None
 
-    def set_inpt(self, inpt, inpt_dropout, mini_batch_size):
-        self.inpt = inpt.reshape(self.image_shape)
+    def set_input(self, input, input_dropout, mini_batch_size):
+        self.input = input.reshape(self.image_shape)
         conv_out = conv.conv2d(
-            input=self.inpt, filters=self.w, filter_shape=self.filter_shape,
+            input=self.input, filters=self.w, filter_shape=self.filter_shape,
             image_shape=self.image_shape)
         pooled_out = pool_2d(
             input=conv_out, ds=self.poolsize, ignore_border=True)
@@ -290,16 +294,21 @@ class FullyConnectedLayer(object):
                        dtype=theano.config.floatX),
             name='b', borrow=True)
         self.params = [self.w, self.b]
+        self.input = None
+        self.output = None
+        self.y_out = None
+        self.input_dropout = None
+        self.output_dropout = None
 
-    def set_inpt(self, inpt, inpt_dropout, mini_batch_size):
-        self.inpt = inpt.reshape((mini_batch_size, self.n_in))
+    def set_input(self, input, input_dropout, mini_batch_size):
+        self.input = input.reshape((mini_batch_size, self.n_in))
         self.output = self.activation_fn(
-            (1 - self.p_dropout) * T.dot(self.inpt, self.w) + self.b)
+            (1 - self.p_dropout) * T.dot(self.input, self.w) + self.b)
         self.y_out = T.argmax(self.output, axis=1)
-        self.inpt_dropout = dropout_layer(
-            inpt_dropout.reshape((mini_batch_size, self.n_in)), self.p_dropout)
+        self.input_dropout = dropout_layer(
+            input_dropout.reshape((mini_batch_size, self.n_in)), self.p_dropout)
         self.output_dropout = self.activation_fn(
-            T.dot(self.inpt_dropout, self.w) + self.b)
+            T.dot(self.input_dropout, self.w) + self.b)
 
     def accuracy(self, y):
         "Return the accuracy for the mini-batch."
@@ -320,11 +329,16 @@ class SoftmaxLayer(object):
             np.zeros((n_out,), dtype=theano.config.floatX),
             name='b', borrow=True)
         self.params = [self.w, self.b]
+        self.input = None
+        self.output = None
+        self.y_out = None
+        self.inpt_dropout = None
+        self.output_dropout = None
 
-    def set_inpt(self, inpt, inpt_dropout, mini_batch_size):
-        self.inpt = inpt.reshape((mini_batch_size, self.n_in))
+    def set_input(self, inpt, inpt_dropout, mini_batch_size):
+        self.input = inpt.reshape((mini_batch_size, self.n_in))
         self.output = softmax((1 - self.p_dropout) *
-                              T.dot(self.inpt, self.w) + self.b)
+                              T.dot(self.input, self.w) + self.b)
         self.y_out = T.argmax(self.output, axis=1)
         self.inpt_dropout = dropout_layer(
             inpt_dropout.reshape((mini_batch_size, self.n_in)),
@@ -333,7 +347,7 @@ class SoftmaxLayer(object):
                                       + self.b)
 
     def cost(self, net):
-        "Return the log-likelihood cost."
+        """Return the log-likelihood cost."""
         return -T.mean(T.log(self.output_dropout)[T.arange(net.y.shape[0]),
                                                   net.y])
 
@@ -344,7 +358,7 @@ class SoftmaxLayer(object):
 
 # Miscellanea
 def size(data):
-    "Return the size of the dataset `data`."
+    """Return the size of the dataset `data`."""
     return data[0].get_value(borrow=True).shape[0]
 
 

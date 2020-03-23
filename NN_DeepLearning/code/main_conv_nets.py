@@ -5,7 +5,7 @@ from NN_DeepLearning.code.network3 import FullyConnectedLayer, \
 def conv_main():
     train, validation, test = load_data_shared()
     mini_batch_size = 10
-    epochs = 60
+    epochs = 30
     net = Network([FullyConnectedLayer(n_in=784, n_out=100), SoftmaxLayer(n_in=100, n_out=10)], mini_batch_size)
     net.SGD(train,
             epochs=epochs,
@@ -13,7 +13,7 @@ def conv_main():
             eta=0.1,
             validation_data=validation,
             test_data=test,
-            lmbda=0.0)
+            lmbda=0.04)
 
 
 if __name__ == '__main__':
