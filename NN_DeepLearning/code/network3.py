@@ -63,7 +63,7 @@ if GPU:
           "network3.py into set the GPU flag to False.")
     try:
         theano.config.device = 'gpu'
-    except:
+    except (RuntimeError, ValueError):
         pass  # it's already set
     theano.config.floatX = 'float32'
 else:
