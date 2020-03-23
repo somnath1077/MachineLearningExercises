@@ -57,7 +57,7 @@ def ReLU(z):
 
 
 # Constants
-GPU = True
+GPU = False
 if GPU:
     print("Trying to run under a GPU.  If this is not desired, then modify "
           "network3.py into set the GPU flag to False.")
@@ -68,7 +68,7 @@ if GPU:
     theano.config.floatX = 'float32'
 else:
     print("Running with a CPU.  If this is not desired, then the modify "
-          "network3.py to set\nthe GPU flag to True.")
+          "network3.py to set the GPU flag to True.")
 
 
 # Load the MNIST data
@@ -131,9 +131,9 @@ class Network(object):
         test_x, test_y = test_data
 
         # compute number of minibatches for training, validation and testing
-        num_training_batches = size(training_data) / mini_batch_size
-        num_validation_batches = size(validation_data) / mini_batch_size
-        num_test_batches = size(test_data) / mini_batch_size
+        num_training_batches = int(size(training_data) / mini_batch_size)
+        num_validation_batches = int(size(validation_data) / mini_batch_size)
+        num_test_batches = int(size(test_data) / mini_batch_size)
 
         # define the (regularized) cost function, symbolic gradients,
         # and updates
