@@ -18,7 +18,7 @@ def conv_main():
             eta=0.1,
             validation_data=validation,
             test_data=test,
-            lmbda=0.04)
+            lmbda=0.01)
 
 
 if __name__ == '__main__':
