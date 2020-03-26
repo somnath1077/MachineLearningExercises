@@ -1,11 +1,11 @@
+from theano.tensor.nnet.nnet import relu
+
 from NN_DeepLearning.code.network3 import FullyConnectedLayer, ConvPoolLayer, \
     SoftmaxLayer, load_data_shared, Network
-from theano.tensor import tanh
-from theano.tensor.nnet.nnet import relu
 
 
 def conv_main():
-    train, validation, test = load_data_shared()
+    train, validation, test = load_data_shared('data/mnist_expanded.pkl.gz')
     mini_batch_size = 10
     epochs = 60
     net = Network([ConvPoolLayer(input_shape=(mini_batch_size, 1, 28, 28),

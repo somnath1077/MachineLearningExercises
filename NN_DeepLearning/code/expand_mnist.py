@@ -22,8 +22,6 @@ import random
 # Third-party libraries
 import numpy as np
 
-#### Libraries
-
 print("Expanding the MNIST training set")
 
 path_to_this = os.path.abspath('.')
@@ -70,4 +68,3 @@ else:
     f = gzip.open(path_to_expanded_data, "w")
     pickle.dump((expanded_training_data, validation_data, test_data), f)
     f.close()
-
