@@ -17,9 +17,10 @@ def conv_main():
                                  poolsize=(2, 2),
                                  activation_fn=relu),
                    FullyConnectedLayer(n_in=40 * 4 * 4,
-                                       n_out=100,
-                                       activation_fn=relu),
-                   SoftmaxLayer(n_in=100,
+                                       n_out=1000,
+                                       activation_fn=relu,
+                                       p_dropout=0.5),
+                   SoftmaxLayer(n_in=1000,
                                 n_out=10)],
                   mini_batch_size)
     net.SGD(train,
