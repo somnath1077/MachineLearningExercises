@@ -80,7 +80,6 @@ def load_data_shared(filename="data/mnist.pkl.gz"):
     u = pickle._Unpickler(f)
     u.encoding = 'latin1'
     training_data, validation_data, test_data = u.load()
-    # training_data, validation_data, test_data = pickle.load(f)
     f.close()
 
     def shared(data):
@@ -131,7 +130,7 @@ class Network(object):
         validation_x, validation_y = validation_data
         test_x, test_y = test_data
 
-        # compute number of minibatches for training, validation and testing
+        # compute number of mini-batches for training, validation and testing
         num_training_batches = int(size(training_data) / mini_batch_size)
         num_validation_batches = int(size(validation_data) / mini_batch_size)
         num_test_batches = int(size(test_data) / mini_batch_size)
