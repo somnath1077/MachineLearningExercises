@@ -523,4 +523,4 @@ def conv_main():
             test_data=test,
             lmbda=0.1)
 
-Test Accuracy:
+Test Accuracy: 99.57%
