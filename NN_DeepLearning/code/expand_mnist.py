@@ -18,6 +18,7 @@ import os.path
 # Standard library
 import pickle
 import random
+import sys
 
 # Third-party libraries
 import numpy as np
@@ -34,37 +35,37 @@ print(path_to_expanded_data)
 
 if os.path.exists(path_to_expanded_data):
     print("The expanded training set already exists.  Exiting.")
-else:
-    with gzip.open(path_to_data, 'rb') as ff:
-        u = pickle._Unpickler(ff)
-        u.encoding = 'latin1'
-        training_data, validation_data, test_data = u.load()
-    # f = gzip.open("../data/mnist.pkl.gz", 'rb')
-    # training_data, validation_data, test_data = pickle.load(f)
-    # f.close()
-    expanded_training_pairs = []
-    j = 0  # counter
-    for x, y in zip(training_data[0], training_data[1]):
-        expanded_training_pairs.append((x, y))
-        image = np.reshape(x, (-1, 28))
-        j += 1
-        if j % 1000 == 0: print("Expanding image number", j)
-        # iterate over data telling us the details of how to
-        # do the displacement
-        for d, axis, index_position, index in [
-            (1, 0, "first", 0),
-            (-1, 0, "first", 27),
-            (1, 1, "last", 0),
-            (-1, 1, "last", 27)]:
-            new_img = np.roll(image, d, axis)
-            if index_position == "first":
-                new_img[index, :] = np.zeros(28)
-            else:
-                new_img[:, index] = np.zeros(28)
-            expanded_training_pairs.append((np.reshape(new_img, 784), y))
-    random.shuffle(expanded_training_pairs)
-    expanded_training_data = [list(d) for d in zip(*expanded_training_pairs)]
-    print("Saving expanded data. This may take a few minutes.")
-    f = gzip.open(path_to_expanded_data, "w")
-    pickle.dump((expanded_training_data, validation_data, test_data), f)
-    f.close()
+    sys.exit(0)
+
+with gzip.open(path_to_data, 'rb') as fp:
+    u = pickle._Unpickler(fp)
+    u.encoding = 'latin1'
+    training_data, validation_data, test_data = u.load()
+
+expanded_training_pairs = []
+j = 0  # counter
+for x, y in zip(training_data[0], training_data[1]):
+    expanded_training_pairs.append((x, y))
+    image = np.reshape(x, (-1, 28))
+    j += 1
+    if j % 1000 == 0:
+        print("Expanding image number", j)
+    # iterate over data telling us the details of how to
+    # do the displacement
+    displacements = [(1, 0, "first", 0),
+                     (-1, 0, "first", 27),
+                     (1, 1, "last", 0),
+                     (-1, 1, "last", 27)]
+    for d, axis, index_position, index in displacements:
+        new_img = np.roll(image, d, axis)
+        if index_position == "first":
+            new_img[index, :] = np.zeros(28)
+        else:
+            new_img[:, index] = np.zeros(28)
+        expanded_training_pairs.append((np.reshape(new_img, 784), y))
+random.shuffle(expanded_training_pairs)
+expanded_training_data = [list(d) for d in zip(*expanded_training_pairs)]
+print("Saving expanded data. This may take a few minutes.")
+f = gzip.open(path_to_expanded_data, "w")
+pickle.dump((expanded_training_data, validation_data, test_data), f)
+f.close()
