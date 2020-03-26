@@ -20,6 +20,10 @@ def conv_main():
                                        n_out=1000,
                                        activation_fn=relu,
                                        p_dropout=0.5),
+                   FullyConnectedLayer(n_in=1000,
+                                       n_out=1000,
+                                       activation_fn=relu,
+                                       p_dropout=0.5),
                    SoftmaxLayer(n_in=1000,
                                 n_out=10)],
                   mini_batch_size)
