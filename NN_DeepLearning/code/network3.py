@@ -224,13 +224,13 @@ class ConvPoolLayer(object):
 
     """
 
-    def __init__(self, filter_shape, image_shape, poolsize=(2, 2),
+    def __init__(self, input_shape, filter_shape, poolsize=(2, 2),
                  activation_fn=sigmoid):
         """`filter_shape` is a tuple of length 4, whose entries
         are the number of filters, the number of input feature maps,
         the filter height, and the filter width.
 
-        `image_shape` is a tuple of length 4, whose entries are the
+        `input_shape` is a tuple of length 4, whose entries are the
         mini-batch size, the number of input feature maps, the image
         height, and the image width.
 
@@ -239,7 +239,7 @@ class ConvPoolLayer(object):
 
         """
         self.filter_shape = filter_shape
-        self.image_shape = image_shape
+        self.input_shape = input_shape
         self.poolsize = poolsize
         self.activation_fn = activation_fn
         # initialize weights and biases
@@ -262,11 +262,11 @@ class ConvPoolLayer(object):
         self.output = None
         self.output_dropout = None
 
-    def set_input(self, input, input_dropout, mini_batch_size):
-        self.input = input.reshape(self.image_shape)
+    def set_input(self, inpt, input_dropout, mini_batch_size):
+        self.input = inpt.reshape(self.input_shape)
         conv_out = conv2d(
             input=self.input, filters=self.w, filter_shape=self.filter_shape,
-            input_shape=self.image_shape)
+            input_shape=self.input_shape)
         pooled_out = pool_2d(
             input=conv_out, ws=self.poolsize, ignore_border=True)
         self.output = self.activation_fn(
@@ -332,18 +332,18 @@ class SoftmaxLayer(object):
         self.input = None
         self.output = None
         self.y_out = None
-        self.inpt_dropout = None
+        self.input_dropout = None
         self.output_dropout = None
 
-    def set_input(self, inpt, inpt_dropout, mini_batch_size):
-        self.input = inpt.reshape((mini_batch_size, self.n_in))
+    def set_input(self, input, input_dropout, mini_batch_size):
+        self.input = input.reshape((mini_batch_size, self.n_in))
         self.output = softmax((1 - self.p_dropout) *
                               T.dot(self.input, self.w) + self.b)
         self.y_out = T.argmax(self.output, axis=1)
-        self.inpt_dropout = dropout_layer(
-            inpt_dropout.reshape((mini_batch_size, self.n_in)),
+        self.input_dropout = dropout_layer(
+            input_dropout.reshape((mini_batch_size, self.n_in)),
             self.p_dropout)
-        self.output_dropout = softmax(T.dot(self.inpt_dropout, self.w)
+        self.output_dropout = softmax(T.dot(self.input_dropout, self.w)
                                       + self.b)
 
     def cost(self, net):

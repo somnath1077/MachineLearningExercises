@@ -7,11 +7,11 @@ def conv_main():
     train, validation, test = load_data_shared()
     mini_batch_size = 10
     epochs = 30
-    net = Network([ConvPoolLayer(image_shape=(mini_batch_size, 1, 28, 28),
+    net = Network([ConvPoolLayer(input_shape=(mini_batch_size, 1, 28, 28),
                                  filter_shape=(20, 1, 5, 5),
                                  poolsize=(2, 2),
                                  activation_fn=tanh),
-                   ConvPoolLayer(image_shape=(mini_batch_size, 20, 12, 12),
+                   ConvPoolLayer(input_shape=(mini_batch_size, 20, 12, 12),
                                  filter_shape=(40, 20, 5, 5),
                                  poolsize=(2, 2),
                                  activation_fn=tanh),
