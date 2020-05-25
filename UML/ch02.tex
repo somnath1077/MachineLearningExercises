@@ -1,0 +1,44 @@
+\chapter{Finite Hypothesis Classes}
+
+\section{Setting}
+
+Consider a classification problem in which the learning algorithm receives as input
+a sequence of training examples $S = \{(x_1, y_1), \ldots, (x_m, y_m)\}$,
+where $x_i \in \dom$ and $y_i \in \range = \{0, 1\}$. The sequence of training
+examples is drawn iid from some unknown distribution $\dist$ and labeled by some
+target function $f \colon \dom \rightarrow \range$.
+
+Given a hypothesis $h \colon \dom \rightarrow \range$, the \emph{true error}
+or the \emph{generalization error} $\generror{h}$ of the hypothesis is defined to be:
+\begin{align*}
+    \generror{h} & = \Prtwo{x \sim \mathcal{D}}{h(x) \neq f(x)} \\
+                 & = 1 \cdot \Prtwo{x \sim \mathcal{D}}{h(x) \neq f(x)} +
+                     0 \cdot \Prtwo{x \sim \mathcal{D}}{h(x) = f(x)} \\
+                 & = \Exptwo{\mathcal{D}}{\lvert h - f \rvert}.
+\end{align*}
+The generalization error is the expected number of points in the domain at which
+the hypothesis~$h$ differs from the true labeling function~$f$, the expectation being
+calculated wrt the distribution~$\dist$. The learning
+algorithm does not directly know the true error. What it can calculate
+is the \emph{training error} $L_{S}(h)$ which is defined as:
+\[
+    L_S (h) = \frac{1}{m} \sum_{i = 1}^{m} 1_{h(x_i) \neq y_i},
+\]
+where $1_{h(x_i) \neq y_i} =  1$ if $h(x_i) \neq y_i$ and $0$ otherwise. Note that
+the training error is the expected number of points~$x$ at which $h(x)$ differs from
+the true label~$y$ wrt the uniform distribution.
+
+The empirical risk minimization (ERM) paradigm is a learning paradigm where the learner,
+when given a training sample $S$, comes up with a hypothesis $h_S$ that minimizes
+the training error on $S$. That is, $h_S = \argmin_{h} L_S(h)$. We may
+constrain the ERM algorithm to a specific class of hypotheses~$\hypclass$. In this
+case, the ERM algorithm is forced to output an element $h_S \in \hypclass$ where
+$h_S = \argmin_{h \in \hypclass} L_S(h)$
+
+
+\section{Finite Hypothesis Classes}
+
+We assume that we have a finite hypothesis class $\hypclass$. For a training
+sample $S$ labeled by some function $f: \dom \rightarrow \range$, let $h_S$
+be the hypothesis output by $\erm{\hypclass}$ when applied to $S$.
+

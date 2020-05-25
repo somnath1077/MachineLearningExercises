@@ -81,8 +81,8 @@
 
 
 \usepackage{fontspec}
- 
- 
+
+
 % Times New Roman
 \setromanfont[
 BoldFont=timesbd.ttf,
@@ -123,7 +123,9 @@ BoldItalicFont=courbi.ttf
 \newcommand{\USampleComp}{m_{\mathcal{H}}^{\text{UC}}}
 \newcommand{\nusamplecomp}{\ensuremath{m_{\mathcal{H}}^{\text{NUL}}}}
 \newcommand{\pacerror}[1]{L_{\mathcal{D}, f}(#1)}
+\newcommand{\generror}[1]{L_{\mathcal{D}, f}(#1)}
 \newcommand{\vcdim}{\ensuremath{\text{VCdim}}}
+\newcommand{\erm}[1]{\ensuremath{\text{ERM}_{#1}}}
 \newcommand{\algo}{\ensuremath{\mathcal{A}}}
 \newcommand{\hypclass}{\ensuremath{\mathcal{H}}}
 \newcommand{\parity}[1]{\ensuremath{\mathcal{H}_{#1\text{-parity}}}}
@@ -158,6 +160,7 @@ BoldItalicFont=courbi.ttf
 \DeclareMathOperator{\HHS}{HHS}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\argmin}{argmin}
 
 \title{Understanding Machine Learning: Exercises}
 
@@ -169,7 +172,8 @@ BoldItalicFont=courbi.ttf
 \tableofcontents
 
 \input{preface}
-\setcounter{chapter}{2}
+\setcounter{chapter}{1}
+\input{ch02}
 \input{ch03}
 \input{ch04}
 \input{ch05}
