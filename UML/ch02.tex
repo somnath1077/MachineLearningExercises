@@ -43,18 +43,20 @@ sample $S$ labeled by some function $f: \dom \rightarrow \range$, let $h_S$
 be the hypothesis output by $\erm{\hypclass}$ when applied to $S$. In this chapter,
 we assume that there exists a hypothesis $h^{\star}$ such that
 $\generror{h^{\star}} = 0$. In particular, this means that for any hypothesis $h_S$
-output by the $\erm{\hypclass}$, we have $L_S(h_S) = 0$.
+output by the $\erm{\hypclass}$, we have $L_S(h_S) = 0$ (since
+$\min_{h \in \hypclass} L_S(h) = 0$).
 
 We wish to upper bound the generalization error $\generror{h_S}$ of the hypothesis
-output by $\erm{\hypclass}$ on sample $S$. The hypothesis~$h_S$ depends on the sample
-$S$ and the only way we can connect the sample $S$ to the distribution $\dist$ is by
-making an assumption on how it was generated. The standard assumption is that $S$
-is generated i.i.d according to the distribution $\dist$. Thus $h_S$ is a random
-variable and is potentially different for different training samples. Therefore
-when we talk about bounding the generalization error of the output hypothesis, we
-must also deal with the fraction of samples for which this is possible.
+output by $\erm{\hypclass}$ on the sample $S$. Note that the hypothesis~$h_S$ depends
+on the sample $S$ and the only way we can connect the sample $S$ to the distribution
+$\dist$ is by making an assumption on how it was generated. The standard assumption
+is that $S$ is generated i.i.d according to the distribution $\dist$. Thus $h_S$ is
+a random variable and is potentially different for different training samples.
+Therefore when we talk about bounding the generalization error of the output
+hypothesis, we must also deal with the fraction of samples for which this is
+possible.
 
-Therefore when we talk about the generalization error of the output hypothesis $h$,
+If we are to bound the generalization error of the output hypothesis $h$,
 we require two parameters:
 a \emph{confidence parameter} $\delta \in (0, 1)$ that measures for what fraction
 of training samples $\erm{\hypclass}$ outputs a hypothesis $h$ with a
@@ -63,5 +65,6 @@ That is, we are looking at the following condition:
 \begin{equation}
     \Prtwo{S \sim \dist^m}{\generror{h_S} > \epsilon} < \delta.
 \end{equation}
+
 
 
