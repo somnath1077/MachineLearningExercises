@@ -53,18 +53,70 @@ $\dist$ is by making an assumption on how it was generated. The standard assumpt
 is that $S$ is generated i.i.d according to the distribution $\dist$. Thus $h_S$ is
 a random variable and is potentially different for different training samples.
 Therefore when we talk about bounding the generalization error of the output
-hypothesis, we must also deal with the fraction of samples for which this is
+hypothesis, we must talk about the fraction of samples for which this is
 possible.
 
-If we are to bound the generalization error of the output hypothesis $h$,
-we require two parameters:
+Thus bounding the generalization error of the output hypothesis $h$ involves
+the specification of two parameters:
 a \emph{confidence parameter} $\delta \in (0, 1)$ that measures for what fraction
-of training samples $\erm{\hypclass}$ outputs a hypothesis $h$ with a
-generalization error that exceeds an \emph{accuracy parameter}~$\epsilon \in (0, 1)$.
+of training samples $\erm{\hypclass}$ outputs a hypothesis $h$ that does \emph{not}
+generalize well; and an \emph{accuracy parameter}~$\epsilon \in (0, 1)$ that
+specifies how badly off the generalization accuracy is. In other ``words,'' we
+want to bound the probability that $\generror{h_S} > \epsilon$, since this represents
+the case where the hypothesis~$h_S$ does not generalize well. The probability is
+calculated w.r.t samples that are chosen i.i.d from the distribution~$\dist$.
 That is, we are looking at the following condition:
 \begin{equation}
     \Prtwo{S \sim \dist^m}{\generror{h_S} > \epsilon} < \delta.
 \end{equation}
 
+To help analyze this probability, define $\hypclass_{B}$, the set of \emph{bad hypotheses},
+to be the subset of hypotheses of $\hypclass$ that have a generalization error
+exceeding $\epsilon$.
+\[
+    \hypclass_{B} = \{h \in \hypclass \colon \generror{h} > \epsilon\}.
+\]
+Also define the set $M$ of \emph{misleading samples} to be:
+\[
+    M = \{S \colon \exists h \in \hypclass_{B} \text{ s.t. } L_S(h) = 0\}.
+\]
+That is, a sample is misleading if there exists a bad hypothesis that appears to be
+good on it.
+
+Since we assume realizability, any hypothesis~$h_S$ picked up by $\erm{\hypclass}$
+in response to a training sample~$S$ has zero training error. Now if
+$\generror{h} > \epsilon$, then we must have $h_S \in \hypclass_{B}$. Moreover, since
+$L_S(h_S) = 0$, it must be that $S \in M$. This shows that
+$\{S \colon \generror{h_S} > \epsilon\} \subseteq M$ and that:
+\begin{align}
+    \label{ineq:main_prob_ineq}
+    \Prtwo{S \sim \dist^m}{\generror{h_S} > \epsilon}
+    & \leq \Prtwo{S \sim \dist^m}{S \in M} \nonumber \\
+    & = \Prtwo{S \sim \dist^m}{\exists h \in \hypclass_{B} \colon L_S(h) = 0} \nonumber \\
+    & \leq \sum_{h \in \hypclass_{B}} \Prtwo{S \sim \dist^m}{L_S(h) = 0},
+\end{align}
+where the last inequality follows from the union bound.
+
+Fix a hypothesis $h \in \hypclass_{B}$. Then
+\[
+    \Prtwo{S \sim \dist^m}{L_S(h) = 0} =
+    \prod_{i = 1}^{m} \Prtwo{x_i \sim \dist}{h(x_i) = f(x_i)}.
+\]
+Since $\generror{h} > \epsilon$, we have that:
+\[
+    \Prtwo{S \sim \dist^m}{L_S(h) = 0} = (1 - \epsilon)^m \leq e^{-\epsilon m }.
+\]
+From~(\ref{ineq:main_prob_ineq}), we get that:
+\begin{equation}
+    \Prtwo{S \sim \dist^m}{\generror{h_S} > \epsilon}
+        \leq \lvert \hypclass_{B} \rvert \cdot e^{-\epsilon m }
+        \leq \lvert \hypclass \rvert \cdot e^{-\epsilon m }.
+\end{equation}
+Let us require that $\lvert \hypclass \rvert \cdot e^{-\epsilon m } < \delta$.
+This implies that as long as
+$m > (1/\epsilon) \cdot \log (\lvert \hypclass \rvert / \delta)$, we have that
+$\Prtwo{S \sim \dist^m}{\generror{h} > \epsilon} < \delta$. In words, the hypothesis
+$h_S$ output by $\erm{\hypclass}$ is such that its generalization error on at
+least $1 - \delta$ fraction of the samples is at most $\epsilon$.
 
 
