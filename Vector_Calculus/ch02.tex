@@ -1,0 +1,19 @@
+\chapter{Excercises on Singular Value Decompositions}
+
+\begin{exercise}
+suppose $T \in \linspace{V}$ is self-adjoint. Prove that the singular values of $T$
+are the absolute values of the eigenvalues of $T$ repeated appropriately. This is
+\emph{not} true for operators that are not self-adjoint.
+\end{exercise}
+\begin{solution}
+Suppose that $T$ is self-adjoint with eigenvalues $\lambda_1, \ldots, \lambda_n$.
+Then $\adj{T}T$ is positive and has eigenvalues
+$\conj{\lambda}_1 \lambda_1, \ldots, \conj{\lambda}_n \lambda_n$. The eigenvalues
+of $\sqrt{\adj{T}T}$ are the positive square roots of the eigenvalues of $\adj{T} T$.
+Hence the singular values of $T$ are $|\lambda_1|, \ldots, |\lambda_n|$.
+\end{solution}
+
+\begin{exercise}
+Suppose $T \in \linspace{V}$. Prove that $T$ and $\adj{T}$ have the same singular
+values.
+\end{exercise}
