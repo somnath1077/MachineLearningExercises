@@ -5,6 +5,7 @@
 %-------------------------------------------------------
 \usepackage[top=2.5cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
 \usepackage{amsmath,mathtools,bm,amsthm,amssymb}
+\usepackage{mathrsfs}
 \usepackage{underscore}
 \usepackage{xcolor}
 \usepackage{graphicx}
@@ -76,10 +77,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{fontspec}
-\usepackage[charter]{mathdesign}
+\usepackage{beton}
+\usepackage{concmath}
 
-\setmainfont{XCharter}
+%\usepackage[T1]{fontenc}
+%\usepackage{fontspec}
+%\usepackage[charter]{mathdesign}
+
+%\setmainfont{XCharter}
 %\usepackage[libertine,cmintegrals,cmbraces,vvarbb]{newtxmath}
 %\usepackage[scaled=0.95]{inconsolata}
 
@@ -115,6 +120,7 @@
 \newcommand{\eigenspace}[2]{\ensuremath{\mathscr{E}_{#1}(#2)}}
 \newcommand{\linspace}[1]{\ensuremath{\mathscr{L}(#1)}}
 \newcommand{\adj}[1]{\ensuremath{#1^{\star}}}
+\newcommand{\inv}[1]{\ensuremath{#1^{-1}}}
 
 \DeclareMathOperator{\ERM}{ERM}
 \DeclareMathOperator{\pos}{POS}

@@ -1,7 +1,7 @@
 \chapter{Excercises on Singular Value Decompositions}
 
 \begin{exercise}
-suppose $T \in \linspace{V}$ is self-adjoint. Prove that the singular values of $T$
+Suppose $T \in \linspace{V}$ is self-adjoint. Prove that the singular values of $T$
 are the absolute values of the eigenvalues of $T$ repeated appropriately. This is
 \emph{not} true for operators that are not self-adjoint.
 \end{exercise}
@@ -19,5 +19,22 @@ values.
 \end{exercise}
 \begin{solution}
 For any $T \in \linspace{V}$, the operators $\adj{T} T$ and $T \adj{T}$ are both
-positive.
+positive. It is sufficient to show that both $\adj{T} T$ and $T \adj{T}$ have the
+same eigenvalues with the same multiplicities.
+
+Using the Polar Decomposition Theorem, we may write $T$ as $S \sqrt{\adj{T} T}$, for
+some isometry~$S$. Now $\sqrt{\adj{T} T}$ is positive and hence self-adjoint. Thus
+\[
+    \adj{T} = \adj{(S \sqrt{\adj{T} T})} = \sqrt{\adj{T} T} \adj{S} =
+              \sqrt{\adj{T} T} \inv{S},
+\]
+and $T \adj{T} = S \sqrt{\adj{T} T} \sqrt{\adj{T} T} \inv{S} = S \adj{T} T \inv{S}$.
+Thus $T \adj{T}$ and $\adj{T} T$ are similar matrices and therefore have the same
+eigenvalues with the same multiplicities.
 \end{solution}
+
+\begin{exercise}
+Suppose $T_1, T_2, S \in \linspace{V}$ are such that $S$ is invertible and
+$T_1 = S T_2 \inv{S}$, then $T_1$ and $T_2$ have the same eigenvalues with the
+same multiplicities.
+\end{exercise}
