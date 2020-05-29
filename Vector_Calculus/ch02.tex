@@ -60,3 +60,58 @@ $\dim \eigenspace{T_2}{\lambda} \leq \dim \eigenspace{T_1}{\lambda}$. Hence
 $\dim \eigenspace{T_1}{\lambda} = \dim \eigenspace{T_2}{\lambda}$. Thus each
 eigenvalue of $T_1$ and $T_2$ has the same multiplicity.
 \end{solution}
+
+\begin{exercise}
+Let $T \in \linspace{V}$. Prove that $T$ is singular iff $0$ is not a singular
+value of $T$.
+\end{exercise}
+\begin{solution}
+By the Polar Decomposition Theorem, $T = S \sqrt{\adj{T} T}$, for some isometry~$S$.
+Since $S$ is an isometry, it is invertible and hence $T$ is invertible iff
+$\sqrt{\adj{T} T}$ is. The latter is a positive (and hence self-adjoint) operator.
+By the Complex Spectral Theorem, there exists an orthonormal basis of $V$
+consisting of the eigenvectors of $\sqrt{\adj{T} T}$. The matrix of
+$\sqrt{\adj{T} T}$ w.r.t this orthonormal basis is a diagonal matrix whose main
+diagonal consists of the corresponding eigenvalues. Hence $\sqrt{\adj{T} T}$
+is invertible iff it does not have $0$ as one of its eigenvalues iff
+$0$ is not a singular value of $T$.
+\end{solution}
+
+\begin{exercise}
+Suppose that $T \in \linspace{V}$. Prove that $\dim \range T$ equals the number
+of non-zero singular values of $T$.
+\end{exercise}
+\begin{solution}
+Let $\dim V = n$ and let $\lambda_1, \ldots, \lambda_m$ be the distinct eigenvalues
+of $\sqrt{\adj{T} T}$. If $u$ and $v$ are eigenvectors corresponding to distinct
+eigenvalues $\lambda_i$ and $\lambda_j$, respectively, then $\innerprod{u}{v} = 0$.
+One consequence of this is that
+\[
+    V = \eigenspace{\sqrt{\adj{T} T}}{\lambda_1} \oplus \cdots \oplus
+        \eigenspace{\sqrt{\adj{T} T}}{\lambda_m}.
+\]
+First consider the case that none of the eigenvalues of $\sqrt{\adj{T} T}$ are $0$.
+In this case, $T$ has $n$ non-zero singular values.
+Let $v \in V$ be non-zero. Because of the previous identity, there exists $\lambda$
+such that $\sqrt{\adj{T} T} v = \lambda v$. Moreover, by the Polar Decomposition
+Theorem, $T = S \sqrt{\adj{T} T}$, where $S$ is an isometry and hence invertible.
+Thus,
+\[
+    Tv = S \sqrt{\adj{T} T} v = \lambda S v \neq 0.
+\]
+This shows that $0$ is the only vector in $\nullspace T$. Since
+$\dim V = \dim \nullspace T + \dim \range T$, we have that $\dim \range T = n$,
+the number of non-zero singular values of $T$.
+
+Next consider the case when one of the eigenvalues of $\sqrt{\adj{T} T}$ is $0$. Wlog
+assume that $\lambda_1 = 0$ and that $\dim \eigenspace{\sqrt{\adj{T} T}}{\lambda_1} = k$.
+Then $T$ has $n - k$ non-zero singular values.
+Now repeating the argument of the previous paragraph, if
+$v \in \eigenspace{\sqrt{\adj{T} T}}{\lambda_2} \oplus \cdots \oplus
+\eigenspace{\sqrt{\adj{T} T}}{\lambda_m}$ is non-zero then $Tv \neq 0$. Hence
+$\dim \range T \geq n - k$. Since for all
+$v \in \eigenspace{\sqrt{\adj{T} T}}{\lambda_1}$, we have that $T v = 0$, we conclude
+that $\dim \nullspace T \geq k$. But $\dim V = \dim \nullspace T + \dim \range T$
+and so we must have $\dim \nullspace T = k$ and $\dim \range T = n - k$. This
+concludes the proof.
+\end{solution}
