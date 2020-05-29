@@ -124,4 +124,13 @@ values are equal to $1$.
 First suppose that $S$ is an isometry. Then $\adj{S} = \inv{S}$ and
 $\sqrt{\adj{S} S} = I$. Hence the singular values of $S$ are the eigenvalues of the
 identity operator, which are all $1$.
+
+Next suppose that $S$ is an operator whose singular values are all equal to $1$.
+Then the operator $\sqrt{\adj{S} S}$ has only $1$ as its eigenvalue. Since
+$\sqrt{\adj{S} S}$ is positive (and hence self-adjoint), by the Spectral Theorem
+there exists an orthonormal basis $(e_1, \ldots, e_n)$ of $V$ which are the
+eigenvectors of $\sqrt{\adj{S} S}$. This implies that for $1 \leq j \leq n$, we
+have $\sqrt{\adj{S} S} e_j = e_j$. Hence $\sqrt{\adj{S} S} = I$, the identity
+operator. This, in turn, implies that $\adj{S} S = I$ which is true iff $S$ is
+an isometry.
 \end{solution}
