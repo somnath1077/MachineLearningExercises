@@ -134,3 +134,43 @@ have $\sqrt{\adj{S} S} e_j = e_j$. Hence $\sqrt{\adj{S} S} = I$, the identity
 operator. This, in turn, implies that $\adj{S} S = I$ which is true iff $S$ is
 an isometry.
 \end{solution}
+
+\begin{exercise}
+Suppose that $T \in \linspace{V}$. Let $s_{\min}$ and $s_{\max}$ denote, respectively,
+the smallest and largest singular values of $T$. Show that
+\begin{enumerate}
+    \item $s_{\min} \cdot \norm{v} \leq \norm{T v} \leq s_{\max} \cdot \norm{v}$
+        for all $v \in V$;
+    \item $s_{\min} \leq |\lambda| \leq s_{\max}$ for every eigenvalue $\lambda$ of
+        $T$.
+\end{enumerate}
+\end{exercise}
+\begin{solution}
+Let $s_1, \ldots, s_n$ be the singular values of $T$ ane let $v \in V$. By the
+Singular Value Decomposition, there exist orthonormal bases $(e_1, \ldots, e_n)$
+and $(f_1, \ldots, f_n)$ such that
+\[
+    T v = s_1 \innerprod{v}{e_1} f_1 + \cdots + \innerprod{v}{e_n} f_n.
+\]
+Since $(f_1, \ldots, f_n)$ is an orthonormal basis,
+$\norm{T v}^2 = \sum_{j = 1}^{n} | s_j \innerprod{v}{e_j}|^2 =
+\sum_{j = 1}^{n} s_j^2 |\innerprod{v}{e_j}|^2$. The last equality follows because
+all the singular values of $T$ are non-negative. We can upper and lower
+bound the quantity $\norm{T v}^2$ as follows:
+\[
+    s_{\min}^2  \cdot \sum_{j = 1}^{n} |\innerprod{v}{e_j}|^2 \leq \norm{T v}^2
+    \leq  s_{\max}^2  \cdot \sum_{j = 1}^{n} |\innerprod{v}{e_j}|^2.
+\]
+Since $(e_1, \ldots, e_n)$ is orthonormal,
+$\sum_{j = 1}^{n} |\innerprod{v}{e_j}|^2 = \norm{v}^2$. Now taking square roots, we
+obtain the desired inequality.
+
+If $v$ is an eigenvector of $T$ with eigenvalue $\lambda$,
+$\norm{T v} = |\lambda | \cdot \norm{v}$. We thus have:
+\[
+    s_{\min} \cdot \norm{v} \leq |\lambda | \cdot \norm{v}
+                            \leq s_{\max} \cdot \norm{v};
+\]
+since $\norm{v} \neq 0$, dividing throughout by $\norm{v}$, we obtain
+$s_{\min} \leq |\lambda| \leq s_{\max}$.
+\end{solution}
