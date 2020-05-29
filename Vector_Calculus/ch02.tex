@@ -115,3 +115,13 @@ that $\dim \nullspace T \geq k$. But $\dim V = \dim \nullspace T + \dim \range T
 and so we must have $\dim \nullspace T = k$ and $\dim \range T = n - k$. This
 concludes the proof.
 \end{solution}
+
+\begin{exercise}
+Suppose that $S \in \linspace{V}$. Prove that $S$ is an isometry iff all its singular
+values are equal to $1$.
+\end{exercise}
+\begin{solution}
+First suppose that $S$ is an isometry. Then $\adj{S} = \inv{S}$ and
+$\sqrt{\adj{S} S} = I$. Hence the singular values of $S$ are the eigenvalues of the
+identity operator, which are all $1$.
+\end{solution}
