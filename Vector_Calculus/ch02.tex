@@ -225,16 +225,25 @@ Suppose that $T \in \linspace{V}$. Prove that $T$ is invertible iff there exists
 a unique isometry $S$ such that $T = S \sqrt{\adj{T} T}$.
 \end{exercise}
 \begin{solution}
-First suppose that $T$ is invertible and that $T = S_1 \sqrt{\adj{T} T} =
-S_2 \sqrt{\adj{T} T}$, where $S_1$ and $S_2$ are isometries. Since we assumed $T$
-to be invertible, it must be that $\sqrt{\adj{T} T}$ is also invertible. The
-operators $S_1$ and $S_2$ being isometries are invertible. Thus
-$\inv{T} = \inv{\sqrt{\adj{T} T}} \inv{S_1}$,
-and hence
-\[
-    I = T \inv{T} = S_2 \sqrt{\adj{T} T} \inv{\sqrt{\adj{T} T}} \inv{S_1} = S_2 \inv{S_1}.
-\]
-From the last equation we obtain that $S_1 = S_2$. Hence the isometry appearing
-in the polar decomposition of $T$ is unique.
+First suppose that $T$ is invertible and that $T = S \sqrt{\adj{T} T}$,
+where $S$ is an isometry. Since we assumed $T$ to be invertible, it must be that
+$\sqrt{\adj{T} T}$ is also invertible. Hence $S = T \inv{\sqrt{\adj{T} T}}$ is unique.
 
+Conversely if $T$ is not invertible then neither is $\sqrt{\adj{T} T}$. This follows
+because $S$ being an isometry is always invertible. From a previous result, we have
+that $\dim \nullspace T = k$, where $k$ is the number of zero singular values of $T$.
+Since we are assuming T to be non-invertible, $k \geq 1$. Let
+$e_1, \ldots, e_k, e_{k + 1}, \ldots, e_n$ be the eigenvectors of $\sqrt{\adj{T} T}$
+with eigenvalues $s_1, \ldots, s_k, s_{k + 1}, \ldots, s_n$, respectively,
+such that $s_1 = s_2 = \cdots = s_k = 0$. Define a mapping $S'$ such that
+$S' e_j = e_j$ for all $k + 1 \leq j \leq n$ and $S' e_j = e_{(j + 1) \mod k}$
+for $1 \leq j \leq k$. Extend this mapping $S'$ by linearity to all vectors in $V$.
+Thus if $v = \sum_{j = 1}^n \alpha_j e_j$, then
+\[
+    S' v = \alpha_k e_1 + \alpha_1 e_2 + \cdots + \alpha_{k - 1} e_{k} +
+            \sum_{j = k + 1}^n \alpha_j e_j.
+\]
+Note that $\norm{S' v}^2 = \sum_{j = 1}^n |\alpha_j|^2 = \norm{v}^2$ and hence
+$S'$ is an isometry. Now we can write $T$ as $S S' \sqrt{\adj{T} T}$, where $S S'$
+is an isometry. Hence the isometry in the polar decomposition of $T$ is not unique.
 \end{solution}
