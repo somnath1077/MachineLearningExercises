@@ -174,3 +174,48 @@ $\norm{T v} = |\lambda | \cdot \norm{v}$. We thus have:
 since $\norm{v} \neq 0$, dividing throughout by $\norm{v}$, we obtain
 $s_{\min} \leq |\lambda| \leq s_{\max}$.
 \end{solution}
+
+\begin{exercise}
+Suppose that $T \in \linspace{V}$ has a Singular Value Decomposition given by
+\[
+    \forall \ v \in V \colon T v =
+    s_1 \innerprod{v}{e_1} f_1 + \cdots + s_n \innerprod{v}{e_n} f_n,
+\]
+where $s_1, \ldots, s_n$ are the singular values of $T$. Prove that:
+\begin{enumerate}
+    \item $\adj{T} v = s_1 \innerprod{v}{f_1} e_1 + \cdots + s_n \innerprod{v}{f_n} e_n$;
+    \item $\adj{T} T v = s_1^2 \innerprod{v}{e_1} e_1 + \cdots + s_n^2 \innerprod{v}{e_n} e_n$
+    \item $\sqrt{\adj{T} T} v = s_1 \innerprod{v}{e_1} e_1 + \cdots + s_n \innerprod{v}{e_n} e_n$
+\end{enumerate}
+\end{exercise}
+\begin{solution}
+Let $T = S \sqrt{\adj{T} T}$ be the polar decomposition of $T$ that is associated
+with the singular value decomposition given above. Then $(e_1, \ldots, e_n)$ are
+the eigenvectors of $\sqrt{\adj{T} T}$ and $\sqrt{\adj{T} T} e_j = s_j e_j$ for
+all $1 \leq j \leq n$. Moreover $S e_j = f_j$ for all $1 \leq j \leq n$.
+
+We can express $\adj{T}$ as $\adj{T} = \sqrt{\adj{T} T} \adj{S} = \sqrt{\adj{T} T} \inv{S}$.
+Let $v \in V$ be any vector. Then
+\begin{align*}
+    \adj{T} v & = \sqrt{\adj{T} T} \inv{S} (\innerprod{v}{f_1} f_1 + \cdots + \innerprod{v}{f_n} f_n) \\
+              & = \sqrt{\adj{T} T} (\innerprod{v}{f_1} e_1 + \cdots + \innerprod{v}{f_n} e_n) \\
+              & = s_1 \innerprod{v}{f_1} e_1 + \cdots + s_n \innerprod{v}{f_n} e_n.
+\end{align*}
+This proves~$(1)$.
+
+Next we may write $\adj{T} T v$ as:
+\begin{align*}
+    \adj{T} T v & = \sqrt{\adj{T} T} \inv{S} T v \\
+                & = \sqrt{\adj{T} T} \inv{S} (s_1 \innerprod{v}{e_1} f_1 + \cdots + s_n \innerprod{v}{e_n} f_n) \\
+                & = \sqrt{\adj{T} T} (s_1 \innerprod{v}{e_1} e_1 + \cdots + s_n \innerprod{v}{e_n} e_n) \\
+                & = s_1^2 \innerprod{v}{e_1} e_1 + \cdots + s_n^2 \innerprod{v}{e_n} e_n.
+\end{align*}
+This proves~$(2)$.
+
+Since $\sqrt{\adj{T} T} e_j = s_j e_j$, we may write $\sqrt{\adj{T} T} v$ as:
+\begin{align*}
+    \sqrt{\adj{T} T} v & = \sqrt{\adj{T} T} (\innerprod{v}{e_1} e_1 + \cdots + \innerprod{v}{e_n} e_n) \\
+                       & = s_1 \innerprod{v}{e_1} e_1 + \cdots + s_n \innerprod{v}{e_n} e_n.
+\end{align*}
+And this proves~$(3)$.
+\end{solution}
