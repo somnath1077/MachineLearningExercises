@@ -219,3 +219,22 @@ Since $\sqrt{\adj{T} T} e_j = s_j e_j$, we may write $\sqrt{\adj{T} T} v$ as:
 \end{align*}
 And this proves~$(3)$.
 \end{solution}
+
+\begin{exercise}
+Suppose that $T \in \linspace{V}$. Prove that $T$ is invertible iff there exists
+a unique isometry $S$ such that $T = S \sqrt{\adj{T} T}$.
+\end{exercise}
+\begin{solution}
+First suppose that $T$ is invertible and that $T = S_1 \sqrt{\adj{T} T} =
+S_2 \sqrt{\adj{T} T}$, where $_S1$ and $S_2$ are isometries. Since we assumed $T$
+to be invertible, it must be that $\sqrt{\adj{T} T}$ is also invertible. The
+operators $S_1$ and $S_2$ being isometries are invertible. Thus
+$\inv{T} = \inv{\sqrt{\adj{T} T}} \inv{S_1}$,
+and hence
+\[
+    I = T \inv{T} = S_2 \sqrt{\adj{T} T} \inv{\sqrt{\adj{T} T}} \inv{S_1} = S_2 \inv{S_1}.
+\]
+From the last equation we obtain that $S_1 = S_2$. Hence the isomtery appearing
+in the polar decomposition of $T$ is unique.
+
+\end{solution}
