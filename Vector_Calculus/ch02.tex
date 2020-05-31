@@ -247,3 +247,46 @@ Note that $\norm{S' v}^2 = \sum_{j = 1}^n |\alpha_j|^2 = \norm{v}^2$ and hence
 $S'$ is an isometry. Now we can write $T$ as $S S' \sqrt{\adj{T} T}$, where $S S'$
 is an isometry. Hence the isometry in the polar decomposition of $T$ is not unique.
 \end{solution}
+
+\begin{exercise}
+Suppose that $T$ is invertible. Prove that if $s_1, \ldots, s_n$ are the singular
+values of $T$ so that
+$T v = s_1 \innerprod{v}{e_1} f_1 + \cdots s_n \innerprod{v}{e_n} f_n$ then
+$\inv{T} v = \inv{s_1} \innerprod{v}{f_1} e_1 + \cdots \inv{s_n} \innerprod{v}{f_n} e_n$.
+\end{exercise}
+\begin{solution}
+If the Singular Value Decomposition of $T$ is as given, then the matrix of $T$ w.r.t
+the orthonormal bases $(e_1, \ldots, e_n)$ and $(f_1, \ldots, f_n)$ is $\diag(s_1, \ldots, s_n)$.
+The matrix of $\inv{T}$ w.r.t the bases $(f_1, \ldots, f_n)$ and $(e_1, \ldots, e_n)$ is
+then $\diag(\inv{s_1}, \ldots, \inv{s_n})$. This, in particular, implies that
+for all $1 \leq j \leq n$, $\inv{T} f_j = \inv{s_j} e_j$.
+
+Let $v \in V$. Writing $v$ w.r.t the orthonormal basis $(f_1, \ldots, f_n)$ and applying
+$\inv{T}$ to it, we obtain:
+\begin{align*}
+    \inv{T} v & = \inv{T} (\innerprod{v}{f_1} f_1 + \cdots + \innerprod{v}{f_n} f_n) \\
+              & = \inv{s_1} \innerprod{v}{f_1} e_1 + \cdots + \inv{s_n} \innerprod{v}{f_n} e_n,
+\end{align*}
+completing the proof.
+\end{solution}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

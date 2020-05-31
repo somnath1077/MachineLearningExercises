@@ -4,8 +4,7 @@
 % THEMES, COLORS
 %-------------------------------------------------------
 \usepackage[top=2.5cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
-\usepackage{amsmath,mathtools,bm,amsthm,amssymb}
-\usepackage{mathrsfs}
+\usepackage{mathtools,bm,amsthm}
 \usepackage{underscore}
 \usepackage{xcolor}
 \usepackage{graphicx}
@@ -38,12 +37,10 @@
 \definecolor{UBCblue}{rgb}{0.04706, 0.13725, 0.26667} % UBC Blue (primary)
 \definecolor{UBCgrey}{rgb}{0.3686, 0.5255, 0.6235} % UBC Grey (secondary)
 
-%\usepackage{helvet}
 %-------------------------------------------------------
 % DEFFINING AND REDEFINING COMMANDS
 %-------------------------------------------------------
 \newcommand\var{\texttt}
-\usepackage{amssymb}
 \renewcommand{\emptyset}{\varnothing}
 %-----------------------------------------------------------------------------
 % FONTS TRIED
@@ -77,20 +74,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-%\usepackage{lmodern}
-%\usepackage{newpxtext}
-%\usepackage{newpxmath}
-
-%\usepackage{beton}
-%\usepackage{concmath}
-
-%\usepackage[T1]{fontenc}
-%\usepackage{fontspec}
-\usepackage[charter]{mathdesign}
-
+\usepackage[bitstream-charter]{mathdesign}
 \setmainfont{XCharter}
-%\usepackage[libertine,cmintegrals,cmbraces,vvarbb]{newtxmath}
-%\usepackage[scaled=0.95]{inconsolata}
 
 %-------------------------------------------------------
 % INFORMATION IN THE TITLE PAGE
@@ -137,6 +122,7 @@
 \DeclareMathOperator{\kernel}{Ker}
 \DeclareMathOperator{\nullspace}{null}
 \DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\diag}{diag}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \newcommand{\trans}[1]{\ensuremath{#1}^{\intercal}}
 
