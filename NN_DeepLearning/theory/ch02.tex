@@ -45,7 +45,39 @@ $\partial C / \partial z_{j}^{l} \approx 0$, then changes in $z_j^l$ do not
 affect the final cost. Thus $\partial C / \partial z_{j}^{l}$ indicates how we
 should change the input $z_j^l$ to the $j$th neuron in layer~$l$.
 
-We will derive the complete set of backpropagation equations in four steps.
+We will derive the complete set of backpropagation equations in four steps. In what
+follows, we will assume that the cost function $C$ is the usual quadratic cost.
+\[
+    C(x) = \frac{1}{2} \norm{y - a^L(x)}^2 = \frac{1}{2} \sum_{k} (y_k - a_k^L)^2.
+\]
+\subsubsection{Step I. Error of the Output Layer}
+Let us consider the $j$th neuron in the last layer~$L$. The ``error'' $\delta_j^L$
+of this neuron is given by
+\[
+    \delta_j^L := \frac{\partial C}{\partial z_j^L}
+    = \frac{\partial C}{\partial a_j^L} \frac{\partial a_j^L}{\partial z_j^L}
+    = \frac{\partial C}{\partial a_j^L} \frac{\partial \sigma(z_j^L)}{\partial z_j^L}
+    = \frac{\partial C}{\partial a_j^L} \sigma'(z_j^L).
+\]
+Now $\partial C / \partial a_j^L = a_j^L - y_j$ and so
+$\delta_j^L = (a_j^L - y_j) \sigma'(z_j^L)$. Assuming that there are $k$ neurons
+in layer~$L$, we may write $\delta^L$, the vector of all the errors from layer~$L$,
+as follows:
+\begin{equation}
+    \delta^L =
+    \begin{pmatrix}
+        \sigma'(z_1^L)  & 0              & \cdots & 0 \\
+        \vdots          & \vdots         & \ddots & \vdots  \\
+        0               & 0              & \cdots & \sigma'(z_k^L)
+    \end{pmatrix}
+    \begin{pmatrix}
+        \frac{\partial C}{\partial a_1^L} \\
+        \vdots \\
+        \frac{\partial C}{\partial a_k^L}
+    \end{pmatrix}
+\end{equation}
+
+
 
 With this notation in hand, we may write the backpropagation equations
 as:
