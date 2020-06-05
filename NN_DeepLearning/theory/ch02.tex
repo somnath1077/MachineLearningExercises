@@ -53,12 +53,13 @@ follows, we will assume that the cost function $C$ is the usual quadratic cost.
 \subsubsection{Step I. Error of the Output Layer}
 Let us consider the $j$th neuron in the last layer~$L$. The ``error'' $\delta_j^L$
 of this neuron is given by
-\[
+\begin{equation}
+\label{eqn:individual_error}
     \delta_j^L := \frac{\partial C}{\partial z_j^L}
     = \frac{\partial C}{\partial a_j^L} \frac{\partial a_j^L}{\partial z_j^L}
     = \frac{\partial C}{\partial a_j^L} \frac{\partial \sigma(z_j^L)}{\partial z_j^L}
     = \frac{\partial C}{\partial a_j^L} \sigma'(z_j^L).
-\]
+\end{equation}
 Now $\partial C / \partial a_j^L = a_j^L - y_j$ and so
 $\delta_j^L = (a_j^L - y_j) \sigma'(z_j^L)$. Assuming that there are $k$ neurons
 in layer~$L$, we may write $\delta^L$, the vector of all the errors from layer~$L$,
@@ -78,6 +79,38 @@ as follows:
 \end{equation}
 
 \subsubsection{Step II. $\delta^l$ in terms of $\delta^{l + 1}$}
+Now that we know what the error terms are in the final layer, we would
+like to ``backpropagate'' these errors from the final layer to the first layer
+of the network. In particular, we want to compute the errors in
+layer~$l$ from the errors in layer~$l + 1$.
+
+Let us assume that there are $p$ neurons in layer~$l$ and $q$ neurons in layer~$l + 1$.
+What we would like to show is that:
+\begin{equation}
+\label{eqn:backprop_error}
+\delta^l = \diag (\sigma'(z_1^l), \ldots, \sigma'(z_p^l)) \cdot \trans{(w^{l + 1})} \cdot \delta^{l + 1}.
+\end{equation}
+On the righthand side of the above equation, the diagonal matrix
+$\diag (\sigma'(z_1^l), \ldots, \sigma'(z_p^l))$ has order~$p \times p$, the
+matrix~$w^{l + 1}$ has order $q \times p$ and $\delta^{l + 1}$ has order $q \times 1$,
+so that at least the order of $\delta^{l}$ correctly evaluates to $p \times 1$.
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.3]{twolayers.png}
+\end{center}
+\end{figure}
+
+From~(\ref{eqn:individual_error}), we know that the error of the $j$th neuron in
+layer~$l$ is given by
+$\delta_j^l = \sigma' (z_j^l) \cdot \partial C / \partial a_j^l$. The output from
+the $j$th neuron is fed to all neurons in layer~$l + 1$. Thus if we were to modify
+the input weights to the $j$th neuron, its output would change and that would have a
+cascading effect on the rest of the network. We wish to evaluate
+how a change in the outputs of neuron~$j$ in layer~$l$ affects the output of
+the neurons in layer~$l + 1$, assuming that all other weights in the network remain
+fixed.
+
+
 
 With this notation in hand, we may write the backpropagation equations
 as:
