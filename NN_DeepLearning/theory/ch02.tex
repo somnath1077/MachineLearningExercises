@@ -109,11 +109,40 @@ cascading effect on the rest of the network. We wish to evaluate
 how a change in the outputs of neuron~$j$ in layer~$l$ affects the output of
 the neurons in layer~$l + 1$, assuming that all other weights in the network remain
 fixed.
+\begin{align}
+\frac{\partial C}{\partial a_j^l}
+    & = \sum_{k = 1}^q \frac{\partial C}{\partial z_k^{l + 1}} \cdot \frac{\partial z_k^{l + 1}}{\partial a_j^l} \nonumber \\
+    & = \sum_{k = 1}^q \delta_k^{l + 1} \cdot  \frac{\partial z_k^{l + 1}}{\partial a_j^l}.
+\end{align}
+Now $z_k^{l + 1} = \sum_{i = 1}^p w_{k i}^{l + 1} \cdot a_i^l + b_k^{l + 1}$ and so
+$\partial z_k^{l + 1} / \partial a_j^l = w_{k j}^{l + 1}$. Therefore,
+\begin{equation}
+    \frac{\partial C}{\partial a_j^l} = \sum_{k = 1}^q \delta_{k}^{l + 1} \cdot w_{k j}^{l + 1}.
+\end{equation}
+We can now write the error of the $j$th neuron in layer~$l$ as:
+\begin{equation}
+    \delta_j^l =  \sigma' (z_j^l) \cdot \sum_{k = 1}^q \delta_{k}^{l + 1} \cdot w_{k j}^{l + 1}.
+\end{equation}
+The above equation in matrix-form is precisely Equation~(\ref{eqn:backprop_error}).
 
+\subsubsection{Step III. Evaluating $\partial C / \partial b_j^l$}
+This is straightforward now.
+\begin{equation}
+    \frac{\partial C}{\partial b_j^l} =
+    \frac{\partial C}{\partial z_j^l} \cdot \frac{\partial z_j^l}{\partial b_j^l} =
+    \frac{\partial C}{\partial z_j^l} = \delta_j^l.
+\end{equation}
 
+\subsubsection{Step IV. Evaluating $\partial C / \partial w_{j k}^l$}
+This is also a straightforward calculation.
+\begin{equation}
+    \frac{\partial C}{\partial w_{j k}^l} =
+    \frac{\partial C}{\partial z_j^l} \cdot \frac{\partial z_j^l}{\partial w_{j k}^l} =
+    \delta_j^l \cdot \frac{\partial}{\partial w_{j k}^l} \left (\sum_{i = 1}^p w_{j i}^l a_i^{l - 1} + b_j^l \right ) =
+    \delta_j^l \cdot a_k^{l - 1}.
+\end{equation}
 
-With this notation in hand, we may write the backpropagation equations
-as:
+We may write the backpropagation equations as:
 \begin{equation}
 \boxed{
 \setlength{\jot}{12pt}
@@ -125,7 +154,6 @@ as:
 \end{aligned}
 }
 \end{equation}
-
 \section{Backpropagation Applied to Gradient Descent}
 
 The backpropagation procedure calculates the gradient of the cost
