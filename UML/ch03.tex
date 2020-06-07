@@ -2,7 +2,7 @@
 
 \section*{Notes on Chapter 3}
 
-The main concept introduced here is that of agnostic PAC learnability. It helps to 
+The main concept introduced here is that of agnostic PAC learnability. It helps to
 review the definitions of both PAC learnability with the realizability assumption
 and that of agnostic PAC learnability.
 
@@ -17,7 +17,7 @@ $\hypclass$ is realizable wrt $\dist$ and $f$, if $\algo$ is presented with a
 sample of at least $\SampleComp{\epsilon}{\delta}$ examples drawn iid from
 $\dist$, $\algo$ returns a hypothesis $h_S$ such that
 \[
-     \Prtwo{S \sim \dist^m}{L_{\dist, f} (h_S) \leq \epsilon} 
+     \Prtwo{S \sim \dist^m}{L_{\dist, f} (h_S) \leq \epsilon}
         > 1 - \delta.
 \]
 \end{definition}
@@ -30,7 +30,7 @@ Intuitively, what this definition states is that a hypothesis class is PAC
 learnable if there exists a learner which when given a sufficiently large
 number of training examples can approximate the true labeling function $f$ with
 high probability for all learning tasks on the domain $\dom \times \range$ that
-satisfy the realizability condition. 
+satisfy the realizability condition.
 
 \begin{definition}[Agnostic PAC Learnability]
 A class $\hypclass$ is PAC learnable if there exists a function $\samplecomp
@@ -40,21 +40,21 @@ distributions $\dist$ over $\dom \times \range$ such that, if $\algo$ is
 presented with a sample of at least $\SampleComp{\epsilon}{\delta}$ examples
 drawn iid from $\dist$, $\algo$ returns a hypothesis $h_S$ such that
 \[
-   \Prtwo{S \sim \dist^m}{L_{\dist} (h_S) \leq 
+   \Prtwo{S \sim \dist^m}{L_{\dist} (h_S) \leq
         \min_{h' \in \hypclass} L_{\dist} (h') + \epsilon} > 1 - \delta.
 \]
 \end{definition}
-In the agnostic setting, a learning task is completely specified by the triplet 
-$(\dom, \range, \dist)$ and a hypothesis class is agnostic PAC learnable if 
-there exists a leraner which when given a sufficiently many training examples 
-outputs a ``good enough'' hypothesis with high probability. The goodness of the 
-hypothesis is measured with respect to the best hypothesis of the class $\hypclass$. 
+In the agnostic setting, a learning task is completely specified by the triplet
+$(\dom, \range, \dist)$ and a hypothesis class is agnostic PAC learnable if
+there exists a leraner which when given a sufficiently many training examples
+outputs a ``good enough'' hypothesis with high probability. The goodness of the
+hypothesis is measured with respect to the best hypothesis of the class $\hypclass$.
 
-Agnostic PAC learnability presents a \emph{stronger} requirement as one must 
+Agnostic PAC learnability presents a \emph{stronger} requirement as one must
 be able to learn \emph{any} distibution as distinct from PAC learnability where
 one must be able to learn distibutions for which the hypothesis class is realizable.
 As such, agnostic PAC learnability implies PAC learnability.
- 
+
 \section*{Exercise 3.1}
 
 Let $\SampleComp{\epsilon}{\delta}$ be the sample complexity of a PAC-learnable
@@ -83,23 +83,23 @@ $\SampleComp{\epsilon}{\delta_1} \geq \SampleComp{\epsilon}{\delta_2}$.
 
 \section*{Exercise 3.2}
 
-Given a sample $S$, we output a hypothesis $h_S$ with the property that 
-$\forall x \in S_x$, 
+Given a sample $S$, we output a hypothesis $h_S$ with the property that
+$\forall x \in S_x$,
 \[
-    h_S(x) = \left \{ \begin{array}{rl} 
+    h_S(x) = \left \{ \begin{array}{rl}
                             1, & \text{if $(x, 1) \in S$} \\
                             0, & \text{otherwise}
                       \end{array} \right .
 \]
-For any sample $S$, this hypothesis has an empirical loss of $0$. Note 
-that $h_S$ disagrees with the true labeling function $f$ in at most one point 
-$z \in \mathcal{X}$. It's true loss is therefore 
-$\Pr_{x \sim \mathcal{D}} \{ f(x) \neq h_S(x)\} = \Pr_{\mathcal{D}} \{z\} := p_z$. 
+For any sample $S$, this hypothesis has an empirical loss of $0$. Note
+that $h_S$ disagrees with the true labeling function $f$ in at most one point
+$z \in \mathcal{X}$. It's true loss is therefore
+$\Pr_{x \sim \mathcal{D}} \{ f(x) \neq h_S(x)\} = \Pr_{\mathcal{D}} \{z\} := p_z$.
 
-The true loss of $h_S$ will be $0$ if $(z, 1) \in S$. Therefore the probability 
+The true loss of $h_S$ will be $0$ if $(z, 1) \in S$. Therefore the probability
 of getting a ``bad'' sample is $\Pr_{S \sim \mathcal{D}^m}\{(z, 1) \notin S\}$.
-Let $z^{*} \in \mathcal{X}$ be a point at which $(1 - p_z)^m$ is maximized. Since 
-$(1 - p_{z^{*}})^m \leq e^{- m p_{z^{*}}}$ and since we want the probability of 
+Let $z^{*} \in \mathcal{X}$ be a point at which $(1 - p_z)^m$ is maximized. Since
+$(1 - p_{z^{*}})^m \leq e^{- m p_{z^{*}}}$ and since we want the probability of
 picking a bad sample to be at most $\delta$, we want $e^{- m p_{z^{*}}} < \delta$,
 which gives us the sample size to be:
 \begin{equation}
@@ -109,13 +109,13 @@ which gives us the sample size to be:
 
 Depending on the value of the error bound $\epsilon$, there are two situations
 to consider. If $\epsilon \geq p_{z^{*}}$, then even a sample of size one will
-guarantee that the true error of $h_s$ is at most $\epsilon$. However if 
+guarantee that the true error of $h_s$ is at most $\epsilon$. However if
 $\epsilon < p_{z^{*}}$ then we can then use this in~(\ref{3.2_samplecomp})
-to obtain: 
+to obtain:
 \[
     m > \frac{\log (1 / \delta)}{\epsilon}.
 \]
-Thus the sample complexity is $\SampleComp{\epsilon}{\delta} = 
+Thus the sample complexity is $\SampleComp{\epsilon}{\delta} =
 \max \left \{1, \frac{\log (1 / \delta)}{\epsilon} \right \}$.
 
 \section*{Exercise 3.3}
@@ -124,7 +124,7 @@ Here $\dom = \Rtwo$ and $\range = \{0, 1\}$. The hypothesis class $\hypclass$
 is the set of concentric circles in $\Rtwo$ centered at the origin. Assuming
 realizability, this implies that the true labeling function~$f = h_r$ for some
 $r \in \Rpos$. Thus $f$ assigns the label $1$ to any point $(x, y) $ that is
-within a distance of $r$ from the origin and $0$ otherwise. 
+within a distance of $r$ from the origin and $0$ otherwise.
 
 Given any sample~$S$, let $q \in \Rpos$ be the minimum real number such that
 all $(x, y) \in S_x$ with a label of $1$ are included in a circle centered at
@@ -154,7 +154,7 @@ In this example, $\dom = \{0, 1\}^d$, $\range = \{0, 1\}$ and the hypothesis
 class~$\hypclass$ is the set of all conjunctions over $d$ Boolean variables.
 Since there are $\sum_{i = 0}^{d} {d \choose i} 2^i = 3^{d}$ Boolean
 conjunctions over $d$ Boolean variables, the hypothesis class is finite. Hence
-the sample complexity is 
+the sample complexity is
 \begin{align*}
 	\SampleComp{\epsilon}{\delta} & = \ceiling{\frac{\log (\hypclass / \delta)}{\epsilon}} \\
 	& = \ceiling{\frac{d \cdot \log 3 + \log (1 / \delta)}{\epsilon}}
@@ -167,7 +167,7 @@ in Figure~\ref{fig:pac_boolean_conjunctions} starts with the formula $x_1 \land
 examples in the sample $S$ and for each such example, it adjusts the formula so
 that it satisfies the assignment given in the example. At the end of this
 procedure, the modified formula satisfies all positive examples of $S$. The
-time taken is $O(d \cdot |S|)$. 
+time taken is $O(d \cdot |S|)$.
 
 What may not be immediately apparent is that the formula returned by the
 algorithm satisfies all negative examples too. This is clear when the sample
@@ -179,14 +179,14 @@ assignment. That is, it eliminates half of the literals on seeing that one
 example and the modified formula $f$ contains the literals of the true labeling
 function along with possibly others.  Now the literals of the true labeling
 function produce a $0$ on all negative examples and so does $f$. Hence the
-sampling error of the function returned by the algorithm is $0$.   
+sampling error of the function returned by the algorithm is $0$.
 \begin{figure}
     \begin{algorithmic}[0] % The number tells where the line numbering should start
-     \Procedure{PACBoolean}{$S$} 
-         \Comment{$S$ is the sample set with elements 
-         $\angular{(a_1, \ldots, a_d), b}$, 
+     \Procedure{PACBoolean}{$S$}
+         \Comment{$S$ is the sample set with elements
+         $\angular{(a_1, \ldots, a_d), b}$,
          where $(a_1, \ldots, a_d) \in \{0, 1\}^d$ and $b \in \{0, 1\}$}
-            \State $f \gets x_1 \land \bar{x}_1 \land \cdots 
+            \State $f \gets x_1 \land \bar{x}_1 \land \cdots
             \land x_d \land \bar{x}_d$
             \For{each $\angular{(a_1, \ldots, a_d), b} \in S$ with $b = 1$}
             	\For{$j$ in $[1, \ldots, d]$}
@@ -208,9 +208,9 @@ sampling error of the function returned by the algorithm is $0$.
 \section*{Exercise 3.5}
 
 The first thing to verify is that $\bar{\dist}_m$ is a distribution. This is
-easy since for all $x \in \dom$, $\bar{\dist}_m(x) \geq 0$ and 
+easy since for all $x \in \dom$, $\bar{\dist}_m(x) \geq 0$ and
 \begin{align*}
-	\int_{x \in \dom} \bar{\dist}_m (x) \dx x & = \frac{1}{m} \sum_{i = 1}^m  
+	\int_{x \in \dom} \bar{\dist}_m (x) \dx x & = \frac{1}{m} \sum_{i = 1}^m
 	\int_{x \in \dom} \dist_i (x) \dx x \\
 	& = \frac{1}{m} \sum_{i = 1}^m 1 \\
 	& = 1.
@@ -224,25 +224,25 @@ realizability, any hypothesis~$h$ output by the ERM procedure has $L_S(h) =
 0$. Thus the event $L_{\bar{\dist}_m, f} (h) > \epsilon$ and $L_S(h) = 0$
 happens only when $S \vert_x \in \mathcal{M}$. Hence,
 \begin{align*}
-	\Prtwo{\forall i \colon x_i \sim \dist_i}{S \vert_x \in \mathcal{M}} 
-	& = \Prtwo{\forall i \colon x_i \sim \dist_i}{\bigcup_{h \in \hypclass_{B}} 
+	\Prtwo{\forall i \colon x_i \sim \dist_i}{S \vert_x \in \mathcal{M}}
+	& = \Prtwo{\forall i \colon x_i \sim \dist_i}{\bigcup_{h \in \hypclass_{B}}
 			   \{S \vert_x \colon L_S(h) = 0\}} \\
-    & \leq \sum_{h \in \hypclass_B} 
+    & \leq \sum_{h \in \hypclass_B}
     		\Prtwo{\forall i \colon x_i \sim \dist_i}{S \vert_x \colon L_S(h) = 0} \\
-    & = \sum_{h \in \hypclass_B}  
+    & = \sum_{h \in \hypclass_B}
     		\prod_{i = 1}^{m} \Prtwo{x_i \sim \dist_i}{f(x_i) = h(x_i)} \\
-    & =  \sum_{h \in \hypclass_B}  
+    & =  \sum_{h \in \hypclass_B}
     		\prod_{i = 1}^{m} \left ( 1 - L_{\dist_i, f} (h) \right ) \\
-    & \leq \sum_{h \in \hypclass_B} \left [ 
+    & \leq \sum_{h \in \hypclass_B} \left [
             \frac{1}{m} \sum_{i = 1}^{m} \left ( 1 - L_{\dist_i, f} (h) \right )
         \right ]^m \\
-    & \leq \sum_{h \in \hypclass_B} \left [ 1 - L_{\bar{\dist}_{m}, f} (h)\right ]^m 
+    & \leq \sum_{h \in \hypclass_B} \left [ 1 - L_{\bar{\dist}_{m}, f} (h)\right ]^m
 \end{align*}
 
-The second-last inequality follows from the fact that the arithmetic mean of a set of numbers 
-is at most their geometric mean. The quantity 
-$\sum_{h \in \hypclass_B} [ 1 - L_{\bar{\dist}_{m}, f} (h)]^m$ 
-is at most $| \hypclass | \cdot (1 - \epsilon)^m $ which is at most 
+The second-last inequality follows from the fact that the arithmetic mean of a set of numbers
+is at most their geometric mean. The quantity
+$\sum_{h \in \hypclass_B} [ 1 - L_{\bar{\dist}_{m}, f} (h)]^m$
+is at most $| \hypclass | \cdot (1 - \epsilon)^m $ which is at most
 $| \hypclass | \cdot e^{- \epsilon m}$.
 
 \section*{Exercise 3.6}
@@ -253,7 +253,7 @@ functions from $\dom$ to $\{0, 1\}$ which is agnostic PAC-learnable wrt $\dom
 $m_{\mathcal{\hypclass}}$.  Let $f$ be a labeling function and let
 $\dist_{\dom}$ be a distribution over $\dom$ for which the realizability
 assumption holds, that is, there exists $h \in \hypclass$ such that
-$L_{\dist_{\dom}, f } (h) = 0$. 
+$L_{\dist_{\dom}, f } (h) = 0$.
 
 Define a distribution $\dist$ over $\dom \times \{0, 1\}$ as follows: for all
 $x \in \dom$, $\dist( (x, f(x)) ) = \dist_{\dom}(x)$ and $\dist( (x, 1 - f(x)))
@@ -262,82 +262,82 @@ there exists a learner $A$ which given a sample $S$ of $m \geq
 \SampleComp{\epsilon}{\delta}$ iid examples generated by $\dist$ returns a
 hypothesis $h_S$ such that
 \[
-    \Prtwo{S \sim \dist^m}{L_{\dist} (h_S) \leq 
+    \Prtwo{S \sim \dist^m}{L_{\dist} (h_S) \leq
         \min_{h' \in \hypclass} L_{\dist} (h') + \epsilon} > 1 - \delta.
-\] 
+\]
 
-Note that for any $h' \in \hypclass$, we may write the loss $L_{\dist} (h')$ as follows. 
+Note that for any $h' \in \hypclass$, we may write the loss $L_{\dist} (h')$ as follows.
 \begin{align*}
     L_{\dist} (h') & = \Prtwo{(x, y) \in \dist}{ h'(x) \neq y} \\
                    & = \Prtwo{(x, y) \in \dist}{ h'(x) \neq f(x)} \\
                    & = L_{\dist_{\dom}, f} (h').
 \end{align*}
 The second equality above follows since the only points $(x, y) \in \dom \times \{0, 1\}$
-for which $\dist$ places a non-zero probability mass are those for which $y = f(x)$. Since 
-we assume realizability, $ \min_{h' \in \hypclass} L_{\dist_{\dom}, f} (h') = 0$. Hence 
+for which $\dist$ places a non-zero probability mass are those for which $y = f(x)$. Since
+we assume realizability, $ \min_{h' \in \hypclass} L_{\dist_{\dom}, f} (h') = 0$. Hence
 the hypothesis $h_S$ returned by the learner $A$ satisfies:
 \[
-    \Prtwo{S|_{\dom} \sim \dist_{\dom}^m}{L_{\dist_{\dom}, f} (h_S) \leq \epsilon} 
+    \Prtwo{S|_{\dom} \sim \dist_{\dom}^m}{L_{\dist_{\dom}, f} (h_S) \leq \epsilon}
         > 1 - \delta,
-\] 
+\]
 which is the condition for successful PAC-learnability.
 
-\section*{Exercise 3.7} Let us fix some notation. We assume that $X$ and $Y$ are 
-random variables defined over the domains $\dom$ and $\{0, 1\}$, respectively. 
-Let $\dist_{X, Y}$ be a distribution over $\dom \times \{0, 1\}$; 
-let $\dist_{Y \mid X}$, the conditional distribution of $Y$ given $X$; l
-et $\dist_{X}$ be the marginal distribution of $X$ over $\dom$; and, finally, let 
-$\eta(x) = \Prtwo{\dist_{Y \mid X}}{Y = 1 \mid X = x}$. 
+\section*{Exercise 3.7} Let us fix some notation. We assume that $X$ and $Y$ are
+random variables defined over the domains $\dom$ and $\{0, 1\}$, respectively.
+Let $\dist_{X, Y}$ be a distribution over $\dom \times \{0, 1\}$;
+let $\dist_{Y \mid X}$, the conditional distribution of $Y$ given $X$;
+let $\dist_{X}$ be the marginal distribution of $X$ over $\dom$; and, finally, let
+$\eta(x) = \Prtwo{\dist_{Y \mid X}}{Y = 1 \mid X = x}$.
 
-The Bayes optimal classifier $f_{\dist}$ may be written as:
+Using this notation, the Bayes optimal classifier $f_{\dist}$ may be written as:
 \[
-    f_{\dist} (x) = \left \{ \begin{array}{ll} 
+    f_{\dist} (x) = \left \{ \begin{array}{ll}
                                 1 & \text{if } \eta(x) \geq 1/2 \\
                                 0 & \text{otherwise}
                          \end{array} \right .
 \]
-Given any classifier $g \colon \dom \rightarrow \{0, 1\}$, the risk of this 
-classifier is 
+Given any classifier $g \colon \dom \rightarrow \{0, 1\}$, the risk of this
+classifier is
 \begin{equation}
 \label{ex3.7:loss}
-    L_{\dist} (g) = \Prtwo{\dist_{X, Y}}{g(X) \neq Y} = \int_{x \in \dom} 
+    L_{\dist} (g) = \Prtwo{\dist_{X, Y}}{g(X) \neq Y} = \int_{x \in \dom}
  \Prtwo{\dist_{Y \mid X}}{g(x) \neq Y \mid X = x} \cdot \Prtwo{\dist_{X}}{X = x} \dx x.
 \end{equation}
-We may write the first term of this intergrand as follows (where all probabilities 
+We may write the first term of this intergrand as follows (where all probabilities
 are with respect to the conditional distribution $\dist_{Y \mid X}$):
 \begin{align*}
     \Prone{g(x) \neq Y \mid X = x} & =  1 - \Prone{g(x) = Y \mid X = x} \\
     & = 1 - \left [ \Prone{g(x) = 1, Y = 1 \mid X = x} + \Prone{g(x) = 0, Y = 0 \mid X = x} \right ] \\
-    & = 1 - \left [ \ind_{g(x) = 1} \cdot \Prone{Y = 1 \mid X = x}  + 
+    & = 1 - \left [ \ind_{g(x) = 1} \cdot \Prone{Y = 1 \mid X = x}  +
                   \ind_{g(x) = 0} \cdot \Prone{Y = 0 \mid X = x} \right ] \\
-    & = 1 - \left [ \ind_{g(x) = 1} \cdot \eta (x)  + 
+    & = 1 - \left [ \ind_{g(x) = 1} \cdot \eta (x)  +
                   \ind_{g(x) = 0} \cdot (1 - \eta (x)) \right ] \\
 \end{align*}
 
 Consider the difference $\Prone{g(x) \neq Y \mid X = x} - \Prone{f_{\dist}(x) \neq Y \mid X = x}$.
 This may be written as:
 \begin{multline*}
-\left [ \ind_{f_{\dist} (x) = 1} \cdot \eta (x)  + 
-        \ind_{f_{\dist} (x) = 0} \cdot (1 - \eta (x)) \right ] - 
-\left [ \ind_{g(x) = 1} \cdot \eta (x)  + 
+\left [ \ind_{f_{\dist} (x) = 1} \cdot \eta (x)  +
+        \ind_{f_{\dist} (x) = 0} \cdot (1 - \eta (x)) \right ] -
+\left [ \ind_{g(x) = 1} \cdot \eta (x)  +
         \ind_{g(x) = 0} \cdot (1 - \eta (x)) \right ]  \\
-  = \left ( \ind_{f_{\dist} (x) = 1} - \ind_{g(x) = 1} \right ) \cdot \eta(x) + 
-  \left ( \ind_{f_{\dist} (x) = 0} - \ind_{g(x) = 0} \right ) \cdot (1 - \eta(x)). 
+  = \left ( \ind_{f_{\dist} (x) = 1} - \ind_{g(x) = 1} \right ) \cdot \eta(x) +
+  \left ( \ind_{f_{\dist} (x) = 0} - \ind_{g(x) = 0} \right ) \cdot (1 - \eta(x)).
 \end{multline*}
-This last expression may be written as:  
-\[\left ( \ind_{f_{\dist} (x) = 1} - \ind_{g(x) = 1} \right ) \cdot \eta(x) + 
-  \left ( \ind_{g (x) = 1} - \ind_{f_{\dist} (x) = 1} \right ) \cdot (1 - \eta(x)). 
+This last expression may be written as:
+\[\left ( \ind_{f_{\dist} (x) = 1} - \ind_{g(x) = 1} \right ) \cdot \eta(x) +
+  \left ( \ind_{g (x) = 1} - \ind_{f_{\dist} (x) = 1} \right ) \cdot (1 - \eta(x)).
 \]
 Rearranging terms allows us to write this as:
 \begin{equation}
-2 \cdot \left ( \ind_{f_{\dist} (x) = 1} - \ind_{g(x) = 1} \right ) \cdot \eta(x) + 
-  \left ( \ind_{g (x) = 1} - \ind_{f_{\dist} (x) = 1} \right ). 
+2 \cdot \left ( \ind_{f_{\dist} (x) = 1} - \ind_{g(x) = 1} \right ) \cdot \eta(x) +
+  \left ( \ind_{g (x) = 1} - \ind_{f_{\dist} (x) = 1} \right ).
 \end{equation}
 We claim that this last expression is always non-negative. If $f_{\dist} (x) = 0$ then
 $\eta (x) < 1/2$ and the above expression is non-negative. If $f_{\dist} (x) = 1$ then
 $\eta (x) \geq 1/2$ and, in this case too, the expression is non-negative. The result
-follows by plugging in the difference 
-$\Prone{g(x) \neq Y \mid X = x} - \Prone{f_{\dist}(x) \neq Y \mid X = x}$ 
+follows by plugging in the difference
+$\Prone{g(x) \neq Y \mid X = x} - \Prone{f_{\dist}(x) \neq Y \mid X = x}$
 in the integral in~(\ref{ex3.7:loss}).
 
 
