@@ -33,7 +33,7 @@ high probability for all learning tasks on the domain $\dom \times \range$ that
 satisfy the realizability condition.
 
 \begin{definition}[Agnostic PAC Learnability]
-A class $\hypclass$ is PAC learnable if there exists a function $\samplecomp
+A class $\hypclass$ is agnostic PAC learnable if there exists a function $\samplecomp
 \colon (0, 1) \times (0, 1) \rightarrow \Nat$ and a learning algorithm $\algo$
 such that the following holds: for all $\epsilon, \delta \in (0, 1)$ and all
 distributions $\dist$ over $\dom \times \range$ such that, if $\algo$ is
@@ -46,7 +46,7 @@ drawn iid from $\dist$, $\algo$ returns a hypothesis $h_S$ such that
 \end{definition}
 In the agnostic setting, a learning task is completely specified by the triplet
 $(\dom, \range, \dist)$ and a hypothesis class is agnostic PAC learnable if
-there exists a leraner which when given a sufficiently many training examples
+there exists a learner which when given a sufficiently many training examples
 outputs a ``good enough'' hypothesis with high probability. The goodness of the
 hypothesis is measured with respect to the best hypothesis of the class $\hypclass$.
 
