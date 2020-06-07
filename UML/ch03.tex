@@ -301,8 +301,9 @@ classifier is
 \begin{equation}
 \label{ex3.7:loss}
     L_{\dist} (g) = \Prtwo{\dist_{X, Y}}{g(X) \neq Y} = \int_{x \in \dom}
- \Prtwo{\dist_{Y \mid X}}{g(x) \neq Y \mid X = x} \cdot \Prtwo{\dist_{X}}{X = x} \dx x.
+ \Prtwo{\dist_{Y \mid X}}{g(x) \neq Y \mid X = x} \cdot \Prtwo{\dist_{X}}{X = x} \dx x,
 \end{equation}
+where the second equality follows from the Law of Total Probability.
 We may write the first term of this intergrand as follows (where all probabilities
 are with respect to the conditional distribution $\dist_{Y \mid X}$):
 \begin{align*}
