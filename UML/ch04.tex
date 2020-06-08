@@ -3,44 +3,44 @@
 \section*{Notes on Chapter 4}
 
 Given any hypothesis class $\hypclass$ and a domain $Z = \dom \times Y$, let
-$l$ be a loss function from $\hypclass \times Z \rightarrow \Rpos$. Finally let
+$l$ be a loss function from $\hypclass \times Z \rightarrow \Rpos$. Let
 $\dist$ be a distribution over the domain $Z$. The risk of a hypothesis $h \in
 \hypclass$ is
 \[
-    L_{\dist}(h) = \Prtwo{z \sim \dist}{l(h, z)}
+    L_{\dist}(h) = \Exptwo{z \sim \dist}{l(h, z)}
 \]
 A training set $S$ is $\epsilon$-representative w.r.t $Z$, $\hypclass$, $Z$ and
 $l$ if for all $h \in \hypclass$, $|L_S (h) - L_{\dist} (h)| \leq \epsilon$.
 Thus any hypothesis on an $\epsilon$-representative training set has an
-in-sample error that is close to their true risk. 
+in-sample error that is close to their true risk.
 
 If $S$ is $\epsilon$-representative, then the $\ERM_{\hypclass}(S)$ learning
 rule is guaranteed to return a good hypothesis. More specifically,
 \begin{lemma}
 \label{lemma:epsilon_representative}
-Fix a hypothesis class $\hypclass$, a domain $Z = \dom \times Y$, a loss 
+Fix a hypothesis class $\hypclass$, a domain $Z = \dom \times Y$, a loss
 function $l \colon \hypclass \times Z \rightarrow \Rpos$ and a distribution
-$\dist$ over the domain $Z$. Let $S$ be an $\epsilon/2$-representative sample. 
-Then any output $h_S$ of $\ERM_{\hypclass}(S)$ satisfies 
+$\dist$ over the domain $Z$. Let $S$ be an $\epsilon/2$-representative sample.
+Then any output $h_S$ of $\ERM_{\hypclass}(S)$ satisfies
 \[
-    L_{\dist} (h_S) \leq \min_{h' \in \hypclass} L_{\dist}(h') + \epsilon 
+    L_{\dist} (h_S) \leq \min_{h' \in \hypclass} L_{\dist}(h') + \epsilon
 \]
 \end{lemma}
 
 Therefore in order for the $\ERM$ rule to be an agnostic PAC-learner, all we
 need to do is to ensure that with probability of at least $1 - \delta$ over
 random choices of the training set, we end up with an
-$\epsilon/2$-representative training sample. This requirement is baked into 
-the definition of \emph{uniform convergence}. 
+$\epsilon/2$-representative training sample. This requirement is baked into
+the definition of \emph{uniform convergence}.
 
 \begin{definition}
-A hypothesis class $\hypclass$ is uniformly convergent wrt a domain $Z$ 
-and a loss function $l$, if there exists a function 
-$\USampleComp \colon (0, 1) \times (0, 1) \rightarrow \Nat$ such that 
+A hypothesis class $\hypclass$ is uniformly convergent wrt a domain $Z$
+and a loss function $l$, if there exists a function
+$\USampleComp \colon (0, 1) \times (0, 1) \rightarrow \Nat$ such that
 for all $\epsilon, \delta \in (0, 1)$ and all distributions $\dist$ on $Z$,
 if a sample of at least $\usamplecomp{\epsilon}{\delta}$ examples is chosen
-i.i.d from $\dist$, then with probability $1 - \delta$, the sample is 
-$\epsilon$-representative.   
+i.i.d from $\dist$, then with probability $1 - \delta$, the sample is
+$\epsilon$-representative.
 \end{definition}
 
 By Lemma~(\ref{lemma:epsilon_representative}), if $\hypclass$ is uniformly
@@ -50,48 +50,48 @@ with sample complexity $\SampleComp{\epsilon}{\delta} \leq
 successful agnostic PAC-learner for $\hypclass$.
 
 The other main result is that all finite hypothesis classes are uniformly convergent
-and hence agnostic PAC learnable. 
+and hence agnostic PAC learnable.
 
 \section*{Exercise 4.1}
 
-We first show that $(1) \Rightarrow (2)$. For each $n \in \Nat$, define 
-$\epsilon_n = 1 / 2^n$ and $\delta_n = 1 / 2^n$. Then by $(1)$, for each 
-$n \in \Nat$, there exists $m(\epsilon_n, \delta_n)$ such that 
-$\forall m \geq m(\epsilon_n, \delta_n)$, 
+We first show that $(1) \Rightarrow (2)$. For each $n \in \Nat$, define
+$\epsilon_n = 1 / 2^n$ and $\delta_n = 1 / 2^n$. Then by $(1)$, for each
+$n \in \Nat$, there exists $m(\epsilon_n, \delta_n)$ such that
+$\forall m \geq m(\epsilon_n, \delta_n)$,
 \[
     \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) > \epsilon_n} < \delta_n.
 \]
 We can then upper bound $\Exptwo{S \sim \dist^m}{L_{\dist}(h_s)}$ as follows:
 \begin{align*}
-\Exptwo{S \sim \dist^m}{L_{\dist} (h_s)} 
+\Exptwo{S \sim \dist^m}{L_{\dist} (h_s)}
 & \leq \epsilon_n \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) \leq \epsilon_n} +
     (1 - \epsilon_n) \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) > \epsilon_n} \\
 & \leq \epsilon_n \cdot (1 - \delta_n) + (1 - \epsilon_n) \cdot \delta_n \\
-& \leq \frac{1}{2^{n - 1}} - \frac{1}{2^{2n - 1}}.      
+& \leq \frac{1}{2^{n - 1}} - \frac{1}{2^{2n - 1}}.
 \end{align*}
-The first inequality follows from the fact that the loss function is from 
+The first inequality follows from the fact that the loss function is from
 $\hypclass \times Z \rightarrow [0, 1]$, which allows us to upper bound the value of the error
-when $L_{\dist} (h_S) > \epsilon_n$ by $1 - \epsilon_n$. As $n \to \infty$, $m \to \infty$ 
+when $L_{\dist} (h_S) > \epsilon_n$ by $1 - \epsilon_n$. As $n \to \infty$, $m \to \infty$
 and $\Exptwo{S \sim \dist^m}{L_{\dist} (h_s)} \to 0$, proving that $(2)$ follows.
 
 We next show that $(2) \Rightarrow (1)$. Fix $\epsilon, \delta > 0$. Define
-$\delta' = \epsilon \cdot \delta$. Since 
-$$\lim_{m \to \infty} \Exptwo{S \sim \dist^m}{L_{\dist}(h_s)} = 0,$$ 
+$\delta' = \epsilon \cdot \delta$. Since
+$$\lim_{m \to \infty} \Exptwo{S \sim \dist^m}{L_{\dist}(h_s)} = 0,$$
 there exists $m_1(\delta')$ such that for all $m
 \geq m_1(\delta')$ we have $\Exptwo{S \sim \dist^m}{L_{\dist}(h_s)} < \delta'$.
 We now lower bound $\Exptwo{S \sim \dist^m}{L_{\dist}(h_s)}$ as follows:
 \begin{align*}
-\Exptwo{S \sim \dist^m}{L_{\dist}(h_s)} 
+\Exptwo{S \sim \dist^m}{L_{\dist}(h_s)}
 & = \int_{0}^{1} x \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) = x} \dx x \\
 & \geq \int_{\epsilon}^1 x \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) = x} \dx x \\
 & \geq \epsilon \cdot \int_{\epsilon}^1 \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) = x} \dx x \\
-& = \epsilon \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) \geq \epsilon}. 
+& = \epsilon \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) \geq \epsilon}.
 \end{align*}
 
 Choose $m(\epsilon, \delta) := m_1(\epsilon \cdot \delta)$. Then for all $m
 \geq m(\epsilon, \delta)$, we have that $\Exptwo{S \sim
 \dist^m}{L_{\dist}(h_s)} < \epsilon \cdot \delta$, from which it follows that:
 \[
-    \epsilon \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) \geq \epsilon} < 
+    \epsilon \cdot  \Prtwo{S \sim \dist^{m}}{L_{\dist} (h_S) \geq \epsilon} <
         \epsilon \cdot \delta. \]
-Condition $(1)$ follows from this.  
+Condition $(1)$ follows from this.
