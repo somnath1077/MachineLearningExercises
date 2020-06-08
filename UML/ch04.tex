@@ -9,8 +9,18 @@ $\dist$ be a distribution over the domain $Z$. The risk of a hypothesis $h \in
 \[
     L_{\dist}(h) = \Exptwo{z \sim \dist}{l(h, z)}
 \]
-A training set $S$ is $\epsilon$-representative w.r.t $Z$, $\hypclass$, $Z$ and
-$l$ if for all $h \in \hypclass$, $|L_S (h) - L_{\dist} (h)| \leq \epsilon$.
+The empirical risk of a hypothesis~$h$ w.r.t a sample~$S = \{ z_i \}_{i = 1}^{m}$
+is defined as:
+\[
+    L_{S} (h) = \frac{1}{m} \sum_{i = 1}^m l(h, z_i)
+\]
+
+\begin{definition}
+A training set $S$ is $\epsilon$-representative w.r.t the domain~$Z$,
+the hypothesis class~$\hypclass$, the distribution~$\dist$ and
+the loss function~$l$ if for all $h \in \hypclass$,
+$|L_S (h) - L_{\dist} (h)| \leq \epsilon$.
+\end{definition}
 Thus any hypothesis on an $\epsilon$-representative training set has an
 in-sample error that is close to their true risk.
 
@@ -26,6 +36,23 @@ Then any output $h_S$ of $\ERM_{\hypclass}(S)$ satisfies
     L_{\dist} (h_S) \leq \min_{h' \in \hypclass} L_{\dist}(h') + \epsilon
 \]
 \end{lemma}
+\begin{proof}
+The output $h_S$ of $\ERM_{\hypclass}(S)$ is such that
+\[
+    h_S = \argmin_{h \in \hypclass} L_S(h).
+\]
+Since $S$ is $\epsilon / 2$ representative,
+\begin{align*}
+    L_{\dist}(h_S) & \leq L_S (h_S) + \frac{\epsilon}{2} \\
+                   & \leq \min_{h \in \hypclass} L_S (h) + \frac{\epsilon}{2} \\
+                   & \leq \min_{h \in \hypclass} L_{\dist} (h) + \frac{\epsilon}{2} + \frac{\epsilon}{2} \\
+                   & \leq \min_{h \in \hypclass} L_{\dist} (h) + \epsilon.
+\end{align*}
+In the above derivation, the second inequality follows from the fact that $h_S$ minimizes
+the empirical risk among all hypotheses in~$\hypclass$; the third inequality follows
+from the fact that $S$ is $\epsilon / 2$-representative and hence
+$L_S(h) \leq L_{\dist} (h) + \epsilon / 2$ for all $h \in \hypclass$.
+\end{proof}
 
 Therefore in order for the $\ERM$ rule to be an agnostic PAC-learner, all we
 need to do is to ensure that with probability of at least $1 - \delta$ over
@@ -38,7 +65,7 @@ A hypothesis class $\hypclass$ is uniformly convergent wrt a domain $Z$
 and a loss function $l$, if there exists a function
 $\USampleComp \colon (0, 1) \times (0, 1) \rightarrow \Nat$ such that
 for all $\epsilon, \delta \in (0, 1)$ and all distributions $\dist$ on $Z$,
-if a sample of at least $\usamplecomp{\epsilon}{\delta}$ examples is chosen
+if a sample with at least $\usamplecomp{\epsilon}{\delta}$ examples is chosen
 i.i.d from $\dist$, then with probability $1 - \delta$, the sample is
 $\epsilon$-representative.
 \end{definition}
