@@ -75,6 +75,11 @@ convergent with function $\USampleComp$, then it is agnostically PAC-learnable
 with sample complexity $\SampleComp{\epsilon}{\delta} \leq
 \usamplecomp{\epsilon / 2}{\delta}$. In this case, the $\ERM$ paradigm is a
 successful agnostic PAC-learner for $\hypclass$.
+\begin{corollary}
+If a class $\hypclass$ is uniformly convergent with sample complexity function
+$\USampleComp$ then the class is agnostically PAC-learnable with sample complexity
+$\SampleComp{\epsilon}{\delta} \leq \usamplecomp{\epsilon / 2}{\delta}$.
+\end{corollary}
 
 The other main result is that all finite hypothesis classes are uniformly convergent
 and hence agnostic PAC learnable.
