@@ -83,6 +83,16 @@ $\SampleComp{\epsilon}{\delta} \leq \usamplecomp{\epsilon / 2}{\delta}$.
 
 The other main result is that all finite hypothesis classes are uniformly convergent
 and hence agnostic PAC learnable.
+\begin{theorem}
+Let  $Z = \dom \times \range$ be a domain, $\hypclass = \{h \colon \dom \rightarrow \range \}$ be a finite hypothesis class and let $l \colon \hypclass \times Z \rightarrow [0, 1]$ be a loss function. Then $\hypclass$ is uniformly convergent with sample complexity
+\[
+	\usamplecomp{\epsilon}{\delta} \leq \frac{\log (2 |\hypclass| / d)}{2 \epsilon^2}.
+\] 
+Furthermore, $\hypclass$ is agnostically PAC-learnable with sample complexity
+\[
+	\SampleComp{\epsilon}{\delta} \leq \frac{2 \log (2 |\hypclass| / d)}{\epsilon^2}.
+\]
+\end{theorem}
 
 \section*{Exercise 4.1}
 
