@@ -87,7 +87,8 @@ and hence agnostic PAC learnable.
 Let  $Z = \dom \times \range$ be a domain,
 $\hypclass = \{h \colon \dom \rightarrow \range \}$ be a finite hypothesis class and
 let $l \colon \hypclass \times Z \rightarrow [0, 1]$ be a loss function that is
-bounded so that $a \leq l(h, z) \leq b$ for all $h \in \hypclass$ and $z \in Z$.
+bounded so that $a \leq l(h, z) \leq b$ for all $h \in \hypclass$ and $z \in Z$
+for some $a, b \in \Rpos$.
 Then $\hypclass$ is uniformly convergent with sample complexity
 \[
 	\usamplecomp{\epsilon}{\delta} \leq
