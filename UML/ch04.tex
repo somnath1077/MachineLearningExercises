@@ -75,7 +75,7 @@ convergent with function $\USampleComp$, then it is agnostically PAC-learnable
 with sample complexity $\SampleComp{\epsilon}{\delta} \leq
 \usamplecomp{\epsilon / 2}{\delta}$. In this case, the $\ERM$ paradigm is a
 successful agnostic PAC-learner for $\hypclass$.
-\begin{corollary}
+\begin{corollary} \label{cor:uniform_convergence}
 If a class $\hypclass$ is uniformly convergent with sample complexity function
 $\USampleComp$ then the class is agnostically PAC-learnable with sample complexity
 $\SampleComp{\epsilon}{\delta} \leq \usamplecomp{\epsilon / 2}{\delta}$.
@@ -168,6 +168,14 @@ Simplifying, this gives us the bound:
 \[
     \frac{(b - a)^2}{2 \epsilon^2} \log \left ( \frac{2 \cdot |\hypclass|}{\delta}\right ) \leq m.
 \]
+This gives us the bound on $\usamplecomp{\epsilon}{\delta}$:
+\[
+    \usamplecomp{\epsilon}{\delta}
+        \leq
+    \frac{(b - a)^2 \cdot \log (2 |\hypclass| / d)}{2 \epsilon^2}.
+\]
+The bound on $\SampleComp{\epsilon}{\delta}$ follows from
+Corollary~\ref{cor:uniform_convergence}.
 \end{proof}
 
 \section*{Exercise 4.1}
