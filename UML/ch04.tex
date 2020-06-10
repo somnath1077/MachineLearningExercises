@@ -84,15 +84,90 @@ $\SampleComp{\epsilon}{\delta} \leq \usamplecomp{\epsilon / 2}{\delta}$.
 The other main result is that all finite hypothesis classes are uniformly convergent
 and hence agnostic PAC learnable.
 \begin{theorem}
-Let  $Z = \dom \times \range$ be a domain, $\hypclass = \{h \colon \dom \rightarrow \range \}$ be a finite hypothesis class and let $l \colon \hypclass \times Z \rightarrow [0, 1]$ be a loss function. Then $\hypclass$ is uniformly convergent with sample complexity
+Let  $Z = \dom \times \range$ be a domain,
+$\hypclass = \{h \colon \dom \rightarrow \range \}$ be a finite hypothesis class and
+let $l \colon \hypclass \times Z \rightarrow [0, 1]$ be a loss function that is
+bounded so that $a \leq l(h, z) \leq b$ for all $h \in \hypclass$ and $z \in Z$.
+Then $\hypclass$ is uniformly convergent with sample complexity
 \[
-	\usamplecomp{\epsilon}{\delta} \leq \frac{\log (2 |\hypclass| / d)}{2 \epsilon^2}.
-\] 
+	\usamplecomp{\epsilon}{\delta} \leq
+        \frac{(b - a)^2 \cdot \log (2 |\hypclass| / d)}{2 \epsilon^2}.
+\]
 Furthermore, $\hypclass$ is agnostically PAC-learnable with sample complexity
 \[
-	\SampleComp{\epsilon}{\delta} \leq \frac{2 \log (2 |\hypclass| / d)}{\epsilon^2}.
+	\SampleComp{\epsilon}{\delta} \leq
+        \frac{2 \cdot (b - a)^2 \cdot \log (2 |\hypclass| / d)}{\epsilon^2}.
 \]
 \end{theorem}
+\begin{proof}
+It is sufficient to show that $\hypclass$ is uniformly convergent under these
+conditions. Fix $\epsilon, \delta > 0$. Let $\dist$ be a distribution on $Z$. We
+wish to show that there exists $m \in \Nat$ such that when a sample~$S$ from~$Z$
+is picked i.i.d according to~$\dist$
+\[
+    \Prtwo{S \sim \dist^m}{S \colon \forall \ h \in \hypclass,
+             |L_S(h) - L_{\dist}(h)| \leq \epsilon} \geq 1 - \delta.
+\]
+
+This probability is equivalent to saying that
+\[
+    \Prtwo{S \sim \dist^m}{S \colon \exists \ h \in \hypclass,
+             |L_S(h) - L_{\dist}(h)| > \epsilon} < \delta.
+\]
+Moreover, we can upper bound this probability using the Union Bound as follows:
+\begin{equation} \label{eqn:union_bound}
+    \Prtwo{S \sim \dist^m}{S \colon \exists \ h \in \hypclass,
+             |L_S(h) - L_{\dist}(h)| > \epsilon}
+    \leq \sum_{h \in \hypclass} \Prtwo{S \sim \dist^m}{S \colon |L_S(h) - L_{\dist}(h)| > \epsilon}.
+\end{equation}
+Note that we are using the fact that $\hypclass$ is finite here.
+
+Recall that $L_{\dist} (h) = \Exptwo{z \sim \dist}{l(h, z)}$ and that
+$L_S (h) = \frac{1}{m} \sum_{i = 1}^m l(h, z_i)$. Since the points $z_i$ are sampled
+i.i.d according to~$\dist$, the random variables $l(h, z_i)$ have expectation
+$L_{\dist}(h)$. The expectation of $L_S(h)$ by the linearity of expectation is also
+$L_{\dist}(h)$. Thus the quantity $|L_S(h) - L_{\dist}(h)|$ is the deviation of a
+random variable $L_S(h)$ from its expected value. By the Law of Large Numbers, as
+$m \to \infty$, $|L_S(h) - L_{\dist}(h)| \to 0$. Thus the intuition why large-enough
+samples are $\epsilon$-representative follows directly from this. However
+the Law of Large Numbers is an asymptotic result and in order to be able
+to provide a bound on the deviation between an empirically estimated error and its
+true value for a finite sample size, we need a measure concentration inequality.
+
+\begin{lemma}[Hoeffding's Inequality]
+Let $\theta_1, \ldots, \theta_m$ be a sequence of i.i.d random variables. Suppose that
+for all~$i$, $\Expone{\theta_i} = \mu$ and $\Prone{a \leq \theta_i \leq b} = 1$. Then
+for any $\epsilon > 0$
+\[
+    \Prone{\left | \frac{1}{m} \sum_{i = 1}^m \theta_i - \mu \right | > \epsilon}
+    \leq 2 \exp{\left \{ - \frac{2 m \epsilon^2}{(b - a)^2} \right \}}.
+\]
+\end{lemma}
+
+Applying this to our case, we let $\theta_i = l(h, z_i)$ and $\mu = L_{\dist}(h)$.
+We also assumed that the loss function values lie in the interval $[a, b]$. Then
+by Hoeffding's Inequality, we have that
+\begin{equation}
+    \Prtwo{S \sim \dist^m}{S \colon |L_S(h) - L_{\dist}(h)| > \epsilon}
+        \leq
+    2 \exp{\left \{ - \frac{2 m \epsilon^2}{(b - a)^2} \right \}}.
+\end{equation}
+Plugging this in equation~(\ref{eqn:union_bound}), we obtain:
+\begin{equation}
+    \Prtwo{S \sim \dist^m}{S \colon \exists h \in \hypclass, |L_S(h) - L_{\dist}(h)| > \epsilon}
+        \leq
+    2 \cdot |\hypclass| \cdot \exp{\left \{ - \frac{2 m \epsilon^2}{(b - a)^2} \right \}}.
+\end{equation}
+
+Choose $m$ sufficiently large so that
+\[
+    2 \cdot |\hypclass| \cdot \exp{\left \{ - \frac{2 m \epsilon^2}{(b - a)^2} \right \}} \leq \delta.
+\]
+Simplifying, this gives us the bound:
+\[
+    \frac{(b - a)^2}{2 \epsilon^2} \log \left ( \frac{2 \cdot |\hypclass|}{\delta}\right ) \leq m.
+\]
+\end{proof}
 
 \section*{Exercise 4.1}
 
