@@ -10,7 +10,7 @@ $|\hypclass| = 2^{|\dom|}$, the sample complexity is $\frac{|\dom| + \log (1 /
 \delta)}{\epsilon} = O(|\dom|)$.
 
 Let us suppose that $A$ is a learning algorithm for the task of binary
-classification w.r.t 0-1 loss over the domain $\dom$. Furthermore, assume
+classification w.r.t $\zeroone$ loss over the domain $\dom$. Furthermore, assume
 that $A$ has no access to any prior knowledge in the sense that the hypothesis
 class from which it chooses its hypotheses is the set of all functions from
 $\dom \rightarrow \{0, 1\}$.
@@ -35,7 +35,7 @@ classes are not PAC-learnable.
 
 \begin{theorem}
 \label{thm:no_free_lunch}
-Consider the task of binary classification over the domain $\dom$ wrt the 0-1
+Consider the task of binary classification over the domain $\dom$ wrt the $\zeroone$
 loss function. Let $A$ be a learning algorithm that is constrained to use at
 most $m \leq |\dom| / 2$ training examples. Then there exist
 a function $f \colon \dom \rightarrow \{0, 1\}$ and a distribution
