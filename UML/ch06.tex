@@ -89,7 +89,17 @@ whether it is learnable. This characterization is provided by the so-called VC-d
 To motivate the definition of VC-dimension, we note that the proof of the No-Free-Lunch
 Theorem relied on the fact that there exists a finite subset $C \subset \dom$ such
 that the adversary could choose a target function from the set of \emph{all} possible
-functions from $C \rightarrow \{0, 1\}$.
+functions from $C \rightarrow \{0, 1\}$. This leads us to the following
+definition
+\begin{definition}[Restriction of $\hypclass$ to $C$] Let $\hypclass$ be the
+set of functions from $\dom \rightarrow \{0, 1\}$ and let
+$C = \{c_1, \ldots, c_m\} \subset \dom$. Then
+the restriction of $\hypclass$ to $C$ is the set of functions~$\hypclass_C$
+from $C \to \{0, 1\}$  that can be derived from $\hypclass$.
+\[
+    \hypclass_C = \{(h(c_1), \ldots, h(c_m)) \colon h \in \hypclass\}.
+\]
+\end{definition}
 
 \section{The Fundamental Theorem of Statistical Learning}
 
