@@ -1,35 +1,35 @@
 \chapter{The VC-Dimension}
 
-\section*{Notes on Chapter 6}
+\section{Notes on Chapter 6}
 
 We know that finite hypothesis classes are agnostic PAC learnable (and hence
-PAC learnable).  What about infinite hypothesis classes? The first example is 
-that of an infinite hypothesis class that is PAC learnable. 
+PAC learnable).  What about infinite hypothesis classes? The first example is
+that of an infinite hypothesis class that is PAC learnable.
 
 \begin{example}[Threshold Functions]
-Let $\dom = [0, 1]$ and $\range = \{0, 1\}$. For $r \in [0, 1]$, define 
+Let $\dom = [0, 1]$ and $\range = \{0, 1\}$. For $r \in [0, 1]$, define
 $h_r \colon \dom \rightarrow \range $ as:
 \[
-    h_r(x) = \left \{ \begin{array}{ll} 
+    h_r(x) = \left \{ \begin{array}{ll}
                         0 & \text{if } x \leq r \\
                         1 & \text{if } x > r
                       \end{array}\right .
 \]
-Let $\hypclass_{\text{thr}}$ be the set of all threshold functions $h_r$ 
-for $r \in [0, 1]$. Since $\hypclass_{\text{thr}}$ is not finite, it is 
-not immediately obvious whether it is PAC learnable (in the realizable case). 
+Let $\hypclass_{\text{thr}}$ be the set of all threshold functions $h_r$
+for $r \in [0, 1]$. Since $\hypclass_{\text{thr}}$ is not finite, it is
+not immediately obvious whether it is PAC learnable (in the realizable case).
 
 Fix $\epsilon, \delta \in (0, 1)$. Let $f = h_s$ be the true labeling function
 where $s \in [0, 1]$ and let $\dist$ be the underlying distribution over the
-domain $[0, 1]$. Let $s_0 \in [0, s)$ and $s_1 \in [s, 1]$ be numbers such that  
+domain $[0, 1]$. Let $s_0 \in [0, s)$ and $s_1 \in [s, 1]$ be numbers such that
 \[
-    \dist \left \{ x \in [s_0, s) \right \} = \epsilon =  
+    \dist \left \{ x \in [s_0, s) \right \} = \epsilon =
     \dist \left \{ x \in [s, s_1] \right \}
 \]
-If $\dist \left \{ [0, s) \right \} < \epsilon$, then set $s_0 = 0$; similarly, 
-if $\dist \left \{ [s, 1] \right \} < \epsilon$, set $s_1 = 1$. Since $\dist$ 
-is a distribution, it must place a probability mass of $\epsilon$ either to 
-the left or to the right of $s$. 
+If $\dist \left \{ [0, s) \right \} < \epsilon$, then set $s_0 = 0$; similarly,
+if $\dist \left \{ [s, 1] \right \} < \epsilon$, set $s_1 = 1$. Since $\dist$
+is a distribution, it must place a probability mass of $\epsilon$ either to
+the left or to the right of $s$.
 
 Given a sample $S$, let $t_0 = \max \{t \colon (t, 0) \in S\}$ and $t_1 = \min
 \{t \colon (t, 1) \in S\}$. The ERM algorithm outputs $h_p$, where $p \in (t_0,
@@ -37,21 +37,21 @@ t_1)$.  In particular, if the sample presented to the ERM algorithm is such
 that $s_0 \leq t_0$ and $t_1 \leq s_1$, then hypothesis $h_p$ returned by the ERM
 algorithm will incur a loss of $L_{\dist}(h_p) \leq \epsilon$.
 
-Thus the probability that the hypothesis $\ERM(S)$ output by the ERM algorithm 
+Thus the probability that the hypothesis $\ERM(S)$ output by the ERM algorithm
 has a loss greater than $\epsilon$ on a sample $S$ of size $m$ is:
 \begin{align*}
-    \Prtwo{S \sim \dist^m}{L_{\dist} (\ERM(S)) > \epsilon} 
+    \Prtwo{S \sim \dist^m}{L_{\dist} (\ERM(S)) > \epsilon}
      & = \Prtwo{S \sim \dist^m}{S \colon t_0 < s_0 \vee s_1 < t_1} \\
-     & \leq  \Prtwo{S \sim \dist^m}{S \colon S|_x \cap [s_0, s) = \emptyset} + 
-             \Prtwo{S \sim \dist^m}{S \colon S|_x \cap [s, s_1] = \emptyset} \\      
+     & \leq  \Prtwo{S \sim \dist^m}{S \colon S|_x \cap [s_0, s) = \emptyset} +
+             \Prtwo{S \sim \dist^m}{S \colon S|_x \cap [s, s_1] = \emptyset} \\
      & \leq 2 \cdot (1 - \epsilon)^m \\
      & \leq 2 \cdot e^{- \epsilon m}
 \end{align*}
-Setting the last expression to be at most $\delta$, we obtain that 
-$m > \frac{1}{\epsilon} \cdot \log \frac{2}{\delta}$. Hence if we have samples 
-of size at least $\frac{1}{\epsilon} \cdot \log \frac{2}{\delta}$, 
+Setting the last expression to be at most $\delta$, we obtain that
+$m > \frac{1}{\epsilon} \cdot \log \frac{2}{\delta}$. Hence if we have samples
+of size at least $\frac{1}{\epsilon} \cdot \log \frac{2}{\delta}$,
 \[
-    \Prtwo{S \sim \dist^m}{L_{\dist} (\ERM(S)) \leq \epsilon} \geq 1 - \delta, 
+    \Prtwo{S \sim \dist^m}{L_{\dist} (\ERM(S)) \leq \epsilon} \geq 1 - \delta,
 \]
 which is the condition for PAC learnability.
 \end{example}
@@ -59,18 +59,18 @@ which is the condition for PAC learnability.
 The second example shows that there are infinite hypothesis classes that are not
 PAC learnable at least by using an ERM strategy.
 
-\begin{example}[Identity Function for Finite Sets] 
+\begin{example}[Identity Function for Finite Sets]
 Let $\dom = \Rone$ and $\range = \{0, 1\}$. Given a set $A \subseteq \dom$,
 define $h_A$ as follows:
 \[
-    h_A = \left \{ \begin{array}{ll} 
+    h_A = \left \{ \begin{array}{ll}
                         1 & \text{if } x \in A \\
                         0 & \text{otherwise}
                    \end{array}\right .
 \]
-Let $\hypclass_{\text{finite}}$ be the set of all such functions $h_A$ for \emph{finite} 
-subsets $A$ of $\Rone$ along with the function $h_{1}$ which maps every point in $\Rone$ 
-to $1$. We claim that $\hypclass_{\text{finite}}$ is not PAC learnable by an ERM algorithm. 
+Let $\hypclass_{\text{finite}}$ be the set of all such functions $h_A$ for \emph{finite}
+subsets $A$ of $\Rone$ along with the function $h_{1}$ which maps every point in $\Rone$
+to $1$. We claim that $\hypclass_{\text{finite}}$ is not PAC learnable by an ERM algorithm.
 
 Consider the case when the true labeling function $f = h_1$, the all-ones
 function on $\Rone$ and $\dist$ is the uniform distribution on $[0, 1]$. Since
@@ -78,11 +78,18 @@ $f \in \hypclass_{\text{finite}}$, we are assuming that the hypothesis class is
 realizable. Fix any sample size $m$. A sample $S$ in this case looks like
 $\{(x_1, 1), \ldots, (x_m, 1)\}$ and an obvious ERM strategy is to output $h_A$
 for $A = \{x_1, \ldots, x_m\}$. Clearly $L_S (h_A) = 0$ but $L_{\dist} (h_A) =
-1$.  
-\end{example} 
+1$.
+\end{example}
 
 The previous examples show that the size of the hypothesis class does not characterize
 whether it is learnable. This characterization is provided by the so-called VC-dimension.
+
+\section{The VC Dimension}
+
+To motivate the definition of VC-dimension, we note that the proof of the No-Free-Lunch
+Theorem relied on the fact that there exists a finite subset $C \subset \dom$ such
+that the adversary could choose a target function from the set of \emph{all} possible
+functions from $C \rightarrow \{0, 1\}$.
 
 \section*{Exercise 6.1}
 
@@ -96,86 +103,86 @@ shatters $C$, a contradiction.
 
 \section*{Exercise 6.2}
 
-In this exercise, $\dom$ is finite and $k \leq |\dom| =: n$. 
+In this exercise, $\dom$ is finite and $k \leq |\dom| =: n$.
 
-\subsection*{6.2.1} 
+\subsection*{6.2.1}
 
-We claim that 
-\[\vcdim(\hypclass_{= k}) 
-= \left \{ \begin{array}{ll} 
+We claim that
+\[\vcdim(\hypclass_{= k})
+= \left \{ \begin{array}{ll}
                 k     & \text{if } k \leq \floor{n / 2} \\
-                n - k & \text{if } k > \floor{n / 2} 
+                n - k & \text{if } k > \floor{n / 2}
            \end{array} \right .
 \]
 
-Suppose that $k \leq \floor{n / 2}$ and consider a subset $C \subset \dom$ 
-of size $k + 1$. Then the all-one function on $C$ cannot be 
+Suppose that $k \leq \floor{n / 2}$ and consider a subset $C \subset \dom$
+of size $k + 1$. Then the all-one function on $C$ cannot be
 extended to a function in $\hypclass_{= k}$ as it maps $k + 1$ elements
-of $\dom$ to $1$. Hence $\vcdim(\hypclass_{= k}) \leq k$. If $|C| = k$ 
+of $\dom$ to $1$. Hence $\vcdim(\hypclass_{= k}) \leq k$. If $|C| = k$
 and $g \colon C \rightarrow \{0, 1\}$ that maps $k'$ elements of $C$ to $1$,
-we can extend $g$ to a function on $\dom$ that maps exactly $k$ elements of 
-$\dom$ to $1$.  This shows that $\vcdim(\hypclass_{= k}) \geq k$. Hence 
+we can extend $g$ to a function on $\dom$ that maps exactly $k$ elements of
+$\dom$ to $1$.  This shows that $\vcdim(\hypclass_{= k}) \geq k$. Hence
 $\vcdim{\hypclass_{= k}} = k$.
 
 Now consider the case $k > \floor{n / 2}$. If $C$ is subset of size
-$n - k + 1$, then the all-zero function on $C$ cannot be extended 
-to a function in $\hypclass_{= k}$. This happens because there are only 
-$n - (n - k + 1) < k$ elements in $\dom \setminus C$. Hence 
-$\vcdim(\hypclass_{= k}) \leq n - k$. If $|C| = n - k$ and 
-$g \colon C \rightarrow \{0, 1\}$ that assigns $1$ to $k'$ 
-elements of $C$, then we can extend $g$ to a function in 
-$\hypclass_{= k}$ as we have at least $k - k'$ elements in 
-$\dom \setminus C$ which we can map to $1$. This shows that 
-$\vcdim(\hypclass_{= k}) \geq n - k$. Hence 
+$n - k + 1$, then the all-zero function on $C$ cannot be extended
+to a function in $\hypclass_{= k}$. This happens because there are only
+$n - (n - k + 1) < k$ elements in $\dom \setminus C$. Hence
+$\vcdim(\hypclass_{= k}) \leq n - k$. If $|C| = n - k$ and
+$g \colon C \rightarrow \{0, 1\}$ that assigns $1$ to $k'$
+elements of $C$, then we can extend $g$ to a function in
+$\hypclass_{= k}$ as we have at least $k - k'$ elements in
+$\dom \setminus C$ which we can map to $1$. This shows that
+$\vcdim(\hypclass_{= k}) \geq n - k$. Hence
 $\vcdim(\hypclass_{= k}) = n - k$.
 
 \subsection*{6.2.2}
 
-First observe that if $k \geq \floor{n / 2}$, then $\hypclass_{\leq k}$ includes 
-all possible functions from $\dom$ to $\{0, 1\}$. This is because any function 
-$g \colon \dom \rightarrow \{0, 1\}$ maps at most half the elements of 
-$\dom$ to either $0$ or $1$ and hence is in $\hypclass_{\leq k}$. 
+First observe that if $k \geq \floor{n / 2}$, then $\hypclass_{\leq k}$ includes
+all possible functions from $\dom$ to $\{0, 1\}$. This is because any function
+$g \colon \dom \rightarrow \{0, 1\}$ maps at most half the elements of
+$\dom$ to either $0$ or $1$ and hence is in $\hypclass_{\leq k}$.
 Hence in this case every subset of $\dom$ is shattered by $\hypclass_{\leq k}$
 and $\vcdim (\hypclass_{\leq k}) = n$.
 
 If $k < \floor{n / 2}$, then we claim that  $\vcdim (\hypclass_{\leq k}) = 2k + 1$.
-Let $C \subset \dom$ of size $2k + 1$ and consider a function 
-$g \colon C \rightarrow \{0, 1\}$. Such a function maps at most $k$ elements 
+Let $C \subset \dom$ of size $2k + 1$ and consider a function
+$g \colon C \rightarrow \{0, 1\}$. Such a function maps at most $k$ elements
 to either $0$ or $1$. Suppose that it maps at most $k$ elements to $1$. Extend
-$g$ to a function on $\dom$ by mapping all elements of $\dom \setminus C$ to $0$. 
+$g$ to a function on $\dom$ by mapping all elements of $\dom \setminus C$ to $0$.
 This extension is a function on $\dom$ that maps at most $k$ elements to $1$
-and hence is an element of $\hypclass_{\leq k}$. The reasoning is similar had $g$ 
-mapped at most $k$ elements to $0$. This show that 
-$\vcdim(\hypclass_{\leq k}) \geq 2k + 1$. 
+and hence is an element of $\hypclass_{\leq k}$. The reasoning is similar had $g$
+mapped at most $k$ elements to $0$. This show that
+$\vcdim(\hypclass_{\leq k}) \geq 2k + 1$.
 
-Now suppose that $C \subset \dom$ is of size $2k + 2$. Consider a map  
-that assigns half the elements of $C$ to $0$ and the other half to $1$. 
-This map cannot be extended to a function in $\hypclass_{\leq k}$. This 
+Now suppose that $C \subset \dom$ is of size $2k + 2$. Consider a map
+that assigns half the elements of $C$ to $0$ and the other half to $1$.
+This map cannot be extended to a function in $\hypclass_{\leq k}$. This
 proves that $\vcdim (\hypclass_{\leq k}) \leq 2k + 1$. Thus:
-\[\vcdim(\hypclass_{\leq k}) 
-= \left \{ \begin{array}{ll} 
+\[\vcdim(\hypclass_{\leq k})
+= \left \{ \begin{array}{ll}
                 2k + 1  & \text{if } k < \floor{n / 2} \\
-                n       & \text{if } k \geq \floor{n / 2} 
+                n       & \text{if } k \geq \floor{n / 2}
            \end{array} \right .
 \]
 
 \section*{Exercise 6.3}
 
-Since $|\parity{n}| = 2^n$, using the upper bound on the VC-dimension, 
+Since $|\parity{n}| = 2^n$, using the upper bound on the VC-dimension,
 \[\vcdim (\parity{n}) \leq \log_2 |\parity{n}| = n.\]
 We claim that $\vcdim (\parity{n}) = n$. Let $C = \{c_1, \ldots, c_n\} \subset
-\dom$ be the set of standard basis vectors such that $c_i$ is the basis 
+\dom$ be the set of standard basis vectors such that $c_i$ is the basis
 vector with a $1$ in the $i$th position and $0$'s
 elsewhere. Let $(b_1, \ldots, b_n)$ be a function from $C$ to $\{0, 1\}$.
-Construct an index set $I \subseteq \{1, \ldots, n\}$ as follows: 
-start with $I \leftarrow \emptyset$; for $1 \leq i \leq n$, if $b_i = 1$ 
-then $I \leftarrow I \cup \{i\}$. 
+Construct an index set $I \subseteq \{1, \ldots, n\}$ as follows:
+start with $I \leftarrow \emptyset$; for $1 \leq i \leq n$, if $b_i = 1$
+then $I \leftarrow I \cup \{i\}$.
 
-We claim that $h_I(c_j) = b_j$ for all $1 \leq j \leq n$. For if $b_j = 0$, 
+We claim that $h_I(c_j) = b_j$ for all $1 \leq j \leq n$. For if $b_j = 0$,
 then $j \notin I$ and $\sum_{i \in I} c_{j i} = 0 \Mod{2}$; if $b_j = 1$,
-then $j \in I$ and $\sum_{i \in I} c_{j i} = 1 \Mod{2}$, proving the claim. 
+then $j \in I$ and $\sum_{i \in I} c_{j i} = 1 \Mod{2}$, proving the claim.
 This shows that every function from $C$ to $\{0, 1\}$ can be extended to a function
-in $\parity{n}$. Hence $\vcdim (\parity{n}) \geq n$ and together with the upper 
+in $\parity{n}$. Hence $\vcdim (\parity{n}) \geq n$ and together with the upper
 bound for the VC-dimension, this implies that $\vcdim (\parity{n}) = n$.
 
 \section*{Exercise 6.5}
@@ -183,18 +190,18 @@ bound for the VC-dimension, this implies that $\vcdim (\parity{n}) = n$.
 Let $\rect{d}$ be the set of axis-aligned rectangles in $\Rone^{d}$. A function
 in $\rect{d}$ is defined via $2d$ parameters $(a_1^1, a_2^1, a_1^2, a_2^2,
 \ldots, a_1^d, a_2^d)$, where for $1 \leq i \leq d$, $a_1^i \leq a_2^i$ are the
-boundaries of the rectangle in dimension~$i$. 
+boundaries of the rectangle in dimension~$i$.
 
-We claim that $\rect{d} = 2d$. Consider a set of $2d$ points that correspond to 
+We claim that $\rect{d} = 2d$. Consider a set of $2d$ points that correspond to
 the centres of the faces of an axis-aligned rectangle in $\Rone^d$. For example,
 if the faces of the rectangle are defined by the equations:
 $x_i  = a_1^i$ and  $x_i = a_2^i$ for $1 \leq i \leq d$,
-then the centres of the face defined by $x_1 = a_1^1$ and $x_1 = a_2^i$ are 
-$( a_1^1,  \frac{a_1^2 + a_2^2}{2},  \ldots, \frac{a_1^d + a_2^d}{2})$ 
-and $( a_2^1,  \frac{a_1^2 + a_2^2}{2},  \ldots, \frac{a_1^d + a_2^d}{2})$. 
-Similarly, there are two points for each of the remaining dimensions, with a 
+then the centres of the face defined by $x_1 = a_1^1$ and $x_1 = a_2^i$ are
+$( a_1^1,  \frac{a_1^2 + a_2^2}{2},  \ldots, \frac{a_1^d + a_2^d}{2})$
+and $( a_2^1,  \frac{a_1^2 + a_2^2}{2},  \ldots, \frac{a_1^d + a_2^d}{2})$.
+Similarly, there are two points for each of the remaining dimensions, with a
 total of $2d$ points. Call this set of points $C$. Such a set $C$ will be shattered
-by $\rect{d}$. 
+by $\rect{d}$.
 
 On the other hand, no subset $C'$ of $\Rone^d$ of size $2d + 1$ can be
 shattered by $\rect{d}$. The reasoning is similar to that given in the book.
@@ -204,77 +211,77 @@ $c_{\text{max}}^i \in C'$ whose $i$th co-ordinate is a maximum. This procedure
 yields $2d$ points and the rectangle that contains all these $2d$ points must
 necessarily contain the $2d + 1$st point. Hence a function that maps these $2d$
 points to $1$, and the $2d + 1$st point to $0$ cannot be extended in
-$\rect{d}$, proving that the set cannot be shattered. 
+$\rect{d}$, proving that the set cannot be shattered.
 
 \section*{Exercise 6.6}
 
 \begin{enumerate}
-    \item $|\conj{d}| \leq 3^d + 1$. One way of counting the number of boolean 
-        conjunctions is to first select a set of indices from among 
-        $\{1, \ldots, d\}$ and then from among these select either a positive 
-        or the negative version of the variables. When we select no indices, 
+    \item $|\conj{d}| \leq 3^d + 1$. One way of counting the number of boolean
+        conjunctions is to first select a set of indices from among
+        $\{1, \ldots, d\}$ and then from among these select either a positive
+        or the negative version of the variables. When we select no indices,
         we obtain the all-positive hypothesis. The number of such conjunctions
         is:
         \[
                 \sum_{i = 0}^{d} 2^i = 3^d.
-        \] 
+        \]
         This does not include the all-negative conjunction. Hence the \emph{total}
-        number of conjunctions is $3^d + 1$, which is a tight upper  bound for 
+        number of conjunctions is $3^d + 1$, which is a tight upper  bound for
         $|\conj{d}|$.
 
-    \item $\vcdim (\conj{d}) \leq 3 \cdot \log_2 d$. This immediately follows 
+    \item $\vcdim (\conj{d}) \leq 3 \cdot \log_2 d$. This immediately follows
         from the upper bound in the text.
 
     \item Let $\basisvec_1, \ldots, \basisvec_d$ be the standard basis vectors of
-        $\{0, 1\}^d$. Let $(b_1, \ldots, b_d)$ be a mapping from this set of 
-        basis vectors to $\{0, 1\}$. Note that there are only $2^d$ such functions 
-        and we will show that each such function can be represented by a 
-        boolean conjunction on $d$ variables. 
-    
-        Start with the conjunction: $f := x_1 \wedge \bar{x}_1 \wedge 
-        \cdots \wedge x_{d} \wedge \bar{x}_d$; for $1 \leq i \leq d$, 
-        if $b_i = 1$ then drop $\bar{x}_i$ and all $x_j$ for $j \neq i$ from $f$. 
+        $\{0, 1\}^d$. Let $(b_1, \ldots, b_d)$ be a mapping from this set of
+        basis vectors to $\{0, 1\}$. Note that there are only $2^d$ such functions
+        and we will show that each such function can be represented by a
+        boolean conjunction on $d$ variables.
+
+        Start with the conjunction: $f := x_1 \wedge \bar{x}_1 \wedge
+        \cdots \wedge x_{d} \wedge \bar{x}_d$; for $1 \leq i \leq d$,
+        if $b_i = 1$ then drop $\bar{x}_i$ and all $x_j$ for $j \neq i$ from $f$.
         Note that after this step we have that: $f(\basisvec_j) = b_j$ for all $j \leq i$.
-        Thus at step $d$, we end up with a formula $f$ that matches the function 
+        Thus at step $d$, we end up with a formula $f$ that matches the function
         $(b_1, \ldots, b_d)$.
-        Thus the set of basis vectors is shattered by $\conj{d}$ and 
+        Thus the set of basis vectors is shattered by $\conj{d}$ and
         hence $\vcdim (\conj{d}) \geq d$.
 
     \item $\vcdim (\conj{d}) \leq d$. Suppose that $C = \{c_1, \ldots, c_{d + 1}\}$
-        is shattered by $\conj{d}$. This implies that every function from $C$ to 
-        $\{0, 1\}$ can be extended to a function in $\conj{d}$. Consider the 
-        $d + 1$ functions $g_1, \ldots, g_{d + 1}$, where $g_i$ maps $c_i$ to $0$ 
-        and all $c_j$ to $1$ for $j \neq i$. Let $h_1, \ldots, h_{d + 1}$ be the 
-        extensions of these functions in $\conj{d}$. Then for each $i \in 
-        \{1, \ldots, d+ 1\}$, there exists a literal $l_i$ in $h_i$ such that 
-        $l_i$ is false for $c_i$ but true for all $c_j$, $j \neq i$. Furthermore, 
-        each $h_i$ has at most $d$ literals since none of these functions is  
-        the all-zero function. By the Pigeon Hole Principle, there exists $i$, 
-        such that $1 \leq i \leq d$ and $l_i$ and $l_{d + 1}$ use the same variable, 
-        say $x_k$. 
+        is shattered by $\conj{d}$. This implies that every function from $C$ to
+        $\{0, 1\}$ can be extended to a function in $\conj{d}$. Consider the
+        $d + 1$ functions $g_1, \ldots, g_{d + 1}$, where $g_i$ maps $c_i$ to $0$
+        and all $c_j$ to $1$ for $j \neq i$. Let $h_1, \ldots, h_{d + 1}$ be the
+        extensions of these functions in $\conj{d}$. Then for each $i \in
+        \{1, \ldots, d+ 1\}$, there exists a literal $l_i$ in $h_i$ such that
+        $l_i$ is false for $c_i$ but true for all $c_j$, $j \neq i$. Furthermore,
+        each $h_i$ has at most $d$ literals since none of these functions is
+        the all-zero function. By the Pigeon Hole Principle, there exists $i$,
+        such that $1 \leq i \leq d$ and $l_i$ and $l_{d + 1}$ use the same variable,
+        say $x_k$.
 
         Since $h_i$ maps $c_i$ to $0$ and $c_{d + 1}$ to $1$ and $h_{d + 1}$ maps
-        these the other way around, it cannot be that both $l_i$ and $l_{d + 1}$ 
-        use $x_k$ in the same form. That is, either $l_i = x_k$ and $l_{d+1} = 
-        \bar{x}_k$ or vice versa. Consider the effect of the literals on the 
-        bit strings in $C \setminus \{c_i, c_{d+1}\}$. Both map each bit string to 
-        $1$, an impossibility since $l_i$ and $l_{d + 1}$ will have the opposite 
-        effect on each of these bit strings too. This contradition shows that the 
-        assumption that there exist functions $h_1, \ldots, h_{d + 1}$ that extend 
+        these the other way around, it cannot be that both $l_i$ and $l_{d + 1}$
+        use $x_k$ in the same form. That is, either $l_i = x_k$ and $l_{d+1} =
+        \bar{x}_k$ or vice versa. Consider the effect of the literals on the
+        bit strings in $C \setminus \{c_i, c_{d+1}\}$. Both map each bit string to
+        $1$, an impossibility since $l_i$ and $l_{d + 1}$ will have the opposite
+        effect on each of these bit strings too. This contradition shows that the
+        assumption that there exist functions $h_1, \ldots, h_{d + 1}$ that extend
         $g_1, \ldots, g_{d + 1}$ is incorrect. Thus $C$ is not shattered by $\conj{d}$
-        and $\vcdim (\conj{d}) \leq d$. 
+        and $\vcdim (\conj{d}) \leq d$.
 
-    \item $\vcdim (\mconj{d}) = d$. Since $\mconj{d} \subseteq \conj{d}$, we know 
-        that $\vcdim (\mconj{d}) \leq d$. Now consider $C = \{c_1, \ldots, c_d\} 
-        \subset \{0, 1\}^d$, where $c_i$ has ones in all locations except the $i$th. 
-        Let $(b_1, \ldots, b_d)$ be any function from $C$ to $\{0, 1\}$.  
-        Start with the conjunction: $f := x_1 \wedge 
-        \cdots \wedge x_{d}$; for $1 \leq i \leq d$, 
-        if $b_i = 1$ then drop $x_i$ from $f$. 
+    \item $\vcdim (\mconj{d}) = d$. Since $\mconj{d} \subseteq \conj{d}$, we know
+        that $\vcdim (\mconj{d}) \leq d$. Now consider $C = \{c_1, \ldots, c_d\}
+        \subset \{0, 1\}^d$, where $c_i$ has ones in all locations except the $i$th.
+        Let $(b_1, \ldots, b_d)$ be any function from $C$ to $\{0, 1\}$.
+        Start with the conjunction: $f := x_1 \wedge
+        \cdots \wedge x_{d}$; for $1 \leq i \leq d$,
+        if $b_i = 1$ then drop $x_i$ from $f$.
         Note that after this step we have that: $f(c_j) = b_j$ for all $j \leq i$.
-        Thus at step $d$, we end up with a formula $f$ that matches the function 
+        Thus at step $d$, we end up with a formula $f$ that matches the function
         $(b_1, \ldots, b_d)$.
-        Thus the set $C$ is shattered by $\mconj{d}$ and hence 
+        Thus the set $C$ is shattered by $\mconj{d}$ and hence
         $\vcdim (\mconj{d}) = d$.
 \end{enumerate}
 
@@ -284,40 +291,40 @@ $\rect{d}$, proving that the set cannot be shattered.
 for $a \in [0, 1]$. Then $\vcdim (\hypclass) = 1$ and  $|\hypclass| = \infty$.
 
 \subsection*{6.7.2} Define $\hypclass$ to consist of the single threshold function
-$h_{1/2}$. In this case, $\log_2 |\hypclass| = 0$ and if $a \in [0, 1]$, the 
-function $g(a) = 1 - h_{1/2}(a)$ cannot be extended in $\hypclass$. Hence the 
+$h_{1/2}$. In this case, $\log_2 |\hypclass| = 0$ and if $a \in [0, 1]$, the
+function $g(a) = 1 - h_{1/2}(a)$ cannot be extended in $\hypclass$. Hence the
 $\vcdim (\hypclass) = 0$, matching the upper bound.
-  
-  
+
+
 \section*{Exercise 6.8}
 
-Fix a $d \in \Rone$. We will construct a set $C = \{x_1, 
-\ldots, x_d\} \subset [0, 1]$ and show that for any boolean function $(b_1, \ldots, b_d)$ 
-on $C$, there exists $\theta \in \Rone$ such that: $\ceiling{\sin (\theta x_i) } = b_i$ 
+Fix a $d \in \Rone$. We will construct a set $C = \{x_1,
+\ldots, x_d\} \subset [0, 1]$ and show that for any boolean function $(b_1, \ldots, b_d)$
+on $C$, there exists $\theta \in \Rone$ such that: $\ceiling{\sin (\theta x_i) } = b_i$
 for all $1 \leq i \leq d$. In particular, we will construct the binary representations
-of the elements of $C$. Consider a matrix with $d$ rows and $2^d + 1$ columns, where 
+of the elements of $C$. Consider a matrix with $d$ rows and $2^d + 1$ columns, where
 the $i$th row represents the number $x_i$. Fill in the first $2^d$ columns of the matrix
 (from top to bottom) with the binary representations of the numbers $0, 1, \ldots, 2^d - 1$.
-Finally fill in the last column with ones. The number $x_i = 0.a_1a_2, \ldots, 
+Finally fill in the last column with ones. The number $x_i = 0.a_1a_2, \ldots,
 a_{2^d}a_{2^d + 1}$, where $a_1, a_2, \ldots, a_{2^d}, a_{2^d + 1}$ are the elements
-of the $i$th row of the matrix. This completes the construction of the $d$ numbers from 
+of the $i$th row of the matrix. This completes the construction of the $d$ numbers from
 $[0, 1]$.
 
-From the way this matrix has been constructed, it is clear that the bit patterns in the 
-first $2^d$ columns are all the elements of $\{0, 1\}^d$. Let $(b_1, \ldots, b_d)$ be any 
-boolean function defined on the set $C$. Then the bitwise complement $(\bar{b}_1, \ldots, 
-\bar{b}_d)$ of the pattern $(b_1, \ldots, b_d)$ is in some column $j$ of the matrix 
+From the way this matrix has been constructed, it is clear that the bit patterns in the
+first $2^d$ columns are all the elements of $\{0, 1\}^d$. Let $(b_1, \ldots, b_d)$ be any
+boolean function defined on the set $C$. Then the bitwise complement $(\bar{b}_1, \ldots,
+\bar{b}_d)$ of the pattern $(b_1, \ldots, b_d)$ is in some column $j$ of the matrix
 created in the last paragraph, where $1 \leq j \leq 2^d$. Define $\theta = 2^j \pi$, and
 using the hint provided in the text, we obtain that  for all $1 \leq i \leq d$:
 \[
-    \ceiling{\sin(2^j \pi x_i)} = 1 - B_j(x_i),  
-\]  
-where $B_j(x_i)$ is the $j$th bit in the binary representation of $x_i$. Now this bit is 
-simply $\bar{b}_i$, since the $j$th column of the matrix is $(\bar{b}_1, \ldots, 
-\bar{b}_d)$. Hence the right-hand side of the equation is $1 - \bar{b}_i = b_i$. 
+    \ceiling{\sin(2^j \pi x_i)} = 1 - B_j(x_i),
+\]
+where $B_j(x_i)$ is the $j$th bit in the binary representation of $x_i$. Now this bit is
+simply $\bar{b}_i$, since the $j$th column of the matrix is $(\bar{b}_1, \ldots,
+\bar{b}_d)$. Hence the right-hand side of the equation is $1 - \bar{b}_i = b_i$.
 This shows that every boolean function defined on $C$ can be extended in $\hypclass$. Since
-one can do this for sets of any size $d$, $\vcdim (\hypclass) = \infty$. 
- 
+one can do this for sets of any size $d$, $\vcdim (\hypclass) = \infty$.
+
 
 \section*{Exercise 6.9}
 
@@ -328,48 +335,48 @@ $\hypclass$.  The only contentious candidates are $(1, -1, 1)$ and $(-1, 1,
 -1)$. The first function $(1, -1, 1)$ can be extended to $h_{b_1, b_2, -1}$,
 where $b_1$ and $b_2$ are two reals such that $c_1 < b_1 < c_2$ and $c_2 < b_2
 < c_3$. Similarly, the second function $(-1, 1, -1)$ can be extended to
-$h_{b_1, b_2, +1}$. This shows that $\vcdim (\hypclass) \geq 3$. 
+$h_{b_1, b_2, +1}$. This shows that $\vcdim (\hypclass) \geq 3$.
 
 Now consider any set of four reals $c_1, c_2, c_3, c_4$ with $c_1 < c_2 < c_3 <
 c_4$.  Then the function $(1, -1, 1, -1)$ cannot be extended to any function in
 $\hypclass$.  For such a function to exist, it would have to map an interval
 around $c_2$ to $-1$ and the rest of the reals to $1$; but that also map $c_4$
-to $1$. This shows that such a function cannot exist and hence 
-$\vcdim (\hypclass) \leq 3$. Together with the upper bound, we have 
-that $\vcdim(\hypclass) = 3$.  
+to $1$. This shows that such a function cannot exist and hence
+$\vcdim (\hypclass) \leq 3$. Together with the upper bound, we have
+that $\vcdim(\hypclass) = 3$.
 
 \section*{Exercise 6.11}
 
-\subsection*{6.11.1} 
+\subsection*{6.11.1}
 
 Let $\hypclass_1, \ldots, \hypclass_r$ be hypothesis classes over a fixed domain
-$\dom$ and let $d := \max_{i} \vcdim (\hypclass_i )$. Suppose that $d \geq 3$. We need 
-to show that 
+$\dom$ and let $d := \max_{i} \vcdim (\hypclass_i )$. Suppose that $d \geq 3$. We need
+to show that
 \[
     \vcdim \left (\bigcup_{i = 1}^{r} \hypclass_i \right ) \leq 4d \log (2d) + 2 \log r
 \]
 
-Let $C = \{c_1, \ldots, c_k\}$ be a set that is shattered by the union set 
-$\bigcup_{i = 1}^r \hypclass_i$. Then all $2^k$ binary functions on $C$ have 
-extensions in $\bigcup_{i = 1}^r \hypclass_i$. By Sauer's Lemma, for any 
-hypothesis class $\hypclass_i$, $1 \leq i \leq r$, the number of possible 
-extensions on a set of size $k$ is $\sum_{i = 0}^d {k \choose i } \leq (e k/d)^d$. 
-This is strictly less than $k^d$ since $d \geq 3$. Hence the total number of extensions 
+Let $C = \{c_1, \ldots, c_k\}$ be a set that is shattered by the union set
+$\bigcup_{i = 1}^r \hypclass_i$. Then all $2^k$ binary functions on $C$ have
+extensions in $\bigcup_{i = 1}^r \hypclass_i$. By Sauer's Lemma, for any
+hypothesis class $\hypclass_i$, $1 \leq i \leq r$, the number of possible
+extensions on a set of size $k$ is $\sum_{i = 0}^d {k \choose i } \leq (e k/d)^d$.
+This is strictly less than $k^d$ since $d \geq 3$. Hence the total number of extensions
 possible in the union on a set of size $k$ is strictly less than $r \cdot k^d$. Hence we must
-have $2^k < r \cdot k^d$, which implies that 
+have $2^k < r \cdot k^d$, which implies that
 $k < d \cdot \log_2 k + \log_2 r$.
 
 Lemma~A.2 states that if $a \geq 1$ and $b > 0$ then $x \geq 4a \log (2a) + 2b$
-implies that $x \geq a \log (x) + b$. The contrapositive states that if 
-$x < a \log (x) + b$ then $x < 4a \log (2a) + 2b$. If we apply this to our case, 
+implies that $x \geq a \log (x) + b$. The contrapositive states that if
+$x < a \log (x) + b$ then $x < 4a \log (2a) + 2b$. If we apply this to our case,
 we obtain that $k < 4d \log (2d) + 2 \log (r)$.
 
 \section*{Exercise 6.12}
 
 \subsection*{6.12.1}
 
-Let $g$ and $\cal F$ be as stated. We first show that 
-$\vcdim(\pos(\mathcal{F} + g)) \geq \vcdim (\pos (\mathcal{F}) )$. Let $C \subseteq \Rone^n$ be a 
+Let $g$ and $\cal F$ be as stated. We first show that
+$\vcdim(\pos(\mathcal{F} + g)) \geq \vcdim (\pos (\mathcal{F}) )$. Let $C \subseteq \Rone^n$ be a
 set that is shattered by $\pos(\mathcal{F})$. Then for every $C' \subseteq C$, there exist
 $h_1, h_2 \in \mathcal{F}$ such that for all $x \in C$:
 \begin{align*}
@@ -377,19 +384,19 @@ $h_1, h_2 \in \mathcal{F}$ such that for all $x \in C$:
     h_2(x) > 0 & \text{ iff } x \in C \setminus C'.
 \end{align*}
 The idea here is to use a linear combination of $h_1$ and $h_2$ and $g$ to obtain a function
-that takes on strictly positive values on $C'$ and non-positive values on $C \setminus C'$. 
+that takes on strictly positive values on $C'$ and non-positive values on $C \setminus C'$.
 Define $\alpha_1$ and $\alpha_2$ as follows:
 \[
-\alpha_1 := 1 + \frac{\max_{x \in C'} |g(x)|}{\min_{x \in C'} h_1(x)}, \qquad 
+\alpha_1 := 1 + \frac{\max_{x \in C'} |g(x)|}{\min_{x \in C'} h_1(x)}, \qquad
 \alpha_2 := 1 + \frac{{\max_{x \in C \setminus C'} |g(x)|}}{\min_{x \in C \setminus C'} h_2(x)}
 \]
 Then $\alpha_1 h_1(x) - \alpha_2 h_2(x) + g(x) > 0$ iff $x \in C'$, showing that
-$\pos (\mathcal{F} + g)$ also shatters $C$. Hence 
+$\pos (\mathcal{F} + g)$ also shatters $C$. Hence
 $\vcdim(\pos(\mathcal{F} + g)) \geq \vcdim (\pos (\mathcal{F}) )$.
 
-We next show that $\vcdim(\pos(\mathcal{F} + g)) \leq \vcdim (\pos (\mathcal{F}) )$. Now let 
-$C \subseteq \Rone^n$ be shattered by $\pos(\mathcal{F} + g)$. This means that 
-for every $C' \subseteq C$, there exist $h_1, h_2 \in \mathcal{F}$ such that for 
+We next show that $\vcdim(\pos(\mathcal{F} + g)) \leq \vcdim (\pos (\mathcal{F}) )$. Now let
+$C \subseteq \Rone^n$ be shattered by $\pos(\mathcal{F} + g)$. This means that
+for every $C' \subseteq C$, there exist $h_1, h_2 \in \mathcal{F}$ such that for
 all $x \in C$:
 \begin{align*}
     h_1(x) + g(x) > 0 & \text { iff } x \in C' \\
@@ -397,28 +404,28 @@ all $x \in C$:
 \end{align*}
 This immediately shows that for all $x \in C$:
 \[
-    (h_1(x) + g(x)) + (- h_2(x) - g(x)) > 0 \text { iff } x \in C'. 
+    (h_1(x) + g(x)) + (- h_2(x) - g(x)) > 0 \text { iff } x \in C'.
 \]
 Hence $\pos (\mathcal{F})$ shatters $C$ and
-$\vcdim(\pos(\mathcal{F} + g)) \leq \vcdim (\pos (\mathcal{F}) )$. 
+$\vcdim(\pos(\mathcal{F} + g)) \leq \vcdim (\pos (\mathcal{F}) )$.
 
 \subsection*{6.12.2}
 
- We wish to show that $\vcdim (\pos (\mathcal{F})) = \dim (\mathcal{F})$, where 
- $\dim (\mathcal{F})$ is the dimension of $\mathcal{F}$ as a vector space. Let 
+ We wish to show that $\vcdim (\pos (\mathcal{F})) = \dim (\mathcal{F})$, where
+ $\dim (\mathcal{F})$ is the dimension of $\mathcal{F}$ as a vector space. Let
  $\mathcal{F}$ be a finite dimensional vector space of dimension~$d$ with basis
- $f_1, \ldots, f_d$. For any $h \in \mathcal{F}$ there exist real numbers 
+ $f_1, \ldots, f_d$. For any $h \in \mathcal{F}$ there exist real numbers
  $\alpha_1, \ldots, \alpha_d$ such that
  \[
     h = \alpha_1 f_1 + \cdots + \alpha_d f_d.
  \]
-Note that 
+Note that
 \[
-    \pos (\mathcal{F}) = \pos (\{ \alpha_1 f_1 + \cdots + \alpha_d f_d 
+    \pos (\mathcal{F}) = \pos (\{ \alpha_1 f_1 + \cdots + \alpha_d f_d
         \mid (\alpha_1, \ldots, \alpha_d) \in \Rone^d\}).
 \]
-Hence each function in $\pos (\mathcal{F} )$ can be associated with a $d$-tuple 
-$(\alpha_1, \ldots, \alpha_d)$ which, in turn, represents a homogeneous linear 
+Hence each function in $\pos (\mathcal{F} )$ can be associated with a $d$-tuple
+$(\alpha_1, \ldots, \alpha_d)$ which, in turn, represents a homogeneous linear
 halfspace in $\R^d$. Since the VC-dimension of the set of homogeneous linear
 halfspaces in $\Rone^d$ is $d$, we have that $\vcdim (\pos (\mathcal{F})) = d$.
 
@@ -427,50 +434,50 @@ halfspaces in $\Rone^d$ is $d$, we have that $\vcdim (\pos (\mathcal{F})) = d$.
 
 \subsubsection*{6.12.3.1}
 
-The set $\HS_n = \pos (\mathcal{F})$, where $\mathcal{F}$ consists of 
-functions~$h_{\vect{w}}$, with $\vect{w} \in \R^n$, defined as 
-follows: for $x \in \R^n$, $h_{\vect{w}}(x) = \angular{\vect{w}, x}$. 
-Note that $\mathcal{F}$ is a $n$-dimensional 
+The set $\HS_n = \pos (\mathcal{F})$, where $\mathcal{F}$ consists of
+functions~$h_{\vect{w}}$, with $\vect{w} \in \R^n$, defined as
+follows: for $x \in \R^n$, $h_{\vect{w}}(x) = \angular{\vect{w}, x}$.
+Note that $\mathcal{F}$ is a $n$-dimensional
 vector space with basis $f_1, \ldots, f_n$, where $f_i(x) = x_i$, that is,
-$f_i$ maps a point in $\R^n$ to its $i$th coordinate. This shows that 
+$f_i$ maps a point in $\R^n$ to its $i$th coordinate. This shows that
 $\HS_n$ is a Dudley class.
 
 \subsubsection*{6.12.3.2}
 
 Similarly, the set $\HHS_n = \pos ( \mathcal{F})$, where $\mathcal{F}$
-is a set of functions~$h_{\vect{w}, b}$, with $\vect{w} \in \R^n$, $b \in \R$ and 
+is a set of functions~$h_{\vect{w}, b}$, with $\vect{w} \in \R^n$, $b \in \R$ and
 defined as follows: for $x \in \R^n$, $h_{\vect{w}, b}(x) = \angular{\vect{w}, x} + b$.
 It is sufficient to note that $\mathcal{F}$ is a vector space of dimension $n + 1$
-with the basis vectors $f_1, \ldots, f_n, f_{n + 1}$, where for $1 \leq i \leq n$, 
+with the basis vectors $f_1, \ldots, f_n, f_{n + 1}$, where for $1 \leq i \leq n$,
 $f_i$ maps points in $\R^n$ to their $i$th coordinate and $f_{n + 1}$ maps points
-to the constant $1$.   
+to the constant $1$.
 
 \subsubsection*{6.12.3.3}
 
 The class $B_d$ of open balls in $\R^d$ is the set of functions $h_{\vect{a}, r}$,
-where $\vect{a} \in \R^d$ is the center of the ball and $r \in \R$ is its radius, 
-such that for $\vect{x} \in \R^d$, 
+where $\vect{a} \in \R^d$ is the center of the ball and $r \in \R$ is its radius,
+such that for $\vect{x} \in \R^d$,
 \begin{align*}
     h_{\vect{a}, r} (\vect{x}) & = r - \sum_{i = 1}^d (x_i - a_i)^2 \\
-    & = 2 a_1 x_1 + \cdots + 2 a_d x_d + 
+    & = 2 a_1 x_1 + \cdots + 2 a_d x_d +
     \left ( r - \sum_{i = 1}^d a_i^2 \right ) \cdot 1 - \sum_{i = 1}^d x_i^2.
 \end{align*}
 Define $g(\vect{x}) = - \sum_{i = 1}^d x_i^2$ and for $1 \leq i \leq d$, define
-$f_i(\vect{x}) = x_i$; finally, define $f_{d + 1}(\vect{x}) = 1$. Then 
+$f_i(\vect{x}) = x_i$; finally, define $f_{d + 1}(\vect{x}) = 1$. Then
 $B_d \subseteq \mathcal{F} + g$, where $\mathcal{F}$ is a space of functions defined by:
 \[
-    \mathcal{F} := \{a_1 f_1 + \cdots + a_{d + 1} f_{d + 1} \mid 
+    \mathcal{F} := \{a_1 f_1 + \cdots + a_{d + 1} f_{d + 1} \mid
         (a_1, \ldots, a_{d + 1}) \in \R^d\}.
-\] 
-Since $\vcdim ( \pos (\mathcal{F} + g)) = d + 1$, we have that 
-$\vcdim (\pos (B_d)) \leq d + 1$. Now a set $U$ of $d + 1$ points in $\R^d$ can be 
-shattered by $d$-dimensional half spaces. This means that for any subset 
-$S \subseteq U$ , there exists a hyperplane that separates $S$ and $U \setminus S$. 
-Thus there exist $d$-dimensional balls $B_1, B_2$ (of sufficiently large radius) 
-on either side of this hyperplane and tangent to it such that $S \subseteq B_1$ 
-and $U \setminus S \subseteq B_2$. Thus there is a set of size $d + 1$ shattered 
-by $\pos (B_d)$ and hence $\vcdim (\pos (B_d)) \geq  d + 1$. Together with 
-the upper bound, this gives:  $\vcdim (\pos (B_d)) =  d + 1$.      
+\]
+Since $\vcdim ( \pos (\mathcal{F} + g)) = d + 1$, we have that
+$\vcdim (\pos (B_d)) \leq d + 1$. Now a set $U$ of $d + 1$ points in $\R^d$ can be
+shattered by $d$-dimensional half spaces. This means that for any subset
+$S \subseteq U$ , there exists a hyperplane that separates $S$ and $U \setminus S$.
+Thus there exist $d$-dimensional balls $B_1, B_2$ (of sufficiently large radius)
+on either side of this hyperplane and tangent to it such that $S \subseteq B_1$
+and $U \setminus S \subseteq B_2$. Thus there is a set of size $d + 1$ shattered
+by $\pos (B_d)$ and hence $\vcdim (\pos (B_d)) \geq  d + 1$. Together with
+the upper bound, this gives:  $\vcdim (\pos (B_d)) =  d + 1$.
 
 \subsubsection*{6.12.3.4}
 
@@ -480,25 +487,25 @@ the upper bound, this gives:  $\vcdim (\pos (B_d)) =  d + 1$.
 		 tuples over $\R$. Thus $\vcdim (P_1^d) = d + 1$.
 
 	\item Since the class of polynomial classifiers of degree $d$ has VC-dimension
-	$d$, the VC-dimension of the class of all polynomial classifiers is unbounded. 
+	$d$, the VC-dimension of the class of all polynomial classifiers is unbounded.
 
 	\item In order to find out the VC-dimension of the class of polynomial classifiers
 		of degree $d$ on $n$ variables, it is sufficient to establish the number
 		of terms that such a polynomial can have. The number of terms equals
-		the dimension of the function space of all such polynomials, which by 6.12.2 
-		equals the VC-dimension. The degree of 
-		any such term is some number $k$, $1 \leq k \leq d$. For a fixed $k$, the number 
+		the dimension of the function space of all such polynomials, which by 6.12.2
+		equals the VC-dimension. The degree of
+		any such term is some number $k$, $1 \leq k \leq d$. For a fixed $k$, the number
 		of terms of degree $k$ is the number of non-negative solutions to the equation:
 		\[
-			y_1 + \cdots + y_n = k, 
+			y_1 + \cdots + y_n = k,
 		\]
 		where $y_i \geq 0$ for all $1 \leq i \leq n$.
 		This, in turn, can be cast into the problem of finding out the number of bit patterns
-		on $n - 1$ ones and $k$ zeros. This is just ${n - 1 + k \choose k}$ and hence, the 
+		on $n - 1$ ones and $k$ zeros. This is just ${n - 1 + k \choose k}$ and hence, the
 		number of terms in such a polynomial is:
 		\[
 			\sum_{k = 0}^{d} {n - 1 + k \choose k},
 		\]
-		which is the VC-dimension of $P_n^d$. 
-		
+		which is the VC-dimension of $P_n^d$.
+
 \end{enumerate}
