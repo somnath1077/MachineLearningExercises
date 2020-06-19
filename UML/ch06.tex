@@ -91,6 +91,51 @@ Theorem relied on the fact that there exists a finite subset $C \subset \dom$ su
 that the adversary could choose a target function from the set of \emph{all} possible
 functions from $C \rightarrow \{0, 1\}$.
 
+\section{The Fundamental Theorem of Statistical Learning}
+
+The fundamental theorem of statistical learning goes as follows.
+\begin{theorem}[The Fundamental Theorem]
+Let $\hypclass$ be a hypothesis class of functions from a domain
+$\dom \rightarrow \{0, 1\}$ and let the loss be the $\zeroone$ loss. Then the
+following are equivalent:
+\begin{enumerate}
+    \item $\hypclass$ is uniformly convergent
+    \item $\hypclass$ is agnostic PAC-learnable
+    \item $\hypclass$ is PAC-learnable
+    \item $\hypclass$ has finite VC-dimension.
+\end{enumerate}
+\end{theorem}
+
+There is also a ``quantitative'' version of this theorem wherein the sample
+complexities are made explicit in terms of the $\vcdim(\hypclass)$.
+
+\begin{theorem}[Quantitaive Version]
+Let $\hypclass$ be a hypothesis class of functions from a domain
+$\dom \rightarrow \{0, 1\}$ and let the loss be the $\zeroone$ loss. Assume that
+$\vcdim(\hypclass) = d < \infty$. Then there are absolute constants $C_1, C_2$
+such that:
+\begin{enumerate}
+    \item $\hypclass$ is uniformly convergent with sample complexity
+        \[
+            C_1 \frac{d + \log (1 / \delta)}{\epsilon^2}
+            \leq \usamplecomp{\epsilon}{\delta}
+            \leq C_2 \frac{d + \log (1 / \delta)}{\epsilon^2}
+        \]
+    \item $\hypclass$ is agnostic PAC-learnable with sample complexity
+        \[
+            C_1 \frac{d + \log (1 / \delta)}{\epsilon^2}
+            \leq \SampleComp{\epsilon}{\delta}
+            \leq C_2 \frac{d + \log (1 / \delta)}{\epsilon^2}
+        \]
+    \item $\hypclass$ is PAC-learnable with sample complexity
+        \[
+            C_1 \frac{d + \log (1 / \delta)}{\epsilon}
+            \leq \usamplecomp{\epsilon}{\delta}
+            \leq C_2 \frac{d \log (1 / \epsilon) + \log (1 / \delta)}{\epsilon}
+        \]
+\end{enumerate}
+\end{theorem}
+
 \section*{Exercise 6.1}
 
 Let $\hypclass$ be a set of functions from $\dom$ to $\{0, 1\}$ and
