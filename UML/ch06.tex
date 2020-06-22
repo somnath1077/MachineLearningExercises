@@ -101,6 +101,50 @@ from $C \to \{0, 1\}$  that can be derived from $\hypclass$.
 \]
 \end{definition}
 
+It turns out that whether a hypothesis class is learnable or not
+$\hypclass = \{h \colon \dom \rightarrow \{0, 1\} \}$ can be characterized
+by studying the restriction of the hypothesis class to finite subsets
+$C \subset \dom$. This leads us to the next definition.
+\begin{definition}[Shattering]
+A hypothesis class $\hypclass = \{h \colon \dom \rightarrow \{0, 1\} \}$ shatters
+a set $C \subset \dom$ if its restriction to $C$ is the set of all boolean functions
+on~$C$.
+\end{definition}
+
+We can now connect the notion of shattering to the No-Free-Lunch Theorem. For the
+proof of Theorem~5.1 to go through, we require a hypothesis class that given
+any sample size $m$ shatters some set $C \subset \dom$ of size $2m$. In the proof
+given, this hypothesis class is the set of all boolean functions on $\dom$ but
+this can now be relaxed.
+\begin{corollary} \label{cor:no_free_lunch}
+Let $\hypclass$ be a hypothesis class of functions from a domain $\dom$ to $\{0, 1\}$.
+Assume that for any $m \in \Nat$ representing a training set size, there exists a
+set $C \subset \dom$ of size $2m$ that is shattered by $\hypclass$. Then
+for any learning algorithm $A$ there exists a function
+$f \colon \dom \rightarrow \{0, 1\}$ and a distribution $\dist$ over
+$\dom \times \{0, 1\}$ such that
+\begin{enumerate}
+    \item $L_{\dist} (f) = 0$
+    \item $\Prtwo{S \in \dist^m}{L_{\dist} (A(S)) \geq 1/ 8} > 1/7$.
+\end{enumerate}
+\end{corollary}
+
+Thus if $\hypclass$ shatters a set of size $2m$, it cannot be PAC-learned
+using $m$ examples. Since the size of a set shattered by a
+hypothesis class plays a definitive role in whether it can be PAC-learned or not,
+the next defintion follows naturally.
+\begin{definition}
+The VC-dimension of a hypothesis class, $\vcdim(\hypclass)$, is the maximal size of
+a set $C \subset \dom$ that can be shattered by $\hypclass$. If $\hypclass$ can
+shatter sets of arbitrary size, $\vcdim(\hypclass) = \infty$.
+\end{definition}
+
+As a direct consequence of Corollary~\ref{cor:no_free_lunch}, we have that:
+\begin{theorem}
+If a hypothesis class $\hypclass$ has infinite VC-dimension, then it is not
+PAC-learnable.
+\end{theorem}
+
 \section{The Fundamental Theorem of Statistical Learning}
 
 The fundamental theorem of statistical learning goes as follows.
@@ -119,7 +163,7 @@ following are equivalent:
 There is also a ``quantitative'' version of this theorem wherein the sample
 complexities are made explicit in terms of the $\vcdim(\hypclass)$.
 
-\begin{theorem}[Quantitaive Version]
+\begin{theorem}[Quantitative Version]
 Let $\hypclass$ be a hypothesis class of functions from a domain
 $\dom \rightarrow \{0, 1\}$ and let the loss be the $\zeroone$ loss. Assume that
 $\vcdim(\hypclass) = d < \infty$. Then there are absolute constants $C_1, C_2$
