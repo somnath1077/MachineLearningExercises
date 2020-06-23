@@ -148,7 +148,7 @@ PAC-learnable.
 \section{The Fundamental Theorem of Statistical Learning}
 
 The fundamental theorem of statistical learning goes as follows.
-\begin{theorem}[The Fundamental Theorem]
+\begin{theorem}[The Fundamental Theorem] \label{thm:fundamental_theorem}
 Let $\hypclass$ be a hypothesis class of functions from a domain
 $\dom \rightarrow \{0, 1\}$ and let the loss be the $\zeroone$ loss. Then the
 following are equivalent:
@@ -190,6 +190,13 @@ such that:
 \end{enumerate}
 \end{theorem}
 
+\begin{proof}[Proof of Theorem~\ref{thm:fundamental_theorem}]
+We saw in Chapter~4 that if a hypothesis class is unifomly convergent then it is
+agnostic PAC-learnable. An agnostic PAC-learnable class is PAC-learnable. Moreover,
+PAC-learnability implies that the hypothesis class has finite VC-dimension. The only
+thing that remains to show is that finite VC-dimension implies uniform convergence.
+This makes use of Sauer's Lemma.
+\end{proof}
 \section*{Exercise 6.1}
 
 Let $\hypclass$ be a set of functions from $\dom$ to $\{0, 1\}$ and
