@@ -197,6 +197,36 @@ PAC-learnability implies that the hypothesis class has finite VC-dimension. The 
 thing that remains to show is that finite VC-dimension implies uniform convergence.
 This makes use of Sauer's Lemma.
 \end{proof}
+
+\subsection{Sauer's Lemma and the Growth Function}
+
+The growth function measures the size of a hypothesis class when it is restricted to
+a finite subset of the domain.
+\begin{definition}
+The growth function of a hypothesis class $\hypclass$ is a function
+$\tau \colon \Nat \rightarrow \Nat$ defined as follows:
+\[
+    \tau_{\hypclass} (m) = \max_{C \subset \dom \colon |C| = m} |\hypclass_{C}|.
+\]
+\end{definition}
+Thus the growth function is the maximum number of different functions that can be
+obtained when restricting $\hypclass$ to an $m$-sized subset of the domain.
+
+For hypothesis classes of finite VC-dimension, Sauer's Lemma bounds the growth
+function in terms of the VC-dimension and $m$. If $\vcdim(\hypclass) = d$, then for all
+$m \leq d$ there exists an $m$-sized subset of the domain that is shattered by
+$\hypclass$; consequently, $\tau_{\hypclass} (m) = 2^m$. What Sauer's Lemma shows
+is that for $m > d$, $\tau_{\hypclass} (m) \leq (em / d)^d$. That is, for sets
+$C \subset \dom$ of size larger than $\vcdim(\hypclass)$, $|\hypclass_{C}|$ is a
+polynomial in $|C|$. Thus the VC-dimension marks the point where
+$|\hypclass_{C}|$ transitions from an exponential function of $|C|$ to a polynomial
+function of $|C|$.
+\begin{lemma}[Sauer's Lemma]
+Let $\hypclass$ be a hypothesis class with $\vcdim(\hypclass) = d < \infty$.
+Then for all $m \in \Nat$, $\tau_{\hypclass}(m) \leq \sum_{i = 0}^{d} {m \choose i}$.
+In particular, for $m > d$, $\tau_{\hypclass}(m) \leq (e m / d)^d$.
+\end{lemma}
+
 \section*{Exercise 6.1}
 
 Let $\hypclass$ be a set of functions from $\dom$ to $\{0, 1\}$ and
