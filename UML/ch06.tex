@@ -227,6 +227,19 @@ Then for all $m \in \Nat$, $\tau_{\hypclass}(m) \leq \sum_{i = 0}^{d} {m \choose
 In particular, for $m > d$, $\tau_{\hypclass}(m) \leq (e m / d)^d$.
 \end{lemma}
 
+The next result ties the growth function to $\epsilon$-representativeness of samples.
+\begin{theorem}
+Let $\hypclass = \{h \colon h \colon \dom \rightarrow \{0, 1\}\}$ and let
+$\tau_{\hypclass}$ be its growth function. Then for every distribution $\dist$
+over $\dom$ and every $\delta \in (0, 1)$ we have that
+\[
+    \Prtwo{S \sim \dist^m}{\forall h \in \hypclass \colon |L_{\dist} (h) - L_S (h)|
+             \leq \frac{4 + \sqrt{\log (\tau_{\hypclass} ( 2m ))}}{ \delta \sqrt{2m}}} \geq 1 - \delta.
+\]
+\end{theorem}
+
+
+
 \section*{Exercise 6.1}
 
 Let $\hypclass$ be a set of functions from $\dom$ to $\{0, 1\}$ and
