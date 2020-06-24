@@ -237,8 +237,20 @@ over $\dom$ and every $\delta \in (0, 1)$ we have that
              \leq \frac{4 + \sqrt{\log (\tau_{\hypclass} ( 2m ))}}{ \delta \sqrt{2m}}} \geq 1 - \delta.
 \]
 \end{theorem}
-
-
+Assuming that $\vcdim(\hypclass) = d < \infty$ and $m > d$, we have
+$\tau_{\hypclass} (m) \leq (e m / d)^d$. Substituting this in the righthand side
+of the above expression it can be shown that for
+\[
+    m \geq 4 \frac{2d}{ (\delta \epsilon)^2 } \log \frac{2d}{ (\delta \epsilon)^2 }
+        + \frac{4 d \log (2 e / d)}{ (\delta \epsilon)^2 }
+\]
+it holds that
+\[
+    \Prtwo{S \sim \dist^m}{\forall h \in \hypclass \colon |L_{\dist} (h) - L_S (h)|
+             \leq \epsilon} \geq 1 - \delta.
+\]
+This then shows that hypothesis classes of finite VC-dimension are uniformly
+convergent, completing the proof of Theorem~\ref{thm:fundamental_theorem}.
 
 \section*{Exercise 6.1}
 
