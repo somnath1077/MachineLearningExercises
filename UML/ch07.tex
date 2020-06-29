@@ -1,33 +1,42 @@
 \chapter{Non-Uniform Learnability}
 
+In the (agnostic) PAC learning setting, the sample size depended only on the
+accuracy parameter~$\epsilon$ and the confidence parameter~$\delta$. It was ``uniform''
+w.r.t the hypothesis class and the underlying distribution. In non-uniform
+learnability, the sample size is allowed to depend on the hypothesis class.
+In particular, when a learning algorithm is competing against a specific hypothesis
+in the hypothesis class, then it is allowed to have a training sample size that depends
+on that hypothesis (and also on $\epsilon, \delta$).
+
+\begin{definition}
 Let $\hypclass$ be a set of binary functions over a domain $\dom$.  The class
 $\hypclass$ is \emph{non-uniformly learnable} if there exist a learning
 algorithm $\algo$ and a function $\nusamplecomp \colon (0, 1) \times (0, 1)
 \times \hypclass \rightarrow \Nat$ such that for all $\epsilon, \delta \in (0,
-1)$, for all $h \in \hypclass$ and all distributions $\dist$ over 
-$\dom \times \{0, 1\}$, if $S$ is a sample with $m \geq \nusamplecomp(\epsilon,
-\delta, h)$ examples then with probability at least $1 - \delta$ over the choice of
-random samples over $\dist^m$, 
+1)$, for all $h \in \hypclass$ and all distributions $\dist$ over
+$\dom \times \{0, 1\}$, the following holds for samples $S$
+with $m \geq \nusamplecomp(\epsilon, \delta, h)$ examples:
 \[
-    L_{\dist}(\algo (S)) \leq L_{\dist} (h) + \epsilon.
+    \Prtwo{S \sim \dist^m}{L_{\dist}(\algo (S)) \leq L_{\dist} (h) + \epsilon} \geq 1 - \delta.
 \]
+\end{definition}
 
-The notion of non-uniform learnability is a strict generalization of the notion of 
-PAC-learnability. This can be shown by considering the set of all thresholded 
-polynomials. The VC-dimension of this class is infinite and hence it is not PAC-learnable, but 
-it is non-uniformly learnable as the set of thresholded polynomials of any fixed degree~$d$ 
-has VC-dimension~$d + 1$. The non-uniform learnability of all thresholded polynomials 
+The notion of non-uniform learnability is a strict generalization of the notion of
+PAC-learnability. This can be shown by considering the set of all thresholded
+polynomials. The VC-dimension of this class is infinite and hence it is not PAC-learnable, but
+it is non-uniformly learnable as the set of thresholded polynomials of any fixed degree~$d$
+has VC-dimension~$d + 1$. The non-uniform learnability of all thresholded polynomials
 follows from the following characterization:
 
 \begin{theorem} \label{thm:non_uniform}
-A hypothesis class $\hypclass$ of binary classifiers is non-uniformly learnable iff it 
+A hypothesis class $\hypclass$ of binary classifiers is non-uniformly learnable iff it
 is the countable union of agnostically PAC-learnable hypothesis classes.
 \end{theorem}
 
 On the other hand, the notion of non-uniform learnability is restricted enough
 that it does not allow all hypothesis classes to be learnable. This follows
 from Lemma~\ref{lemma:non_uniform} and the characterization of non-uniform
-learnable classes in Theorem~\ref{thm:non_uniform}. 
+learnable classes in Theorem~\ref{thm:non_uniform}.
 
 \begin{lemma}\label{lemma:non_uniform}
 For every infinite set $\dom$, the set of all binary valued functions on $\dom$ is
@@ -44,37 +53,37 @@ Let $\hypclass$ be as stated and for each $n \in \Nat$, define
 \[
     H_n := \{h \in \hypclass \colon \nusamplecomp (1/8, 1/7, h) \leq n\}.
 \]
-Then clearly $H = \bigcup_{n = 1}^{\infty} H_n$. By definition, each class $H_n$ 
+Then clearly $H = \bigcup_{n = 1}^{\infty} H_n$. By definition, each class $H_n$
 can be learned to an accuracy of $1/8$ with a confidence of $1/7$ using at most $n$
-examples. We claim that $\vcdim (H_n) \leq 2n$ for all 
-$n \in \Nat$. Suppose not. Then there exist $n \in \Nat$ and a set $A \subset \dom$ of size 
-$2n + 1$ that is shattered by $H_n$. This means that every binary function on $A$ admits 
-an extension in $H_n$ to a function on $\dom$. By the No-Free-Lunch Theorem, in order 
-to be able to learn $H_n$ to an accuracy of $1/8$ with a confidence of $1/7$, we need 
-at least $n + 1$ examples. This contradiction shows that there cannot be any set 
+examples. We claim that $\vcdim (H_n) \leq 2n$ for all
+$n \in \Nat$. Suppose not. Then there exist $n \in \Nat$ and a set $A \subset \dom$ of size
+$2n + 1$ that is shattered by $H_n$. This means that every binary function on $A$ admits
+an extension in $H_n$ to a function on $\dom$. By the No-Free-Lunch Theorem, in order
+to be able to learn $H_n$ to an accuracy of $1/8$ with a confidence of $1/7$, we need
+at least $n + 1$ examples. This contradiction shows that there cannot be any set
 of size $2n + 1$ that is shattered by $H_n$. Hence $\vcdim (H_n) \leq 2n$.
 \qedhere
 \end{proof}
 
 
-To prove the other direction, we need to introduce the notion of the \emph{Structural 
+To prove the other direction, we need to introduce the notion of the \emph{Structural
 Risk Minimization (SRM)} paradigm. Let $\hypclass = \bigcup_{n = 1}^{\infty} \hypclass_n$
-be a hypothesis class that is the union of a countably many uniformly convergent 
-classes $\hypclass_n$ with sample complexity function 
+be a hypothesis class that is the union of a countably many uniformly convergent
+classes $\hypclass_n$ with sample complexity function
 $m_n (\epsilon, \delta)$. Define $\epsilon_n \colon \Nat \times (0, 1) \rightarrow (0, 1)$
 by
 \[
-    \epsilon_n (m, \delta) := 
+    \epsilon_n (m, \delta) :=
         \min \{\epsilon \in (0, 1) \colon m_n (\epsilon, \delta) \leq m\}.
 \]
-Thus $\epsilon_n (m, \delta)$ is just the best possible accuracy obtainable 
-when learning functions from the class $\hypclass_n$ with a sample size of 
-at most $m$ and with confidence $\delta$. 
+Thus $\epsilon_n (m, \delta)$ is just the best possible accuracy obtainable
+when learning functions from the class $\hypclass_n$ with a sample size of
+at most $m$ and with confidence $\delta$.
 
 Since a given $h \in \hypclass$ may belong to an infinite number of $\hypclass_n$,
-define $n(h) := \min \{n \in \Nat \colon h \in \hypclass_n \}$. The other 
-component of SRM is a weight function $w \colon \Nat \rightarrow [0, 1]$ such 
-that $\sum_{n = 1}^{\infty} w(n) \leq 1$. The weight function $w(n)$ represents 
+define $n(h) := \min \{n \in \Nat \colon h \in \hypclass_n \}$. The other
+component of SRM is a weight function $w \colon \Nat \rightarrow [0, 1]$ such
+that $\sum_{n = 1}^{\infty} w(n) \leq 1$. The weight function $w(n)$ represents
 the importance that the learner attributes to each hypothesis class $\hypclass_n$.
 
 \begin{theorem}
@@ -91,16 +100,16 @@ $h \in \hypclass_n$:
     |L_{\dist} (h) - L_S (h)| \leq \epsilon_n (m, w(n) \cdot \delta).
 \]
 \end{theorem}
-The main claim of this theorem can be restated as either 
+The main claim of this theorem can be restated as either
 one of these statements:
 \begin{itemize}
-    \item for all $h \in \hypclass$: 
+    \item for all $h \in \hypclass$:
         $L_{\dist} (h) \leq L_S(h) + \epsilon_n (m, w(n) \cdot \delta)$
-    \item for all $h \in \hypclass$: 
+    \item for all $h \in \hypclass$:
     $L_{S} (h) \leq L_{\dist}(h) + \epsilon_n (m, w(n) \cdot \delta)$
 \end{itemize}
 
-Given a training sample $S$ and a confidence parameter $\delta$, 
+Given a training sample $S$ and a confidence parameter $\delta$,
 the SRM paradigm is to select a hypothesis $h \in \hypclass$ that minimizes
 \[
     L_S(h) + \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta).
@@ -111,15 +120,15 @@ Let $\hypclass$ be a hypothesis class that can be written as $\hypclass =
 \bigcup_{n = 1}^{\infty} \hypclass_n$, where each class $\hypclass_n$ is
 uniformly convergent with sample complexity $m_n(\epsilon, \delta)$. Let $w
 \colon \Nat \rightarrow [0, 1]$ be a weight function such that  $\sum_{n =
-1}^{\infty} w(n) \leq 1$. Then $\hypclass$ is non-uniformly learnable 
+1}^{\infty} w(n) \leq 1$. Then $\hypclass$ is non-uniformly learnable
 using the SRM rule with rate:
 \[
     \nusamplecomp (\epsilon, \delta, h) \leq m_{n(h)} (\epsilon / 2, w( n(h) ) \cdot \delta).
 \]
 \end{theorem}
 \begin{proof}
-Let $\algo$ be the SRM algorithm. Given $\epsilon$, $\delta$ and $h \in \hypclass$, 
-choose $m \geq m_{n(h)} (\epsilon / 2, w( n (h) ) \cdot \delta)$. By Theorem~\ref{thm:SRM1}, 
+Let $\algo$ be the SRM algorithm. Given $\epsilon$, $\delta$ and $h \in \hypclass$,
+choose $m \geq m_{n(h)} (\epsilon / 2, w( n (h) ) \cdot \delta)$. By Theorem~\ref{thm:SRM1},
 for every distribution $\dist$, with probability at least  $1 - \delta$ over the choice
 of samples $S \sim \dist^m$ for all $h' \in \hypclass$:
 \[
@@ -127,25 +136,25 @@ of samples $S \sim \dist^m$ for all $h' \in \hypclass$:
 \]
 Since $\algo$ uses the SRM rule:
 \begin{align*}
-    L_{\dist} (A(S)) 
-        &  \leq \min_{h' \in \hypclass} \{ 
+    L_{\dist} (A(S))
+        &  \leq \min_{h' \in \hypclass} \{
             L_S(h') + \epsilon_{n(h')} (m, w( n(h') ) \cdot \delta) \} \\
         & \leq L_S(h) +  \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta). \\
 \end{align*}
-By Theorem~\ref{thm:SRM1}, with probability at least  $1 - \delta$ over the choice of samples 
+By Theorem~\ref{thm:SRM1}, with probability at least  $1 - \delta$ over the choice of samples
 $S \sim \dist^m$:
 \begin{align*}
-    L_S(h) +  \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta) 
+    L_S(h) +  \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta)
         & \leq L_{\dist}(h) +  2 \cdot \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta) \\
         & \leq L_{\dist}(h) + 2 \cdot \epsilon / 2 \\
         & \leq L_{\dist}(h) + \epsilon.
 \end{align*}
 \end{proof}
 
-An immediate implication is that every countably infinite hypothesis class for 
-binary classification is non-uniformly learnable using a suitably defined weight 
-function. For if, $\hypclass = \bigcup_{n = 1}^{\infty} \{ h_n \}$ then, by 
-Corollary~4.6, each singleton class $\{ h_n \}$ has the uniform convergence property with 
+An immediate implication is that every countably infinite hypothesis class for
+binary classification is non-uniformly learnable using a suitably defined weight
+function. For if, $\hypclass = \bigcup_{n = 1}^{\infty} \{ h_n \}$ then, by
+Corollary~4.6, each singleton class $\{ h_n \}$ has the uniform convergence property with
 sample complexity $m (\epsilon, \delta) = \frac{\log (2 / \delta)}{\epsilon^2}$.
 
 
@@ -157,11 +166,11 @@ that can possibly be represented is:
 \[
     2^{l} + 2^{l - 1} + \cdots + 2^1 + 2^0 = 2^{l + 1} - 1.
 \]
-Hence $|\hypclass| \leq 2^{l + 1} - 1 < 2^{l + 1}$. Since 
+Hence $|\hypclass| \leq 2^{l + 1} - 1 < 2^{l + 1}$. Since
 $\vcdim (\hypclass) \leq \log_2 |\hypclass|$, we have that:
 $\vcdim (\hypclass) < l + 1$.
 
-If, in addition, the descriptions are prefix-free, then by Kraft's 
+If, in addition, the descriptions are prefix-free, then by Kraft's
 inequality:
 \[
     \frac{|\hypclass|}{2^l} \leq \sum_{h \in \hypclass} \frac{1}{2^{|h|}} \leq 1,
@@ -170,29 +179,29 @@ which yields $|\hypclass| \leq 2^l$, and hence $\vcdim (\hypclass) \leq l$.
 
 \section*{Ex 7.2}
 
-It is sufficient to prove that there exists no weighting function 
+It is sufficient to prove that there exists no weighting function
 $w \colon \Nat \rightarrow [0, 1]$ that is not indentically zero such that
 \begin{enumerate}
     \item $\sum_{n = 1}^{\infty} w(n) \leq 1$
     \item $w$ is non-decreasing: for all $i < j$, $w(i) \leq w(j)$.
 \end{enumerate}
-Since, by hypothesis, $w$ is not identically zero, there exists an index $n_0$ 
-such that $w_{n_0} > 0$. Since $w$ is non-decreasing, this implies that for 
-all $n \geq n_0$, $w(n) \geq w(n_0)$. Hence 
-$\sum_{i = 0}^{k} w( n_0 + i ) \geq k \cdot w( n_0 )$, which implies that 
-the sum $\sum_{i = 1}^{\infty} w(i)$ diverges to infinity, contradicting 
+Since, by hypothesis, $w$ is not identically zero, there exists an index $n_0$
+such that $w_{n_0} > 0$. Since $w$ is non-decreasing, this implies that for
+all $n \geq n_0$, $w(n) \geq w(n_0)$. Hence
+$\sum_{i = 0}^{k} w( n_0 + i ) \geq k \cdot w( n_0 )$, which implies that
+the sum $\sum_{i = 1}^{\infty} w(i)$ diverges to infinity, contradicting
 requirement~$(1)$.
 
 \section*{Ex 7.3}
 
 \subsection*{Ex 7.3.1}
 
-Let $\hypclass = \bigcup_{n \in \Nat} \hypclass_n$, where $\hypclass_n$ is finite 
-for all $n \in \Nat$. For $h \in \hypclass$, define 
+Let $\hypclass = \bigcup_{n \in \Nat} \hypclass_n$, where $\hypclass_n$ is finite
+for all $n \in \Nat$. For $h \in \hypclass$, define
 \[
     w(h) = \frac{1}{|H_{ n(h) }| \cdot 2^{ n(h) }}.
 \]
-Then 
+Then
 \begin{align*}
 \sum_{h \in \hypclass} w(h) & = \sum_{h \in \hypclass} \frac{1}{|H_{ n(h) }| \cdot 2^{ n(h) }} \\
     & \leq \sum_{j = 1}^{\infty} \frac{|H_j|}{|H_j| \cdot 2^j} \\
@@ -204,11 +213,11 @@ Then
 
 Let $\hypclass = \bigcup_{n \in \Nat} \hypclass_n$, where $\hypclass_n$ is countably infinite.
 In this case, every $h \in \hypclass$ can be uniquely identified by a pair of natural numbers
-$(i, j)$, where $i = n(h)$ and $j = \id (h)$ is the index of $h$ in $\hypclass_{ n(h) }$. Now define $w(h)$ 
+$(i, j)$, where $i = n(h)$ and $j = \id (h)$ is the index of $h$ in $\hypclass_{ n(h) }$. Now define $w(h)$
 as $\frac{1}{2^{n(h) + \id(h)}}$. With this definition, a countably infinite number of $h \in \hypclass$
-may have the same first component $n(h)$, but since each hypothesis 
-has a distinct index~$j$ in $\hypclass_{n(h)}$, we ensure that the weights associated 
-with the class $\hypclass_{n(h)}$ are decreasing. Indeed, 
+may have the same first component $n(h)$, but since each hypothesis
+has a distinct index~$j$ in $\hypclass_{n(h)}$, we ensure that the weights associated
+with the class $\hypclass_{n(h)}$ are decreasing. Indeed,
 \begin{align*}
     \sum_{h \in \hypclass} w(h) & = \sum_{h \in \hypclass} \frac{1}{2^{n(h) + \id(h)}} \\
         & \leq \sum_{n = 1}^{\infty} \sum_{j = 1}^{\infty} \frac{1}{2^{n + j}} \\
@@ -222,33 +231,33 @@ with the class $\hypclass_{n(h)}$ are decreasing. Indeed,
 A No-Free-Lunch result for non-uniform learnability.
 \begin{theorem}
 \label{thm:NFL_NUL}
-Let $\hypclass$ be a class that shatters an infinite set. Then for every 
-sequence of classes $\{ \hypclass_n \}_{n \in \Nat}$ such that 
-$\hypclass = \bigcup_{n \in \Nat} \hypclass_n$, there exists some $n$ 
+Let $\hypclass$ be a class that shatters an infinite set. Then for every
+sequence of classes $\{ \hypclass_n \}_{n \in \Nat}$ such that
+$\hypclass = \bigcup_{n \in \Nat} \hypclass_n$, there exists some $n$
 for which $\vcdim (\hypclass_n) = \infty$.
 \begin{proof}
-Let $\hypclass$ be a hypothesis class that shatters a countably infinite 
+Let $\hypclass$ be a hypothesis class that shatters a countably infinite
 set $K = \{k_i\}_{i = \Nat}$ and suppose that $\hypclass = \bigcup_{n \in \Nat} \hypclass_n$,
-where every $\hypclass_n$ has finite VC-dimension. For $n \in \Nat$, 
-define $K_n \subseteq K$ such that $|K_n| = \vcdim (\hypclass_n) + 1$ and 
-$K_n \cap K_m = \emptyset$ for $n \neq m$. One possible definition that 
+where every $\hypclass_n$ has finite VC-dimension. For $n \in \Nat$,
+define $K_n \subseteq K$ such that $|K_n| = \vcdim (\hypclass_n) + 1$ and
+$K_n \cap K_m = \emptyset$ for $n \neq m$. One possible definition that
 satisfies these conditions is the following:
 \[
     K_n = \{k_{r + 1}, \ldots, k_{r + \vcdim(\hypclass_n) + 1}\}
 \]
 where $r = \sum_{j = 1}^{n - 1} \vcdim (\hypclass_j)$. Clearly, $K_1, \ldots, K_n, \ldots$
-are pairwise disjoint and $K = \bigcup_{n \in \Nat} K_n$. 
+are pairwise disjoint and $K = \bigcup_{n \in \Nat} K_n$.
 
 Since $|K_n| > \vcdim (\hypclass_n)$, there exists a function $f_n \colon K_n \rightarrow \{0, 1\}$
-that does not agree with any function in $\hypclass_n$ on $K_n$. Define 
-$f \colon K \rightarrow \{0, 1\}$ as follows: for $k \in K_n$, $f(k) = f_n(k)$. Since 
-$\hypclass$ shatters $K$, we must have $f \in \hypclass$. By the definition of $f$, 
-for all $n$, $f$ differs from every function in $\hypclass_n$ on the set $K_n$. Thus 
-$f \notin \bigcup_{n \in \Nat} \hypclass_n$, a contradiction to the assumption 
-that $\hypclass = \bigcup_{n \in \Nat} \hypclass_n$, where each $\hypclass_n$ 
+that does not agree with any function in $\hypclass_n$ on $K_n$. Define
+$f \colon K \rightarrow \{0, 1\}$ as follows: for $k \in K_n$, $f(k) = f_n(k)$. Since
+$\hypclass$ shatters $K$, we must have $f \in \hypclass$. By the definition of $f$,
+for all $n$, $f$ differs from every function in $\hypclass_n$ on the set $K_n$. Thus
+$f \notin \bigcup_{n \in \Nat} \hypclass_n$, a contradiction to the assumption
+that $\hypclass = \bigcup_{n \in \Nat} \hypclass_n$, where each $\hypclass_n$
 has finite VC-dimension. This shows that if $\hypclass$ shatters a countably
-infinite set, then it does not admit such a represtation. Since any 
-non-uniformly learnable class does in fact admit such a representation, it 
-follows that $\hypclass$ is not non-uniformly learnable. 
+infinite set, then it does not admit such a represtation. Since any
+non-uniformly learnable class does in fact admit such a representation, it
+follows that $\hypclass$ is not non-uniformly learnable.
 \end{proof}
 \end{theorem}
