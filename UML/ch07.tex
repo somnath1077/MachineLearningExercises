@@ -17,16 +17,20 @@ algorithm $\algo$ and a function $\nusamplecomp \colon (0, 1) \times (0, 1)
 $\dom \times \{0, 1\}$, the following holds for samples $S$
 with $m \geq \nusamplecomp(\epsilon, \delta, h)$ examples:
 \[
-    \Prtwo{S \sim \dist^m}{L_{\dist}(\algo (S)) \leq L_{\dist} (h) + \epsilon} \geq 1 - \delta.
+    \Prtwo{S \sim \dist^m}{L_{\dist}(\algo (S)) \leq L_{\dist} (h) + \epsilon}
+        \geq 1 - \delta.
 \]
 \end{definition}
 
-The notion of non-uniform learnability is a strict generalization of the notion of
-PAC-learnability. This can be shown by considering the set of all thresholded
-polynomials. The VC-dimension of this class is infinite and hence it is not PAC-learnable, but
-it is non-uniformly learnable as the set of thresholded polynomials of any fixed degree~$d$
-has VC-dimension~$d + 1$. The non-uniform learnability of all thresholded polynomials
-follows from the following characterization:
+It should be clear that non-uniform learnability is a relaxation of agnostic
+PAC-learnability in that if a hypothesis class is agnostic PAC-learnable then it
+is also non-uniformly learnable. In fact, the notion of non-uniform learnability
+is a strict generalization of the notion of agnostic PAC-learnability. This can be
+shown by considering the set of all thresholded polynomials. The VC-dimension of
+this class is infinite and hence it is not agnostic PAC-learnable, but
+it is non-uniformly learnable as the set of thresholded polynomials of any
+fixed degree~$d$ has VC-dimension~$d + 1$. The non-uniform learnability of all
+thresholded polynomials follows from the following characterization:
 
 \begin{theorem} \label{thm:non_uniform}
 A hypothesis class $\hypclass$ of binary classifiers is non-uniformly learnable iff it
