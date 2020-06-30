@@ -65,7 +65,9 @@ $2n + 1$ that is shattered by $H_n$. This means that every binary function on $A
 an extension in $H_n$ to a function on $\dom$. By the No-Free-Lunch Theorem, in order
 to be able to learn $H_n$ to an accuracy of $1/8$ with a confidence of $1/7$, we need
 at least $n + 1$ examples. This contradiction shows that there cannot be any set
-of size $2n + 1$ that is shattered by $H_n$. Hence $\vcdim (H_n) \leq 2n$.
+of size $2n + 1$ that is shattered by $H_n$. Hence $\vcdim (H_n) \leq 2n$. By the
+Fundamental Theorem of Statistical Learning, $H_n$ is agnostic PAC-learnable for all
+$n \in \Nat$.
 \qedhere
 \end{proof}
 
