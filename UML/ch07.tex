@@ -26,11 +26,19 @@ It should be clear that non-uniform learnability is a relaxation of agnostic
 PAC-learnability in that if a hypothesis class is agnostic PAC-learnable then it
 is also non-uniformly learnable. In fact, the notion of non-uniform learnability
 is a strict generalization of the notion of agnostic PAC-learnability. This can be
-shown by considering the set of all thresholded polynomials. The VC-dimension of
-this class is infinite and hence it is not agnostic PAC-learnable, but
-it is non-uniformly learnable as the set of thresholded polynomials of any
-fixed degree~$d$ has VC-dimension~$d + 1$. The non-uniform learnability of all
-thresholded polynomials follows from the following characterization:
+shown by considering the set of all polynomial classifiers.
+
+\begin{example}
+Let $\dom = \R$ and for each $n \in \Nat$, let $\hypclass_n$ be defined as
+\[
+    \hypclass_n = \{\sign (p(x)) \colon p \text{ is a univariate polynomial and } \deg (p) = n\}.
+\]
+Let $\hypclass = \bigcup_{n \in \Nat} \hypclass_n$. Then
+$\vcdim (\hypclass_n) = n + 1$ but $\vcdim (\hypclass) = \infty$. Thus $\hypclass$
+is not agnostic PAC-learnable.
+\end{example}
+The non-uniform learnability of all polynomial classifiers
+follows from the following characterization of non-uniform learnability.
 
 \begin{theorem} \label{thm:non_uniform}
 A hypothesis class $\hypclass$ of binary classifiers is non-uniformly learnable iff it
