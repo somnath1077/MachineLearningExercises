@@ -149,20 +149,24 @@ of samples $S \sim \dist^m$ for all $h' \in \hypclass$:
     L_{\dist} (h') \leq L_S(h') + \epsilon_{n(h')} (m, w( n(h') ) \cdot \delta).
 \]
 Since $\algo$ uses the SRM rule:
-\begin{align*}
+\begin{align}\label{eqn:srm_ub}
     L_{\dist} (A(S))
         &  \leq \min_{h' \in \hypclass} \{
-            L_S(h') + \epsilon_{n(h')} (m, w( n(h') ) \cdot \delta) \} \\
-        & \leq L_S(h) +  \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta). \\
-\end{align*}
+            L_S(h') + \epsilon_{n(h')} (m, w( n(h') ) \cdot \delta) \} \nonumber \\
+        & \leq L_S(h) +  \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta).
+\end{align}
 By Theorem~\ref{thm:SRM1}, with probability at least  $1 - \delta$ over the choice of samples
 $S \sim \dist^m$:
-\begin{align*}
+\begin{align}
     L_S(h) +  \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta)
-        & \leq L_{\dist}(h) +  2 \cdot \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta) \\
-        & \leq L_{\dist}(h) + 2 \cdot \epsilon / 2 \\
+        & \leq L_{\dist}(h) +  2 \cdot \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta) \nonumber \\
+        & \leq L_{\dist}(h) + 2 \cdot \epsilon / 2 \nonumber \\
         & \leq L_{\dist}(h) + \epsilon.
-\end{align*}
+\end{align}
+Together with~\ref{eqn:srm_ub}, we obtain
+\[
+    \Prtwo{S \sim \dist^m}{L_{\dist} (A(S)) \leq L_{\dist}(h) + \epsilon} \geq 1 - \delta.
+\]
 \end{proof}
 
 An immediate implication is that every countably infinite hypothesis class for
