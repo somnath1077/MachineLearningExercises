@@ -143,10 +143,10 @@ using the SRM rule with rate:
 \begin{proof}
 Let $\algo$ be the SRM algorithm. Given $\epsilon$, $\delta$ and $h \in \hypclass$,
 choose $m \geq m_{n(h)} (\epsilon / 2, w( n (h) ) \cdot \delta / 2)$.
-By Theorem~\ref{thm:SRM1}, for every distribution $\dist$, with probability at least
-$1 - \delta / 2$ over the choice of samples $S \sim \dist^m$ for all $h' \in \hypclass$:
+By Theorem~\ref{thm:SRM1}, for every distribution $\dist$:
 \[
-    L_{\dist} (h') \leq L_S(h') + \epsilon_{n(h')} (m, w( n(h') ) \cdot \delta / 2).
+    \Prtwo{S \sim \dist^m}{\forall h' \in \hypclass \colon L_{\dist} (h') \leq L_S(h') +
+                           \epsilon_{n(h')} \left (m, w( n(h') ) \cdot \frac{\delta}{2} \right )} \geq 1 - \frac{\delta}{2}.
 \]
 Since $\algo$ uses the SRM rule:
 \begin{align}\label{eqn:srm_ub}
