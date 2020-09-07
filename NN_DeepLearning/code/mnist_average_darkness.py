@@ -17,7 +17,7 @@ Needless to say, this isn't a very good way of recognizing handwritten
 digits!  Still, it's useful to show what sort of performance we get
 from naive ideas."""
 
-#### Libraries
+# Libraries
 # Standard library
 from collections import defaultdict
 
