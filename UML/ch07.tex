@@ -142,28 +142,28 @@ using the SRM rule with rate:
 \end{theorem}
 \begin{proof}
 Let $\algo$ be the SRM algorithm. Given $\epsilon$, $\delta$ and $h \in \hypclass$,
-choose $m \geq m_{n(h)} (\epsilon / 2, w( n (h) ) \cdot \delta)$. By Theorem~\ref{thm:SRM1},
-for every distribution $\dist$, with probability at least  $1 - \delta$ over the choice
-of samples $S \sim \dist^m$ for all $h' \in \hypclass$:
+choose $m \geq m_{n(h)} (\epsilon / 2, w( n (h) ) \cdot \delta / 2)$.
+By Theorem~\ref{thm:SRM1}, for every distribution $\dist$:
 \[
-    L_{\dist} (h') \leq L_S(h') + \epsilon_{n(h')} (m, w( n(h') ) \cdot \delta).
+    \Prtwo{S \sim \dist^m}{\forall h' \in \hypclass \colon L_{\dist} (h') \leq L_S(h') +
+                           \epsilon_{n(h')} \left (m, w( n(h') ) \cdot \frac{\delta}{2} \right )} \geq 1 - \frac{\delta}{2}.
 \]
 Since $\algo$ uses the SRM rule:
 \begin{align}\label{eqn:srm_ub}
     L_{\dist} (A(S))
         &  \leq \min_{h' \in \hypclass} \{
-            L_S(h') + \epsilon_{n(h')} (m, w( n(h') ) \cdot \delta) \} \nonumber \\
-        & \leq L_S(h) +  \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta).
+            L_S(h') + \epsilon_{n(h')} (m, w( n(h') ) \cdot \delta / 2) \} \nonumber \\
+        & \leq L_S(h) +  \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta / 2).
 \end{align}
-By Theorem~\ref{thm:SRM1}, with probability at least  $1 - \delta$ over the choice of samples
-$S \sim \dist^m$:
+By Theorem~\ref{thm:SRM1}, with probability at least  $1 - \delta / 2$ over the
+choice of samples $S \sim \dist^m$:
 \begin{align}
-    L_S(h) +  \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta)
-        & \leq L_{\dist}(h) +  2 \cdot \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta) \nonumber \\
+    L_S(h) +  \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta / 2)
+        & \leq L_{\dist}(h) +  2 \cdot \epsilon_{n(h)} (m, w( n(h) ) \cdot \delta / 2) \nonumber \\
         & \leq L_{\dist}(h) + 2 \cdot \epsilon / 2 \nonumber \\
         & \leq L_{\dist}(h) + \epsilon.
 \end{align}
-Together with~\ref{eqn:srm_ub}, we obtain
+Together with~\ref{eqn:srm_ub} and using the Union Bound, we obtain
 \[
     \Prtwo{S \sim \dist^m}{L_{\dist} (A(S)) \leq L_{\dist}(h) + \epsilon} \geq 1 - \delta.
 \]
