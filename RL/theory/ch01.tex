@@ -1,0 +1,15 @@
+\chapter{Markov Decision Processes}
+
+\section{Introduction}
+
+Problems in reinforcement learning are typically formulated in the formal
+setting of a Markov Decision Process (MDP). An MDP is a five-tuple
+$\angular{\states, \actions, p, \rewards, \discount}$
+\begin{itemize}
+    \item a set $\states$ of states
+    \item a set $\actions$ of actions
+    \item a set $\rewards$ of rewards
+    \item a probability function
+        $p \colon \states \times \rewards \times \states \times \actions \rightarrow [0, 1]$
+    \item a discount factor $\discount \in [0, 1]$
+\end{itemize}
