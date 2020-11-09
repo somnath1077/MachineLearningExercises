@@ -13,7 +13,7 @@
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{algpseudocode}
-\usepackage{rsfs} % for \mathscr
+\usepackage{rsfso} % for \mathscr
 %--------------------------------------------------------
 % COLOR DEFINITIONS
 %---------------------------------------------------------
@@ -65,8 +65,6 @@
 \usepackage[T1]{fontenc}
 \usepackage{fontspec}
 
-
-\usepackage{fontspec}
 %-------------------------------------------------------
 % INFORMATION IN THE TITLE PAGE
 %-------------------------------------------------------
@@ -78,13 +76,16 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{example}{Example}[chapter]
+\newtheorem{exer}{Exercise}[chapter]
 \newtheorem*{note}{Note}
+\newtheorem*{solution}{Solution}
 
 
 \newcommand{\states}{\ensuremath{\mathcal{S}}}
 \newcommand{\actions}{\ensuremath{\mathcal{A}}}
 \newcommand{\rewards}{\ensuremath{\mathcal{R}}}
 \newcommand{\discount}{\ensuremath{\gamma}}
+\newcommand{\policy}{\ensuremath{\pi}}
 
 \newcommand{\vcdim}{\ensuremath{\text{VCdim}}}
 \newcommand{\algo}{\ensuremath{\mathcal{A}}}
@@ -113,6 +114,7 @@
 \newcommand{\ind}{\ensuremath{\mathbf{1}}}
 \newcommand{\basisvec}{\ensuremath{\mathbf{e}}}
 \newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\defn}{\ensuremath{\coloneqq}}
 %\newcommand{\zeroone}{\ensuremath{\operatorname{0-1}}}
 \renewcommand{\epsilon}{\varepsilon}
 

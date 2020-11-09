@@ -1,6 +1,23 @@
 \chapter{Markov Decision Processes}
 
 \section{Introduction}
+Reinforcement learning consists in teaching an agent how to behave using 
+observations from its environment with the goal of maximizing 
+future rewards that it receives in response to its behavior. 
+The set-up consists of an \emph{agent}, 
+which is the learner or decision maker and the \emph{enviroment}, which is 
+the thing that the agent interacts with, comprising everything outside the agent. 
+The agent and the environment interact in discrete time steps. At a given time 
+step~$t$, the agent takes an \emph{action} and the environment responds by 
+presenting a new state and a scalar feedback signal called the \emph{reward}.
+
+\begin{figure}[h]
+\begin{center}
+    \includegraphics[scale=0.3]{RLAgentEnvironment.png}
+\end{center}   
+\caption{The agent and the environment}
+\end{figure}
+
 
 Problems in reinforcement learning are typically formulated in the formal
 setting of a Markov Decision Process (MDP). An MDP is a five-tuple
@@ -13,3 +30,63 @@ $\angular{\states, \actions, p, \rewards, \discount}$
         $p \colon \states \times \rewards \times \states \times \actions \rightarrow [0, 1]$
     \item a discount factor $\discount \in [0, 1]$
 \end{itemize}
+
+The probablity function~$p$ defines the dynamics of the MDP. It tells us what 
+the most likely next state and reward combination are given the current state 
+and the action taken by the agent. 
+\begin{equation}
+    p(s', r \mid s, a) \defn \Prone{S_{t + 1} = s', R_{t + 1} = r \mid S_t = s, A_t = a}.
+\end{equation} 
+In the above equation, we assume that the probability does \emph{not} depend 
+on the time step~$t$. Such an MDP is called \emph{stationary}. 
+Since this is a probablity distribution, for all $s \in \states$ and for all 
+$a \in \actions$,
+\begin{equation}
+    \sum_{s' \in \states} \sum_{r \in \rewards} p(s', r \mid s, a) = 1.
+\end{equation}
+We also define a state-transition probability function 
+$p \colon \states \times \actions \times \states \rightarrow [0, 1]$ defined as:
+\begin{equation}
+    p(s' \mid s, a) \defn \sum_{r \in \rewards}  p(s', r \mid s, a).
+\end{equation}
+
+In response to the action taken by the agent, the environment provides it a 
+scalar rewards at each time step. The total reward of the agent in time step $t$ is
+defined as
+\begin{equation}
+    G_t \defn \sum_{k = 0}^{\infty} R_{t + k + 1}.
+\end{equation}
+With infinite time horizons, this reward could go to infinity. To prevent this,
+one uses a discounting factor $\gamma \in [0, 1]$ and defines the total reward as
+\begin{equation}
+    G_t \defn R_{t + 1} + \gamma \cdot R_{t + 2} + \gamma^2 \cdot R_{t + 3} + \cdots 
+\end{equation}
+
+\subsection{Policy and Value Functions}
+A policy~$\policy$ is a mapping from states to probabilities of selecting each possible 
+action. 
+\begin{equation}
+    \policy (a \mid s) \defn \Prone {A_t = a \mid S_t = s}.
+\end{equation}
+Note that this probability distribution does not depend on the time step~$t$.
+
+\begin{exer}
+If the current state is $S_t$, and actions are selected according to a stochastic
+policy $\policy$, then what is the expectation of $R_{t + 1}$ in terms of 
+$\policy$ and the four-argument function $p$?
+\end{exer}
+\begin{solution}
+Let us assume that the current state $S_t = s$. We may write 
+$\Exptwo{\policy}{R_{t + 1} \mid S_t = s}$ as:
+\begin{align*}
+    \Exptwo{\policy}{R_{t + 1} \mid S_t = s} 
+        & = \sum_{r \in \rewards} r \cdot \Prtwo{\policy}{R_{t + 1} = r \mid S_t = s} \\
+        & = \sum_{r \in \rewards} r \cdot \sum_{a \in \actions} 
+                \Prtwo{\policy}{R_{t + 1} = r\mid S_t = s, A_t = a} 
+                    \cdot \Prtwo{\policy}{A_{t} = a \mid S_t = s} \\ 
+        & = \sum_{r \in \rewards} r \cdot \sum_{a \in \actions} 
+            \sum_{s' \in \states} p(s', r \mid s, r) \cdot \policy (a \mid s) 
+\end{align*}
+\qed
+\end{solution}
+
