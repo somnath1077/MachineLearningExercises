@@ -63,7 +63,7 @@ one uses a discounting factor $\gamma \in [0, 1]$ and defines the total reward a
 \end{equation}
 
 \subsection{Policy and Value Functions}
-A policy~$\policy$ is a mapping from states to probabilities of selecting each possible 
+A \emph{policy}~$\policy$ is a mapping from states to probabilities of selecting each possible 
 action. 
 \begin{equation}
     \policy (a \mid s) \defn \Prone {A_t = a \mid S_t = s}.
@@ -89,4 +89,22 @@ $\Exptwo{\policy}{R_{t + 1} \mid S_t = s}$ as:
 \end{align*}
 \qed
 \end{solution}
+
+The \emph{value function} of a state~$s$ under a policy~$\policy$, denoted 
+$v_{\policy}(s)$, is the expected return when starting in state~$s$ and 
+following $\policy$ thereafter. For an MDP, we may write the value function as:
+\begin{equation}
+    v_{\policy}(s) \defn \Exptwo{\policy}{G_t \mid S_t = s} 
+        = \Exptwo{\policy}{\sum_{k = 0}^{\infty} \discount^{k} \cdot R_{t + k + 1} \bigm\vert S_t = s }.
+\end{equation}
+The function $v_{\policy}(s)$ is called the \emph{state-value function} of the policy $\policy$.
+
+We also define the value of taking an action $a$ in state $s$ under a policy $\policy$, 
+denoted $q_{\policy}(s, a)$, as the expected return when starting in state $s$, 
+taking action $a$ and following $\policy$ thereafter.
+\begin{equation}
+    q_{\policy}(s, a) \defn \Exptwo{\policy}{G_t \mid S_t = s, A_t = a} 
+        = \Exptwo{\policy}{\sum_{k = 0}^{\infty} \discount^{k} \cdot R_{t + k + 1} \bigm\vert S_t = s, A_t = a}.
+\end{equation}
+The function $q_{\policy}(s, a)$ is the \emph{action-value function} of the policy $\policy$. 
 
