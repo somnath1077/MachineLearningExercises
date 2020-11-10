@@ -108,3 +108,35 @@ taking action $a$ and following $\policy$ thereafter.
 \end{equation}
 The function $q_{\policy}(s, a)$ is the \emph{action-value function} of the policy $\policy$. 
 
+\begin{exer}
+Give an equation for $v_{\policy}$ in terms of $q_{\policy}$ and $\policy$.
+\end{exer}
+\begin{solution}
+We may write $v_{\policy}(s)$ as:
+\begin{align*}
+    v_{\policy}(s) & \defn \Exptwo{\policy}{G_t \vert S_t = s} \\
+                   & = \sum_{a \in \actions} \Exptwo{\policy}{G_t \vert S_t = s, A_t = a} 
+                        \cdot \Prtwo{\policy}{A_t = a \vert S_t = a} \\
+                   & = \sum_{a \in \actions} q_{\policy}(s, a) \policy (a \vert s).
+\end{align*}
+\qed
+\end{solution}
+
+\begin{exer}
+Give an equation for $q_{\policy} (s, a)$ in terms of $v_{\policy}$ and the 
+four parameter function $p$. 
+\end{exer}
+\begin{solution}
+\begin{align*}
+    q_{\pi}(s, a) & \defn \Exptwo{\policy}{R_{t + 1} + \discount \cdot R_{t + 2} + \discount^2 \cdot R_{t + 3} + \cdots \vert S_t = s, A_t = a} \\
+                  & = \Exptwo{\policy}{R_{t + 1} \vert S_t = s, A_t = a} + 
+                    \discount \cdot \Exptwo{\policy}{G_{t + 1} \vert S_t = s, A_t = a} \\
+                  & = \sum_{r \in \rewards} r \cdot \Prtwo{\policy}{R_{t + 1} = r \vert S_t = s, A_t = a} + \\
+                  & \quad \quad \discount \cdot \sum_{s' \in \states} \Exptwo{\policy}{G_{t + 1} \vert S_{t + 1} = s', S_t = s, A_t = a}
+                        \cdot \Prtwo{\policy}{S_{t + 1} = s' \vert S_t = s, A_t = a} \\ 
+                  & = \sum_{r \in \rewards} r \cdot \sum_{s' \in \states} p(s', r \vert s, a) + 
+                    \discount \cdot \sum_{s' \in \states} \Exptwo{\policy}{G_{t + 1} \vert S_{t + 1} = s'} 
+                        \cdot \sum_{r \in \rewards} p(s', r \vert s, a) \\
+                  & = \sum_{r \in \rewards} \sum_{s' \in \states} \left ( r + \discount \cdot v_{\policy}(s') \right )p(s', r \vert s, a).
+\end{align*}
+\end{solution}
