@@ -123,6 +123,7 @@ We may write $v_{\policy}(s)$ as:
 \end{solution}
 
 \begin{exer}
+\label{exer:q_in_terms_of_v}
 Give an equation for $q_{\policy} (s, a)$ in terms of $v_{\policy}$ and the 
 four parameter function~$p$. 
 \end{exer}
@@ -180,3 +181,22 @@ An optimal policy $\policy^{\star}$ is one which satisfies the condition:
 \begin{equation}
     v_{\policy^{\star}} (s) = \max_{\policy} v_{\policy} (s) \quad \forall \ s \in \states
 \end{equation}
+In an MDP, one is guaranteed to have an optimal policy. Define 
+$v_{\star} \defn v_{\policy^{\star}}$. The following claim is easy to show.
+\begin{lemma}
+Let $\policy^{\star}$ be an optimal policy. Then 
+$q_{\policy^{\star}}(s, a) = \max_{\policy} q_{\policy} (s, a)$ for all $s \in \states$
+and all $a \in \actions$.
+\end{lemma} 
+\begin{proof}
+As shown in Exercise~\ref{exer:q_in_terms_of_v}, $\forall s \in \states$ and 
+$\forall a \in \actions (s)$
+\begin{align*}
+    q_{\policy^{\star}}(s, a) 
+        & = \sum_{r \in \rewards} \sum_{s' \in \states} \left [ r + \discount \cdot v_{\star}(s') \right ] p(s', r \vert s, a) \\
+        & = \sum_{r \in \rewards} \sum_{s' \in \states} \left 
+                [ r + \discount \cdot \max_{\policy} v_{\policy}(s') \right ] p(s', r \vert s, a) \\
+        & = \max_{\policy} \sum_{r \in \rewards} \sum_{s' \in \states} \left [ r + \discount \cdot v_{\policy}(s') \right ] p(s', r \vert s, a) \\       
+        & = \max_{\policy} q_{\policy} (s, a).
+\end{align*}
+\end{proof}
