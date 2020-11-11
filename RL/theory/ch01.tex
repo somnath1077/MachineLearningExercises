@@ -171,3 +171,12 @@ Now,
                            \sum_{s' \in \states} \sum_{a' \in \actions} q_{\policy} (s', a') \cdot p(s' \vert s, a) \cdot \policy (a' \vert s')
 \end{align*}
 \end{solution}
+
+\subsection{Optimal Policies and Optimal Value Functions}
+
+A policy~$\policy$ is said to be better than or equal to a policy~$\policy^{\star}$
+if for all states $s \in \states$, $v_{\policy}(s) \geq v_{\policy^{\star}}(s)$. 
+An optimal policy $\policy^{\star}$ is one which satisfies the condition:
+\begin{equation}
+    v_{\policy^{\star}} (s) = \max_{\policy} v_{\policy} (s) \quad \forall \ s \in \states
+\end{equation}
