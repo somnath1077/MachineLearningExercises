@@ -146,3 +146,28 @@ Based on the last two exercises, we may write:
     v_{\policy} (s) = \sum_{a \in \actions} \policy (a \vert s) \cdot 
             \sum_{r \in \rewards} \sum_{s' \in \states} \left [ r + \discount \cdot v_{\policy}(s') \right ] p(s', r \vert s, a).
 \end{equation}
+
+\begin{exer}
+Give an equation for $q_{\policy} (s, a)$ in terms of the 
+value~$q_{\policy} (s', a')$ of the next state-action pair~$(s', a')$. 
+\end{exer}
+\begin{solution}
+The probability that the next state-action pair is $(s', a')$ given 
+that the current state-action pair is $(s, a)$ is:
+\[
+    \Prtwo{\policy}{S_{t + 1} = s', A_{t + 1} = a' \vert S_t = s, A_t = a}
+    = p(s' \vert s, a) \cdot \policy (a' \vert s').
+\]
+Now,
+\begin{align*}
+    q_{\policy} (s, a) & = \Exptwo{\policy}{G_t \vert S_t = s, A_t = a} \\
+                       & = \Exptwo{\policy}{R_{t + 1} \vert S_t = s, A_t = a} + 
+                           \discount \cdot \Exptwo{\policy}{G_{t + 1} \vert S_t = s, A_t = a} \\
+                       & = \sum_{s' \in \states} \sum_{r \in \rewards} r \cdot p(s', r \vert s, a) + \\
+                       & \quad \quad \discount \cdot \sum_{s' \in \states} \sum_{a' \in \actions} 
+                            \Exptwo{\policy}{G_{t + 1} \vert S_{t + 1} = s', A_{t + 1} = a', S_t = s, A_t = a} \cdot 
+                            p(s' \vert s, a) \cdot \policy (a' \vert s')\\
+                       & = \sum_{s' \in \states} \sum_{r \in \rewards} r \cdot p(s', r \vert s, a) + \discount \cdot 
+                           \sum_{s' \in \states} \sum_{a' \in \actions} q_{\policy} (s', a') \cdot p(s' \vert s, a) \cdot \policy (a' \vert s')
+\end{align*}
+\end{solution}
