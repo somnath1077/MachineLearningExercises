@@ -201,3 +201,24 @@ $\forall a \in \actions (s)$
 \end{align*}
 \end{proof}
 
+Since $v_{\star}$ is the optimal state value function, it must equal the expected 
+return for the best action from any given state. Hence,
+\begin{align} \label{eqn:bellman_optimality_v}
+    v_{\star} (s) & = \max_{a \in \actions (s)} q_{\star} (s, a) \nonumber \\
+        & = \max_{a \in \actions (s)} \sum_{r \in \rewards} \sum_{s' \in \states} 
+            \left [ r + \discount \cdot v_{\star}(s') \right ] p(s', r \vert s, a) 
+            \quad (\text{Exercise~\ref{exer:q_in_terms_of_v}}).
+\end{align}
+Similarly, we may start with the expression for $q_{\star}$ as in 
+Exercise~\ref{exer:q_in_terms_of_v} and write:
+\begin{align} \label{eqn:bellman_optimality_q}
+    q_{\star} (s, a) 
+        & = \sum_{r \in \rewards} \sum_{s' \in \states} 
+            \left [ r + \discount \cdot v_{\star}(s') \right ] p(s', r \vert s, a) \nonumber \\
+        & = \sum_{r \in \rewards} \sum_{s' \in \states} 
+            \left [ r + \discount \cdot \max_{a' \in \actions (s')} q_{\star} (s', a') \right ] p(s', r \vert s, a).
+\end{align}
+Equations~\ref{eqn:bellman_optimality_v} and~\ref{eqn:bellman_optimality_q} are 
+called the Bellman optimality equations for $v_{\star}$ and $q_{\star}$, 
+respectively.
+
