@@ -1,72 +1,74 @@
 \chapter{Bias-Variance Decomposition}
 
-The bias-variance decomposition is the decomposotion of the generalization 
-error of a predictor into the sum of the bias, the variance and an irreducible 
-error term. 
+The bias-variance decomposition is the decomposotion of the generalization
+error of a predictor into the sum of the bias, the variance and an irreducible
+error term.
 
-Consider a setting where a response variable $Y$ is related to a set of 
-predictor variables $X \in \R^p$ as follows: $Y = f(X) + \epsilon$, where 
-$f \colon \R^p \rightarrow \R$ is some deterministic function and 
-$\epsilon$ is white noise. That is, $\Expone{\epsilon \vert X = x} = 0$ and 
-$\Var (\epsilon \vert X = x) = \sigma^2$, for some variance $\sigma^2$. Let us 
-assume that there is an underlying data distribution $\dist (X, Y)$ which is 
-unknown to us. We have an algorithm that, given an $n$-sized training set 
-$S = \{ (x_1, y_1), \ldots, (x_n, y_n) \}$ sampled iid from this distribution~$\dist$, 
-yields $\hat{f}_S$, which is an approximation to the true function~$f$. 
-We assume that the algorithm itself is deterministic: that is, given the same 
-$n$-sized sample $S$, it produces the same output $\hat{f}_S$. 
+Consider a setting where a response variable $Y$ is related to a set of
+predictor variables $X \in \R^p$ as follows: $Y = f(X) + \epsilon$, where
+$f \colon \R^p \rightarrow \R$ is some deterministic function and
+$\epsilon$ is white noise. That is, $\Expone{\epsilon \vert X = x} = 0$ and
+$\Var (\epsilon \vert X = x) = \sigma^2$, for some variance $\sigma^2$. Let us
+assume that there is an underlying data distribution $\dist (X, Y)$ which is
+unknown to us. We have an algorithm that, given an $n$-sized training set
+$S = \{ (x_1, y_1), \ldots, (x_n, y_n) \}$ sampled iid from this distribution~$\dist$,
+yields $\hat{f}_S$, which is an approximation to the true function~$f$.
+We assume that the algorithm itself is deterministic: that is, given the same
+$n$-sized sample $S$, it produces the same output $\hat{f}_S$.
 
-What is the expected generalization error of this algorithm? This is defined 
+What is the expected generalization error of this algorithm? This is defined
 as:
 \begin{equation}
     \Exptwo{S \sim \dist^n, (X, Y) \sim \dist}{(Y - \hat{f_S(X)})^2}.
 \end{equation}
 We may write this as:
 \begin{equation} \label{eqn:basic_integral}
-    \Exptwo{S \sim \dist^n, (X, Y) \sim \dist}{(Y - \hat{f}_S(X))^2} = 
-    \int \Exptwo{(X, Y) \sim \dist}{(Y - \hat{f}_S(X))^2 \left \vert \right . S} 
+    \Exptwo{S \sim \dist^n, (X, Y) \sim \dist}{(Y - \hat{f}_S(X))^2} =
+    \int \Exptwo{(X, Y) \sim \dist}{(Y - \hat{f}_S(X))^2 \left \vert \right . S}
     \cdot \Prtwo{\dist^n}{S} \dx S.
 \end{equation}
-We will first work with the expectation term on the right-hand side of the above 
-equation. That is, we will assume that the sample~$S$ is fixed and then calculate 
-the expected error wrt the approximation $\hat{f}_S$. In order to implify our 
+We will first work with the expectation term on the right-hand side of the above
+equation. That is, we will assume that the sample~$S$ is fixed and then calculate
+the expected error wrt the approximation $\hat{f}_S$. In order to implify our
 notation a bit, we will index the expectation operator with the random variable
-to indicate which distribution is being referred to.  
+to indicate which distribution is being referred to.
 
-Let us write $(Y - \hat{f}_S(X))^2$ as $(Y - f(X) + f(X) - \hat{f}_S(X))^2$. 
+Let us write $(Y - \hat{f}_S(X))^2$ as $(Y - f(X) + f(X) - \hat{f}_S(X))^2$.
 Expanding, we get:
 \begin{equation}\label{eqn:break_up}
 \begin{split}
-    \Exptwo{(X, Y)}{(Y - \hat{f}_S(X))^2 \vert S} & = 
-    \Exptwo{(X, Y)}{(f(X) - \hat{f}_S(X))^2 \vert S} + \\ 
+    \Exptwo{(X, Y)}{(Y - \hat{f}_S(X))^2 \vert S} & =
+    \Exptwo{(X, Y)}{(f(X) - \hat{f}_S(X))^2 \vert S} + \\
     & \quad \quad \Exptwo{(X, Y)}{(Y - f(X))^2 \vert S} + \\
     & \quad \quad \Exptwo{(X, Y)}{2 (Y - f(X)) (f(X) - \hat{f}_S(X)) \vert S}
 \end{split}
 \end{equation}
 
 Consider the last term on the right-hand side. We claim that this is $0$. Indeed,
+we may write $\Exptwo{(X, Y)}{2 (Y - f(X)) (f(X) - \hat{f}_S(X)) \vert S}$ as
 \begin{align*}
-    \Exptwo{(X, Y)}{2 (Y - f(X)) (f(X) - \hat{f}_S(X)) \vert S} & =
-    \int \Exptwo{Y \vert X}{2 (Y - f(x)) (f(x) - \hat{f}_S(x)) \vert X = x, S} \cdot p_X(x) \dx x \\
-    & = \int \!\int (2 (y - f(x)) (f(x) - \hat{f}_S(x)) \cdot p_{Y \vert X}(y \vert x) \cdot p_X(x) \dx y \dx x \\
-    & = \int (f(x) - \hat{f}_S(x)) \cdot \Exptwo{Y \vert X}{Y - f(x) \vert X = x} \cdot p_X(x) \dx x.
+    \quad
+    & = \iint 2 \cdot (y - f(x)) \cdot (f(x) - \hat{f}_S(x)) \cdot p_{X, Y}(x, y) \dx y \, \dx x \\
+    & = \iint 2 \cdot (y - f(x)) \cdot (f(x) - \hat{f}_S(x)) \cdot p_{Y \vert X}(y \vert x) \cdot p_X(x) \dx y \, \dx x \\
+    & = \int  2 \cdot (f(x) - \hat{f}_S(x)) \cdot \Exptwo{Y \vert X}{Y - f(x) \vert X = x} \cdot p_X(x) \dx x.
 \end{align*}
-Now we know that $\Exptwo{Y \vert X}{Y - f(x) \vert X = x} = 0$. Hence this 
-whole expression evaluates to $0$ as claimed. 
+Now we know that
+$\Exptwo{Y \vert X}{Y - f(x) \vert X = x} = \Exptwo{Y \vert X}{\epsilon \vert X = x} = 0$. Hence this
+whole expression evaluates to $0$ as claimed.
 
-Next consider the second term $\Exptwo{(X, Y)}{(Y - f(X))^2 \vert S}$ of 
-Equation~(\ref{eqn:break_up}). Since the term $Y - f(X))^2$ does not depend 
-on the sample~$S$ that is chosen, this further simplifies to 
-$\Exptwo{(X, Y)}{(Y - f(X))^2}$. This is simply the variance of the error term 
-and is equal to $\sigma^2$. Finally, consider the first term of 
-Equation~(\ref{eqn:break_up}) which is $\Exptwo{(X, Y)}{(f(X) - \hat{f}_S(X))^2 \vert S}$. 
-We use the trick of adding and subtracting as before. This time around, we add and 
+Next consider the second term $\Exptwo{(X, Y)}{(Y - f(X))^2 \vert S}$ of
+Equation~(\ref{eqn:break_up}). Since the term $(Y - f(X))^2$ does not depend
+on the sample~$S$ that is chosen, this further simplifies to
+$\Exptwo{(X, Y)}{(Y - f(X))^2}$. This is simply the variance of the error term
+and is equal to $\sigma^2$. Finally, consider the first term of
+Equation~(\ref{eqn:break_up}) which is $\Exptwo{(X, Y)}{(f(X) - \hat{f}_S(X))^2 \vert S}$.
+We use the trick of adding and subtracting as before. This time around, we add and
 subtract the term $g(X) \defn \Exptwo{S}{\hat{f}_S(X)}$ to obtain:
 \begin{equation}
 \begin{split}
     (f(X) - g(X) + g(X) - \hat{f}_S(X))^2 & = (f(X) - g(X))^2 + (g(X) - \hat{f}_S(X))^2 + \\
-            & \quad \quad 2 \cdot (f(X) - g(X)) \cdot (g(X) - \hat{f}_S(X)). 
-\end{split} 
+            & \quad \quad 2 \cdot (f(X) - g(X)) \cdot (g(X) - \hat{f}_S(X)).
+\end{split}
 \end{equation}
 
 We will evaluate each of these terms by directly plugging them in the expression
@@ -77,13 +79,13 @@ Plugging this in the said expression, we see that we have to evaluate:
      & =  \Exptwo{(X, Y)}{(f(X) - g(X))^2} \int    \Prtwo{S \sim \dist^n}{S} \dx S \nonumber \\
      & =  \Exptwo{(X, Y)}{(f(X) - g(X))^2}.
 \end{align}
-The first equation hold because neither $f(X)$ nor $g(X)$ depend on the sample~$S$ 
-chosen. The resulting expression is the expected squared bias of the estimator 
+The first equality holds because neither $f(X)$ nor $g(X)$ depends on the sample~$S$
+chosen. The resulting expression is the expected squared bias of the estimator
 $\hat{f}_S$.
 
-Forging ahead, we evaluate the next term which is $(g(X) - \hat{f}_S(X))^2$.  
+Forging ahead, we evaluate the next term which is $(g(X) - \hat{f}_S(X))^2$.
 \begin{equation}
-    \int \Exptwo{(X, Y)}{(g(X) - \hat{f}_S(X))^2 \vert S} \Prtwo{S \sim \dist^n}{S} \dx S 
+    \int \Exptwo{(X, Y)}{(g(X) - \hat{f}_S(X))^2 \vert S} \Prtwo{S \sim \dist^n}{S} \dx S
     = \Exptwo{S, (X, Y)} {(g(X) - \hat{f}_S(X))^2}.
 \end{equation}
 This term is the variance of the estimator $\hat{f}_S$ obtained by our algorithm.
@@ -95,16 +97,16 @@ have to evaluate this integral:
 \end{equation}
 This may be written as:
 \begin{equation}
-    \int \int \Exptwo{S}{2 \cdot (f(x) - g(x)) \cdot (g(x) - \hat{f}_S(x)) \vert X = x, Y = y} p_{X, Y}(x, y) \dx y \dx x.
-\end{equation}  
+    \iint \Exptwo{S}{2 \cdot (f(x) - g(x)) \cdot (g(x) - \hat{f}_S(x)) \vert X = x, Y = y} p_{X, Y}(x, y) \dx y \, \dx x.
+\end{equation}
 Now the term $f(x) - g(x)$ does not depend on $S$ and $\Exptwo{S}{g(x) - \hat{f}_S(x)} = 0$
 and hence the above integral evaluates to $0$.
 
-To summarize, we may write the expected generalization error of our algorithm 
+To summarize, we may write the expected generalization error of our algorithm
 as:
 \begin{align*}
-    \Exptwo{S \sim \dist^n, (X, Y) \sim \dist}{(Y - \hat{f}_S(X))^2} 
-        & =  \underbrace{\Exptwo{(X, Y)}{(\Exptwo{S}{\hat{f}_S(X)} - f(X) )^2}}_{\text{expected squared bias}} + \\
-        & \quad \quad \underbrace{\Exptwo{S, (X, Y)} {( \hat{f}_S(X) - \Exptwo{S}{\hat{f}_S(X)} )^2}}_{\text{variance}} + \\
-        & \quad \quad \underbrace{\sigma^2}_{\text{irreducible error}}.
+    \Exptwo{S \sim \dist^n, (X, Y) \sim \dist}{(Y - \hat{f}_S(X))^2}
+        & =  \underbrace{\Exptwo{(X, Y)}{(\Exptwo{S}{\hat{f}_S(X)} - f(X) )^2}}_{\text{expected squared bias}}  \\
+        & \quad \quad + \underbrace{\Exptwo{S, (X, Y)} {( \hat{f}_S(X) - \Exptwo{S}{\hat{f}_S(X)} )^2}}_{\text{variance}} \\
+        & \quad \quad + \underbrace{\sigma^2}_{\text{irreducible error}}.
 \end{align*}
