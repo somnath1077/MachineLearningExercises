@@ -104,8 +104,9 @@ on the random data point $(X, Y)$ and write:
 \begin{equation}
     \iint \Exptwo{S}{2 \cdot (f(x) - g(x)) \cdot (g(x) - \hat{f}_S(x)) \vert X = x, Y = y} p_{X, Y}(x, y) \dx y \, \dx x.
 \end{equation}
-Now the term $f(x) - g(x)$ does not depend on $S$ and $\Exptwo{S}{g(x) - \hat{f}_S(x)} = 0$
-and hence the above integral evaluates to $0$.
+Now the term $f(x) - g(x)$ does not depend on $S$ and hence the expression inside the
+integral evaluates to $2 \cdot (f(x) - g(x)) \cdot \Exptwo{S}{g(x) - \hat{f}_S(x)}$. Since
+$\Exptwo{S}{g(x) - \hat{f}_S(x)} = 0$, the above integral evaluates to $0$.
 
 To summarize, we may write the expected generalization error of our algorithm
 as:
