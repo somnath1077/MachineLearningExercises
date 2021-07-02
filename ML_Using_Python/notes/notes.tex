@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage{algpseudocode}
 \usepackage{url}
+\usepackage{tcolorbox}
 %--------------------------------------------------------
 % COLOR DEFINITIONS
 %---------------------------------------------------------
@@ -176,7 +177,7 @@ It next calculates a ``candidate'' vector to add to its long-term memory. This
 is done using a single-layer neural network with a $\tanh$ activation function.
 Denote this candidate by $\ltm_{t}'$.
 \begin{equation}
-\ltm_{t}' = \sigma \left ( W_l \cdot x_t + U_l \cdot \wm_{t - 1} + b_l \right ). 
+\ltm_{t}' = \tanh \left ( W_l \cdot x_t + U_l \cdot \wm_{t - 1} + b_l \right ). 
 \end{equation} 
 As usual, $W_l \in \R^{p \times d}$, $U_l \in \R^{d \times d}$ and $b_l \in \R^{d}$. 
 
@@ -207,6 +208,22 @@ It then updates its working memory using:
 \begin{equation}
 \wm_{t} = \focus_{t} \odot \tanh(\ltm_{t}).
 \end{equation} 
+
+
+\begin{figure}[ht]
+\begin{tcolorbox}
+\begin{align*}
+    \rem_{t}   & = \sigma \left ( W_r \cdot x_t + U_r \cdot \wm_{t - 1} + b_r \right ) \\
+    \save_{t}  & = \sigma \left ( W_s \cdot x_t + U_s \cdot \wm_{t - 1} + b_s \right ) \\
+    \focus_{t} & = \sigma \left ( W_f \cdot x_t + U_f \cdot \wm_{t - 1} + b_f \right ) \\
+    \ltm_{t}'  & = \tanh \left ( W_l \cdot x_t + U_l \cdot \wm_{t - 1} + b_l \right ) \\
+    \ltm_{t}   & = \rem_{t} \odot \ltm_{t - 1} + \save_{t} \odot \ltm_{t}' \\
+    \wm_{t}    & = \focus_{t} \odot \tanh(\ltm_{t}).
+\end{align*}
+\end{tcolorbox}
+\caption{All the LSTM equations at once.}
+\end{figure}
+
 
 \thebibliography{99}
 
