@@ -1,7 +1,7 @@
 import numpy as np
 from keras.models import Sequential
 from keras.layers import Embedding, Flatten, Dense
-from keras.preprocessing.text import  Tokenizer, one_hot
+from keras.preprocessing.text import Tokenizer, one_hot
 
 # define documents
 from keras_preprocessing.sequence import pad_sequences
@@ -28,7 +28,6 @@ print(sequences)
 max_len = 4
 padded_sequences = pad_sequences(sequences, maxlen=max_len, padding='post')
 print(padded_sequences)
-
 
 model = Sequential()
 model.add(Embedding(input_dim=20, output_dim=3, input_length=max_len))
