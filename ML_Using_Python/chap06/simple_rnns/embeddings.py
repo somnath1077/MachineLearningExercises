@@ -1,8 +1,7 @@
 import numpy as np
-from keras.models import Sequential
 from keras.layers import Embedding, Flatten, Dense
-from keras.preprocessing.text import Tokenizer, one_hot
-
+from keras.models import Sequential
+from keras.preprocessing.text import Tokenizer
 # define documents
 from keras_preprocessing.sequence import pad_sequences
 
