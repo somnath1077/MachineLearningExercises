@@ -88,6 +88,8 @@ def evaluate(y_pred, y_test):
 
 def imdb_main(num_words=10000, max_len=500):
     (x_train, y_train), (x_test, y_test) = process_imdb_data(num_words, max_len)
+    print(f'Size of training set = {len(x_train)}')
+    print(f'Size of test set = {len(x_test)}')
     mod, hist = model(vocab_sz=num_words, text_len=max_len, x_train=x_train, y_train=y_train)
 
     y_pred = mod.predict(x_test)
