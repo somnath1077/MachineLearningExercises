@@ -9,7 +9,7 @@
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{algpseudocode}
-
+\usepackage{url}
 %--------------------------------------------------------
 % COLOR DEFINITIONS
 %---------------------------------------------------------
@@ -148,7 +148,8 @@
 
 \begin{document}
 \section{LSTMs}
-LSTMs were developed in order to circumvent the vanishing gradient problem that 
+These notes are based on~\cite{EChen}. LSTMs were developed in order to 
+circumvent the vanishing gradient problem that 
 plagues multi-layered RNNs. LSTMs are equipped with a long-term memory and a 
 short-term working memory. 
 
@@ -206,5 +207,10 @@ It then updates its working memory using:
 \begin{equation}
 \wm_{t} = \focus_{t} \odot \tanh(\ltm_{t}).
 \end{equation} 
+
+\thebibliography{99}
+
+\bibitem{EChen} Edwin Chen. Blog post at 
+\url{http://blog.echen.me/2017/05/30/exploring-lstms/}.
 \end{document}
 
