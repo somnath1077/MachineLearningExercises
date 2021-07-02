@@ -36,7 +36,7 @@ def model(vocab_sz, text_len, x_train, y_train, embedding_len=32):
     model.compile(optimizer='rmsprop',
                   loss='binary_crossentropy',
                   metrics=['accuracy'])
-    history = model.fit(x_train, y_train, epochs=5, batch_size=32, validation_split=0.2)
+    history = model.fit(x_train, y_train, epochs=3, batch_size=32, validation_split=0.2)
     return model, history
 
 
@@ -86,11 +86,15 @@ def evaluate(y_pred, y_test):
     print(f'Accuracy = {acc}')
 
 
-if __name__ == '__main__':
-    num_words = 10000
-    max_len = 500
+def imdb_main(num_words=10000, max_len=500):
     (x_train, y_train), (x_test, y_test) = process_imdb_data(num_words, max_len)
     mod, hist = model(vocab_sz=num_words, text_len=max_len, x_train=x_train, y_train=y_train)
+
     y_pred = mod.predict(x_test)
-    evaluate(y_pred, y_test)
+    score = mod.evaluate(y_pred, y_test)
+    print(f'Test loss: {score[0]}, Test accuracy: {score[1]}')
     plot_accuracy(hist)
+
+
+if __name__ == '__main__':
+    imdb_main()
