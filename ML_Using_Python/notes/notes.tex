@@ -75,8 +75,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
+%\usepackage{unicode-math}
 \usepackage[bitstream-charter]{mathdesign}
 \setmainfont{XCharter}
+
+
+% LaTeX
+%\setmainfont{Latin Modern Roman}
+%\setmathfont{Latin Modern Math}
 
 %-------------------------------------------------------
 % INFORMATION IN THE TITLE PAGE
@@ -148,6 +154,83 @@
 \date{\today}
 
 \begin{document}
+\section{Vanishing and Exploding Gradients}
+Training neural networks using backpropagation requires us to compute the 
+partial derivatives of the loss function wrt each weight and bias of the network.
+The weights and biases are then revised using these partial derivatives using the 
+stochastic gradient descent formulation:
+\[
+    w^{\text{new}} = w^{\text{old}} - \eta \frac{\partial L}{\partial w}.
+\]
+
+If the network is deep enough, then in certain cases it possible for 
+the term $\partial L / \partial w$ to be very small or very large. If this term 
+is very small, then the weight is not updated; if it is very large, there is a 
+large update to the weight, which keeps on repeating at each updation step, with 
+the result that the weights do not converge. 
+
+To illustrate this problem, consider a simple network with $L$ layers, with 
+two neurons in each of the first $L - 1$ layers and a single neuron in the 
+final layer~$L$. This network is a map from $\R^2 \to \R^1$. Let 
+$W^{(i)}$ be the weight matrix associated with layer~$i$, where 
+$W^{(1)}, \ldots, W^{(L - 1)} \in \R^{2 \times 2}$ and $W^{(L)} \in \R^{1 \times 2}$. 
+Ignore the biases and assume that there are no activation functions. Consider 
+a single input-output pair $((x_1, x_2)^{T}, y)$. 
+Denote the input to layer~$i$ as $\vect{x}^{(i - 1)}$, so that input to the 
+very first layer is $\vect{x}^{(0)} = (x_1, x_2)^{T}$. Then the output of 
+layer~$i$, ignoring the bias and the activation, is $W^{(i)} \vect{x}^{(i - 1)}$. 
+The output of the first layer is $W^{(1)} \vect{x}^{(0)}$, that of the second 
+is $W^{(2)} W^{(1)} \vect{x}^{(0)}$ and so on. The final output~$\hat{y}$ of the 
+network is easily seen to be:
+\[
+    \hat{y} = W^{(L)} \cdot W^{(L - 1)} \cdots W^{(1)} \cdot \vect{x}^{(0)}.
+\]
+
+To write this final output more explicitly in terms of the individual weights, 
+we need a little more notation. Let $W^{(i)}$, for $1 \leq i \leq L - 1$, be:
+\[
+    \left ( 
+        \begin{array}{cc}
+            w_{11}^{(i)} & 0            \\
+            0            & w_{22}^{(i)}
+        \end{array}
+    \right ).
+\]
+Let $W^{(L)} = (w_{11}^{(L)}, w_{12}^{(L)})$. Then 
+\[
+    \hat{y} = (w_{11}^{(L)}, w_{12}^{(L)}) \cdot 
+             \left ( 
+                \begin{array}{cc}
+                    w_{11}^{(L - 1)} w_{11}^{(L - 2)} \cdots w_{11}^{(2)} w_{11}^{(1)} x_1 \\
+                    w_{22}^{(L - 1)} w_{22}^{(L - 2)} \cdots w_{11}^{(2)} w_{22}^{(1)} x_2
+                \end{array}
+            \right ).
+\]
+This ultimately yields:
+\[
+    \hat{y} =  w_{11}^{(L)} w_{11}^{(L - 1)} w_{11}^{(L - 2)} \cdots w_{11}^{(2)} w_{11}^{(1)} x_1 
+               + w_{12}^{(L)} w_{22}^{(L - 1)} w_{22}^{(L - 2)} \cdots w_{11}^{(2)} w_{22}^{(1)} x_2.
+\]
+
+Assume that the loss function is the standard squared loss: $L(y, \hat{y}) = 0.5 \cdot (y - \hat{y})^2$. 
+Consider the derivative of~$L$ wrt one of the weights in the very first layer. 
+\begin{align*}
+    \frac{\partial L}{\partial w_{11}^{(1)}} & = 
+        \frac{\partial L}{\partial \hat{y}}
+        \frac{\partial \hat{y}}{\partial w_{11}^{(1)}} \\
+        & = (\hat{y} - y) \cdot w_{11}^{(L)} w_{11}^{(L - 1)} \cdots w_{11}^{(2)} x_1. 
+\end{align*}
+Notice that the partial derivative is a product that tacks on weights, one from each 
+layer, starting with the second layer. Now if $L$ is large and these weights were 
+all slightly less than $1$, then resulting product would be very small; if these weights 
+are slightly larger than $1$, then the product would be a large quantity. The first 
+case is the \emph{vanishing gradient} problem; the second is the 
+\emph{exploding gradient} problem. Note that is does not matter which 
+weight we use to differentiate the loss function. The partial derivative product 
+term picks up weights form each layer (except the one wrt which we are differentiating). 
+ 
+
+
 \section{LSTMs}
 These notes are based on~\cite{EChen}. LSTMs were developed in order to 
 circumvent the vanishing gradient problem that 
