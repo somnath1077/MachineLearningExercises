@@ -10,6 +10,8 @@
 \usepackage{graphicx}
 \usepackage{algpseudocode}
 \usepackage[charter]{mathdesign}
+\usepackage{url}
+\usepackage{tcolorbox}
 %--------------------------------------------------------
 % COLOR DEFINITIONS
 %---------------------------------------------------------
@@ -138,6 +140,12 @@
 \DeclareMathOperator{\diag}{diag}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 
+% LSTM operator names
+\DeclareMathOperator{\rem}{rem}
+\DeclareMathOperator{\save}{save}
+\DeclareMathOperator{\focus}{focus}
+\DeclareMathOperator{\ltm}{ltm}
+\DeclareMathOperator{\wm}{wm}
 \newtheorem{exercise}{Exercise}[chapter]
 
 \newenvironment{solution}
@@ -160,5 +168,6 @@
 \input{ch03}
 \input{ch04}
 \input{ch05}
+\input{bib}
 \end{document}
 
