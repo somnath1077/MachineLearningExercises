@@ -209,7 +209,7 @@ whose $(i, j)$th term is given by:
 We assume that the loss function is continuous at $w^{\star}$ so that the order 
 of partial derivatives does not matter. In this case, the Hessian is a symmetric 
 $d \times d$ matrix. In particular, note that this implies that all eigenvalues 
-are real. 
+of the Hessian matrix are real. 
 
 Since $\nabla \mathscr{L}(w^{\star}) = 0$, we may rewrite 
 Equation~\ref{eqn:loss_taylor_series} as:
@@ -245,3 +245,42 @@ Here wer are assuming that the symmetric matrix $H_{\mathscr{L}} + \alpha \cdot 
 is invertible. In fact, we are going make a stronger assumption about $H_{\mathscr{L}}$
 that it is positive definite. Recall that this means that the eigenvalues of 
 $H_{\mathscr{L}}$ are all strictly positive. 
+
+Any symmetric matrix $A$ of order~$d$ can be written as $A = Q \Lambda Q^{T}$, 
+where the columns of $Q$ are the eigenvectors $q_1, \ldots, q_d$ of $A$ and 
+$\Lambda = \diag(\lambda_1, \ldots, \lambda_d)$, where $A q_i = \lambda_i q_i$.
+Moreover, the eigenvectors $q_1, \ldots, q_d$ form an orthonormal basis of $\R^{d}$. 
+In particular, this means that $Q^{T}Q = I$ so that $Q^{-1} = Q^{T}$. Substituting 
+this \textbf{spectral decomposition} form for $H_{\mathscr{L}}$ in the last 
+equation for $\tilde{w}$, we get:
+\begin{align}
+    \label{eqn:optimal_regularized_solution}
+    \tilde{w} 
+        & = (H_{\mathscr{L}} + \alpha I)^{-1} \cdot H_{\mathscr{L}} \cdot w^{\star} \nonumber \\ 
+        & = (Q \Lambda Q^{T} + \alpha Q I Q^{T})^{-1} \cdot Q \Lambda Q^{T} \cdot w^{\star} \nonumber \\
+        & = (Q (\Lambda + \alpha I )Q^{T})^{-1} \cdot Q \Lambda Q^{T} \cdot w^{\star} \nonumber \\
+        & = Q (\Lambda + \alpha I)^{-1} Q^{T} \cdot Q \Lambda Q^{T} \cdot w^{\star} \nonumber \\
+        & = Q (\Lambda + \alpha I)^{-1} \Lambda Q^{T} \cdot w^{\star} \nonumber \\
+        & = Q 
+            \diag \left ( \frac{\lambda_1}{\lambda_1 + \alpha}, \ldots, \frac{\lambda_d}{\lambda_d + \alpha} \right ) 
+            Q^{T} \cdot w^{\star}.
+\end{align} 
+
+This can be interpreted as follows. To obtain an optimal solution~$\tilde{w}$ to 
+the $L_2$-regularized problem, one proceeds as follows. One takes an optimal solution~$w^{\star}$ 
+to the unregularized loss function, applies an orthogonal transformation $Q^{T}$ 
+to it which has the effect of rotating it. Each component of that rotated vector 
+is then scaled by the matrix 
+$\diag(\lambda_1 / (\lambda_1 + \alpha), \ldots, \lambda_d / (\lambda_d + \alpha))$. But 
+the scaling for component~$i$ equals $\lambda_i / (\lambda_i + \alpha)$ which 
+depends on the eigenvalue~$\lambda_i$. If $\lambda_i \gg \alpha$, then the 
+fraction $\lambda_i / (\lambda_i + \alpha) \approx 1$ and there 
+is no appreciable change in that component. But if $\lambda_i \ll \alpha$, then 
+$\lambda_i / (\lambda_i + \alpha) \approx 0$ and that component effectively zeros 
+out. Finally, a reverse orthogonal transform is applied to the scaled 
+vector. Had the diagonal entries of the scaling matrix above been all the same, 
+the effect would be to simply multiply $w^{\star}$ by this scaling factor. But 
+different eigenvalues imply a different scaling for each component. 
+In the end, the eigenvalues of $H_{\mathscr{L}}$ determine which components 
+of the weight vector~$w$ are important.
+   
