@@ -168,3 +168,80 @@ the denominator in any case approaches~$1$ and hence~$a_j^L \to 0$. The point he
 that $a_j^L = 1$ if $z_j^L$ is the maximum and $a_j^L = 0$ otherwise. 
 \end{solution}
 
+\section{Regularization}
+
+Regularization is a set of methods used to prevent overfitting and improve 
+generalization performance. The typical way to do this is to tack on a 
+``regularization term'' in the loss function. The most commonly used of these 
+are the $L_1$-regularization and the 
+$L_2$-regularization. These are defined in terms of the $L_1$ and $L_2$-norms 
+respectively. For a real $p \geq 1$, the $L_p$-norm of a vector $w \in \R^d$ is defined as  
+\begin{equation}
+    \norm{w} = \left ( |w_1|^p + \cdots + |w_d|^p \right )^{1/p}.
+\end{equation}
+Let us assume that $\mathscr{L}(w)$ is the original loss function. Then the 
+$L_2$-regularized loss functions looks like this:
+\[
+    \mathscr{L}(w) + \frac{\alpha}{2} \cdot \norm{w}_2^2,
+\]
+where $\alpha > 0$ is real number that specifies the ``strength'' of the 
+regularization. 
+
+\subsection{$L_2$-regularization Analysis}
+Let $w^{\star}$ be an optimal solution to $\mathscr{L}(w)$, the unregularized 
+loss function. Given a vector $w \in \R^{d}$, write $w$ as $w^{\star} + \epsilon$, 
+where $\epsilon$ is viewed as the ``error.'' Use a second-order Taylor series  
+expansion to write down the loss~$\mathscr{L}$ at the point $w^{\star} + \epsilon$ 
+as:
+\begin{equation}
+\label{eqn:loss_taylor_series}
+\mathscr{L}(w^{\star} + \epsilon) = 
+    \mathscr{L}(w^{\star}) + 
+    \epsilon^{T} \cdot \nabla \mathscr{L}(w^{\star}) +
+    \frac{1}{2} \epsilon^{T} \cdot H_{\mathscr{L}} \cdot \epsilon,
+\end{equation}
+where $H_{\mathscr{L}}$ represents the Hessian of $\mathscr{L}$ evaluated at 
+$w^{\star}$. Recall that the Hessian, in this case, is a $d \times d$ matrix 
+whose $(i, j)$th term is given by:
+\[
+    \left . \frac{\partial^2 \mathscr{L}(w)}{\partial w_i \partial w_j} \right |_{w^{\star}}.
+\]
+We assume that the loss function is continuous at $w^{\star}$ so that the order 
+of partial derivatives does not matter. In this case, the Hessian is a symmetric 
+$d \times d$ matrix. In particular, note that this implies that all eigenvalues 
+are real. 
+
+Since $\nabla \mathscr{L}(w^{\star}) = 0$, we may rewrite 
+Equation~\ref{eqn:loss_taylor_series} as:
+\[
+    \mathscr{L}(w) = \mathscr{L}(w^{\star}) + 
+    \frac{1}{2} (w - w^{\star})^{T} \cdot H_{\mathscr{L}} \cdot (w - w^{\star}).
+\]
+Taking gradients wrt~$w$, we obtain that:
+\begin{equation}
+\label{eqn:loss_func_grad}
+    \nabla \mathscr{L}(w) = 0 + H_{\mathscr{L}} \cdot (w - w^{\star}).
+\end{equation}
+
+Consider the $L_2$-regularized loss function 
+$\tilde{\mathscr{L}}(w) = \mathscr{L}(w) + \frac{\alpha}{2} \cdot \norm{w}^2$ .
+Let $\tilde{w}$ be an optimum solution to this regularized loss function. Then 
+\begin{equation}
+\label{eqn:reg_loss_func_grad}
+    0 = \nabla \tilde{\mathscr{L}}(\tilde{w}) = 
+        \nabla \mathscr{L}(\tilde{w}) 
+        + \alpha \tilde{w}.
+\end{equation}
+Using the expression from Equation~\ref{eqn:loss_func_grad} in the above equation, 
+we get:
+\begin{gather}
+H_{\mathscr{L}} \cdot (\tilde{w} - w^{\star}) + \alpha \tilde{w} = 0 \notag \\
+\begin{split}
+(H_{\mathscr{L}} + \alpha \cdot I) \tilde{w} & = H_{\mathscr{L}} \cdot w^{\star} \\
+\therefore \tilde{w} & = (H_{\mathscr{L}} + \alpha \cdot I)^{-1} \cdot H_{\mathscr{L}} \cdot w^{\star}.
+\end{split}
+\end{gather}
+Here wer are assuming that the symmetric matrix $H_{\mathscr{L}} + \alpha \cdot I$
+is invertible. In fact, we are going make a stronger assumption about $H_{\mathscr{L}}$
+that it is positive definite. Recall that this means that the eigenvalues of 
+$H_{\mathscr{L}}$ are all strictly positive. 
