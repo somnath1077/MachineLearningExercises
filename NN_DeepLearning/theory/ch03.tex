@@ -406,3 +406,10 @@ and~\ref{eqn:noise_variance}, we obtain that:
     \tilde{\loss} (w) = \loss (w) + \sigma^2 \sum_{i = 1}^{d} w_i^2,
 \end{equation}
 which is the expression for the loss function regularized with $L_2$-loss.
+
+\subsubsection{Dropout}
+The idea here is to randomly zero out a certain fraction~$p$ of nodes from 
+each hidden layer for each training sample and each iteration during the 
+training phase. The nodes that are ``zeroed out'' have their activations set 
+to~$0$. In the test phase, all activations are used but all of them are reduced 
+by a factor of~$p$ to account for the missing fraction during training.   
