@@ -283,4 +283,126 @@ the effect would be to simply multiply $w^{\star}$ by this scaling factor. But
 different eigenvalues imply a different scaling for each component. 
 In the end, the eigenvalues of $H_{\mathscr{L}}$ determine which components 
 of the weight vector~$w$ are important.
-   
+
+\subsection{Other Methods for Regularizing Neural Nets}
+Other than constrain the loss function, there are several other practical techniques
+to regulaize neural networks. These are:
+\begin{enumerate}
+    \item Early stopping
+    \item Dataset augmentation
+    \item Noise injection
+    \item Dropout.
+\end{enumerate}
+
+\subsubsection{Early stopping}
+The ideas here is to continuously monitor the loss function and stop the training
+when the validation loss does not meet some previously defined criterion. An 
+example of such a criterion is the \emph{error change criterion}: pause 
+training when the validation error does not drop over a window of, say, 10 epochs; 
+continue training for a fixed number of epochs when this criterion is reached 
+before finally stopping. 
+
+Another idea is the \emph{weight change criterion}: compare the weights at epochs, 
+say,  $t - 10$ and~$t$ and test whether
+\[
+    \max_{i} \norm{w_i^{(t - 10)} - w_i^{(t)}} \le \rho,
+\]  
+where $\rho$ is some predefined threshold. Instead of using an absolute value, 
+one could use a threshold based on the percentage of the weight $w_i^{t}$.
+
+\subsubsection{Dataset Augmentation}
+This idea is particularly relevant when using neural networks to detect images. 
+Certain transformations of an image do not change the label of the image. These 
+include distorting or blurring the image, rotating it, changing its color, 
+injecting noise, mirroring it, and so on and so forth. Using these transformations, 
+one gets to increase the size of the training dataset. This has the effect of 
+preventing overfitting as the neural network is exposed to data that is not 
+explicitly present in the original dataset.
+
+Another method of data augmentation is that of \emph{mix up}. This consists in 
+first choosing a parameter $\lambda \in [0, 1]$, and then given a pair of data points
+$(x^{(i)}, y^{(i)})$ and $(x^{(j)}, y^{(j)})$, creating a new data point 
+$(\tilde{x}, \tilde{y})$, which is the convex combination of these data points:
+\begin{align}
+    \tilde{x} & = \lambda x^{(i)} + (1 - \lambda) x^{(j)} \\
+    \tilde{y} & = \lambda y^{(i)} + (1 - \lambda) y^{(j)}.
+\end{align}    
+
+\subsubsection{Noise Injection}
+Here the idea is to add noise to either the input data or the labels or the 
+gradients during training. Let's look at the case where one adds Gaussian 
+noise to the input data during training when the loss function is the 
+expected squared-loss. 
+
+As usual, let the data points be 
+$(x, y) \in \R^{d} \times \R$ and let us assume that the joint density 
+of the input-output pairs is given by the function 
+$f_{X, Y} \colon \R^{d} \times \R \to [0, 1]$ . Let us add Gaussian noise 
+$\epsilon \sim N_d(0_d, \Sigma_d)$, where $0_d$ is the zero-vector 
+from $\R^d$ and $\Sigma_d = \diag(\sigma^2, \ldots, \sigma^2)$. Recall that 
+if a random vector has a multivariate normal distribution, then two components
+of that vector are independent iff they are uncorrelated. This is \emph{not} 
+true for random variables $X, Y$, in general, even if both are normally distributed. 
+In this specific case, this implies that for all $1 \leq i, j \leq d$: 
+\begin{equation}
+    \Expone{ \epsilon_i \epsilon_j }= 
+    \left \{ \begin{array}{ll} 
+                0        & \quad \text{ if } i \neq j \\
+                \sigma^2 & \quad \text{ if } i = j. 
+              \end{array}
+    \right .
+\end{equation}
+
+The expected squared-loss is:
+\begin{equation}
+    \loss (w) = \Exptwo{(x, y) \sim f_{X, Y}}{(w^T x - y)^2}  
+              = \iint (w^T x - y)^2 \cdot f_{X, Y}(x, y) \dx y \dx x.
+\end{equation}
+The expected squared-loss error in the presence of noise is given by:
+\begin{align}
+    \label{eqn:loss_with_noise}
+    \tilde{\loss} (w) 
+        & = \Exptwo{\epsilon \sim N_d, (x, y) \sim f_{X, Y}}{(w^T (x + \epsilon) - y)^2} \nonumber \\ 
+        & = \iint \Exptwo{\epsilon \sim N_d}{(w^T (x + \epsilon) - y)^2 \mid (x, y)} \cdot f_{X, Y}(x, y) \dx y \dx x.
+\end{align}
+
+Simplifying the expression for the loss in Equation~(\ref{eqn:loss_with_noise}), we get
+that:
+\begin{align}
+    \label{eqn:loss_with_noise_simple}
+    \tilde{\loss} (w) 
+        & = \iint \Exptwo{\epsilon \sim N_d}{ (w^T x - y)^2 + 
+                           2(w^T x - y) (w^T \epsilon) + 
+                           (w^T \epsilon)^2 
+                           \mid (x, y)} 
+                   f_{X, Y}(x, y) \dx y \dx x \nonumber \\
+        & = \iint \left [ (w^T x - y)^2 + 2(w^T x - y) \Expone{(w^T \epsilon) \mid (x, y)} + 
+                          \Expone{(w^T \epsilon)^2 \mid (x, y)} \right ] f_{X, Y}(x, y) \dx y \dx x   
+\end{align}
+
+The expectations inside the integral sign in the above equation are all wrt the 
+distribution of $\epsilon$. Now, 
+\begin{align}
+    \label{eqn:noise_mean}
+    \Exptwo{\epsilon \sim N_d}{(w^T \epsilon) \mid (x, y)} 
+        & = \Exptwo{\epsilon \sim N_d}{(w^T \epsilon)} \nonumber \\
+        & = \Exptwo{\epsilon \sim N_d}{w_1 \epsilon_1 + \cdots + w_d \epsilon_d} \nonumber \\
+        & = 0.
+\end{align}
+Moreover, 
+\begin{align}
+    \label{eqn:noise_variance}
+    \Exptwo{\epsilon \sim N_d}{(w^T \epsilon)^2 \mid (x, y)} 
+        & = \Exptwo{\epsilon \sim N_d}{(w^T \epsilon)^2} \nonumber \\
+        & = \Exptwo{\epsilon \sim N_d}{\sum_{i = 1}^{d} w_i^2 \epsilon_i^2 + 
+                    2 \cdot \sum_{i < j} w_i w_j \epsilon_i \epsilon_j} \nonumber \\
+        & = \sum_{i = 1}^{d} w_i^2 \sigma^2 \nonumber \\
+        & = \sigma^2 \sum_{i = 1}^{d} w_i^2.
+\end{align}
+
+From Equations~\ref{eqn:loss_with_noise_simple}, \ref{eqn:noise_mean} 
+and~\ref{eqn:noise_variance}, we obtain that:
+\begin{equation}
+    \tilde{\loss} (w) = \loss (w) + \sigma^2 \sum_{i = 1}^{d} w_i^2,
+\end{equation}
+which is the expression for the loss function regularized with $L_2$-loss.
