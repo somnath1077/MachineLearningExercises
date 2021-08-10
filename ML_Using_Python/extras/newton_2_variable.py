@@ -16,7 +16,7 @@ def f(z):
     x_1 = - 13 + x - 2 * y + 5 * y**2 - y**3
     y_1 = - 29 + x - 14 * y + y**2 + y**3
 
-    return np.array([x_1, y_1])
+    return np.array([x_1, y_1]).reshape(2, 1)
 
 
 def numerator_expr_1(y):
@@ -49,7 +49,7 @@ def newton(x0, y0, tol=1e-4):
     iter = 0
     
     while d > tol:
-        z_new = z_old - np.matmul(f_jacobian(z_old), f(z_old).reshape(2, 1))
+        z_new = z_old - np.matmul(f_jacobian(z_old), f(z_old))
         d = dist(z_new, z_old)
         print(f'iteration: {iter:3d}: x: {z_old[0][0]:10.5f}, y: {z_old[1][0]:10.5f}')
         z_old = z_new
